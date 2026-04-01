@@ -6,71 +6,97 @@
     <title>Lueur Studio | 48°51′N · 2°21′E</title>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Space+Mono&family=Noto+Serif+TC:wght@300&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #F4F4F2; --accent: #8d99ae; --text: #2b2d42; }
-        * { cursor: crosshair; } /* 自訂游標感 */
+        :root { --bg: #F2F2F0; --accent: #8d99ae; --text: #2b2d42; }
+        * { cursor: crosshair; box-sizing: border-box; }
         body { margin: 0; background: var(--bg); color: var(--text); font-family: "Noto Serif TC", serif; overflow-x: hidden; }
 
-        /* 1. 頂部跑馬燈 */
+        /* 頂部跑馬燈 */
         .marquee {
-            background: var(--text); color: #fff; padding: 10px 0;
+            background: var(--text); color: #fff; padding: 12px 0;
             font-family: 'Space Mono', monospace; font-size: 0.7rem;
             white-space: nowrap; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: 100;
+            letter-spacing: 2px;
         }
-        .marquee span { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+        .marquee-content { display: inline-block; animation: scroll 25s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* 2. Hero 座標區 */
-        header { height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding-top: 50px; }
-        .coords { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent); letter-spacing: 4px; margin-bottom: 20px; }
-        h1 { font-family: 'EB Garamond', serif; font-size: 4rem; font-weight: 400; margin: 0; letter-spacing: -1px; }
-        .sub { font-style: italic; color: var(--accent); margin-top: 10px; }
-
-        /* 3. 影像長廊 (自動橫向) */
-        .gallery { display: flex; gap: 20px; padding: 40px; overflow-x: auto; scroll-behavior: smooth; }
-        .gallery::-webkit-scrollbar { display: none; }
-        .gallery img { height: 400px; width: auto; filter: grayscale(20%) contrast(90%); border-radius: 2px; }
-
-        /* 4. 文章摘要卡片 */
-        .journal-preview { max-width: 700px; margin: 100px auto; padding: 60px; background: #fff; box-shadow: 20px 20px 0px #e2e2e0; }
-        .quote { font-size: 1.2rem; line-height: 2.2; margin-bottom: 40px; text-align: justify; }
+        /* Header 區域：正名 Lueur Studio */
+        header { 
+            height: 50vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            padding-top: 60px;
+            text-align: center;
+        }
+        .coords { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 5px; margin-bottom: 30px; }
         
-        .read-more-btn {
-            display: flex; align-items: center; text-decoration: none; color: var(--text);
-            font-family: 'Space Mono', monospace; font-size: 0.8rem; transition: 0.3s;
+        .brand-name { 
+            font-family: 'EB Garamond', serif; 
+            font-size: 4.5rem; 
+            font-weight: 400; 
+            font-style: italic;
+            margin: 0; 
+            letter-spacing: -2px; 
+            line-height: 1;
         }
-        .read-more-btn:hover { letter-spacing: 2px; color: var(--accent); }
-        .read-more-btn::after { content: " ➔"; margin-left: 10px; }
+        .brand-sub { font-size: 0.9rem; letter-spacing: 8px; color: var(--accent); margin-top: 15px; text-transform: uppercase; }
 
-        footer { padding: 60px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent); }
+        /* 影像長廊 */
+        .gallery-container { width: 100%; overflow-x: auto; padding: 40px 0; background: #fff; margin: 50px 0; }
+        .gallery { display: flex; gap: 20px; padding: 0 40px; width: max-content; }
+        .gallery img { height: 450px; width: auto; object-fit: cover; filter: grayscale(10%) contrast(95%); transition: 0.5s; }
+        .gallery img:hover { filter: grayscale(0%) contrast(100%); }
+
+        /* 文章預覽區 */
+        .preview-section { max-width: 800px; margin: 100px auto; padding: 80px 60px; background: #fff; border: 1px solid #e2e2e0; }
+        .quote { font-size: 1.3rem; line-height: 2.3; color: #4a4e69; margin-bottom: 50px; text-align: center; }
+        
+        .cta { text-align: center; }
+        .read-more-btn {
+            display: inline-block; text-decoration: none; color: var(--text);
+            font-family: 'Space Mono', monospace; font-size: 0.8rem; 
+            border: 1px solid var(--text); padding: 15px 40px; transition: 0.4s;
+        }
+        .read-more-btn:hover { background: var(--text); color: #fff; }
+
+        footer { padding: 80px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent); opacity: 0.6; }
     </style>
 </head>
 <body>
 
     <div class="marquee">
-        <span>LUEUR STUDIO · 巴黎日常碎片 · ECLATS DU QUOTIDIEN · 48°51′N · 2°21′E · FRAGMENTS OF PARIS · </span>
+        <div class="marquee-content">
+            LUEUR STUDIO · 巴黎日常碎片 · ÉCLATS DU QUOTIDIEN · 48°51′N · 2°21′E · FRAGMENTS OF PARIS · LUEUR STUDIO · 巴黎日常碎片 · ÉCLATS DU QUOTIDIEN · 48°51′N · 2°21′E · FRAGMENTS OF PARIS · 
+        </div>
     </div>
 
     <header>
-        <div class="coords">48°51′N · 2°21′E</div>
-        <h1>Lueur Studio</h1>
-        <div class="sub">巴黎的微光與暗影</div>
+        <div class="coords">48°51′24″N · 2°21′08″E</div>
+        <div class="brand-name">Lueur Studio</div>
+        <div class="brand-sub">Journal Archive</div>
     </header>
 
-    <section class="gallery">
-        <img src="paris.jpg" alt="Fragment 1">
-        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1000" alt="Fragment 2">
-        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=1000" alt="Fragment 3">
-    </section>
+    <div class="gallery-container">
+        <div class="gallery">
+            <img src="paris.jpg" alt="Eiffel Tower View">
+            <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=1200" alt="Paris Street">
+            <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200" alt="Paris Cafe">
+        </div>
+    </div>
 
-    <div class="journal-preview">
+    <div class="preview-section">
         <div class="quote">
             「沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。<br>
             待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。」
         </div>
-        <a href="post-paris.html" class="read-more-btn">CONTINUE READING</a>
+        <div class="cta">
+            <a href="post-paris.html" class="read-more-btn">READ THE STORY</a>
+        </div>
     </div>
 
-    <footer>© 2026 LUEUR STUDIO / DESIGNED BY GEMINI</footer>
+    <footer>© 2026 LUEUR STUDIO · COLLECTED MOMENTS</footer>
 
 </body>
 </html>
