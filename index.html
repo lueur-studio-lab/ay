@@ -2,81 +2,33 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>Lueur Studio | 巴黎碎片</title>
+    <title>Lueur Studio | 48°51′N · 2°21′E</title>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Space+Mono&family=Noto+Serif+TC:wght@300&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #F2F2F0; --text: #2b2d42; --accent: #8d99ae; }
-        body { margin: 0; background: var(--bg); color: var(--text); font-family: "Noto Serif TC", serif; }
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: "Noto Serif TC", serif; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
         
-        /* 跑馬燈與 Header 同前... (省略重複樣式以精簡) */
-        .marquee { background: var(--text); color: #fff; padding: 12px 0; font-family: 'Space Mono', monospace; font-size: 0.7rem; white-space: nowrap; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: 100; }
+        .marquee { background: var(--text); color: #fff; padding: 12px 0; font-family: 'Space Mono', monospace; font-size: 0.7rem; white-space: nowrap; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: 100; letter-spacing: 2px; }
         .marquee-inner { display: inline-block; animation: scroll 30s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        header { height: 40vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 40px; }
-        h1 { font-family: 'EB Garamond', serif; font-size: 4rem; font-style: italic; font-weight: 400; margin: 0; }
 
-        /* 文章容器 */
-        .post-container { max-width: 800px; margin: 0 auto 100px; padding: 60px; background: #fff; border: 1px solid #e2e2e0; }
-        
-        /* 摘要部分 */
-        .summary { font-size: 1.25rem; line-height: 2.3; text-align: center; }
-        
-        /* 隱藏的全文部分 */
-        .full-content { 
-            display: none; /* 預設隱藏 */
-            margin-top: 40px; 
-            padding-top: 40px; 
-            border-top: 1px solid #eee; 
-            text-align: justify; 
-            line-height: 2.3;
-        }
-
-        .full-content img { width: 100%; height: auto; margin-bottom: 40px; }
-
-        /* 按鈕樣式 */
-        .read-more-btn {
-            display: block; width: fit-content; margin: 40px auto 0;
-            text-decoration: none; color: var(--text); font-family: 'Space Mono', monospace;
-            font-size: 0.8rem; border: 1px solid var(--text); padding: 15px 40px;
-            cursor: pointer; transition: 0.4s;
-        }
-        .read-more-btn:hover { background: var(--text); color: #fff; }
+        .cover-card { text-align: center; max-width: 600px; padding: 40px; }
+        .coords { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent); letter-spacing: 4px; margin-bottom: 30px; display: block; }
+        .quote { font-size: 1.2rem; line-height: 2.2; color: #4a4e69; margin-bottom: 50px; }
+        .enter-btn { text-decoration: none; color: var(--text); font-family: 'Space Mono', monospace; font-size: 0.8rem; border-bottom: 1px solid var(--text); padding-bottom: 5px; transition: 0.4s; }
+        .enter-btn:hover { letter-spacing: 3px; color: var(--accent); border-bottom-color: var(--accent); }
     </style>
 </head>
 <body>
-    <div class="marquee"><div class="marquee-inner">LUEUR STUDIO · 巴黎日常碎片 · 48°51′N · 2°21′E · </div></div>
-
-    <header><h1>Lueur Studio</h1></header>
-
-    <article class="post-container">
-        <div class="summary">
+    <div class="marquee"><div class="marquee-inner">LUEUR STUDIO · 巴黎日常碎片 · ECLATS DU QUOTIDIEN · </div></div>
+    
+    <div class="cover-card">
+        <span class="coords">48°51′24″N · 2°21′08″E</span>
+        <div class="quote">
             「沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。<br>
             待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。」
         </div>
-
-        <div id="paris-article" class="full-content">
-            <img src="paris.jpg" alt="Paris Moment">
-            上週末，一個興起。沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。<br><br>
-            星期天，當然人很多。這是預料中的事。但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。<br><br>
-            走出店外，天空還亮著。夏令時間的巴黎是這樣的——明明已經快晚上九點，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。
-        </div>
-
-        <div class="read-more-btn" onclick="showFullContent()">READ THE STORY</div>
-    </article>
-
-    <script>
-        function showFullContent() {
-            var content = document.getElementById("paris-article");
-            var btn = document.querySelector(".read-more-btn");
-            if (content.style.display === "none" || content.style.display === "") {
-                content.style.display = "block";
-                btn.innerHTML = "CLOSE STORY"; // 點開後按鈕字樣改變
-            } else {
-                content.style.display = "none";
-                btn.innerHTML = "READ THE STORY";
-                window.scrollTo(0, 0); // 關閉時回到頂部
-            }
-        }
-    </script>
+        <a href="post-paris.html" class="enter-btn">... 繼續閱讀 / READ MORE</a>
+    </div>
 </body>
 </html>
