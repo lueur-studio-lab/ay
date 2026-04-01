@@ -2,117 +2,58 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lueur Studio | 微光記事</title>
     <style>
-        body { margin: 0; background: #f0f2f5; color: #2b2d42; font-family: "Noto Serif TC", serif; line-height: 1.8; }
-        nav { padding: 40px; display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        /* 這裡是一切美感的來源（冷色調、字體、排版），沒事不要動它 */
+        body { margin: 0; background: #eceef1; color: #2b2d42; font-family: "Noto Serif TC", serif; line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+        nav { padding: 50px 0; display: flex; justify-content: space-between; letter-spacing: 2px; font-size: 0.8rem; border-bottom: 1px solid #d1d5db; }
+        header { padding: 80px 0; }
+        h1 { font-size: 3.5rem; font-weight: 300; margin: 0; }
+        .subtitle { color: #8d99ae; font-style: italic; margin-bottom: 50px; }
         
-        /* 標題區 */
-        header { padding: 60px 0; border-bottom: 1px solid #d1d5db; margin-bottom: 60px; }
-        h1 { font-size: 3rem; font-weight: 300; margin: 0; }
-        .subtitle { color: #8d99ae; font-style: italic; }
-
-        /* 文章列表區塊 */
-        .journal-list { display: flex; flex-direction: column; gap: 80px; }
-        
-        /* 單篇文章樣式 */
-        .post { display: grid; grid-template-columns: 150px 1fr; gap: 40px; }
-        .post-date { font-size: 0.8rem; color: #8d99ae; padding-top: 10px; border-top: 1px solid #2b2d42; height: fit-content; }
-        .post-content h2 { margin-top: 0; font-size: 1.5rem; font-weight: 500; }
-        .post-content p { color: #4a4e69; text-align: justify; }
-        .lang-en { display: block; font-size: 0.9rem; color: #8d99ae; margin-top: 10px; font-family: 'Playfair Display', serif; }
-
-        footer { padding: 100px 0 40px; text-align: center; font-size: 0.7rem; color: #adb5bd; }
+        /* 文章區域樣式 */
+        .post { margin-bottom: 100px; padding-bottom: 50px; border-bottom: 1px dashed #d1d5db; }
+        .date { font-size: 0.8rem; color: #8d99ae; margin-bottom: 15px; display: block; }
+        .title { font-size: 1.8rem; margin: 0 0 20px 0; font-weight: 500; color: #2b2d42; text-decoration: none; display: block; }
+        .content { color: #4a4e69; text-align: justify; }
+        .en { color: #8d99ae; font-size: 0.95rem; display: block; margin-top: 10px; font-family: serif; font-style: italic; }
+        footer { padding: 50px 0; font-size: 0.7rem; color: #adb5bd; text-align: center; }
     </style>
 </head>
 <body>
 
     <nav class="container">
         <div>Lueur Studio</div>
-        <div>Journal / Archive / About</div>
+        <div>JOURNAL / ABOUT</div>
     </nav>
 
     <div class="container">
+        
         <header>
             <h1>微光記事</h1>
             <div class="subtitle">Fragments of Light & Shadow</div>
         </header>
 
-        <section class="journal-list">
-            
-            <article class="post">
-                <div class="post-date">APR 01, 2026</div>
-                <div class="post-content">
-                   <!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>空間的呼吸 - Lueur Studio</title>
-    <style>
-        body { margin: 0; background: #f0f2f5; color: #2b2d42; font-family: "Noto Serif TC", serif; line-height: 2; padding: 100px 10%; }
-        .back-home { text-decoration: none; color: #8d99ae; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 50px; display: block; }
-        h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 10px; }
-        .date { color: #8d99ae; font-size: 0.9rem; margin-bottom: 60px; }
-        .content { max-width: 700px; font-size: 1.1rem; color: #4a4e69; }
-    </style>
-</head>
-<body>
-    <a href="index.html" class="back-home">← Back to Journal</a>
-    <h1>空間的呼吸 <br> The Breath of Space</h1>
-    <div class="date">APR 01, 2026</div>
-    <div class="content">
-        這裡可以放你很長很長的文章內容... <br><br>
-        In the silence of the room, we find ourselves. <br>
-        這是一段測試文字，代表點進來之後看到的深度內容。
-    </div>
-</body>
-</html>
-                    <p>
-                        在冷色調的牆面上，光線緩慢移動。我們追求的不是填滿，而是留白處產生的張力。
-                        <span class="lang-en">Light moves slowly across the cold-toned walls. What we seek is not fullness, but the tension created within the void.</span>
-                    </p>
-                </div>
-            </article>
-            <article class="post">
-                <div class="post-date">MAR 28, 2026</div>
-                <div class="post-content">
-                    <!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>空間的呼吸 - Lueur Studio</title>
-    <style>
-        body { margin: 0; background: #f0f2f5; color: #2b2d42; font-family: "Noto Serif TC", serif; line-height: 2; padding: 100px 10%; }
-        .back-home { text-decoration: none; color: #8d99ae; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 50px; display: block; }
-        h1 { font-size: 2.5rem; font-weight: 300; margin-bottom: 10px; }
-        .date { color: #8d99ae; font-size: 0.9rem; margin-bottom: 60px; }
-        .content { max-width: 700px; font-size: 1.1rem; color: #4a4e69; }
-    </style>
-</head>
-<body>
-    <a href="index.html" class="back-home">← Back to Journal</a>
-    <h1>空間的呼吸 <br> The Breath of Space</h1>
-    <div class="date">APR 01, 2026</div>
-    <div class="content">
-        這裡可以放你很長很長的文章內容... <br><br>
-        In the silence of the room, we find ourselves. <br>
-        這是一段測試文字，代表點進來之後看到的深度內容。
-    </div>
-</body>
-</html>
-                    <p>
-                        每一件選物都有其靈魂，在靜謐中訴說著被遺忘的故事。
-                        <span class="lang-en">Every curated object possesses a soul, whispering forgotten stories in the stillness.</span>
-                    </p>
-                </div>
-            </article>
-            </section>
+        <article class="post">
+            <span class="date">2026 / 04 / 01</span>
+            <div class="title">寫下你的第一篇標題</div>
+            <div class="content">
+                在這裡輸入中文內容。生活是一場無聲的電影，我們在光影中尋找存在的證據。
+                <span class="en">Enter your English content here. Life is a silent movie; we seek evidence of existence in light and shadow.</span>
+            </div>
+        </article>
 
-        <footer>&copy; 2026 Lueur Studio. Built with Vercel.</footer>
+        <article class="post">
+            <span class="date">2026 / 03 / 28</span>
+            <div class="title">關於物件的沈默</div>
+            <div class="content">
+                極簡不是失去，而是重新獲得空間的呼吸權。
+                <span class="en">Minimalism is not loss, but reclaiming the right for space to breathe.</span>
+            </div>
+        </article>
+
+        <footer>&copy; 2026 LUEUR STUDIO. Powered by Vercel.</footer>
     </div>
 
 </body>
