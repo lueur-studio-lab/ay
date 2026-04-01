@@ -4,70 +4,63 @@
     <meta charset="UTF-8">
     <title>Lueur Studio | 微光記事</title>
     <style>
-        /* 這裡是一切美感的來源（冷色調、字體、排版），沒事不要動它 */
-        body { margin: 0; background: #eceef1; color: #2b2d42; font-family: "Noto Serif TC", serif; line-height: 1.8; }
+        /* 引用 Google Fonts：Noto Serif TC (宋體) & Playfair Display (義大利斜體) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500&family=Playfair+Display:ital,wght@1,400;1,500&display=swap');
+
+        body { 
+            margin: 0; 
+            background: #F0F2F5; /* 更柔和的冷灰背景 */
+            color: #2b2d42; 
+            font-family: "Noto Serif TC", serif; 
+            line-height: 2; 
+            -webkit-font-smoothing: antialiased; /* 讓字體更清晰 */
+        }
+
         .container { max-width: 900px; margin: 0 auto; padding: 0 40px; }
-        nav { padding: 50px 0; display: flex; justify-content: space-between; letter-spacing: 2px; font-size: 0.8rem; border-bottom: 1px solid #d1d5db; }
-        header { padding: 80px 0; }
-        h1 { font-size: 3.5rem; font-weight: 300; margin: 0; }
-        .subtitle { color: #8d99ae; font-style: italic; margin-bottom: 50px; }
-        
-        /* 文章區域樣式 */
-        .post { margin-bottom: 100px; padding-bottom: 50px; border-bottom: 1px dashed #d1d5db; }
-        .date { font-size: 0.8rem; color: #8d99ae; margin-bottom: 15px; display: block; }
-        .title { font-size: 1.8rem; margin: 0 0 20px 0; font-weight: 500; color: #2b2d42; text-decoration: none; display: block; }
-        .content { color: #4a4e69; text-align: justify; }
-        .en { color: #8d99ae; font-size: 0.95rem; display: block; margin-top: 10px; font-family: serif; font-style: italic; }
-        footer { padding: 50px 0; font-size: 0.7rem; color: #adb5bd; text-align: center; }
-    </style>
-</head>
-<body>
 
-    <nav class="container">
-        <div>Lueur Studio</div>
-        <div>JOURNAL / ABOUT</div>
-    </nav>
+        /* 頂部導航 */
+        nav { 
+            padding: 40px 0; 
+            display: flex; 
+            justify-content: space-between; 
+            letter-spacing: 3px; 
+            font-size: 0.75rem; 
+            border-bottom: 1px solid #d1d5db;
+            margin-bottom: 80px;
+        }
 
-    <div class="container">
-        
-        <header>
-            <h1>微光記事</h1>
-            <div class="subtitle">Fragments of Light & Shadow</div>
-        </header>
+        /* 標題區域 */
+        header { text-align: center; margin-bottom: 100px; }
+        h1 { font-size: 3rem; font-weight: 300; letter-spacing: 5px; color: #1a1a1a; margin: 0 0 10px 0; }
+        .subtitle { font-family: 'Playfair Display', serif; color: #8d99ae; font-style: italic; font-size: 1.1rem; letter-spacing: 1px; }
 
-        <article class="post">
-            <span class="date">2026 / 04 / 01</span>
-            <div class="title">巴黎的星期天是用來什麼都不做的 <br> Un dimanche à Paris</div>
-            <div class="content">
-                上週末，一個興起。<br>
-                沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。<br><br>
-                
-                星期天，當然人很多。這是預料中的事。<br>
-                但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。<br>
-                要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。<br><br>
-                
-                就這樣一直待到快打烊。<br>
-                走出店外，天空還亮著。<br>
-                夏令時間的巴黎是這樣的——明明已經快晚上九點，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。<br>
-                
-                <span class="en">
-                    A Sunday in Paris. No plans, no schedules, just a notebook and a quiet corner in a cafe. <br>
-                    It’s about existing, not doing. C'est ça, le bonheur.
-                </span>
-            </div>
-        </article>
+        /* 文章卡片 */
+        .post-card { 
+            background: #fff; /* 讓文章區塊浮現，像一張白紙 */
+            padding: 80px 60px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03); /* 柔和的陰影 */
+            margin-bottom: 100px;
+            position: relative;
+        }
 
-        <article class="post">
-            <span class="date">2026 / 03 / 28</span>
-            <div class="title">關於物件的沈默</div>
-            <div class="content">
-                極簡不是失去，而是重新獲得空間的呼吸權。
-                <span class="en">Minimalism is not loss, but reclaiming the right for space to breathe.</span>
-            </div>
-        </article>
+        /* 日期樣式 */
+        .date { 
+            font-size: 0.75rem; 
+            color: #adb5bd; 
+            letter-spacing: 2px; 
+            display: block; 
+            margin-bottom: 25px; 
+        }
 
-        <footer>&copy; 2026 LUEUR STUDIO. Powered by Vercel.</footer>
-    </div>
-
-</body>
-</html>
+        /* 標題與法文副標 */
+        .title { 
+            font-size: 2rem; 
+            margin-bottom: 50px; 
+            font-weight: 500; 
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+        .title-en { 
+            font-size: 1.2rem; 
+            color: #8d99ae; 
+            font-style:
