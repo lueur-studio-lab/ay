@@ -4,101 +4,21 @@
     <meta charset="UTF-8">
     <title>Lueur Studio | 微光記事</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500&family=Playfair+Display:ital@1&display=swap');
-
-        body { 
-            margin: 0; 
-            background: #F4F4F4; 
-            color: #2b2d42; 
-            font-family: "Noto Serif TC", serif; 
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .container { max-width: 800px; margin: auto; padding: 40px; }
-
-        /* 文章卡片 */
-        .intro-card {
-            background: #fff;
-            padding: 80px 60px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
-            border-radius: 2px;
-        }
-
-        .quote {
-            font-size: 1.25rem;
-            line-height: 2.2;
-            letter-spacing: 0.1em;
-            color: #4a4e69;
-            margin-bottom: 50px;
-        }
-
-        /* 繼續閱讀按鈕 */
-        .read-more {
-            display: inline-block;
-            text-decoration: none;
-            color: #8d99ae;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            border-bottom: 1px solid #d1d5db;
-            padding-bottom: 5px;
-            transition: all 0.4s;
-        }
-
-        .read-more:hover {
-            color: #2b2d42;
-            border-bottom: 1px solid #2b2d42;
-            letter-spacing: 5px;
-        }
-
-        footer { padding: 40px; text-align: center; font-size: 0.7rem; color: #adb5bd; letter-spacing: 2px; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;500&display=swap');
+        body { margin: 0; background: #f4f4f4; color: #2b2d42; font-family: "Noto Serif TC", serif; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .intro-card { background: #fff; padding: 60px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.05); max-width: 600px; }
+        .quote { font-size: 1.2rem; line-height: 2.2; color: #4a4e69; margin-bottom: 40px; }
+        .read-more { text-decoration: none; color: #8d99ae; font-size: 0.8rem; letter-spacing: 2px; border-bottom: 1px solid #d1d5db; padding-bottom: 5px; }
+        .read-more:hover { color: #2b2d42; border-bottom: 1px solid #2b2d42; }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <article class="intro-card">
-            <div class="quote">
-                「沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。<br>
-                待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。」
-            </div>
-            
-            <a href="post-paris.html" class="read-more">... 繼續閱讀 / READ MORE</a>
-        </article>
+    <div class="intro-card">
+        <div class="quote">
+            「沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。<br>
+            待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。」
+        </div>
+        <a href="post-paris.html" class="read-more">... 繼續閱讀 / READ MORE</a>
     </div>
-
-    <footer>&copy; 2026 LUEUR STUDIO</footer>
-
 </body>
-</html>        /* 文章卡片 */
-        .post-card { 
-            background: #fff; /* 讓文章區塊浮現，像一張白紙 */
-            padding: 80px 60px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.03); /* 柔和的陰影 */
-            margin-bottom: 100px;
-            position: relative;
-        }
-
-        /* 日期樣式 */
-        .date { 
-            font-size: 0.75rem; 
-            color: #adb5bd; 
-            letter-spacing: 2px; 
-            display: block; 
-            margin-bottom: 25px; 
-        }
-
-        /* 標題與法文副標 */
-        .title { 
-            font-size: 2rem; 
-            margin-bottom: 50px; 
-            font-weight: 500; 
-            line-height: 1.4;
-            color: #1a1a1a;
-        }
-        .title-en { 
-            font-size: 1.2rem; 
-            color: #8d99ae; 
-            font-style:
+</html>
