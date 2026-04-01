@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragment ｜ 碎片記憶</title>
+    <style>
+        /* 基礎設定 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* 偏冷微灰 */
+            color: #2b2d42;
+            font-family: "Noto Serif TC", serif, "Playfair Display", serif;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        /* 導航 */
+        nav {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* 主視覺區 */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .hero p {
+            max-width: 500px;
+            color: #8d99ae;
+            margin-top: 20px;
+        }
+
+        /* 藝術感裝飾線 */
+        .line {
+            width: 60px;
+            height: 1px;
+            background-color: #2b2d42;
+            margin: 30px 0;
+        }
+
+        /* 雙語混合排版 */
+        .content-section {
+            padding: 100px 10%;
+            background-color: #fff;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .caption {
+            font-size: 0.8rem;
+            color: #8d99ae;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .text-block h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* 響應式優化 */
+        @media (max-width: 768px) {
+            .content-section { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Fragment.</div>
+        <div class="nav-links">Journal / About / Contact</div>
+    </nav>
+
+    <header class="hero">
+        <div class="caption">Est. 2026</div>
+        <h1>冷淡的凝視 <br> <span style="font-style: italic; color: #8d99ae;">Silent Observation</span></h1>
+        <div class="line"></div>
+        <p>
+            生活中的每一絲靜謐，都是一種藝術的延伸。
+            Beauty found in the mundane and the overlooked.
+        </p>
+    </header>
+
+    <section class="content-section">
+        <div class="image-placeholder" style="background: #e5e5e5; height: 400px; display:flex; align-items:center; justify-content:center;">
+            <span style="color:#aaa;">Artistic Image Here</span>
+        </div>
+        <div class="text-block">
+            <div class="caption">Philosophy</div>
+            <h2>極簡主義的敘事 <br> Minimalist Narratives</h2>
+            <p>
+                我們相信，最少的力量往往能承載最重的靈魂。
+                Through the lens of cold tones and sharp shadows, we capture the essence of presence. 
+                在冷色調的筆觸下，空間不再是虛無，而是情感的載體。
+            </p>
+        </div>
+    </section>
+
+</body>
+</html>
