@@ -267,7 +267,7 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
   <div class="hero-grid"></div>
   <div class="hero-deco">lueur</div>
   <div class="hero-content">
-    <p class="hero-tag">Est. 2026 · 巴黎日常 · Chroniques Parisiennes</p>
+    <p class="hero-tag">Est. 2025 · 巴黎日常 · Chroniques Parisiennes</p>
     <h1 class="hero-title">冷淡的凝視<br><em>fragments</em></h1>
     <p class="hero-title-en">Silent Observation from Paris</p>
     <div class="hero-line"></div>
@@ -347,14 +347,14 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
       <div class="about-vis-sim"></div>
       <div class="about-vis-grid"></div>
       <div class="about-vis-word">lueur</div>
-      <div class="about-vis-lbl">Paris, France · 2026</div>
+      <div class="about-vis-lbl">Paris, France · 2025</div>
     </div>
     <div>
       <p class="sec-label rev">關於我 · About</p>
-      <h2 class="about-name rev">住在<em>巴黎</em>的<br>台灣人</h2>
+      <h2 class="about-name rev">住在<em>巴黎</em>的<br>某個台灣人</h2>
       <p class="about-sub rev" id="about-sub">攝影 · 寫作 · 日常觀察</p>
       <div class="about-line rev"></div>
-      <p class="about-bio rev" id="about-bio1">幾年前搬來巴黎，原本以為是一場旅行，後來發現是一種生活方式。隨意走在 Marais 的巷子裡，這些都是我的日常。</p>
+      <p class="about-bio rev" id="about-bio1">幾年前搬來巴黎，原本以為是一場旅行，後來發現是一種生活方式。帶著底片機走在 Belleville 的巷子裡，這些都是我的日常。</p>
       <p class="about-bio rev" id="about-bio2">這個網站是我寫給自己、也寫給你的地方。關於<em>在異鄉生活是什麼感覺</em>，關於如何用鏡頭留住那些很快就會忘掉的瞬間。</p>
       <div class="about-tags rev">
         <span class="atag">底片攝影</span><span class="atag">城市漫遊</span>
@@ -362,7 +362,8 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
       </div>
       <div class="socials rev">
         <a class="s-btn" id="ig-link" href="https://instagram.com/yunw_studio" target="_blank">Instagram</a>
-        <a class="s-btn" href="mailto:hello@lueur.studio">寫信給我</a>
+        <a class="s-btn" href="#">小紅書</a>
+        <a class="s-btn" href="/cdn-cgi/l/email-protection#7d15181111123d110818080f530e0908191412">寫信給我</a>
       </div>
     </div>
   </div>
@@ -380,7 +381,7 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
     <a class="f-link" href="#about">關於</a>
     <a class="f-link" href="https://instagram.com/yunw_studio" target="_blank">Instagram</a>
   </div>
-  <div class="f-copy">© 2026 lueur.studio · Paris</div>
+  <div class="f-copy">© 2025 lueur.studio · Paris</div>
 </footer>
 
 <!-- ═══ ARTICLE VIEW ═══ -->
@@ -412,6 +413,7 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
       <div class="cms-tabs">
         <button class="cms-tab active" onclick="switchTab('write')">撰寫文章</button>
         <button class="cms-tab" onclick="switchTab('manage')">管理文章</button>
+        <button class="cms-tab" onclick="switchTab('gallery')">照片集</button>
         <button class="cms-tab" onclick="switchTab('settings')">網站設定</button>
       </div>
 
@@ -444,12 +446,15 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
           <textarea class="cms-textarea" id="f-content" placeholder="在這裡寫下你的文章…"></textarea>
         </div>
         <div class="cms-form-group">
-          <label class="cms-label">封面圖片（選填）</label>
-          <div class="cms-upload">
-            <input type="file" accept="image/*" onchange="previewImg(this)">
-            <div class="cms-upload-text">點擊或拖曳上傳圖片</div>
-            <img class="cms-upload-preview" id="imgPreview" alt="">
-          </div>
+          <label class="cms-label">封面圖片網址（GitHub）</label>
+          <input class="cms-input" id="f-imgurl" placeholder="https://raw.githubusercontent.com/…/photo.jpg" oninput="previewUrl(this.value)">
+          <img class="cms-upload-preview" id="imgPreview" alt="" style="margin-top:.8rem">
+          <div style="font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;color:var(--pale);margin-top:.5rem">把照片上傳到 GitHub repo 後，點照片 → 右鍵「複製圖片網址」貼上</div>
+        </div>
+        <div class="cms-form-group">
+          <label class="cms-label">文章內圖片（選填，每行一個網址）</label>
+          <textarea class="cms-textarea" id="f-imgs" style="min-height:60px" placeholder="https://raw.githubusercontent.com/…/photo1.jpg&#10;https://raw.githubusercontent.com/…/photo2.jpg"></textarea>
+          <div style="font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;color:var(--pale);margin-top:.5rem">圖片會依序插入文章結尾</div>
         </div>
         <input type="hidden" id="f-editId" value="">
         <div class="cms-actions">
@@ -464,6 +469,18 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
         <div id="empty-state">
           <div class="empty-title">還沒有文章</div>
           <div class="empty-sub">去「撰寫文章」新增第一篇吧</div>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="cms-section" id="tab-gallery">
+        <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--muted);margin-bottom:1.5rem;line-height:1.8">
+          把照片上傳到 GitHub repo，然後在這裡填入網址。<br>格式：<span style="color:var(--blue)">https://raw.githubusercontent.com/帳號/repo/main/照片.jpg</span>
+        </div>
+        <div id="galleryList" style="display:flex;flex-direction:column;gap:.8rem"></div>
+        <div style="margin-top:1.2rem;display:flex;gap:.8rem">
+          <button class="cms-btn" onclick="addGalleryRow()">+ 新增照片</button>
+          <button class="cms-btn cms-btn-sec" onclick="saveGallery()">儲存照片集</button>
         </div>
       </div>
 
@@ -495,7 +512,7 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── DATA ──
 const DB={
   get posts(){try{return JSON.parse(localStorage.getItem('lueur_posts')||'[]')}catch{return[]}},
@@ -515,21 +532,19 @@ document.getElementById('cmsOverlay').addEventListener('click',e=>{if(e.target==
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeArticle();closeCMS()}});
 
 function switchTab(t){
-  document.querySelectorAll('.cms-tab').forEach((b,i)=>b.classList.toggle('active',['write','manage','settings'][i]===t));
+  document.querySelectorAll('.cms-tab').forEach((b,i)=>b.classList.toggle('active',['write','manage','gallery','settings'][i]===t));
   document.querySelectorAll('.cms-section').forEach(s=>s.classList.remove('active'));
   document.getElementById('tab-'+t).classList.add('active');
   if(t==='manage')loadManage();
   if(t==='settings')loadSettings();
+  if(t==='gallery')loadGallery();
 }
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
 
-let imgData='';
-function previewImg(input){
-  if(!input.files[0])return;
-  const r=new FileReader();
-  r.onload=e=>{imgData=e.target.result;const p=document.getElementById('imgPreview');p.src=imgData;p.style.display='block'};
-  r.readAsDataURL(input.files[0]);
+function previewUrl(url){
+  const p=document.getElementById('imgPreview');
+  if(url){p.src=url;p.style.display='block'}else{p.style.display='none'}
 }
 
 function savePost(){
@@ -537,6 +552,8 @@ function savePost(){
   if(!title){showToast('請輸入標題');return}
   const posts=DB.posts;
   const editId=document.getElementById('f-editId').value;
+  const imgUrl=document.getElementById('f-imgurl').value.trim();
+  const extraImgs=document.getElementById('f-imgs').value.trim();
   const post={
     id:editId||Date.now().toString(),
     title,
@@ -544,7 +561,8 @@ function savePost(){
     date:document.getElementById('f-date').value||(new Date().toISOString().slice(0,10)),
     excerpt:document.getElementById('f-excerpt').value.trim(),
     content:document.getElementById('f-content').value.trim(),
-    img:imgData||'',
+    img:imgUrl,
+    extraImgs:extraImgs,
     createdAt:editId?(posts.find(p=>p.id===editId)||{}).createdAt||Date.now():Date.now()
   };
   if(editId){const idx=posts.findIndex(p=>p.id===editId);if(idx>-1)posts[idx]=post;else posts.unshift(post)}
@@ -555,11 +573,10 @@ function savePost(){
 }
 
 function clearForm(){
-  ['f-title','f-excerpt','f-content','f-editId'].forEach(id=>document.getElementById(id).value='');
+  ['f-title','f-excerpt','f-content','f-editId','f-imgurl','f-imgs'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
   document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
   document.getElementById('imgPreview').style.display='none';
   document.getElementById('submitBtn').textContent='發布文章';
-  imgData='';
 }
 
 function editPost(id){
@@ -570,8 +587,10 @@ function editPost(id){
   document.getElementById('f-excerpt').value=post.excerpt||'';
   document.getElementById('f-content').value=post.content||'';
   document.getElementById('f-editId').value=post.id;
+  document.getElementById('f-imgurl').value=post.img||'';
+  document.getElementById('f-imgs').value=post.extraImgs||'';
   document.getElementById('submitBtn').textContent='更新文章';
-  if(post.img){document.getElementById('imgPreview').src=post.img;document.getElementById('imgPreview').style.display='block';imgData=post.img}
+  if(post.img){document.getElementById('imgPreview').src=post.img;document.getElementById('imgPreview').style.display='block'}
   switchTab('write');
 }
 
@@ -609,7 +628,9 @@ function loadSettings(){
 }
 
 function saveSettings(){
+  const old=DB.settings;
   DB.settings={
+    ...old,
     name:document.getElementById('s-name').value,
     bio1:document.getElementById('s-bio1').value,
     bio2:document.getElementById('s-bio2').value,
@@ -626,6 +647,56 @@ function applySettings(){
   if(s.ig){document.querySelectorAll('a[id="ig-link"]').forEach(a=>a.href=`https://instagram.com/${s.ig.replace('@','')}`)}
 }
 
+// ── GALLERY ──
+function loadGallery(){
+  const photos=DB.settings.gallery||[];
+  const list=document.getElementById('galleryList');
+  list.innerHTML=photos.map((p,i)=>`
+    <div style="display:flex;gap:.6rem;align-items:center">
+      <input class="cms-input" style="flex:1" value="${p.url||''}" placeholder="https://raw.githubusercontent.com/…" oninput="updateGalleryRow(${i},'url',this.value)">
+      <input class="cms-input" style="width:120px" value="${p.caption||''}" placeholder="地點說明" oninput="updateGalleryRow(${i},'caption',this.value)">
+      <button class="cms-pill del" onclick="removeGalleryRow(${i})" style="flex-shrink:0">✕</button>
+    </div>`).join('');
+  if(!photos.length) addGalleryRow();
+}
+
+let galleryDraft=[];
+function addGalleryRow(){
+  const s=DB.settings;
+  galleryDraft=s.gallery?[...s.gallery]:[];
+  galleryDraft.push({url:'',caption:''});
+  const tmp={...s,gallery:galleryDraft};DB.settings=tmp;
+  loadGallery();
+}
+function updateGalleryRow(i,key,val){
+  const s=DB.settings;
+  const g=s.gallery||[];
+  if(g[i])g[i][key]=val;
+  DB.settings={...s,gallery:g};
+}
+function removeGalleryRow(i){
+  const s=DB.settings;
+  const g=s.gallery||[];
+  g.splice(i,1);
+  DB.settings={...s,gallery:g};
+  loadGallery();renderStrip();
+}
+function saveGallery(){
+  renderStrip();showToast('照片集已儲存 ✦');
+}
+
+function renderStrip(){
+  const photos=(DB.settings.gallery||[]).filter(p=>p.url);
+  const row=document.getElementById('stripRow');
+  if(!photos.length)return;
+  const doubled=[...photos,...photos];
+  row.innerHTML=doubled.map((p,i)=>`
+    <div class="strip-item" style="${i%2===0?'':'margin-top:1.5rem'}">
+      <div class="s-sim" style="background:url('${p.url}') center/cover no-repeat"></div>
+      <div class="s-cap">${p.caption||''}</div>
+    </div>`).join('');
+}
+
 // ── ARTICLE VIEW ──
 function openArticle(id){
   const posts=DB.posts.length?DB.posts:getDefaultPosts();
@@ -636,10 +707,15 @@ function openArticle(id){
   const cover=document.getElementById('av-cover');
   if(post.img){cover.src=post.img;cover.style.display='block'}else{cover.style.display='none'}
   const body=post.content||post.excerpt||'';
-  document.getElementById('av-body').innerHTML=body.split('\n').filter(l=>l.trim()).map(l=>`<p>${l}</p>`).join('');
+  let html=body.split('\n').filter(l=>l.trim()).map(l=>`<p>${l}</p>`).join('');
+  if(post.extraImgs){
+    post.extraImgs.split('\n').filter(u=>u.trim()).forEach(url=>{
+      html+=`<img src="${url.trim()}" style="width:100%;margin:1.5rem 0;display:block" alt="">`;
+    });
+  }
+  document.getElementById('av-body').innerHTML=html;
   const ov=document.getElementById('articleOverlay');
-  ov.classList.add('open');
-  ov.scrollTop=0;
+  ov.classList.add('open');ov.scrollTop=0;
   document.body.style.overflow='hidden';
 }
 function closeArticle(){
@@ -692,15 +768,12 @@ function formatDate(d){
 
 function getDefaultPosts(){
   return[
-    {id:'d1',title:'巴黎的星期天是用來什麼都不做的',cat:'生活日常',date:'02-04-2026',excerpt:'沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。',content:`上週末，一個興起。\n\n沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。\n\n星期天，當然人很多。這是預料中的事。\n\n但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。\n\n要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。\n\n就這樣一直待到快打烊。\n\n走出店外，天空還亮著。\n\n夏令時間的巴黎是這樣的——明明已經快晚上九點，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。\n\nC'est ça, le bonheur.`,img:''},
+    {id:'d1',title:'巴黎的星期天是用來什麼都不做的',cat:'生活日常',date:'2025-11-20',excerpt:'沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。',content:`上週末，一個興起。\n\n沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。\n\n星期天，當然人很多。這是預料中的事。\n\n但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。\n\n要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。\n\n就這樣一直待到快打烊。\n\n走出店外，天空還亮著。\n\n夏令時間的巴黎是這樣的——明明已經快晚上九點，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。\n\nC'est ça, le bonheur.`,img:''},
   ];
 }
 
 // ── INIT ──
 renderPosts();
+renderStrip();
 applySettings();
 document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
-</script>
-</body>
-</html>
-202
