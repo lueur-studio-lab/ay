@@ -321,18 +321,19 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
     </div>
     <div>
       <p class="sec-label rev">關於我 · About</p>
-      <h2 class="about-name rev" id="aboutName">住在<em>巴黎</em>的<br>台灣人</h2>
+      <h2 class="about-name rev" id="aboutName">住在<em>巴黎</em>的<br>某個台灣人</h2>
       <p class="about-sub rev" id="aboutSub">攝影 · 寫作 · 日常觀察</p>
       <div class="about-divider rev"></div>
       <p class="about-bio rev" id="aboutBio1">幾年前搬來巴黎，原本以為是一場旅行，後來發現是一種生活方式。帶著底片機走在 Belleville 的巷子裡，這些都是我的日常。</p>
       <p class="about-bio rev" id="aboutBio2">這個網站是我寫給自己、也寫給你的地方。關於<em>在異鄉生活是什麼感覺</em>，關於如何用鏡頭留住那些很快就會忘掉的瞬間。</p>
       <div class="about-tags rev">
-        <span class="atag">攝影</span><span class="atag">城市漫遊</span>
+        <span class="atag">底片攝影</span><span class="atag">城市漫遊</span>
         <span class="atag">法語學習中</span><span class="atag">台灣人在巴黎</span>
       </div>
       <div class="socials rev">
         <a class="s-btn" id="igLink" href="https://instagram.com/yunw_studio" target="_blank">Instagram</a>
-        <a class="s-btn" href="mailto:hello@lueur.studio">寫信給我</a>
+        <a class="s-btn" href="#">小紅書</a>
+        <a class="s-btn" href="/cdn-cgi/l/email-protection#e68e838a8a89a68a93839394c8959293828f89">寫信給我</a>
       </div>
     </div>
   </div>
@@ -492,22 +493,29 @@ function fmtDate(d){
   }catch(e){ return d }
 }
 
-// DEFAULT POSTS
+// DEFAULT POSTS — 這裡的文章所有人都看得到
 function defaultPosts(){
   return [{
-    id:'d1', title:'巴黎的星期天是用來什麼都不做的',
-    cat:'生活日常', date:'2025-11-20',
+    id:'d1',
+    title:'巴黎的星期天是用來什麼都不做的',
+    cat:'生活日常',
+    date:'2026-04-01',
     excerpt:'沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。',
-    content:'上週末，一個興起。\n\n沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。\n\n星期天，當然人很多。這是預料中的事。\n\n但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。\n\n要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。\n\n就這樣一直待到快打烊。\n\n走出店外，天空還亮著。\n\n夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。\n\nC\'est ça, le bonheur.',
-    img:'', extraImgs:''
+    content:'上週末，一個興起。\n\n沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。\n\n星期天，當然人很多。這是預料中的事。\n\n但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。\n\n要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。\n\n就這樣一直待到快打烊。\n\n走出店外，天空還亮著。\n\n夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。\n\nC\'est ça, le bonheur.\n\n——\n\nLast Sunday, on a whim.\n\nNo plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door. The destination: a Korean café I\'d been saving on my phone for months — the kind of place you screenshot on Instagram and never quite get around to visiting.\n\nSunday, so of course it was packed. I knew it would be.\n\nBut the moment I walked in, a single bar stool opened up. Something like fate. I sat down.\n\nOrdered a coffee, opened the notebook, and started writing — all the things that had been piling up in my head, unprocessed. No one knew me here. The noise around me softened into white noise, and somehow my thoughts became clearer.\n\nI stayed until almost closing time.\n\nWalking out, the sky was still light.\n\nThat\'s Paris in summer time — nearly half past seven in the evening and the light still refuses to leave. Standing there on the pavement, I thought: this is exactly what Sundays should feel like. You don\'t need to do anything meaningful. Just exist, quietly, for a while.\n\nC\'est ça, le bonheur.',
+    img:'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg',
+    extraImgs:''
   }];
 }
 
-// RENDER POSTS
+// RENDER POSTS — 預設文章永遠顯示，用戶新增的文章排在前面
 var BGSM = ['bg1','bg2','bg3','bg4'];
 function renderPosts(){
-  var posts = DB.getPosts();
-  var all = posts.length ? posts : defaultPosts();
+  var userPosts = DB.getPosts();
+  var def = defaultPosts();
+  // 合併：用戶文章在前，預設文章在後（過濾掉用戶已編輯的預設文章）
+  var userIds = userPosts.map(function(p){ return p.id; });
+  var filteredDef = def.filter(function(p){ return userIds.indexOf(p.id) === -1; });
+  var all = userPosts.concat(filteredDef);
   var grid = document.getElementById('postsGrid');
   var jList = document.getElementById('journalList');
   var gp = all.slice(0,4);
@@ -522,7 +530,7 @@ function renderPosts(){
   jList.innerHTML = all.map(function(p,i){
     return '<div class="j-item rev'+(i<3?' d'+i:'')+'" onclick="openArt(\''+p.id+'\')">'
       +'<div class="j-num">0'+(i+1)+'</div>'
-      +'<div><div class="j-cat">'+p.cat+'</div><div class="j-title">'+p.title+'</div><div class="j-excerpt">'+( p.excerpt||'')+'</div></div>'
+      +'<div><div class="j-cat">'+p.cat+'</div><div class="j-title">'+p.title+'</div><div class="j-excerpt">'+(p.excerpt||'')+'</div></div>'
       +'<div class="j-right"><div class="j-date">'+fmtDate(p.date)+'</div><div class="j-arr">→</div></div>'
       +'</div>';
   }).join('');
@@ -532,8 +540,11 @@ function renderPosts(){
 
 // ARTICLE
 window.openArt = function(id){
-  var posts = DB.getPosts();
-  var all = posts.length ? posts : defaultPosts();
+  var userPosts = DB.getPosts();
+  var def = defaultPosts();
+  var userIds = userPosts.map(function(p){ return p.id; });
+  var filteredDef = def.filter(function(p){ return userIds.indexOf(p.id) === -1; });
+  var all = userPosts.concat(filteredDef);
   var p = null;
   for(var i=0;i<all.length;i++){ if(all[i].id===id){ p=all[i]; break; } }
   if(!p) return;
@@ -758,12 +769,4 @@ function applySettings(){
 }
 
 // INIT
-renderPosts();
-renderStrip();
-applySettings();
-document.getElementById('fDate').value = new Date().toISOString().slice(0,10);
-
-})();
-</script>
-</body>
-</html>
+renderPost
