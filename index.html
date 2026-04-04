@@ -60,42 +60,54 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .sec-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem;gap:1rem;flex-wrap:wrap}
 
 /* POSTS GRID - 修改為不裁切模式 */
-#recent { background: var(--bg); }
+/* --- 首頁網格：徹底解決階梯式問題 --- */
+#recent { background: var(--bg); padding: 6rem 10%; }
+
 .posts-grid { 
   display: grid; 
   grid-template-columns: 1fr; 
   gap: 3px; 
-  align-items: start; /* 確保不同高度的圖片頂部對齊 */
+  align-items: stretch; /* 讓所有方塊等高 */
 }
-@media(min-width:600px) { .posts-grid { grid-template-columns: 1fr 1fr; } }
-@media(min-width:900px) { .posts-grid { grid-template-columns: 1fr 1fr 1fr; } } /* 統一三欄 */
 
-.pc { position: relative; overflow: hidden; cursor: pointer; background: var(--bg2); transition: transform .3s; }
-.pc:hover { transform: translateY(-3px); }
+@media(min-width: 600px) { .posts-grid { grid-template-columns: 1fr 1fr; } }
+@media(min-width: 900px) { .posts-grid { grid-template-columns: 1fr 1fr 1fr; } }
 
-/* 第一篇不再特殊化，全部統一格式 */
+/* --- 移除所有針對首篇的特殊縮放，讓三篇一模一樣 --- */
+.pc { 
+  position: relative; 
+  display: flex; 
+  flex-direction: column; /* 讓標題區塊乖乖待在圖片下方 */
+  overflow: hidden; 
+  cursor: pointer; 
+  background: var(--bg2); 
+  transition: transform .3s; 
+  height: 100%; 
+}
+
 .pi { 
   width: 100%; 
-  aspect-ratio: auto; 
+  aspect-ratio: 4/3; /* 統一外框比例，照片在裡面完整顯示 */
   position: relative; 
   overflow: hidden; 
+  background: var(--bg2); 
   display: flex; 
   align-items: center; 
+  justify-content: center;
 }
-
 .ps { 
-  position: relative; 
   width: 100%; 
-  height: auto; 
-  min-height: 250px; 
-  background-size: contain !important; /* 核心：不裁切圖片 */
+  height: 100%; 
+  background-size: contain !important; /* 核心：絕不裁切 */
   background-repeat: no-repeat !important; 
   background-position: center !important; 
-  transition: transform .6s cubic-bezier(.25,.46,.45,.94);
-  aspect-ratio: 4/3; /* 預設框框比例，照片會完整縮放於其中 */
+  transition: transform .6s;
 }
-
-.pinfo { padding: 1.1rem 1.3rem 1.5rem; background: var(--bg2); }
+.pinfo { 
+  padding: 1.5rem; 
+  background: var(--bg2); 
+  flex-grow: 1; /* 確保底色塊填滿剩餘空間 */
+}
 .pinfo-cat { font-family: var(--mono); font-size: .52rem; letter-spacing: .16em; text-transform: uppercase; color: var(--blue-mid); margin-bottom: .35rem; }
 .pinfo-title { font-family: var(--serif); font-size: 1rem; line-height: 1.35; margin-bottom: .35rem; }
 .pinfo-date { font-family: var(--mono); font-size: .52rem; color: var(--pale); }
@@ -220,51 +232,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
     img= 換成你的照片網址
   ══════════════════════════ -->
   <div class="posts-grid">
-
-    <!-- 文章 1（大卡）-->
-    <div class="pc rev" onclick="openArt('a1')">
-      <div class="pi">
-        <div class="ps" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg') center/cover no-repeat"></div>
-        <div class="pov"><div class="pm">
-          <div class="pm-cat">巴黎日常</div>
-          <div class="pm-title">巴黎的星期天是用來什麼都不做的</div>
-        </div></div>
-      </div>
-    </div>
-
-    <!-- 文章 2（小卡）- 可替換 -->
-    <div class="pc rev d1" onclick="openArt('a2')">
-      <div class="pi">
-        <div class="ps" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg') center/cover no-repeat"></div>
-        <div class="pov"><div class="pm">
-          <div class="pm-cat">巴黎日常</div>
-          <div class="pm-title">放空也是一種奢侈</div>
-        </div></div>
-      </div>
-      <div class="pinfo">
-        <div class="pinfo-cat">巴黎日常</div>
-        <div class="pinfo-title">放空也是一種奢侈</div>
-        <div class="pinfo-date">2026.04.04</div>
-      </div>
-    </div>
-
-    <!-- 文章 3（小卡）- 可替換 -->
-    <div class="pc rev d2" onclick="openArt('a3')">
-      <div class="pi">
-        <div class="ps" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg') center/cover no-repeat"></div>
-        <div class="pov"><div class="pm">
-          <div class="pm-cat">巴黎日常</div>
-          <div class="pm-title">羅浮宮的夜</div>
-        </div></div>
-      </div>
-      <div class="pinfo">
-        <div class="pinfo-cat">巴黎日常</div>
-        <div class="pinfo-title">羅浮宮的夜</div>
-        <div class="pinfo-date">2026.04.05</div>
-      </div>
-    </div>
-
-  </div>
+    <div class="pc" onclick="openArt('a1')">
+        <div class="pi">
+            <div class="ps" style="background-image:url('你的圖片1')"></div>
+        </div>
+        <div class="pinfo"> <div class="pinfo-cat">巴黎日常</div>
+            <div class="pinfo-title">巴黎的星期天是用來什麼都不做的</div>
+            <div class="pinfo-date">2026.04.01</div>
+        </div>
+    </div> <div class="pc" onclick="openArt('a2')">
+        <div class="pi">
+            <div class="ps" style="background-image:url('你的圖片2')"></div>
+        </div>
+        <div class="pinfo">
+            <div class="pinfo-cat">巴黎日常</div>
+            <div class="pinfo-title">放空也是一種奢侈</div>
+            <div class="pinfo-date">2026.04.04</div>
+        </div>
+    </div> <div class="pc" onclick="openArt('a3')">
+        <div class="pi">
+            <div class="ps" style="background-image:url('你的圖片3')"></div>
+        </div>
+        <div class="pinfo">
+            <div class="pinfo-cat">巴黎日常</div>
+            <div class="pinfo-title">羅浮宮的夜</div>
+            <div class="pinfo-date">2026.04.05</div>
+        </div>
+    </div> </div>
 </section>
 
 <!-- ══ PHOTO STRIP ══ -->
@@ -338,9 +332,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
       <div class="j-date">2026.04.05</div>
       <div class="j-arr">→</div>
     </div>
-  </div>
-  <!-- 新文章貼在這裡 -->
-  </div>
+  </div> </div>
 </section>
 
 <!-- ══ ABOUT ══ -->
