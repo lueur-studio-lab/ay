@@ -561,7 +561,6 @@ document.getElementById('artBack').onclick = closeArt;
 document.getElementById('artLogoBtn').onclick = function(e){ e.preventDefault(); closeArt(); };
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeArt(); });
 
-// ── Scroll reveal ──
 var obs = new IntersectionObserver(function(es){
   es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
 }, {threshold: .08});
