@@ -25,15 +25,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .nav-r{display:flex;align-items:center;gap:1.5rem}
 .nav-r a{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-r a:hover{color:var(--blue)}
-.nav-loc{font-family:var(--mono);font-size:.55rem;color:var(--pale);padding:.2rem .6rem;border:1px solid var(--pale)}
-.btn-edit{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem 1rem;background:var(--blue);color:#f2f1ee;border:none;cursor:pointer;transition:background .2s}
-.btn-edit:hover{background:var(--blue-mid)}
+.nav-loc{font-family:var(--mono);font-size:.55rem;color:var(--pale);padding:.2rem .6rem;border:1px solid var(--pale);display:none}
+@media(min-width:600px){.nav-loc{display:inline}}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 10% 80px;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(74,90,122,.08) 0%,transparent 60%),linear-gradient(170deg,#f2f1ee 0%,#eceae5 100%)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:50px 50px;opacity:.3}
-.hero-deco{position:absolute;right:6vw;bottom:10%;font-family:var(--serif);font-size:clamp(6rem,18vw,18rem);font-weight:700;font-style:italic;color:rgba(74,90,122,.05);line-height:1;pointer-events:none}
+.hero-deco{position:absolute;right:6vw;bottom:10%;font-family:var(--serif);font-size:clamp(6rem,18vw,18rem);font-weight:700;font-style:italic;color:rgba(74,90,122,.05);line-height:1;pointer-events:none;display:none}
+@media(min-width:768px){.hero-deco{display:block}}
 .hero-content{position:relative;z-index:1;max-width:700px}
 .hero-tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:1.5rem;opacity:0;animation:up .9s .2s forwards}
 .hero-h1{font-family:var(--serif);font-size:clamp(2.8rem,7vw,6rem);font-weight:400;line-height:1.05;letter-spacing:-.02em;margin-bottom:.5rem;opacity:0;animation:up .9s .4s forwards}
@@ -59,7 +59,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .rule{border:none;border-top:1px solid var(--border);margin:1.5rem 0 3rem}
 .sec-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem;gap:1rem;flex-wrap:wrap}
 
-/* POSTS */
+/* POSTS GRID */
 #recent{background:var(--bg)}
 .posts-grid{display:grid;grid-template-columns:1fr;gap:3px}
 @media(min-width:600px){.posts-grid{grid-template-columns:1fr 1fr}}
@@ -69,12 +69,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 @media(min-width:900px){.pc:first-child{grid-row:span 2}}
 @media(min-width:900px){.pc:first-child .pi{aspect-ratio:unset;min-height:520px;height:100%}}
 .pi{width:100%;aspect-ratio:4/3;position:relative;overflow:hidden}
-.ps{position:absolute;inset:0;transition:transform .6s}
+.ps{position:absolute;inset:0;transition:transform .6s cubic-bezier(.25,.46,.45,.94);background-size:cover!important;background-position:center!important}
 .pc:hover .ps{transform:scale(1.05)}
-.bg1{background:radial-gradient(ellipse 60% 70% at 40% 55%,rgba(74,90,122,.28) 0%,transparent 60%),linear-gradient(160deg,#c8cdd8 0%,#d8dce6 100%)}
-.bg2{background:radial-gradient(ellipse at 60% 35%,rgba(90,100,130,.22) 0%,transparent 55%),linear-gradient(180deg,#d0d4de 0%,#dcdfe8 100%)}
-.bg3{background:radial-gradient(ellipse at 35% 65%,rgba(80,95,125,.2) 0%,transparent 55%),linear-gradient(165deg,#ccd0da 0%,#d8dce4 100%)}
-.bg4{background:radial-gradient(ellipse at 55% 40%,rgba(70,85,115,.25) 0%,transparent 55%),linear-gradient(170deg,#c6cad6 0%,#d4d8e2 100%)}
 .pov{position:absolute;inset:0;background:rgba(43,45,66,0);transition:background .4s;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem}
 .pc:hover .pov{background:rgba(43,45,66,.5)}
 .pm{opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
@@ -93,15 +89,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .strip-item{flex-shrink:0;width:240px;height:320px;position:relative;overflow:hidden}
 @media(min-width:600px){.strip-item{width:280px;height:370px}}
 .strip-item:nth-child(odd){margin-top:1.5rem}
-.ss{position:absolute;inset:0;transition:transform .5s}
+.ss{position:absolute;inset:0;transition:transform .5s;background-size:cover!important;background-position:center!important}
 .strip-item:hover .ss{transform:scale(1.04)}
-.sc{position:absolute;bottom:1rem;left:1rem;font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(43,45,66,.4)}
-.sb1{background:radial-gradient(ellipse at 40% 55%,rgba(74,90,122,.3) 0%,transparent 60%),linear-gradient(160deg,#c8cdd8 0%,#dcdfe8 100%)}
-.sb2{background:radial-gradient(ellipse at 60% 35%,rgba(90,100,130,.25) 0%,transparent 55%),linear-gradient(175deg,#cfd3de 0%,#d8dce6 100%)}
-.sb3{background:radial-gradient(ellipse at 35% 60%,rgba(80,90,120,.22) 0%,transparent 55%),linear-gradient(165deg,#c4c8d4 0%,#d4d8e2 100%)}
-.sb4{background:radial-gradient(ellipse at 65% 40%,rgba(70,85,115,.28) 0%,transparent 55%),linear-gradient(170deg,#ccd0da 0%,#dce0ea 100%)}
-.sb5{background:radial-gradient(ellipse at 45% 50%,rgba(85,100,130,.2) 0%,transparent 55%),linear-gradient(155deg,#d0d4de 0%,#d8dbe6 100%)}
-.sb6{background:radial-gradient(ellipse at 55% 45%,rgba(75,90,120,.24) 0%,transparent 55%),linear-gradient(168deg,#c8ccd8 0%,#d6dae4 100%)}
+.sc{position:absolute;bottom:1rem;left:1rem;font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);text-shadow:0 1px 4px rgba(0,0,0,.5)}
 
 /* JOURNAL */
 #journal{background:var(--bg)}
@@ -163,57 +153,12 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
 .art-cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:1rem}
 .art-title{font-family:var(--serif);font-size:clamp(1.8rem,5vw,3rem);font-weight:400;line-height:1.1;margin-bottom:.8rem}
 .art-date{font-family:var(--mono);font-size:.58rem;color:var(--pale);margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
-.art-cover{width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:3rem;display:none}
+.art-cover{width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:3rem}
 .art-body{font-family:'Noto Serif TC',serif;font-size:clamp(1rem,2.5vw,1.1rem);line-height:2;color:var(--ink2);font-weight:300}
 .art-body p{margin-bottom:1.6rem}
 .art-body em{font-style:italic;color:var(--blue)}
+.art-body hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
 .art-foot{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);text-align:center}
-
-/* CMS */
-.cms-ov{position:fixed;inset:0;z-index:1000;background:rgba(43,45,66,.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
-.cms-ov.open{display:flex}
-.cms-panel{background:var(--bg);width:92vw;max-width:760px;max-height:90vh;overflow-y:auto;border:1px solid var(--border)}
-.cms-head{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.8rem;border-bottom:1px solid var(--border)}
-.cms-head h2{font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink)}
-.cms-x{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--muted);line-height:1}
-.cms-x:hover{color:var(--ink)}
-.cms-body{padding:1.8rem}
-.cms-tabs{display:flex;margin-bottom:2rem;border-bottom:1px solid var(--border);overflow-x:auto}
-.cms-tab{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:.65rem 1.2rem;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;transition:all .2s;margin-bottom:-1px;white-space:nowrap}
-.cms-tab.on{color:var(--blue);border-bottom-color:var(--blue)}
-.cms-sec{display:none}
-.cms-sec.on{display:block}
-.fg{margin-bottom:1.3rem}
-.fl{font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.5rem}
-.fi,.fsel,.fta{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--ink);font-family:var(--serif);font-size:.95rem;padding:.65rem .9rem;outline:none;transition:border-color .2s;-webkit-appearance:none;border-radius:0}
-.fi:focus,.fsel:focus,.fta:focus{border-color:var(--blue)}
-.fta{resize:vertical;min-height:130px;line-height:1.7}
-.fsel{font-family:var(--mono);font-size:.68rem}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-@media(max-width:500px){.frow{grid-template-columns:1fr}}
-.fb{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.7rem 1.6rem;background:var(--blue);color:#f2f1ee;border:none;cursor:pointer;transition:background .2s}
-.fb:hover{background:var(--blue-mid)}
-.fb-sec{background:transparent;border:1px solid var(--border);color:var(--muted)}
-.fb-sec:hover{border-color:var(--blue);color:var(--blue);background:transparent}
-.f-actions{display:flex;gap:.8rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
-.post-list{display:flex;flex-direction:column}
-.post-row{display:flex;align-items:flex-start;justify-content:space-between;padding:1rem 0;border-bottom:1px solid var(--border);gap:1rem}
-.post-row:first-child{border-top:1px solid var(--border)}
-.post-meta{flex:1;min-width:0}
-.post-meta-title{font-family:var(--serif);font-size:.95rem;margin-bottom:.25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.post-meta-info{font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.post-meta-info span{color:var(--blue-mid);margin-right:.8rem}
-.post-btns{display:flex;gap:.5rem;flex-shrink:0}
-.pill{font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid var(--border);color:var(--muted);background:none;cursor:pointer;transition:all .2s}
-.pill:hover{border-color:var(--blue);color:var(--blue)}
-.pill.del:hover{border-color:#c0392b;color:#c0392b}
-.empty-box{text-align:center;padding:3rem 0}
-.empty-t{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--muted);margin-bottom:.5rem}
-.empty-s{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:var(--pale);text-transform:uppercase}
-.img-hint{font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;color:var(--pale);margin-top:.5rem;line-height:1.6}
-.img-prev{width:100%;max-height:180px;object-fit:cover;display:none;margin-top:.8rem}
-.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;padding:.75rem 1.8rem;opacity:0;transition:all .4s;z-index:2000;white-space:nowrap;pointer-events:none}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ANIM */
 @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
@@ -226,6 +171,15 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
 </head>
 <body>
 
+<!-- ══════════════════════════════════════
+  ✦ 編輯說明：
+  新增文章 → 在 POSTS DATA 區塊加一筆
+  新增照片串 → 在 STRIP 區塊加 strip-item
+  修改關於我 → 在 ABOUT 區塊直接改文字
+  GitHub 圖片網址格式：
+  https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/檔名.jpg
+══════════════════════════════════════ -->
+
 <nav>
   <a class="logo" href="#"><span>l</span>ueur.studio</a>
   <div class="nav-r">
@@ -233,7 +187,6 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
     <a href="#journal">文章</a>
     <a href="#about">關於</a>
     <span class="nav-loc">Paris, FR</span>
-    <button class="btn-edit" id="btnEdit">✦ 編輯</button>
   </div>
 </nav>
 
@@ -276,41 +229,120 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
   </div>
 </div>
 
+<!-- ══ RECENT ══ -->
 <section class="sec" id="recent">
   <div class="sec-top">
     <div><p class="sec-label rev">最近的日子</p><h2 class="sec-h rev">Recent <em>moments</em></h2></div>
     <a href="#journal" class="lund rev" style="font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap">全部 →</a>
   </div>
   <hr class="rule rev">
-  <div class="posts-grid" id="postsGrid"></div>
-</section>
 
-<section id="strip">
-  <p class="strip-lbl rev">影像記錄 · Visual Diary</p>
-  <div class="strip-row" id="stripRow">
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg') center/cover no-repeat"></div><div class="sc">Paris</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg') center/cover no-repeat"></div><div class="sc">Musée Rodin</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg') center/cover no-repeat"></div><div class="sc">Winged Victory</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg') center/cover no-repeat"></div><div class="sc">Bourse de Commerce</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/lvfoundation.jpg') center/cover no-repeat"></div><div class="sc">Fondation Louis Vuitton</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal.jpg') center/cover no-repeat"></div><div class="sc">Palais Royal</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg') center/cover no-repeat"></div><div class="sc">Paris</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg') center/cover no-repeat"></div><div class="sc">Musée Rodin</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg') center/cover no-repeat"></div><div class="sc">Winged Victory</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg') center/cover no-repeat"></div><div class="sc">Bourse de Commerce</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/lvfoundation.jpg') center/cover no-repeat"></div><div class="sc">Fondation Louis Vuitton</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal.jpg') center/cover no-repeat"></div><div class="sc">Palais Royal</div></div>
+  <!-- ══════════════════════════
+    文章卡片區（最多顯示4篇）
+    新增文章：複製一個 .pc 區塊貼在後面
+    img= 換成你的照片網址
+  ══════════════════════════ -->
+  <div class="posts-grid">
+
+    <!-- 文章 1（大卡）-->
+    <div class="pc rev" onclick="openArt('a1')">
+      <div class="pi">
+        <div class="ps" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg') center/cover no-repeat"></div>
+        <div class="pov"><div class="pm">
+          <div class="pm-cat">生活日常</div>
+          <div class="pm-title">巴黎的星期天是用來什麼都不做的</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- 文章 2（小卡）- 可替換 -->
+    <div class="pc rev d1" onclick="openArt('a1')">
+      <div class="pi">
+        <div class="ps" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg') center/cover no-repeat"></div>
+        <div class="pov"><div class="pm">
+          <div class="pm-cat">城市速寫</div>
+          <div class="pm-title">巴黎的星期天是用來什麼都不做的</div>
+        </div></div>
+      </div>
+      <div class="pinfo">
+        <div class="pinfo-cat">生活日常</div>
+        <div class="pinfo-title">巴黎的星期天是用來什麼都不做的</div>
+        <div class="pinfo-date">2026.04.01</div>
+      </div>
+    </div>
+
+    <!-- 文章 3（小卡）- 可替換 -->
+    <div class="pc rev d2" onclick="openArt('a1')">
+      <div class="pi">
+        <div class="ps" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg') center/cover no-repeat"></div>
+        <div class="pov"><div class="pm">
+          <div class="pm-cat">城市速寫</div>
+          <div class="pm-title">巴黎的星期天是用來什麼都不做的</div>
+        </div></div>
+      </div>
+      <div class="pinfo">
+        <div class="pinfo-cat">生活日常</div>
+        <div class="pinfo-title">巴黎的星期天是用來什麼都不做的</div>
+        <div class="pinfo-date">2026.04.01</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
+<!-- ══ PHOTO STRIP ══ -->
+<section id="strip">
+  <p class="strip-lbl rev">影像記錄 · Visual Diary</p>
+  <!-- ══════════════════════════
+    照片串：新增照片複製一個 strip-item
+    上傳到 GitHub 後換掉網址即可
+  ══════════════════════════ -->
+  <div class="strip-row">
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div><div class="sc">Paris</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg')"></div><div class="sc">Musée Rodin</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg')"></div><div class="sc">Winged Victory</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg')"></div><div class="sc">Bourse de Commerce</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/lvfoundation.jpg')"></div><div class="sc">Fondation LV</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal.jpg')"></div><div class="sc">Palais Royal</div></div>
+    <!-- 重複一次讓無縫循環 -->
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div><div class="sc">Paris</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg')"></div><div class="sc">Musée Rodin</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg')"></div><div class="sc">Winged Victory</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg')"></div><div class="sc">Bourse de Commerce</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/lvfoundation.jpg')"></div><div class="sc">Fondation LV</div></div>
+    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal.jpg')"></div><div class="sc">Palais Royal</div></div>
+  </div>
+</section>
+
+<!-- ══ JOURNAL ══ -->
 <section class="sec" id="journal">
   <div class="sec-top">
     <div><p class="sec-label rev">文章</p><h2 class="sec-h rev">Journal</h2></div>
   </div>
   <hr class="rule rev">
-  <div class="j-list" id="journalList"></div>
+
+  <!-- ══════════════════════════
+    文章列表：新增文章複製一個 j-item
+    onclick 裡的 ID 要跟下面 POSTS DATA 對應
+  ══════════════════════════ -->
+  <div class="j-list">
+    <div class="j-item rev" onclick="openArt('a1')">
+      <div class="j-num">01</div>
+      <div>
+        <div class="j-cat">生活日常</div>
+        <div class="j-title">巴黎的星期天是用來什麼都不做的</div>
+        <div class="j-excerpt">沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。</div>
+      </div>
+      <div class="j-right">
+        <div class="j-date">2026.04.01</div>
+        <div class="j-arr">→</div>
+      </div>
+    </div>
+    <!-- 新文章貼在這裡 -->
+  </div>
 </section>
 
+<!-- ══ ABOUT ══ -->
 <section id="about" class="sec">
   <div class="about-grid">
     <div class="about-vis rev">
@@ -321,19 +353,22 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
     </div>
     <div>
       <p class="sec-label rev">關於我 · About</p>
-      <h2 class="about-name rev" id="aboutName">住在<em>巴黎</em>的<br>某個台灣人</h2>
-      <p class="about-sub rev" id="aboutSub">攝影 · 寫作 · 日常觀察</p>
+      <!-- ══ 直接修改以下文字 ══ -->
+      <h2 class="about-name rev">住在<em>巴黎</em>的<br>某個台灣人</h2>
+      <p class="about-sub rev">攝影 · 寫作 · 日常觀察</p>
       <div class="about-divider rev"></div>
-      <p class="about-bio rev" id="aboutBio1">幾年前搬來巴黎，原本以為是一場旅行，後來發現是一種生活方式。帶著底片機走在 Belleville 的巷子裡，這些都是我的日常。</p>
-      <p class="about-bio rev" id="aboutBio2">這個網站是我寫給自己、也寫給你的地方。關於<em>在異鄉生活是什麼感覺</em>，關於如何用鏡頭留住那些很快就會忘掉的瞬間。</p>
+      <p class="about-bio rev">幾年前搬來巴黎，原本以為是一場旅行，後來發現是一種生活方式。帶著底片機走在 Belleville 的巷子裡，這些都是我的日常。</p>
+      <p class="about-bio rev">這個網站是我寫給自己、也寫給你的地方。關於<em>在異鄉生活是什麼感覺</em>，關於如何用鏡頭留住那些很快就會忘掉的瞬間。</p>
       <div class="about-tags rev">
-        <span class="atag">底片攝影</span><span class="atag">城市漫遊</span>
-        <span class="atag">法語學習中</span><span class="atag">台灣人在巴黎</span>
+        <span class="atag">底片攝影</span>
+        <span class="atag">城市漫遊</span>
+        <span class="atag">法語學習中</span>
+        <span class="atag">台灣人在巴黎</span>
       </div>
       <div class="socials rev">
-        <a class="s-btn" id="igLink" href="https://instagram.com/yunw_studio" target="_blank">Instagram</a>
+        <a class="s-btn" href="https://instagram.com/yunw_studio" target="_blank">Instagram</a>
         <a class="s-btn" href="#">小紅書</a>
-        <a class="s-btn" href="/cdn-cgi/l/email-protection#e68e838a8a89a68a93839394c8959293828f89">寫信給我</a>
+        <a class="s-btn" href="mailto:hello@lueur.studio">寫信給我</a>
       </div>
     </div>
   </div>
@@ -353,420 +388,94 @@ footer{background:var(--ink);color:rgba(242,241,238,.35);padding:3rem 10%;displa
   <div class="f-copy">© 2026 lueur.studio · Paris</div>
 </footer>
 
-<!-- ARTICLE VIEW -->
+<!-- ══ ARTICLE VIEW ══ -->
 <div class="art-overlay" id="artOverlay">
   <div class="art-nav">
-    <button class="art-back" id="artBackBtn">← 返回</button>
+    <button class="art-back" id="artBack">← 返回</button>
     <a class="art-logo" href="#" id="artLogoBtn"><span>l</span>ueur.studio</a>
   </div>
-  <div class="art-wrap">
-    <div class="art-cat" id="avCat"></div>
-    <h1 class="art-title" id="avTitle"></h1>
-    <div class="art-date" id="avDate"></div>
-    <img class="art-cover" id="avCover" alt="">
-    <div class="art-body" id="avBody"></div>
-    <div class="art-foot">
-      <a href="#" class="lund" id="artFootBack">← 返回所有文章</a>
-    </div>
-  </div>
+  <div class="art-wrap" id="artWrap"></div>
 </div>
 
-<!-- CMS -->
-<div class="cms-ov" id="cmsOv">
-  <div class="cms-panel">
-    <div class="cms-head">
-      <h2>✦ lueur.studio — 內容管理</h2>
-      <button class="cms-x" id="cmsClose">✕</button>
-    </div>
-    <div class="cms-body">
-      <div class="cms-tabs">
-        <button class="cms-tab on" data-tab="write">撰寫文章</button>
-        <button class="cms-tab" data-tab="manage">管理文章</button>
-        <button class="cms-tab" data-tab="gallery">照片集</button>
-        <button class="cms-tab" data-tab="settings">網站設定</button>
-      </div>
-
-      <div class="cms-sec on" id="tab-write">
-        <div class="fg">
-          <label class="fl">文章標題</label>
-          <input class="fi" id="fTitle" placeholder="輸入標題…">
-        </div>
-        <div class="frow">
-          <div class="fg">
-            <label class="fl">分類</label>
-            <select class="fsel" id="fCat">
-              <option>生活日常</option><option>城市速寫</option>
-              <option>攝影心得</option><option>旅行散文</option>
-              <option>文化觀察</option><option>食物記憶</option>
-            </select>
-          </div>
-          <div class="fg">
-            <label class="fl">日期</label>
-            <input class="fi" id="fDate" type="date">
-          </div>
-        </div>
-        <div class="fg">
-          <label class="fl">摘要（顯示在列表）</label>
-          <textarea class="fta" id="fExcerpt" style="min-height:70px" placeholder="一兩句話…"></textarea>
-        </div>
-        <div class="fg">
-          <label class="fl">內文（每段換行）</label>
-          <textarea class="fta" id="fContent" placeholder="在這裡寫下你的文章…"></textarea>
-        </div>
-        <div class="fg">
-          <label class="fl">封面圖片網址</label>
-          <input class="fi" id="fImgUrl" placeholder="https://raw.githubusercontent.com/…/photo.jpg">
-          <img class="img-prev" id="imgPrev" alt="">
-          <p class="img-hint">格式：https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/照片名稱.jpg</p>
-        </div>
-        <div class="fg">
-          <label class="fl">文章內圖片（每行一個網址）</label>
-          <textarea class="fta" id="fImgs" style="min-height:60px" placeholder="https://raw.githubusercontent.com/…/photo1.jpg"></textarea>
-        </div>
-        <input type="hidden" id="fEditId">
-        <div class="f-actions">
-          <button class="fb" id="submitBtn">發布文章</button>
-          <button class="fb fb-sec" id="clearBtn">清除</button>
-        </div>
-      </div>
-
-      <div class="cms-sec" id="tab-manage">
-        <div class="post-list" id="postList"></div>
-        <div class="empty-box" id="emptyBox">
-          <div class="empty-t">還沒有文章</div>
-          <div class="empty-s">去「撰寫文章」新增第一篇吧</div>
-        </div>
-      </div>
-
-      <div class="cms-sec" id="tab-gallery">
-        <p class="img-hint" style="margin-bottom:1.5rem">把照片上傳到 GitHub，填入網址即可。格式：https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/照片.jpg</p>
-        <div id="galleryList"></div>
-        <div style="margin-top:1rem;display:flex;gap:.8rem">
-          <button class="fb" id="addGalleryBtn">+ 新增照片</button>
-          <button class="fb fb-sec" id="saveGalleryBtn">儲存照片集</button>
-        </div>
-      </div>
-
-      <div class="cms-sec" id="tab-settings">
-        <div class="fg"><label class="fl">你的名字 / 暱稱</label><input class="fi" id="sName" placeholder="顯示在關於我區塊"></div>
-        <div class="fg"><label class="fl">一句話介紹</label><input class="fi" id="sBio1" placeholder="攝影 · 寫作 · …"></div>
-        <div class="fg"><label class="fl">自我介紹</label><textarea class="fta" id="sBio2" style="min-height:80px"></textarea></div>
-        <div class="fg"><label class="fl">Instagram 帳號（不用加@）</label><input class="fi" id="sIg" placeholder="yourhandle"></div>
-        <div class="f-actions"><button class="fb" id="saveSettingsBtn">儲存設定</button></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
+<!-- ══════════════════════════════════════
+  ✦ POSTS DATA — 文章內容區
+  新增文章：複製一個 ARTICLE 區塊
+  id 要跟上面 j-item 的 onclick 對應
+  img: 封面照片網址
+  content: 文章內文，<p>一段</p>
+══════════════════════════════════════ -->
 <script>
-(function(){
-
-// DATA
-var DB = {
-  getPosts: function(){ try{ return JSON.parse(localStorage.getItem('lp')||'[]') }catch(e){ return [] } },
-  setPosts: function(v){ localStorage.setItem('lp', JSON.stringify(v)) },
-  getSettings: function(){ try{ return JSON.parse(localStorage.getItem('ls')||'{}') }catch(e){ return {} } },
-  setSettings: function(v){ localStorage.setItem('ls', JSON.stringify(v)) }
-};
-
-// SCROLL REVEAL
-var obs = new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in') });
-}, {threshold:.08});
-document.querySelectorAll('.rev').forEach(function(el){ obs.observe(el) });
-
-// TOAST
-function toast(msg){
-  var t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show') }, 2800);
-}
-
-// FORMAT DATE
-function fmtDate(d){
-  if(!d) return '';
-  try{
-    var dt = new Date(d);
-    return dt.getFullYear()+'.'+String(dt.getMonth()+1).padStart(2,'0')+'.'+String(dt.getDate()).padStart(2,'0');
-  }catch(e){ return d }
-}
-
-// DEFAULT POSTS — 這裡的文章所有人都看得到
-function defaultPosts(){
-  return [{
-    id:'d1',
-    title:'巴黎的星期天是用來什麼都不做的',
-    cat:'生活日常',
-    date:'2026-04-01',
-    excerpt:'沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。',
-    content:'上週末，一個興起。\n\n沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。\n\n星期天，當然人很多。這是預料中的事。\n\n但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。\n\n要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。\n\n就這樣一直待到快打烊。\n\n走出店外，天空還亮著。\n\n夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。\n\nC\'est ça, le bonheur.\n\n——\n\nLast Sunday, on a whim.\n\nNo plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door. The destination: a Korean café I\'d been saving on my phone for months — the kind of place you screenshot on Instagram and never quite get around to visiting.\n\nSunday, so of course it was packed. I knew it would be.\n\nBut the moment I walked in, a single bar stool opened up. Something like fate. I sat down.\n\nOrdered a coffee, opened the notebook, and started writing — all the things that had been piling up in my head, unprocessed. No one knew me here. The noise around me softened into white noise, and somehow my thoughts became clearer.\n\nI stayed until almost closing time.\n\nWalking out, the sky was still light.\n\nThat\'s Paris in summer time — nearly half past seven in the evening and the light still refuses to leave. Standing there on the pavement, I thought: this is exactly what Sundays should feel like. You don\'t need to do anything meaningful. Just exist, quietly, for a while.\n\nC\'est ça, le bonheur.',
-    img:'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg',
-    extraImgs:''
-  }];
-}
-
-// RENDER POSTS — 預設文章永遠顯示，用戶新增的文章排在前面
-var BGSM = ['bg1','bg2','bg3','bg4'];
-function renderPosts(){
-  var userPosts = DB.getPosts();
-  var def = defaultPosts();
-  // 合併：用戶文章在前，預設文章在後（過濾掉用戶已編輯的預設文章）
-  var userIds = userPosts.map(function(p){ return p.id; });
-  var filteredDef = def.filter(function(p){ return userIds.indexOf(p.id) === -1; });
-  var all = userPosts.concat(filteredDef);
-  var grid = document.getElementById('postsGrid');
-  var jList = document.getElementById('journalList');
-  var gp = all.slice(0,4);
-
-  grid.innerHTML = gp.map(function(p,i){
-    var imgStyle = p.img ? 'background:url("'+p.img+'") center/cover no-repeat' : '';
-    var bg = p.img ? '' : BGSM[i%4];
-    if(i===0) return '<div class="pc rev" onclick="openArt(\''+p.id+'\')"><div class="pi"><div class="ps '+bg+'" style="'+imgStyle+'"></div><div class="pov"><div class="pm"><div class="pm-cat">'+p.cat+'</div><div class="pm-title">'+p.title+'</div></div></div></div></div>';
-    return '<div class="pc rev d'+i+'" onclick="openArt(\''+p.id+'\')"><div class="pi"><div class="ps '+bg+'" style="'+imgStyle+'"></div><div class="pov"><div class="pm"><div class="pm-cat">'+p.cat+'</div><div class="pm-title">'+p.title+'</div></div></div></div><div class="pinfo"><div class="pinfo-cat">'+p.cat+'</div><div class="pinfo-title">'+p.title+'</div><div class="pinfo-date">'+fmtDate(p.date)+'</div></div></div>';
-  }).join('');
-
-  jList.innerHTML = all.map(function(p,i){
-    return '<div class="j-item rev'+(i<3?' d'+i:'')+'" onclick="openArt(\''+p.id+'\')">'
-      +'<div class="j-num">0'+(i+1)+'</div>'
-      +'<div><div class="j-cat">'+p.cat+'</div><div class="j-title">'+p.title+'</div><div class="j-excerpt">'+(p.excerpt||'')+'</div></div>'
-      +'<div class="j-right"><div class="j-date">'+fmtDate(p.date)+'</div><div class="j-arr">→</div></div>'
-      +'</div>';
-  }).join('');
-
-  document.querySelectorAll('.rev:not(.in)').forEach(function(el){ obs.observe(el) });
-}
-
-// ARTICLE
-window.openArt = function(id){
-  var userPosts = DB.getPosts();
-  var def = defaultPosts();
-  var userIds = userPosts.map(function(p){ return p.id; });
-  var filteredDef = def.filter(function(p){ return userIds.indexOf(p.id) === -1; });
-  var all = userPosts.concat(filteredDef);
-  var p = null;
-  for(var i=0;i<all.length;i++){ if(all[i].id===id){ p=all[i]; break; } }
-  if(!p) return;
-  document.getElementById('avCat').textContent = p.cat;
-  document.getElementById('avTitle').textContent = p.title;
-  document.getElementById('avDate').textContent = fmtDate(p.date);
-  var cov = document.getElementById('avCover');
-  if(p.img){ cov.src=p.img; cov.style.display='block'; } else { cov.style.display='none'; }
-  var body = p.content || p.excerpt || '';
-  var html = body.split('\n').filter(function(l){ return l.trim(); }).map(function(l){ return '<p>'+l+'</p>'; }).join('');
-  if(p.extraImgs){
-    p.extraImgs.split('\n').filter(function(u){ return u.trim(); }).forEach(function(url){
-      html += '<img src="'+url.trim()+'" style="width:100%;margin:1.5rem 0;display:block" alt="">';
-    });
+var POSTS = [
+  {
+    id: 'a1',
+    title: '巴黎的星期天是用來什麼都不做的',
+    cat: '生活日常',
+    date: '2026.04.01',
+    img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg',
+    content: `
+      <p>上週末，一個興起。</p>
+      <p>沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。</p>
+      <p>星期天，當然人很多。這是預料中的事。</p>
+      <p>但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。</p>
+      <p>要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。</p>
+      <p>就這樣一直待到快打烊。</p>
+      <p>走出店外，天空還亮著。</p>
+      <p>夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。</p>
+      <p><em>C'est ça, le bonheur.</em></p>
+      <hr>
+      <p>Last Sunday, on a whim.</p>
+      <p>No plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door. The destination: a Korean café I'd been saving on my phone for months — the kind of place you screenshot on Instagram and never quite get around to visiting.</p>
+      <p>Sunday, so of course it was packed. I knew it would be.</p>
+      <p>But the moment I walked in, a single bar stool opened up. Something like fate. I sat down.</p>
+      <p>Ordered a coffee, opened the notebook, and started writing — all the things that had been piling up in my head, unprocessed. No one knew me here. The noise around me softened into white noise, and somehow my thoughts became clearer.</p>
+      <p>I stayed until almost closing time.</p>
+      <p>Walking out, the sky was still light.</p>
+      <p>That's Paris in summer time — nearly half past seven in the evening and the light still refuses to leave. Standing there on the pavement, I thought: this is exactly what Sundays should feel like. You don't need to do anything meaningful. Just exist, quietly, for a while.</p>
+      <p><em>C'est ça, le bonheur.</em></p>
+    `
   }
-  document.getElementById('avBody').innerHTML = html;
+  /* ← 新文章貼在這裡，格式：
+  ,{
+    id: 'a2',
+    title: '文章標題',
+    cat: '分類',
+    date: '2026.XX.XX',
+    img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/照片.jpg',
+    content: `<p>第一段</p><p>第二段</p>`
+  }
+  */
+];
+
+// ── 文章閱讀 ──
+function openArt(id) {
+  var p = POSTS.find(function(x){ return x.id === id; });
+  if (!p) return;
+  var wrap = document.getElementById('artWrap');
+  wrap.innerHTML =
+    '<div class="art-cat">' + p.cat + '</div>' +
+    '<h1 class="art-title">' + p.title + '</h1>' +
+    '<div class="art-date">' + p.date + '</div>' +
+    (p.img ? '<img class="art-cover" src="' + p.img + '" alt="">' : '') +
+    '<div class="art-body">' + p.content + '</div>' +
+    '<div class="art-foot"><a href="#" class="lund" onclick="closeArt();return false;">← 返回所有文章</a></div>';
   var ov = document.getElementById('artOverlay');
-  ov.classList.add('open'); ov.scrollTop=0;
-  document.body.style.overflow='hidden';
-};
-
-function closeArt(){
+  ov.classList.add('open');
+  ov.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+function closeArt() {
   document.getElementById('artOverlay').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }
-document.getElementById('artBackBtn').onclick = closeArt;
+document.getElementById('artBack').onclick = closeArt;
 document.getElementById('artLogoBtn').onclick = function(e){ e.preventDefault(); closeArt(); };
-document.getElementById('artFootBack').onclick = function(e){ e.preventDefault(); closeArt(); };
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeArt(); });
 
-// CMS OPEN/CLOSE
-document.getElementById('btnEdit').onclick = function(){ openCMS(); };
-document.getElementById('cmsClose').onclick = function(){ closeCMS(); };
-document.getElementById('cmsOv').onclick = function(e){ if(e.target===this) closeCMS(); };
-
-function openCMS(){
-  document.getElementById('cmsOv').classList.add('open');
-  document.body.style.overflow='hidden';
-  loadManage(); loadSettings(); loadGallery();
-}
-function closeCMS(){
-  document.getElementById('cmsOv').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-document.addEventListener('keydown', function(e){
-  if(e.key==='Escape'){ closeArt(); closeCMS(); }
-});
-
-// TABS
-document.querySelectorAll('.cms-tab').forEach(function(btn){
-  btn.onclick = function(){
-    var t = this.dataset.tab;
-    document.querySelectorAll('.cms-tab').forEach(function(b){ b.classList.remove('on') });
-    document.querySelectorAll('.cms-sec').forEach(function(s){ s.classList.remove('on') });
-    this.classList.add('on');
-    document.getElementById('tab-'+t).classList.add('on');
-    if(t==='manage') loadManage();
-    if(t==='settings') loadSettings();
-    if(t==='gallery') loadGallery();
-  };
-});
-
-// IMG PREVIEW
-document.getElementById('fImgUrl').oninput = function(){
-  var p = document.getElementById('imgPrev');
-  if(this.value){ p.src=this.value; p.style.display='block'; }
-  else{ p.style.display='none'; }
-};
-
-// SAVE POST
-document.getElementById('submitBtn').onclick = function(){
-  var title = document.getElementById('fTitle').value.trim();
-  if(!title){ toast('請輸入標題'); return; }
-  var posts = DB.getPosts();
-  var editId = document.getElementById('fEditId').value;
-  var post = {
-    id: editId || String(Date.now()),
-    title: title,
-    cat: document.getElementById('fCat').value,
-    date: document.getElementById('fDate').value || new Date().toISOString().slice(0,10),
-    excerpt: document.getElementById('fExcerpt').value.trim(),
-    content: document.getElementById('fContent').value.trim(),
-    img: document.getElementById('fImgUrl').value.trim(),
-    extraImgs: document.getElementById('fImgs').value.trim()
-  };
-  if(editId){
-    var idx=-1;
-    for(var i=0;i<posts.length;i++){ if(posts[i].id===editId){ idx=i; break; } }
-    if(idx>-1) posts[idx]=post; else posts.unshift(post);
-  } else { posts.unshift(post); }
-  DB.setPosts(posts);
-  clearForm(); renderPosts();
-  toast(editId ? '文章已更新 ✦' : '文章已發布 ✦');
-};
-
-// CLEAR FORM
-document.getElementById('clearBtn').onclick = clearForm;
-function clearForm(){
-  ['fTitle','fExcerpt','fContent','fEditId','fImgUrl','fImgs'].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.value='';
-  });
-  document.getElementById('fDate').value = new Date().toISOString().slice(0,10);
-  document.getElementById('imgPrev').style.display='none';
-  document.getElementById('submitBtn').textContent='發布文章';
-}
-
-// EDIT/DELETE POST
-window.editPost = function(id){
-  var posts = DB.getPosts();
-  var p = null;
-  for(var i=0;i<posts.length;i++){ if(posts[i].id===id){ p=posts[i]; break; } }
-  if(!p) return;
-  document.getElementById('fTitle').value = p.title;
-  document.getElementById('fCat').value = p.cat;
-  document.getElementById('fDate').value = p.date;
-  document.getElementById('fExcerpt').value = p.excerpt||'';
-  document.getElementById('fContent').value = p.content||'';
-  document.getElementById('fEditId').value = p.id;
-  document.getElementById('fImgUrl').value = p.img||'';
-  document.getElementById('fImgs').value = p.extraImgs||'';
-  document.getElementById('submitBtn').textContent='更新文章';
-  if(p.img){ document.getElementById('imgPrev').src=p.img; document.getElementById('imgPrev').style.display='block'; }
-  document.querySelectorAll('.cms-tab').forEach(function(b){ b.classList.remove('on') });
-  document.querySelectorAll('.cms-sec').forEach(function(s){ s.classList.remove('on') });
-  document.querySelector('[data-tab="write"]').classList.add('on');
-  document.getElementById('tab-write').classList.add('on');
-};
-
-window.deletePost = function(id){
-  if(!confirm('確定要刪除？')) return;
-  var posts = DB.getPosts().filter(function(p){ return p.id!==id });
-  DB.setPosts(posts); loadManage(); renderPosts();
-  toast('已刪除');
-};
-
-function loadManage(){
-  var posts = DB.getPosts();
-  var list = document.getElementById('postList');
-  var empty = document.getElementById('emptyBox');
-  if(!posts.length){ list.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display='none';
-  list.innerHTML = posts.map(function(p){
-    return '<div class="post-row">'
-      +'<div class="post-meta"><div class="post-meta-title">'+p.title+'</div><div class="post-meta-info"><span>'+p.cat+'</span>'+p.date+'</div></div>'
-      +'<div class="post-btns"><button class="pill" onclick="editPost(\''+p.id+'\')">編輯</button><button class="pill del" onclick="deletePost(\''+p.id+'\')">刪除</button></div>'
-      +'</div>';
-  }).join('');
-}
-
-// GALLERY
-function loadGallery(){
-  var s = DB.getSettings();
-  var photos = s.gallery || [];
-  var list = document.getElementById('galleryList');
-  list.innerHTML = photos.map(function(p,i){
-    return '<div style="display:flex;gap:.6rem;align-items:center;margin-bottom:.6rem">'
-      +'<input class="fi" style="flex:1" value="'+( p.url||'')+'" placeholder="https://raw.githubusercontent.com/…" oninput="updateGallery('+i+',\'url\',this.value)">'
-      +'<input class="fi" style="width:120px" value="'+(p.caption||'')+'" placeholder="地點說明" oninput="updateGallery('+i+',\'caption\',this.value)">'
-      +'<button class="pill del" onclick="removeGallery('+i+')">✕</button>'
-      +'</div>';
-  }).join('');
-}
-
-window.updateGallery = function(i,key,val){
-  var s=DB.getSettings(); var g=s.gallery||[];
-  if(g[i]) g[i][key]=val;
-  s.gallery=g; DB.setSettings(s);
-};
-window.removeGallery = function(i){
-  var s=DB.getSettings(); var g=s.gallery||[];
-  g.splice(i,1); s.gallery=g; DB.setSettings(s);
-  loadGallery(); renderStrip();
-};
-
-document.getElementById('addGalleryBtn').onclick = function(){
-  var s=DB.getSettings(); var g=s.gallery||[];
-  g.push({url:'',caption:''}); s.gallery=g; DB.setSettings(s);
-  loadGallery();
-};
-document.getElementById('saveGalleryBtn').onclick = function(){
-  renderStrip(); toast('照片集已儲存 ✦');
-};
-
-function renderStrip(){
-  var s=DB.getSettings();
-  var photos=(s.gallery||[]).filter(function(p){ return p.url; });
-  if(!photos.length) return;
-  var row=document.getElementById('stripRow');
-  var doubled=photos.concat(photos);
-  row.innerHTML=doubled.map(function(p,i){
-    return '<div class="strip-item" style="'+(i%2===0?'':'margin-top:1.5rem')+'">'
-      +'<div class="ss" style="background:url(\''+p.url+'\') center/cover no-repeat"></div>'
-      +'<div class="sc">'+(p.caption||'')+'</div>'
-      +'</div>';
-  }).join('');
-}
-
-// SETTINGS
-function loadSettings(){
-  var s=DB.getSettings();
-  if(s.name) document.getElementById('sName').value=s.name;
-  if(s.bio1) document.getElementById('sBio1').value=s.bio1;
-  if(s.bio2) document.getElementById('sBio2').value=s.bio2;
-  if(s.ig)   document.getElementById('sIg').value=s.ig;
-}
-document.getElementById('saveSettingsBtn').onclick = function(){
-  var old=DB.getSettings();
-  var s={gallery:old.gallery||[],
-    name:document.getElementById('sName').value,
-    bio1:document.getElementById('sBio1').value,
-    bio2:document.getElementById('sBio2').value,
-    ig:document.getElementById('sIg').value
-  };
-  DB.setSettings(s); applySettings(); toast('設定已儲存 ✦');
-};
-function applySettings(){
-  var s=DB.getSettings();
-  if(s.name){ var el=document.getElementById('aboutName'); if(el) el.innerHTML='住在<em>巴黎</em>的<br>'+s.name; }
-  if(s.bio1){ var el=document.getElementById('aboutSub'); if(el) el.textContent=s.bio1; }
-  if(s.bio2){ var el=document.getElementById('aboutBio1'); if(el) el.textContent=s.bio2; }
-  if(s.ig){ var el=document.getElementById('igLink'); if(el) el.href='https://instagram.com/'+s.ig.replace('@',''); }
-}
-
-// INIT
-renderPost
+// ── Scroll reveal ──
+var obs = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: .08});
+document.querySelectorAll('.rev').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>
