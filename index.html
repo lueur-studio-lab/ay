@@ -506,7 +506,7 @@ var POSTS = [
       <p>我們不約而同地感嘆：好幾次來看展，卻從未認真聆聽過那些著名畫作背後的故事與解說。</p>
       <p>究竟，走進羅浮宮的人，有多少是真正理解眼前之物的？又有多少人，不過是為了「到此一遊」而來？</p>
       <p>或許，在往後的日子裡，這次的記憶也只剩下一句話：曾經來過，知道蒙娜麗莎在此。而其他的——又會留下多少？</p>
-      <p>不是每一次造訪都需要留下深刻的領悟，有時候只是走過、感受過、和好姐妹在夜裡邊走邊說著有的沒的——那本身，已經是一件值得的事了。</p>
+      <p>不是每一次造訪續要留下深刻的領悟，有時候只是走過、感受過、和好姐妹在夜裡邊走邊說著有的沒的——那本身，已經是一件值得的事了。</p>
       <p><em>在未來的某日回想起，大概會笑著說：那晚我們在羅浮宮閒晃，什麼都沒認真看，卻什麼都沒有白走。</em></p>
       <hr>
       <p>On the first Friday evening of each month, the Louvre offers free admission by reservation. It had been exactly a year since my last visit</p>
@@ -524,19 +524,8 @@ var POSTS = [
       <p><em>And someday, looking back, I think we'll laugh and say: we didn't really look at anything that night. But none of it was wasted.</em></p>
     `
   }
-  /* ← 新文章貼在這裡，格式：
-  ,{
-    id: 'a2',
-    title: '文章標題',
-    cat: '分類',
-    date: '2026.XX.XX',
-    img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/照片.jpg',
-    content: `<p>第一段</p><p>第二段</p>`
-  }
-  */
 ];
 
-// ── 文章閱讀 ──
 function openArt(id) {
   var p = POSTS.find(function(x){ return x.id === id; });
   if (!p) return;
