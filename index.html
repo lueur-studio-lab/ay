@@ -336,7 +336,67 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 </section>
 
 <!-- ══ ABOUT ══ -->
-<section id="about" class="sec">
+<section id="recent" class="sec">
+  <div class="posts-grid">
+    <div class="pc" onclick="openArt('a1')">
+      <div class="pi">
+        <div class="ps" style="background-image:url('你的圖片1')"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pinfo-cat">巴黎日常</div>
+        <div class="pinfo-title">巴黎的星期天是用來什麼都不做的</div>
+        <div class="pinfo-date">2026.04.01</div>
+      </div>
+    </div> <div class="pc" onclick="openArt('a2')">
+      <div class="pi">
+        <div class="ps" style="background-image:url('你的圖片2')"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pinfo-cat">巴黎日常</div>
+        <div class="pinfo-title">放空也是一種奢侈</div>
+        <div class="pinfo-date">2026.04.04</div>
+      </div>
+    </div> <div class="pc" onclick="openArt('a3')">
+      <div class="pi">
+        <div class="ps" style="background-image:url('你的圖片3')"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pinfo-cat">巴黎日常</div>
+        <div class="pinfo-title">羅浮宮的夜</div>
+        <div class="pinfo-date">2026.04.05</div>
+      </div>
+    </div> </div> </section> <section id="journal" class="sec">
+  <div class="j-list">
+    <div class="j-item rev" onclick="openArt('a1')">
+      <div class="j-num">01</div>
+      <div>
+        <div class="j-cat">巴黎日常</div>
+        <div class="j-title">巴黎的星期天是用來什麼都不做的</div>
+        <div class="j-excerpt">沒有計畫的星期天，是在瑪黑區隨意走動...</div>
+      </div>
+      <div class="j-right"><div class="j-date">2026.04.01</div><div class="j-arr">→</div></div>
+    </div>
+
+    <div class="j-item rev" onclick="openArt('a2')">
+      <div class="j-num">02</div>
+      <div>
+        <div class="j-cat">巴黎日常</div>
+        <div class="j-title">放空也是一種奢侈</div>
+        <div class="j-excerpt">一個人的巴黎午後，在左岸的咖啡館...</div>
+      </div>
+      <div class="j-right"><div class="j-date">2026.04.04</div><div class="j-arr">→</div></div>
+    </div>
+
+    <div class="j-item rev" onclick="openArt('a3')">
+      <div class="j-num">03</div>
+      <div>
+        <div class="j-cat">巴黎日常</div>
+        <div class="j-title">羅浮宮的夜</div>
+        <div class="j-excerpt">每月第一個週五夜晚，免費開放的羅浮宮...</div>
+      </div>
+      <div class="j-right"><div class="j-date">2026.04.05</div><div class="j-arr">→</div></div>
+    </div>
+  </div> </section> <section id="about" class="sec">
   <div class="about-grid">
     <div class="about-vis rev">
       <div class="av-sim"></div>
@@ -346,16 +406,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
     </div>
     <div>
       <p class="sec-label rev">關於我 · About</p>
-      <!-- ══ 直接修改以下文字 ══ -->
       <h2 class="about-name rev">住在<em>巴黎</em>的<br>安兒</h2>
       <p class="about-sub rev">隨手攝影 · 巴黎日常 · 歐洲生活 · 旅行日記</p>
       <div class="about-divider rev"></div>
-      <p class="about-bio rev">幾年前搬來巴黎，原本以為是一場旅行，後來發現是一種生活方式。帶著手機走在瑪黑區的巷子裡，這樣平凡又不平凡的日常裡，這些都是我的足跡與記憶。</p>
-      <p class="about-bio rev">這個網站是我寫給自己、也寫給你的地方。關於<em>在異鄉生活是什麼感覺</em>，關於如何用鏡頭留住那些很快就會忘掉的瞬間。</p>
+      <p class="about-bio rev">幾年前搬來巴黎，原本以為是一場旅行，後來發現是一種生活方式。</p>
+      <p class="about-bio rev">這個網站是我寫給自己、也寫給你的地方。</p>
       <div class="about-tags rev">
         <span class="atag">巴黎日常</span>
         <span class="atag">歐洲生活</span>
-        <span class="atag">法語學習中</span>
         <span class="atag">台灣人在巴黎</span>
       </div>
       <div class="socials rev">
@@ -363,10 +421,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
         <a class="s-btn" href="mailto:hello@lueur.studio">寫信給我</a>
       </div>
     </div>
-  </div>
-</section>
-
-<footer>
+  </div> </section> <footer>
   <div>
     <a class="f-logo" href="#">lueur.studio</a>
     <div class="f-tagline">——那些在巴黎的尋常日子</div>
