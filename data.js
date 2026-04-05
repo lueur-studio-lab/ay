@@ -5,6 +5,7 @@ var POSTS = [
     cat: '巴黎日常 ·Just Paris',
     date: '01.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg',
+    excerpt: '沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。', 
     content: `
       <p>上週末，一個興起。</p>
       <p>沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。<br>
@@ -44,6 +45,7 @@ var POSTS = [
     cat: '巴黎日常 ·Just Paris',
     date: '04.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg',
+    excerpt: '一個人的巴黎午後，在皮諾私人美術館的穹頂之下，放空，也是一種奢侈。', 
     content: `
       <p>三月中旬的某一天，預約了下午場的巴黎證券交易所——皮諾私人美術館。</p>
       <p>沒有特別去研究當期的展覽主題，只是帶著一份期待與好奇，就這樣出發了。</p>
@@ -89,6 +91,7 @@ var POSTS = [
     cat: '巴黎日常 ·Just Paris',
     date: '05.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg',
+    excerpt: '每月第一個週五夜晚，免費開放的羅浮宮——再度造訪，才發現記憶比想像中更容易消散。', 
     content: `
       <p>每個月的第一個週五晚上，羅浮宮開放免費預約入場。</p>
       <p>距離上一次造訪，已是整整一年前的事了。</p>
