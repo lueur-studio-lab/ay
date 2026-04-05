@@ -503,12 +503,12 @@ function openArt(id) {
     <img class="art-cover" src="${p.img}">
     <div style="line-height:2;font-family:'Noto Serif TC'">${p.content}</div>
   `;
-  document.getElementById('artOverlay').classList.add('open');
+  document.getElementById('artOverlay').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 
 function closeArt() {
-  document.getElementById('artOverlay').classList.remove('open');
+  document.getElementById('artOverlay').classList.remove('show');
   document.body.style.overflow = '';
 }
 
