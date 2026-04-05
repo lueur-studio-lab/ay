@@ -152,35 +152,65 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   line-height: 2; /* 讓文字間距寬一點，更有呼吸感 */
 }
 
-/* 這是妳要的「微光容器」效果 */
+ /* 1. 打造有光束流動感的容器 */
 .about-vis {
   aspect-ratio: 1 / 1;
-  background-color: var(--bg); /* 與主背景同色，靠陰影製造立體感 */
+  background-color: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  border-radius: 8px;
-  /* 內凹陰影 (Neumorphism)，製造紙張陷下去的質感 */
+  border-radius: 12px;
+  overflow: hidden; /* 確保光束不會跑出去 */
+  
+  /* 內凹陰影打造質感 */
   box-shadow: 
-    inset 8px 8px 16px rgba(0, 0, 0, 0.03), 
-    inset -8px -8px 16px rgba(255, 255, 255, 0.7);
+    inset 10px 10px 20px rgba(0, 0, 0, 0.02), 
+    inset -10px -10px 20px rgba(255, 255, 255, 0.8);
+  
+  /* 這裡設定背景光束 */
+  background: linear-gradient(
+    135deg, 
+    var(--bg) 0%, 
+    rgba(255, 255, 255, 0.5) 50%, 
+    var(--bg) 100%
+  );
 }
 
-/* 讓 lueur 字體有呼吸感 */
+/* 2. 用偽元素製作「斜射光束」動畫 */
+.about-vis::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg, 
+    transparent 40%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    transparent 60%
+  );
+  animation: beam-swipe 10s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* 3. 讓 lueur 字體變得超大且極淡 */
 .av-word {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 1.6rem;
-  color: var(--blue);
-  text-shadow: 0 0 10px rgba(74, 90, 122, 0.2);
-  animation: lueur-glow 4s infinite alternate ease-in-out;
+  font-size: 4rem; /* 調大字體 */
+  color: rgba(74, 90, 122, 0.08); /* 極淡的透明度 0.08 */
+  letter-spacing: 0.15em;
+  z-index: 1; /* 確保字在光束下面，若隱若現 */
+  transition: all 0.5s;
 }
 
-/* 定義呼吸動畫 */
-@keyframes lueur-glow {
-  0% { opacity: 0.5; transform: scale(0.97); filter: blur(0.5px); }
-  100% { opacity: 1; transform: scale(1.03); filter: blur(0px); }
+/* 動畫：讓光束緩慢掃過 */
+@keyframes beam-swipe {
+  0% { transform: translate(-20%, -20%) rotate(0deg); }
+  50% { transform: translate(10%, 10%) rotate(5deg); }
+  100% { transform: translate(-20%, -20%) rotate(0deg); }
 }
 </style>
 </head>
@@ -202,7 +232,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       <h3>探索 · Explore</h3>
       <ul class="side-list">
         <li><a href="#recent">Recent Moments</a></li>
-        <li><a onclick="filterCat('巴黎日常')">Just Paris</a></li>
+        <li><a onclick="filterCat('巴黎日常 ·Just Paris')">Just Paris</a></li>
         <li><a href="#gallery">Visual Diary</a></li>
         <li><a href="#about">About Me</a></li>
       </ul>
@@ -242,7 +272,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
           </div>
           <div class="j-content">
             <h3 class="j-title">巴黎，星期天</h3>
-            <p class="j-excerpt">目的地是一家收藏在手機裡很久的咖啡廳。星期天，人很多，但走進去的瞬間，吧檯剛好空出一個位子...</p>
+            <p class="j-excerpt">沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。</p>
           </div>
           <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div>
         </div>
@@ -254,7 +284,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
           </div>
           <div class="j-content">
             <h3 class="j-title">放空也是一種奢侈</h3>
-            <p class="j-excerpt">平日的午後，人潮稀落。踏入展廳，穹頂之下的空間靜謐而開闊，影像緩緩流動。時間彷彿在此凝止。</p>
+            <p class="j-excerpt">一個人的巴黎午後，在皮諾私人美術館的穹頂之下，放空，也是一種奢侈。</p>
           </div>
           <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg')"></div>
         </div>
@@ -266,7 +296,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
           </div>
           <div class="j-content">
             <h3 class="j-title">羅浮宮的夜</h3>
-            <p class="j-excerpt">燈光打在石砌的廊柱上，泛著一種沉靜的金黃。與朋友邊走邊聊，陪伴不需要解釋，卻讓夜晚多了一份溫度。</p>
+            <p class="j-excerpt">每月第一個週五夜晚，免費開放的羅浮宮——再度造訪，才發現記憶比想像中更容易消散。</p>
           </div>
           <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg')"></div>
         </div>
@@ -309,7 +339,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     <div class="about-vis rev">
       <span class="av-word">lueur</span>
     </div>
-</div>
+  </div>
 </section>
 
     <footer>
@@ -333,7 +363,7 @@ var POSTS = [
   {
     id: 'a1',
     title: '巴黎，星期天',
-    cat: '巴黎日常',
+    cat: '巴黎日常 ·Just Paris',
     date: '01.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg',
     content: `
@@ -372,7 +402,7 @@ var POSTS = [
     {
     id: 'a2',
     title: '放空也是一種奢侈',
-    cat: '巴黎日常',
+    cat: '巴黎日常 ·Just Paris',
     date: '04.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg',
     content: `
@@ -417,7 +447,7 @@ var POSTS = [
   {
     id: 'a3',
     title: '羅浮宮的夜',
-    cat: '巴黎日常',
+    cat: '巴黎日常 ·Just Paris',
     date: '05.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg',
     content: `
@@ -456,7 +486,7 @@ var POSTS = [
   ,{
     id: 'a4',
     title: '標題',
-    cat: '巴黎日常',
+    cat: '巴黎日常 ·Just Paris',
     date: 'XX.XX.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/照片.jpg',
     content: `<p>第一段</p><p>第二段</p>`
