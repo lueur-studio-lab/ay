@@ -111,49 +111,63 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 <div class="journal-list">
   </div>
   
-/* 網格容器 */
+/* 1. 讓清單變成三欄網格 */
 .journal-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-  gap: 4rem 2.5rem; /* 加大間距，營造呼吸感 */
+  grid-template-columns: repeat(3, 1fr); /* 強制分成三欄 */
+  gap: 3rem 2rem; /* 文章之間的間距 */
   margin-top: 3rem;
 }
 
-/* 每一格文章的設計 */
-.j-item {
-  border-bottom: none !important; 
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-  transition: transform 0.4s ease;
+/* 2. 讓每一篇項目變成「上下排版」而非「左右排版」 */
+.journal-item {
+  display: flex;
+  flex-direction: column-reverse; /* 讓圖片在上，文字在下 */
+  border-bottom: none !important; /* 拿掉醜醜的底線 */
+  cursor: pointer;
+  transition: 0.4s ease;
 }
 
-.j-item:hover {
-  transform: translateY(-8px); /* 滑過時輕微上浮 */
-}
-
-.j-item img {
+/* 3. 調整圖片的樣子 */
+.j-thumb {
   width: 100%;
-  aspect-ratio: 3 / 4; /* 稍微細長的比例，很有時尚雜誌感 */
-  object-fit: cover;
-  margin-bottom: 1.5rem;
-  filter: grayscale(10%); /* 淡淡的灰度，統一色調 */
+  aspect-ratio: 4 / 5; /* 統一照片比例，很有雜誌感 */
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1.5rem; /* 圖片跟文字的距離 */
+  filter: grayscale(10%);
   transition: 0.5s;
 }
 
-.j-item:hover img {
-  filter: grayscale(0%); /* 滑過時恢復彩色 */
+/* 4. 滑過時照片變彩色 */
+.journal-item:hover .j-thumb {
+  filter: grayscale(0%);
+  transform: scale(1.02); /* 稍微放大 */
 }
 
+/* 5. 標題與文字微調 */
 .j-title {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-top: 0.8rem;
-  line-height: 1.4;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+  line-height: 1.3;
 }
+
+.j-excerpt {
+  font-size: 0.85rem;
+  color: #777;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 最多顯示兩行，超過省略，保持整齊 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 手機版自動變回一欄 */
 @media (max-width: 768px) {
-  .journal-item { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 2rem 0; }
-  .j-thumb { width: 100%; height: 200px; order: -1; }
-  .j-meta { flex-direction: row; gap: 15px; align-items: center; }
+  .journal-list {
+    grid-template-columns: 1fr;
+  }
 }
 /* ABOUT & FOOTER */
 #about { 
