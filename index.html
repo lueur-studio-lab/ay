@@ -1,16 +1,3 @@
-抱歉！因為代碼會隨著編輯而變動，直接對應行數確實容易讓妳找得很辛苦。我的錯，我們不看行數了。
-
-我直接把妳提供的那一大段代碼，「完整更新」後噴給妳。妳只需要全選、刪除、貼上這個新的版本，就不會因為找錯位置而改壞掉。
-
-這次更新的亮點：
-雜誌化排版：Recent Moments 變成了優雅的橫向清單（含標題、日期、摘要、縮圖）。
-
-灰階動畫：滑鼠移到文章上，縮圖會從灰階恢復彩色，並輕微放大。
-
-修復側邊欄功能：確保點選「巴黎日常」等分類時，新的文章列表依然能正確篩選。
-
-請直接複製以下完整代碼：
-HTML
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -184,7 +171,7 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
             <span class="j-date">2026.04.01</span>
           </div>
           <div class="j-content">
-            <h3 class="j-title">巴黎，星期天是用來什麼都不做的</h3>
+            <h3 class="j-title">巴黎，星期天</h3>
             <p class="j-excerpt">目的地是一家收藏在手機裡很久的咖啡廳。星期天，人很多，但走進去的瞬間，吧檯剛好空出一個位子...</p>
           </div>
           <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div>
@@ -208,7 +195,7 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
             <span class="j-date">2026.04.05</span>
           </div>
           <div class="j-content">
-            <h3 class="j-title">羅浮宮的夜：沒看什麼，卻沒白走</h3>
+            <h3 class="j-title">羅浮宮的夜</h3>
             <p class="j-excerpt">燈光打在石砌的廊柱上，泛著一種沉靜的金黃。與朋友邊走邊聊，陪伴不需要解釋，卻讓夜晚多了一份溫度。</p>
           </div>
           <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg')"></div>
@@ -282,6 +269,10 @@ var POSTS = [
       <p>就這樣一直待到快打烊，走出店外，天空還亮著。</p>
       <p>夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。</p>
       <p><em>C'est ça, le bonheur.</em></p>
+      <figure style="margin: 3.5rem 0; text-align: center;">
+      <img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/coffee01.jpg" style="width:100%; height:auto; display:block; border-radius:2px;">
+      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">Winged Victory of Samothrace</figcaption>
+      </figure>
       <hr style="margin: 4.5rem 0 3.5rem; border: 0; border-top: 1px solid #eee;">      
       <p>Last Sunday, on a whim.</p>
       <p>No plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door.<br>
@@ -308,6 +299,10 @@ var POSTS = [
       <p>沒有特別去研究當期的展覽主題，只是帶著一份期待與好奇，就這樣出發了。</p>
       <p>平日的午後，人潮稀落。踏入展廳，穹頂之下的空間靜謐而開闊，<br>
       每一位觀展的人都安靜地凝視著前方的大螢幕，影像緩緩流動。</p>
+      <figure style="margin: 3.5rem 0; text-align: center;">
+      <img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/bourse02.jpg" style="width:100%; height:auto; display:block; border-radius:2px;">
+      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">Winged Victory of Samothrace</figcaption>
+      </figure>
       <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
       時間彷彿在此凝止。我也找了個位置坐下，似懂非懂地看著螢幕上的畫面，卻意外地感到一種平靜。
       </div>
@@ -328,6 +323,10 @@ var POSTS = [
       <p>I eventually rose and made my way upstairs. Each piece seemed to be saying something — whether I truly grasped it or not, I wasn't always sure.</p>
       <p>But the act of pausing, of wondering, had a strange clarifying effect.</p>
       <p>I drifted from room to room, unhurried, and somewhere in that gentle wandering, I felt something in me quietly restored.</p>
+      <figure style="margin: 3.5rem 0; text-align: center;">
+      <img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/bourse03.jpg" style="width:100%; height:auto; display:block; border-radius:2px;">
+      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">Winged Victory of Samothrace</figcaption>
+      </figure>
       <p>When closing time came, I stepped out into the evening and caught the metro home.</p>
       <p>It was an ordinary afternoon, and yet — I loved it. A ME TIME, entirely my own.</p>
       <p><em>Sometimes, doing nothing is a luxury. And perhaps that's exactly what's worth holding onto, right now.</em></p>
