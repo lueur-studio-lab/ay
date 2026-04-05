@@ -314,9 +314,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       </div>
 
       <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
-        <div class="g-item paris"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg" style="width:100%; aspect-ratio:1; object-fit:cover;"></div>
-        <div class="g-item museum"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg" style="width:100%; aspect-ratio:1; object-fit:cover;"></div>
-        <div class="g-item museum"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg" style="width:100%; aspect-ratio:1; object-fit:cover;"></div>
+        <div class="g-item paris"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg" alt="Paris"></div>
+        <div class="g-item paris"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal.jpg" alt="Palais Royal"></div>
+        <div class="g-item museum"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg" alt="Bourse de Commerce"></div>
+        <div class="g-item museum"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg" alt="Musée Rodin"></div>
+        <div class="g-item museum"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg" alt="Winged Victory"></div>
+        <div class="g-item museum"><img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/lvfoundation.jpg" alt="LV Foundation"></div>
       </div>
     </section>
 
@@ -350,15 +353,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   </main>
 </div>
 
+<!-- ARTICLE OVERLAY -->
 <div class="art-overlay" id="artOverlay">
   <div class="art-nav">
     <button class="art-back" onclick="closeArt()">← BACK</button>
-    <a class="logo" href="#"><span>l</span>ueur.studio</a>
+    <a class="logo" href="#" onclick="closeArt();return false;"><span>l</span>ueur.studio</a>
   </div>
   <div id="artWrap" class="art-wrap"></div>
 </div>
-
+ 
 <script>
+
 var POSTS = [
   {
     id: 'a1',
