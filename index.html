@@ -135,7 +135,7 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
         <li><a href="#recent">Recent Moments</a></li>
         <li><a onclick="filterCat('巴黎日常')">Just Paris</a></li>
         <li><a href="#gallery">Visual Diary</a></li>
-        <li><a href="#about">關於安兒</a></li>
+        <li><a href="#about">About Me</a></li>
       </ul>
     </div>
   </aside>
@@ -162,13 +162,13 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
 
     <section id="recent" class="sec">
       <p class="sec-label rev">最近的日子 · Recent moments</p>
-      <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 3rem; font-style: italic;" class="rev">Featured Stories</h2>
+      <h2 style="font-family: var(--serif); font-size: 2rem; margin-bottom: 1.5rem; font-style: italic;" class="rev">Featured Stories</h2>
       
       <div class="journal-list">
         <div class="journal-item rev" onclick="openArt('a1')">
           <div class="j-meta">
             <span class="j-cat">巴黎日常 ·Just Paris</span>
-            <span class="j-date">2026.04.01</span>
+            <span class="j-date">01.04.2026</span>
           </div>
           <div class="j-content">
             <h3 class="j-title">巴黎，星期天</h3>
@@ -180,7 +180,7 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
         <div class="journal-item rev" onclick="openArt('a2')">
           <div class="j-meta">
             <span class="j-cat">巴黎日常 ·Just Paris</span>
-            <span class="j-date">2026.04.04</span>
+            <span class="j-date">04.04.2026</span>
           </div>
           <div class="j-content">
             <h3 class="j-title">放空也是一種奢侈</h3>
@@ -192,7 +192,7 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
         <div class="journal-item rev" onclick="openArt('a3')">
           <div class="j-meta">
             <span class="j-cat">巴黎日常 ·Just Paris</span>
-            <span class="j-date">2026.04.05</span>
+            <span class="j-date">05.04.2026</span>
           </div>
           <div class="j-content">
             <h3 class="j-title">羅浮宮的夜</h3>
@@ -205,8 +205,8 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
 
     <section id="gallery" class="sec rev">
       <p class="sec-label">影像記錄 · Visual Diary</p>
-      <h2 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: var(--serif);">In Frames</h2>
-    
+      <h2 style="font-family: var(--serif); font-size: 2rem; margin-bottom: 1.5rem; font-style: italic;" class="rev">In Frames</h2>
+
       <div class="gallery-filters" style="margin-bottom: 30px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;">
         <span class="g-filter" onclick="filterGallery('all', event)" style="cursor:pointer; margin-right:20px; border-bottom: 1px solid var(--ink);">ALL</span>
         <span class="g-filter" onclick="filterGallery('paris', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">PARIS</span>
@@ -224,9 +224,9 @@ footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-dire
       <div class="about-grid">
         <div class="rev">
           <p class="sec-label">ABOUT ME</p>
-          <h2 style="font-size:2.5rem;margin-bottom:2rem">住在巴黎的<br><em>安兒</em></h2>
+          <h2 style="font-size:2.5rem;margin-bottom:2rem">住在巴黎的<br><i style="font-weight:400;color:var(--blue)">安兒</i></h2>
           <p class="about-bio">幾年前搬來巴黎，起初以為這是一場遠行，後來才發現，這已成了我的生活方式。習慣帶著手機走進瑪黑區的蜿蜒巷弄，拾起破碎的光影與記憶。</p>
-          <p class="about-bio">這個空間，是我寫給自己、也留給你的私語。</p>
+          <p class="about-bio">這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴，就讓照片與文字替我紀錄著。</p>
         </div>
         <div class="rev" style="background:var(--pale);aspect-ratio:1;display:flex;align-items:center;justify-content:center;color:white;font-style:italic">lueur</div>
       </div>
@@ -254,7 +254,7 @@ var POSTS = [
     id: 'a1',
     title: '巴黎，星期天',
     cat: '巴黎日常',
-    date: '2026.04.01',
+    date: '01.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg',
     content: `
       <p>上週末，一個興起。</p>
@@ -293,7 +293,7 @@ var POSTS = [
     id: 'a2',
     title: '放空也是一種奢侈',
     cat: '巴黎日常',
-    date: '2026.04.04',
+    date: '04.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg',
     content: `
       <p>三月中旬的某一天，預約了下午場的巴黎證券交易所——皮諾私人美術館。</p>
@@ -338,7 +338,7 @@ var POSTS = [
     id: 'a3',
     title: '羅浮宮的夜',
     cat: '巴黎日常',
-    date: '2026.04.05',
+    date: '05.04.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg',
     content: `
       <p>每個月的第一個週五晚上，羅浮宮開放免費預約入場。</p>
@@ -377,7 +377,7 @@ var POSTS = [
     id: 'a4',
     title: '標題',
     cat: '巴黎日常',
-    date: '2026.XX.XX',
+    date: 'XX.XX.2026',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/照片.jpg',
     content: `<p>第一段</p><p>第二段</p>`
   }
