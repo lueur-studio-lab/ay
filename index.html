@@ -212,83 +212,38 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   50% { transform: translate(10%, 10%) rotate(5deg); }
   100% { transform: translate(-20%, -20%) rotate(0deg); }
 }
+/* --- 文章彈出層樣式 (修正一片白) --- */
 .art-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: var(--bg);
-  overflow-y: auto;
-  display: none; /* 初始隱藏 */
-  padding: 100px 8% 60px;
+  position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; 
+  overflow-y: auto; display: none; padding: 100px 8% 60px;
 }
-
-/* 當 JS 執行時，會加上這個 class 讓它顯示 */
-.art-overlay.show {
-  display: block;
-}
-
+.art-overlay.show { display: block; }
 .art-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 70px;
-  padding: 0 6vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(242, 241, 238, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  z-index: 2001;
+  position: fixed; top: 0; left: 0; right: 0; height: 70px; padding: 0 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(242, 241, 238, 0.95); backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(43,45,66,0.1); z-index: 2001;
 }
+.art-back { background: none; border: none; font-family: 'Space Mono',monospace; font-size: .65rem; cursor: pointer; }
+.art-wrap { max-width: 750px; margin: 0 auto; }
+.art-cover { width: 100%; height: auto; margin: 2rem 0; border-radius: 2px; display: block; }
 
-.art-back {
-  background: none;
-  border: none;
-  font-family: var(--mono);
-  font-size: .65rem;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-  color: var(--ink);
-  padding: 10px 0;
-}
-
-.art-wrap {
-  max-width: 750px;
-  margin: 0 auto;
-}
-
-.art-cover {
-  width: 100%;
-  height: auto;
-  margin: 2rem 0 3rem;
-  border-radius: 2px;
-  display: block;
-}
-
-/* 讓文章出現時有一點淡入效果 */
-.art-overlay.show .art-wrap {
-  animation: artFadeIn 0.8s ease forwards;
-}
-
-@keyframes artFadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* 修正原本的動畫初始狀態 */
-.rev { opacity: 0; transform: translateY(20px); transition: all .8s ease; }
-.rev.in { opacity: 1; transform: translateY(0); }
-  
-  /* Back to Top 按鈕樣式 */
+/* --- Back to Top 按鈕外觀 --- */
 #backToTop {
   position: fixed; bottom: 40px; right: 40px; z-index: 999;
-  border: 1px solid var(--border); background: rgba(242, 241, 238, 0.8);
-  backdrop-filter: blur(5px); color: var(--ink); cursor: pointer;
-  padding: 12px 15px; font-family: var(--mono); font-size: 0.6rem;
+  border: 1px solid rgba(43,45,66,0.1); background: rgba(242, 241, 238, 0.8);
+  backdrop-filter: blur(5px); color: #2b2d42; cursor: pointer;
+  padding: 12px 15px; font-family: 'Space Mono',monospace; font-size: 0.6rem;
   letter-spacing: 0.1em; transition: all 0.4s; opacity: 0; visibility: hidden;
 }
 #backToTop.show { opacity: 1; visibility: visible; }
-#backToTop:hover { background: var(--ink); color: var(--bg); }
+.art-overlay.show { 
+  display: block !important; 
+  opacity: 1 !important; 
+  visibility: visible !important; 
+  z-index: 3000 !important; 
+}
+#artWrap { background: var(--bg); min-height: 100vh; }
 </style>
 </head>
 <body>
@@ -448,10 +403,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 
   </main>
   <button id="backToTop" onclick="scrollToTop()" style="position: fixed; bottom: 40px; right: 40px; z-index: 999; border: 1px solid var(--border); background: rgba(242, 241, 238, 0.8); backdrop-filter: blur(5px); color: var(--ink); cursor: pointer; padding: 12px 15px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; transition: all 0.4s; opacity: 0; visibility: hidden;">↑ TOP</button>
-  <div class="art-overlay" id="artOverlay">
-</div>
-  
-
 <!-- ARTICLE OVERLAY -->
 <div class="art-overlay" id="artOverlay">
   <div class="art-nav">
@@ -597,62 +548,31 @@ var POSTS = [
   }
   */
 ];
+// --- 唯一保留的開啟文章函數 ---
 function openArt(id) {
   var p = POSTS.find(x => x.id === id);
   if (!p) return;
-  document.getElementById('artWrap').innerHTML = `
+  
+  var wrap = document.getElementById('artWrap');
+  var overlay = document.getElementById('artOverlay');
+  
+  wrap.innerHTML = `
     <div style="font-family:var(--mono);font-size:.6rem;color:var(--blue-mid);text-transform:uppercase;letter-spacing:.1em">${p.cat}</div>
-    <h1 style="font-size:2.5rem;margin:1rem 0;font-family:var(--serif)">${p.title}</h1>
+    <h1 style="font-size:2.5rem;margin:1rem 0;font-family:var(--serif);color:#2b2d42;">${p.title}</h1>
     <div style="font-family:var(--mono);font-size:.6rem;margin-bottom:2rem;color:var(--muted)">${p.date}</div>
-    <img class="art-cover" src="${p.img}">
-    <div style="line-height:2;font-family:'Noto Serif TC'">${p.content}</div>
+    <img src="${p.img}" style="width:100%; margin-bottom:2rem; border-radius:2px; display:block;">
+    <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem;">${p.content}</div>
   `;
-  document.getElementById('artOverlay').classList.add('show');
+  
+  overlay.classList.add('show');
   document.body.style.overflow = 'hidden';
+  overlay.scrollTop = 0; // 確保每次點開都在文章頂部
 }
 
+// --- 唯一保留的關閉文章函數 ---
 function closeArt() {
   document.getElementById('artOverlay').classList.remove('show');
   document.body.style.overflow = '';
-}
-
-function filterCat(catName) {
-  const items = document.querySelectorAll('.journal-item');
-  items.forEach(item => {
-    const catText = item.querySelector('.j-cat').innerText;
-    if (catName === 'all' || catText.includes(catName)) {
-      item.style.display = 'flex';
-    } else {
-      item.style.display = 'none';
-    }
-  });
-}
-
-function filterGallery(tag, event) {
-  const filters = document.querySelectorAll('.g-filter');
-  filters.forEach(f => { f.style.opacity = '0.5'; f.style.borderBottom = 'none'; });
-  if (event) { event.target.style.opacity = '1'; event.target.style.borderBottom = '1px solid var(--ink)'; }
-  const items = document.querySelectorAll('.g-item');
-  items.forEach(item => {
-    if (tag === 'all' || item.classList.contains(tag)) item.style.display = 'block';
-    else item.style.display = 'none';
-  });
-}
-
-var obs = new IntersectionObserver(es => {
-  es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-}, {threshold: .1});
-document.querySelectorAll('.rev').forEach(el => obs.observe(el));
-// 監控捲動距離
-window.addEventListener('scroll', function() {
-  var btn = document.getElementById("backToTop");
-  if (window.pageYOffset > 500) { btn.classList.add("show"); } 
-  else { btn.classList.remove("show"); }
-});
-
-// 點擊捲回頂部
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 </body>
