@@ -44,33 +44,38 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 
 /* HERO - 控制背景照片與層次 */
 .hero {
-  min-height: 100vh; /* 讓開場更有大作的感覺，佔滿螢幕 */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 8%;
   position: relative;
   overflow: hidden;
-  background-color: var(--bg); /* 保底色 */
+
+  /* 1. 確保這裡的網址是 raw.githubusercontent... */
+  background-image: url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal02.jpg'); 
   
-  /* --- 這裡換成妳的照片網址 --- */
-  background-image: url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal01.jpg'); 
+  /* 2. 讓照片鋪滿，不重複 */
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  
+  /* 3. 如果想讓照片有「捲動時不動」的高級感，取消下面這行的註解 */
+  /* background-attachment: fixed; */
 }
 
-/* 這是那層「淡化層」，讓照片變模糊或變淡，文字才清楚 */
+/* 遮罩層：如果照片太暗或太亮，改這裡的 0.85 */
 .hero-bg {
   position: absolute;
   inset: 0;
-  /* rgba(242, 241, 238, 0.85) 這裡的 0.85 就是淡化的關鍵，數值越高照片越淡 */
   background-color: rgba(242, 241, 238, 0.85); 
   z-index: 1;
 }
 
+/* 文字層：確保 z-index 比背景高 */
 .hero-content {
   position: relative;
-  z-index: 2; /* 確保文字在淡化層上面 */
+  z-index: 2; 
 }
 
 .hero-h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
