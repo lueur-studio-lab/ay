@@ -278,6 +278,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 /* 修正原本的動畫初始狀態 */
 .rev { opacity: 0; transform: translateY(20px); transition: all .8s ease; }
 .rev.in { opacity: 1; transform: translateY(0); }
+  
+  /* Back to Top 按鈕樣式 */
+#backToTop {
+  position: fixed; bottom: 40px; right: 40px; z-index: 999;
+  border: 1px solid var(--border); background: rgba(242, 241, 238, 0.8);
+  backdrop-filter: blur(5px); color: var(--ink); cursor: pointer;
+  padding: 12px 15px; font-family: var(--mono); font-size: 0.6rem;
+  letter-spacing: 0.1em; transition: all 0.4s; opacity: 0; visibility: hidden;
+}
+#backToTop.show { opacity: 1; visibility: visible; }
+#backToTop:hover { background: var(--ink); color: var(--bg); }
 </style>
 </head>
 <body>
@@ -436,7 +447,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     </footer>
 
   </main>
+  <button id="backToTop" onclick="scrollToTop()" style="position: fixed; bottom: 40px; right: 40px; z-index: 999; border: 1px solid var(--border); background: rgba(242, 241, 238, 0.8); backdrop-filter: blur(5px); color: var(--ink); cursor: pointer; padding: 12px 15px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; transition: all 0.4s; opacity: 0; visibility: hidden;">↑ TOP</button>
+  <div class="art-overlay" id="artOverlay">
 </div>
+  
 
 <!-- ARTICLE OVERLAY -->
 <div class="art-overlay" id="artOverlay">
@@ -629,6 +643,17 @@ var obs = new IntersectionObserver(es => {
   es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
 }, {threshold: .1});
 document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+// 監控捲動距離
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById("backToTop");
+  if (window.pageYOffset > 500) { btn.classList.add("show"); } 
+  else { btn.classList.remove("show"); }
+});
+
+// 點擊捲回頂部
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 </body>
 </html>
