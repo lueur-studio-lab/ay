@@ -18,35 +18,35 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--serif);background:var(--bg);color:var(--ink);overflow-x:hidden;font-size:16px;line-height:1.8}
 
-/* --- 新增：主頁面側邊欄佈局 --- */
+/* --- 核心佈局修正 --- */
 .main-wrapper {
-  display: grid;
-  grid-template-columns: 1fr; /* 手機版單欄 */
+  display: flex;
+  flex-direction: column;
 }
 @media(min-width: 1024px) {
   .main-wrapper {
-    grid-template-columns: 260px 1fr; /* 電腦版雙欄 */
+    flex-direction: row; /* 電腦版左右並排 */
   }
 }
 
-/* 側邊欄樣式 */
+/* 側邊欄：修正層級與位置 */
 .sidebar {
   background: var(--bg);
   border-right: 1px solid var(--border);
-  padding: 80px 2.5rem 3rem; /* 留出頂部導航空間 */
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  z-index: 150;
+  padding: 100px 2.5rem 3rem; 
+  width: 100%;
 }
 @media(min-width: 1024px) {
   .sidebar {
+    width: 280px;
     position: sticky;
     top: 0;
     height: 100vh;
+    flex-shrink: 0;
   }
 }
 
+.side-group { margin-bottom: 3rem; }
 .side-group h3 {
   font-family: var(--mono);
   font-size: .65rem;
@@ -66,75 +66,85 @@ body{font-family:var(--serif);background:var(--bg);color:var(--ink);overflow-x:h
   font-size: .95rem;
   color: var(--ink2);
   transition: all .3s;
+  cursor: pointer;
 }
 .side-list a:hover { color: var(--blue); padding-left: 5px; }
 
 /* 內容主區塊 */
-.content-area { width: 100%; overflow: hidden; }
+.content-area { flex-grow: 1; width: 100%; overflow-x: hidden; }
 
-/* NAV - 微調導航寬度以配合側邊欄 */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:60px;background:rgba(242,241,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+/* NAV：確保在最上層 */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:60px;background:rgba(242,241,238,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .logo{font-family:var(--mono);font-size:.85rem;letter-spacing:.04em;color:var(--ink);text-decoration:none;font-style:italic}
 .logo span{color:var(--blue)}
 .nav-r{display:flex;align-items:center;gap:1.5rem}
-.nav-r a{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
-.nav-r a:hover{color:var(--blue)}
+.nav-r a{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
 
-/* HERO & SECTIONS 繼承原本樣式 */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:100px 10% 80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(74,90,122,.08) 0%,transparent 60%),linear-gradient(170deg,#f2f1ee 0%,#eceae5 100%)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:50px 50px;opacity:.3}
-.hero-content{position:relative;z-index:1;max-width:700px}
-.hero-h1{font-family:var(--serif);font-size:clamp(2.8rem,7vw,6rem);font-weight:400;line-height:1.05;letter-spacing:-.02em;margin-bottom:.5rem;opacity:0;animation:up .9s .4s forwards}
-.hero-h1 em{font-style:italic;color:var(--blue)}
+/* HERO */
+.hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding:100px 8%;position:relative}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 40%,rgba(74,90,122,.05) 0%,transparent 60%)}
+.hero-h1{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5rem);line-height:1.1;margin-bottom:1.5rem}
+.hero-desc{max-width:500px;font-size:0.9rem;color:var(--ink2);margin-bottom:2rem}
+
+/* TICKER */
+.ticker{background:var(--ink);color:var(--bg);padding:12px 0;overflow:hidden;white-space:nowrap;font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase}
+.tick-inner{display:inline-block;animation:scroll 30s linear infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* POSTS GRID */
-.sec{padding:6rem 10%}
-.posts-grid{display:grid;grid-template-columns:1fr;gap:3px;align-items:start}
-@media(min-width:600px){.posts-grid{grid-template-columns:1fr 1fr}}
-.pc{position:relative;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;background:var(--bg2);transition:transform .3s}
-.pc:hover{transform:translateY(-3px)}
-.pi{width:100%;aspect-ratio:4/3;position:relative;overflow:hidden;background:var(--bg2);display:flex;align-items:center;justify-content:center}
-.ps{width:100%;height:100%;background-size:cover!important;background-repeat:no-repeat!important;background-position:center!important;transition:transform .6s}
-.pinfo{padding:1.1rem 1.3rem 1.5rem;background:var(--bg2);flex-grow:1}
-.pinfo-cat{font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:.35rem}
-.pinfo-title{font-family:var(--serif);font-size:1rem;line-height:1.35;margin-bottom:.35rem}
+.sec{padding:5rem 8%}
+.sec-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:1rem}
+.posts-grid{display:grid;grid-template-columns:1fr;gap:2rem}
+@media(min-width:700px){.posts-grid{grid-template-columns:1fr 1fr}}
 
-/* ABOUT & FOOTER 樣式保持不變 */
-#about{background:var(--bg2);padding:6rem 10%}
-.about-grid{display:grid;grid-template-columns:1fr;gap:3rem}
-@media(min-width:800px){.about-grid{grid-template-columns:1fr 1.5fr;align-items:center}}
-.about-bio{font-size:.95rem;color:var(--ink2);line-height:1.95;margin-bottom:1rem;font-family:'Noto Serif TC',serif;font-weight:300}
+.pc{display:flex;flex-direction:column;cursor:pointer;transition:transform .4s}
+.pc:hover{transform:translateY(-5px)}
+.pi{aspect-ratio:4/3;overflow:hidden;background:#ddd}
+.ps{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .6s}
+.pc:hover .ps{transform:scale(1.05)}
+.pinfo{padding:1.5rem 0}
+.pinfo-cat{font-family:var(--mono);font-size:.5rem;color:var(--blue-mid);margin-bottom:.5rem;letter-spacing:.1em}
+.pinfo-title{font-size:1.1rem;margin-bottom:.5rem}
+.pinfo-date{font-family:var(--mono);font-size:.6rem;color:var(--muted)}
 
-/* ARTICLE OVERLAY保持不變 */
-.art-overlay{position:fixed;inset:0;z-index:500;background:var(--bg);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s,transform .4s;transform:translateY(16px)}
-.art-overlay.open{opacity:1;pointer-events:all;transform:translateY(0)}
+/* ABOUT */
+#about{background:var(--bg2);padding:6rem 8%}
+.about-grid{display:grid;grid-template-columns:1fr;gap:4rem}
+@media(min-width:1000px){.about-grid{grid-template-columns:1.2fr 1fr}}
+.about-bio{margin-bottom:1.5rem;font-family:'Noto Serif TC';font-weight:300}
+
+/* STRIP (影像記錄) */
+#strip { padding: 4rem 0; background: var(--bg); overflow: hidden; }
+.strip-row { display: flex; gap: 15px; padding: 0 8%; overflow-x: auto; scrollbar-width: none; }
+.strip-item { flex: 0 0 250px; }
+.ss { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; }
+.sc { font-family: var(--mono); font-size: .5rem; margin-top: .8rem; text-align: center; }
+
+/* OVERLAY */
+.art-overlay{position:fixed;inset:0;z-index:2000;background:var(--bg);overflow-y:auto;display:none;padding:80px 10%}
+.art-overlay.open{display:block}
+.art-nav{position:fixed;top:0;left:0;right:0;height:60px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:1px solid var(--border)}
+.art-back{background:none;border:none;font-family:var(--mono);font-size:.6rem;cursor:pointer;text-transform:uppercase}
+.art-wrap{max-width:800px;margin:0 auto}
+.art-cover{width:100%;margin:2rem 0}
+
+/* FOOTER */
+footer{padding:5rem 8%;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:2rem}
+.f-copy{font-family:var(--mono);font-size:.55rem;color:var(--muted)}
 
 /* ANIMATIONS */
-@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.rev{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rev{opacity:0;transform:translateY(20px);transition:all .8s ease}
 .rev.in{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
-
-<!-- ══════════════════════════════════════
-  ✦ 編輯說明
-  新增文章：
-    1. 在 RECENT 區塊加一個 .pc 卡片
-    2. 在 JOURNAL 區塊加一個 .j-item
-    3. 在 POSTS DATA 加一筆資料
-  新增照片串：在 STRIP 加 strip-item（記得複製到下半段）
-  GitHub 圖片網址：
-  https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/檔名.jpg
-══════════════════════════════════════ -->
 
 <nav>
   <a class="logo" href="#"><span>l</span>ueur.studio</a>
   <div class="nav-r">
     <a href="#recent">日常</a>
     <a href="#about">關於</a>
-    <span class="nav-loc">Paris, FR</span>
+    <span style="font-family:var(--mono);font-size:.55rem;color:var(--muted)">Paris, FR</span>
   </div>
 </nav>
 
@@ -146,16 +156,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
       <ul class="side-list">
         <li><a href="#recent">Recent Moments</a></li>
         <li><a href="#about">關於安兒</a></li>
-        <li><a href="#" onclick="openArt('a3')">攝影相簿 / Gallery</a></li>
+        <li><a onclick="openArt('a3')">攝影相簿 / Gallery</a></li>
       </ul>
     </div>
 
     <div class="side-group">
       <h3>分類 · Categories</h3>
       <ul class="side-list">
-        <li><a href="#" onclick="filterCat('巴黎日常')">巴黎日常</a></li>
-        <li><a href="#" onclick="filterCat('旅行日記')">旅行日記</a></li>
-        <li><a href="#" onclick="filterCat('all')">顯示全部 (All)</a></li>
+        <li><a onclick="filterCat('巴黎日常')">巴黎日常</a></li>
+        <li><a onclick="filterCat('旅行日記')">旅行日記</a></li>
+        <li><a onclick="filterCat('all')">顯示全部 (All)</a></li>
       </ul>
     </div>
   </aside>
@@ -164,66 +174,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
     
     <section class="hero">
       <div class="hero-bg"></div>
-      <div class="hero-grid"></div>
-      <div class="hero-deco">lueur</div>
       <div class="hero-content">
-        <p class="hero-tag">Est. 2026 · 巴黎日常 · Chroniques Parisiennes</p>
-        <h1 class="hero-h1">冷淡的凝視<br><em>fragments</em></h1>
-        <p class="hero-en">Silent Observation from Paris</p>
-        <div class="hero-line"></div>
-        <p class="hero-desc">不是旅遊攻略，不是打卡清單。只是一個住在巴黎的人，記錄那些真實的、有時候無聊的、偶爾很美的日常碎片。<br><br>Beauty found in the mundane and the overlooked.</p>
-        <div class="hero-links">
-          <a href="#recent" class="lund">最新日常</a>
-          <a href="#about" class="lund">認識我</a>
+        <p class="sec-label rev">Est. 2026 · Chroniques Parisiennes</p>
+        <h1 class="hero-h1 rev">冷淡的凝視<br><i style="font-weight:400;color:var(--blue)">fragments</i></h1>
+        <p class="hero-desc rev">不是旅遊攻略，不是打卡清單。只是一個住在巴黎的人，記錄那些真實、無聊且偶爾很美的日常碎片。</p>
+        <div class="hero-links rev">
+          <a href="#recent" style="font-family:var(--mono);font-size:.6rem;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px">最新日常 →</a>
         </div>
       </div>
     </section>
 
     <div class="ticker">
       <div class="tick-inner">
-        <span class="tick-item">巴黎日常<span class="tick-sep">✦</span></span>
-        <span class="tick-item">lueur.studio<span class="tick-sep">✦</span></span>
-        <span class="tick-item">Fragment<span class="tick-sep">✦</span></span>
-        <span class="tick-item">Paris · France<span class="tick-sep">✦</span></span>
-        <span class="tick-item">攝影 · 寫作<span class="tick-sep">✦</span></span>
-        <span class="tick-item">微光<span class="tick-sep">✦</span></span>
-        <span class="tick-item">巴黎日常<span class="tick-sep">✦</span></span>
-        <span class="tick-item">lueur.studio<span class="tick-sep">✦</span></span>
-        <span class="tick-item">Fragment<span class="tick-sep">✦</span></span>
-        <span class="tick-item">Paris · France<span class="tick-sep">✦</span></span>
+        PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ 
       </div>
     </div>
 
     <section id="recent" class="sec">
-      <div class="sec-top">
-        <div><p class="sec-label rev">最近的日子</p><h2 class="sec-h rev">Recent <em>moments</em></h2></div>
-      </div>
-      <hr class="rule rev">
+      <p class="sec-label rev">最近的日子 / Recent moments</p>
       <div class="posts-grid">
         <div class="pc rev" onclick="openArt('a1')">
-          <div class="pi">
-            <div class="ps" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div>
-          </div>
+          <div class="pi"><div class="ps" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div></div>
           <div class="pinfo">
             <div class="pinfo-cat">巴黎日常</div>
             <div class="pinfo-title">巴黎的星期天是用來什麼都不做的</div>
             <div class="pinfo-date">2026.04.01</div>
           </div>
         </div>
-        <div class="pc rev d1" onclick="openArt('a2')">
-          <div class="pi">
-            <div class="ps" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg')"></div>
-          </div>
+        <div class="pc rev" onclick="openArt('a2')">
+          <div class="pi"><div class="ps" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg')"></div></div>
           <div class="pinfo">
             <div class="pinfo-cat">巴黎日常</div>
             <div class="pinfo-title">放空也是一種奢侈</div>
             <div class="pinfo-date">2026.04.04</div>
           </div>
         </div>
-        <div class="pc rev d2" onclick="openArt('a3')">
-          <div class="pi">
-            <div class="ps" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg')"></div>
-          </div>
+        <div class="pc rev" onclick="openArt('a3')">
+          <div class="pi"><div class="ps" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg')"></div></div>
           <div class="pinfo">
             <div class="pinfo-cat">巴黎日常</div>
             <div class="pinfo-title">羅浮宮的夜</div>
@@ -233,145 +220,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
       </div>
     </section>
 
+    <section id="strip">
+      <p class="sec-label rev" style="padding-left:8%">影像記錄 · Visual Diary</p>
+      <div class="strip-row">
+        <div class="strip-item"><div class="ss" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div><div class="sc">Paris</div></div>
+        <div class="strip-item"><div class="ss" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg')"></div><div class="sc">Musée Rodin</div></div>
+        <div class="strip-item"><div class="ss" style="background-image:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg')"></div><div class="sc">Louvre</div></div>
+      </div>
+    </section>
+
     <section id="about" class="sec">
-      </section>
+      <div class="about-grid">
+        <div class="rev">
+          <p class="sec-label">ABOUT ME</p>
+          <h2 style="font-size:2.5rem;margin-bottom:2rem">住在巴黎的<br>安兒</h2>
+          <p class="about-bio">幾年前搬來巴黎，起初以為這是一場遠行，後來才發現，這已成了我的生活方式。習慣帶著手機走進瑪黑區的蜿蜒巷弄，拾起破碎的光影與記憶。</p>
+          <p class="about-bio">這個空間，是我寫給自己、也留給你的私語。</p>
+        </div>
+        <div class="rev" style="background:var(--pale);aspect-ratio:1;display:flex;align-items:center;justify-content:center;color:white;font-style:italic">lueur</div>
+      </div>
+    </section>
 
     <footer>
-      <div class="f-copy">© 2026 lueur.studio · Paris</div>
+      <a class="logo" href="#">lueur.studio</a>
+      <div class="f-copy">© 2026 lueur.studio · Paris · Silent Observation</div>
     </footer>
 
-  </main> </div> <div id="artOverlay" class="art-overlay">
-  <nav class="art-nav">
-    <button class="art-back" onclick="closeArt()">← Back</button>
-    <a class="art-logo" href="#"><span>l</span>ueur.studio</a>
-  </nav>
+  </main> </div> <div class="art-overlay" id="artOverlay">
+  <div class="art-nav">
+    <button class="art-back" onclick="closeArt()">← BACK</button>
+    <a class="logo" href="#"><span>l</span>ueur.studio</a>
+  </div>
   <div id="artWrap" class="art-wrap"></div>
 </div>
-</section>
 
-<!-- ══ STRIP ══ -->
-<section id="strip">
-  <p class="strip-lbl rev">影像記錄 · Visual Diary</p>
-  <div class="strip-row">
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div><div class="sc">Paris</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg')"></div><div class="sc">Musée Rodin</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg')"></div><div class="sc">Musée du Louvre</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg')"></div><div class="sc">Bourse de Commerce</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/lvfoundation.jpg')"></div><div class="sc">LV Foundation</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal.jpg')"></div><div class="sc">Palais Royal</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg')"></div><div class="sc">Paris</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/MuseeRodin.jpg')"></div><div class="sc">Musée Rodin</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg')"></div><div class="sc">Musée du Louvre</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg')"></div><div class="sc">Bourse de Commerce</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/lvfoundation.jpg')"></div><div class="sc">LV Foundation</div></div>
-    <div class="strip-item"><div class="ss" style="background:url('https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/palaisroyal.jpg')"></div><div class="sc">Palais Royal</div></div>
-  </div>
-</section>
-
-<!-- ══ JOURNAL ══ -->
-<section class="sec" id="journal">
-  <div class="sec-top">
-    <div><p class="sec-label rev">文章</p><h2 class="sec-h rev">Journal</h2></div>
-  </div>
-  <hr class="rule rev">
-  <div class="j-list">
-
-    <div class="j-item rev" onclick="openArt('a1')">
-      <div class="j-num">01</div>
-      <div>
-        <div class="j-cat">巴黎日常</div>
-        <div class="j-title">巴黎的星期天是用來什麼都不做的</div>
-        <div class="j-excerpt">沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。</div>
-      </div>
-      <div class="j-right">
-        <div class="j-date">2026.04.01</div>
-        <div class="j-arr">→</div>
-      </div>
-    </div>
-
-    <div class="j-item rev d1" onclick="openArt('a2')">
-      <div class="j-num">02</div>
-      <div>
-        <div class="j-cat">巴黎日常</div>
-        <div class="j-title">放空也是一種奢侈</div>
-        <div class="j-excerpt">一個人的巴黎午後，在皮諾私人美術館的穹頂之下，放空，也是一種奢侈。</div>
-      </div>
-      <div class="j-right">
-        <div class="j-date">2026.04.04</div>
-        <div class="j-arr">→</div>
-      </div>
-    </div>
-
-    <div class="j-item rev d2" onclick="openArt('a3')">
-      <div class="j-num">03</div>
-      <div>
-        <div class="j-cat">巴黎日常</div>
-        <div class="j-title">羅浮宮的夜</div>
-        <div class="j-excerpt">每月第一個週五夜晚，免費開放的羅浮宮——再度造訪，才發現記憶比想像中更容易消散。</div>
-      </div>
-      <div class="j-right">
-        <div class="j-date">2026.04.05</div>
-        <div class="j-arr">→</div>
-      </div>
-    </div>
-
-    <!-- 新文章貼在這裡 -->
-  </div>
-</section>
-
-<!-- ══ ABOUT ══ -->
-<section id="about" class="sec">
-  <div class="about-grid">
-    <div class="about-vis rev">
-      <div class="av-sim"></div>
-      <div class="av-grid"></div>
-      <div class="av-word">lueur</div>
-      <div class="av-lbl">Paris, France · 2026</div>
-    </div>
-    <div>
-      <p class="sec-label rev">關於我 · About</p>
-      <h2 class="about-name rev">住在<em>巴黎</em>的<br>安兒</h2>
-      <p class="about-sub rev">隨手攝影 · 巴黎日常 · 歐洲生活 · 旅行日記</p>
-      <div class="about-divider rev"></div>
-      <p class="about-bio rev">幾年前搬來巴黎，起初以為這是一場遠行，後來才發現，這已成了我的生活方式。習慣帶著手機走進瑪黑區的蜿蜒巷弄，在那些平凡與不凡交織的日常裡，拾起破碎的<em>光影與記憶</em>，將它們編織成冊。</p>
-      <p class="about-bio rev">這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴，就讓照片與文字替我紀錄著。</p>
-      <div class="about-tags rev">
-        <span class="atag">巴黎日常</span>
-        <span class="atag">歐洲生活</span>
-        <span class="atag">台灣人在巴黎</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div>
-    <a class="f-logo" href="#">lueur.studio</a>
-    <div class="f-tagline">——那些在巴黎的尋常日子</div>
-  </div>
-  <div class="f-links">
-    <a class="f-link" href="#recent">日常</a>
-    <a class="f-link" href="#journal">Journal</a>
-    <a class="f-link" href="#about">關於</a>
-    <a class="f-link" href="https://instagram.com/yunw_studio" target="_blank">Instagram</a>
-  </div>
-  <div class="f-copy">© 2026 lueur.studio · Paris</div>
-</footer>
-
-<!-- ══ ARTICLE VIEW ══ -->
-<div class="art-overlay" id="artOverlay">
-  <div class="art-nav">
-    <button class="art-back" id="artBack">← 返回</button>
-    <a class="art-logo" href="#" id="artLogoBtn"><span>l</span>ueur.studio</a>
-  </div>
-  <div class="art-wrap" id="artWrap"></div>
-</div>
-
-<!-- ══════════════════════════════════════
-  ✦ POSTS DATA — 文章內容
-  新增文章時複製一筆，記得加逗號
-  img 的 pyramidedulouvre.jpg 請先上傳到 GitHub
-══════════════════════════════════════ -->
 <script>
 var POSTS = [
   {
@@ -380,27 +262,7 @@ var POSTS = [
     cat: '巴黎日常',
     date: '2026.04.01',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg',
-    content: `
-      <p>上週末，一個興起。</p>
-      <p>沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。</p>
-      <p>星期天，當然人很多。這是預料中的事。</p>
-      <p>但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。</p>
-      <p>要了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。</p>
-      <p>就這樣一直待到快打烊。</p>
-      <p>走出店外，天空還亮著。</p>
-      <p>夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。</p>
-      <p><em>C'est ça, le bonheur.</em></p>
-      <hr>
-      <p>Last Sunday, on a whim.</p>
-      <p>No plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door. The destination: a Korean café I'd been saving on my phone for months — the kind of place you screenshot on Instagram and never quite get around to visiting.</p>
-      <p>Sunday, so of course it was packed. I knew it would be.</p>
-      <p>But the moment I walked in, a single bar stool opened up. Something like fate. I sat down.</p>
-      <p>Ordered a coffee, opened the notebook, and started writing — all the things that had been piling up in my head, unprocessed. No one knew me here. The noise around me softened into white noise, and somehow my thoughts became clearer.</p>
-      <p>I stayed until almost closing time.</p>
-      <p>Walking out, the sky was still light.</p>
-      <p>That's Paris in summer time — nearly half past seven in the evening and the light still refuses to leave. Standing there on the pavement, I thought: this is exactly what Sundays should feel like. You don't need to do anything meaningful. Just exist, quietly, for a while.</p>
-      <p><em>C'est ça, le bonheur.</em></p>
-    `
+    content: `<p>上週末，一個興起。沒有計畫，沒有行程，只是好好地存在就夠了。</p>`
   },
   {
     id: 'a2',
@@ -408,27 +270,7 @@ var POSTS = [
     cat: '巴黎日常',
     date: '2026.04.04',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/boursedecommerce.jpg',
-    content: `
-      <p>三月中旬的某一天，預約了下午場的巴黎證券交易所——皮諾私人美術館。</p>
-      <p>沒有特別去研究當期的展覽主題，只是帶著一份期待與好奇，就這樣出發了。</p>
-      <p>平日的午後，人潮稀落。踏入展廳，穹頂之下的空間靜謐而開闊，每一位觀展的人都安靜地凝視著前方的大螢幕，影像緩緩流動。</p>
-      <p>時間彷彿在此凝止。我也找了個位置坐下，似懂非懂地看著螢幕上的畫面，卻意外地感到一種平靜。</p>
-      <p>起身，走上樓層，每一件展品似乎都在訴說著什麼。不確定自己能否完全共鳴，但在駐足與思索之間，思緒反而漸漸變得清晰。</p>
-      <p>就這樣走走停停，在不同的展間裡緩行，心靈也在不知不覺中被滋養了。</p>
-      <p>直到閉館時刻，趁著夜色步出，搭上地鐵。</p>
-      <p>這個平凡的藝術午後，我很喜歡——是屬於自己的 ME TIME。</p>
-      <p><em>有時候，放空也是一種奢侈。而這樣的時光，正是現在要好好珍惜的。</em></p>
-      <hr>
-      <p>One afternoon in mid-March, I booked a ticket for the Bourse de Commerce — Pinault Collection.</p>
-      <p>I hadn't researched the current exhibition beforehand. I simply showed up, carrying nothing but curiosity and a quiet sense of anticipation.</p>
-      <p>It was a weekday afternoon, and the crowds were few. Stepping into the main hall, I found myself beneath a vast, domed ceiling — hushed and expansive.</p>
-      <p>Visitors stood or sat in stillness, their eyes fixed on a large screen where images moved at an unhurried pace. Time seemed to pause. I found a seat and settled in, watching the film without fully understanding it, yet feeling, somehow, at ease.</p>
-      <p>I eventually rose and made my way upstairs. Each piece seemed to be saying something — whether I truly grasped it or not, I wasn't always sure. But the act of pausing, of wondering, had a strange clarifying effect.</p>
-      <p>I drifted from room to room, unhurried, and somewhere in that gentle wandering, I felt something in me quietly restored.</p>
-      <p>When closing time came, I stepped out into the evening and caught the metro home.</p>
-      <p>It was an ordinary afternoon, and yet — I loved it. A ME TIME, entirely my own.</p>
-      <p><em>Sometimes, doing nothing is a luxury. And perhaps that's exactly what's worth holding onto, right now.</em></p>
-    `
+    content: `<p>平日的午後，人潮稀落。在皮諾私人美術館，時間彷彿在此凝止。</p>`
   },
   {
     id: 'a3',
@@ -436,59 +278,21 @@ var POSTS = [
     cat: '巴黎日常',
     date: '2026.04.05',
     img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/pyramidedulouvre.jpg',
-    content: `
-      <p>每個月的第一個週五晚上，羅浮宮開放免費預約入場。</p>
-      <p>距離上一次造訪，已是整整一年前的事了。</p>
-      <p>入夜後的羅浮宮，和白天是截然不同的。燈光打在石砌的廊柱上，泛著一種沉靜的金黃；走廊裡的人聲輕了，腳步也慢了，彷彿夜色本身替這座宮殿換上了另一副面孔。</p>
-      <figure style="margin: 3rem 0; text-align: center;">
-      <img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/WingedVictoryofSamothrace.jpg" style="width:100%; height:auto; display:block; border-radius:2px;">
-      <figcaption style="font-size: 0.8rem; color: #999; margin-top: 1rem; font-family: var(--mono);">Winged Victory of Samothrace</figcaption>
-      </figure>
-      <p>那時恰逢高訂展，展品與各個廳室的搭配渾然天成，留下了深刻的印象。然而這次重遊，記憶卻變得模糊——許多展品與畫作，彷彿似曾相識，又彷彿從未謀面。</p>
-      <p>大多數的細節已悄然淡去，唯有勝利女神那份凌空而立的優雅，依然清晰地刻在腦海之中。</p>
-      <p style="margin-top: 2rem; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #666;">
-      與朋友邊走邊聊，說的不全是眼前的畫，更多是生活裡的瑣碎與近況。有時走著走著，話題自然停了，各自在某件展品前沉默片刻，再繼續前行。這種陪伴不需要解釋，卻讓整個夜晚多了一份溫度。
-      </p>
-      <p>我們不約而同地感嘆：好幾次來看展，卻從未認真聆聽過那些著名畫作背後的故事與解說。或許，在往後的日子裡，這次的記憶也只剩下一句話：曾經來過，知道蒙娜麗莎在此。</p>
-      <p><em>在未來的某日回想起，大概會笑著說：那晚我們在羅浮宮閒晃，什麼都沒認真看，卻什麼都沒有白走。</em></p>
-      <hr style="margin: 4rem 0 2rem; border: 0; border-top: 1px solid #eee;">
-      <p>On the first Friday evening of each month, the Louvre offers free admission by reservation. It had been exactly a year since my last visit.</p>
-      <p>The Louvre at night is a different place entirely. Light falls across the stone colonnades in a deep, warm gold; the voices soften, the footsteps slow, and the darkness outside seems to settle over the palace like a second skin.</p>
-      <p>That time, a haute couture exhibition was on display, woven seamlessly throughout the galleries. It had left a strong impression. Yet standing here again, the memory felt strangely blurred.</p>
-      <p>Most details had quietly slipped away — all except the Winged Victory of Samothrace, whose poised and timeless grace remained as vivid as ever.</p>
-      <div style="margin: 2.5rem 0; border-left: 2px solid #eee; padding-left: 1.5rem; font-style: italic; color: #888; line-height: 1.7; font-size: 0.95rem;">
-      My friend and I walked and talked — not always about the art, but about life, the small and scattered things that fill the days between visits like this. Every so often, mid-conversation, we'd both fall quiet in front of something, linger for a moment, then move on.
-      </div>      
-      <p>We found ourselves wondering aloud: how many times had we been to places like this, and never once stopped to really listen to the stories behind what we were looking at?</p>
-      <p>Perhaps, in the years to come, this visit will compress into a single line: I went to the Louvre. I saw where the Mona Lisa hangs. And everything else — how much of it will I actually remember?</p>      
-      <p style=font-style: italic;"><em>And someday, looking back, I think we'll laugh and say: we didn't really look at anything that night. But none of it was wasted.</em></p>
-    `
+    content: `<p>入夜後的羅浮宮，和白天是截然不同的。金黃色的燈光，沉靜而優雅。</p>`
   }
-  /* 新文章貼在這裡：
-  ,{
-    id: 'a4',
-    title: '標題',
-    cat: '巴黎日常',
-    date: '2026.XX.XX',
-    img: 'https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/照片.jpg',
-    content: `<p>第一段</p><p>第二段</p>`
-  }
-  */
 ];
+
 function openArt(id) {
-  var p = POSTS.find(function(x){ return x.id === id; });
+  var p = POSTS.find(x => x.id === id);
   if (!p) return;
-  var wrap = document.getElementById('artWrap');
-  wrap.innerHTML =
-    '<div class="art-cat">' + p.cat + '</div>' +
-    '<h1 class="art-title">' + p.title + '</h1>' +
-    '<div class="art-date">' + p.date + '</div>' +
-    (p.img ? '<img class="art-cover" src="' + p.img + '" alt="">' : '') +
-    '<div class="art-body">' + p.content + '</div>' +
-    '<div class="art-foot"><a href="#" class="lund" onclick="closeArt();return false;">← 返回所有文章</a></div>';
-  var ov = document.getElementById('artOverlay');
-  ov.classList.add('open');
-  ov.scrollTop = 0;
+  document.getElementById('artWrap').innerHTML = `
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--blue-mid)">${p.cat}</div>
+    <h1 style="font-size:2.5rem;margin:1rem 0">${p.title}</h1>
+    <div style="font-family:var(--mono);font-size:.6rem;margin-bottom:2rem">${p.date}</div>
+    <img class="art-cover" src="${p.img}">
+    <div style="line-height:2;font-family:'Noto Serif TC'">${p.content}</div>
+  `;
+  document.getElementById('artOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
@@ -497,39 +301,26 @@ function closeArt() {
   document.body.style.overflow = '';
 }
 
-// 綁定關閉按鈕
-if(document.getElementById('artBack')) document.getElementById('artBack').onclick = closeArt;
-if(document.getElementById('artLogoBtn')) {
-  document.getElementById('artLogoBtn').onclick = function(e){ e.preventDefault(); closeArt(); };
-}
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeArt(); });
-
-/* ══ 這裡就是你要補進去的：分類過濾功能 ══ */
 function filterCat(catName) {
   const posts = document.querySelectorAll('.pc');
   posts.forEach(post => {
-    // 抓取卡片裡的分類文字
     const postCat = post.querySelector('.pinfo-cat').innerText;
-    
     if (catName === 'all' || postCat.includes(catName)) {
       post.style.display = 'flex';
-      // 重新觸發動畫效果
       post.classList.remove('in');
       setTimeout(() => post.classList.add('in'), 50);
     } else {
       post.style.display = 'none';
-      post.classList.remove('in');
     }
   });
 }
-/* ══════════════════════════════════ */
 
-// 滾動出現動畫
-var obs = new IntersectionObserver(function(es){
-  es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
-}, {threshold: .08});
-
-document.querySelectorAll('.rev').forEach(function(el){ obs.observe(el); });
+// 滾動動畫偵測
+var obs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold: .1});
+document.querySelectorAll('.rev').forEach(el => obs.observe(el));
 </script>
+
 </body>
 </html>
