@@ -111,63 +111,89 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 <div class="journal-list">
   </div>
   
-/* 1. 讓清單變成三欄網格 */
-.journal-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 強制分成三欄 */
-  gap: 3rem 2rem; /* 文章之間的間距 */
-  margin-top: 3rem;
+/* --- 雜誌風格文章清單 (Journal Style) --- */
+.sec { padding: 6rem 10%; background: #f9f8f5; } /* 增加背景色與留白 */
+.sec-label { 
+  font-family: var(--mono); 
+  font-size: 0.6rem; 
+  letter-spacing: 0.3em; 
+  text-transform: uppercase; 
+  color: #999; 
+  margin-bottom: 2rem; 
+  display: block;
 }
 
-/* 2. 讓每一篇項目變成「上下排版」而非「左右排版」 */
+.journal-list { border-top: 1px solid #eee; }
+
 .journal-item {
   display: flex;
-  flex-direction: column-reverse; /* 讓圖片在上，文字在下 */
-  border-bottom: none !important; /* 拿掉醜醜的底線 */
+  align-items: center;
+  padding: 3rem 0;
+  border-bottom: 1px solid #eee;
   cursor: pointer;
-  transition: 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  gap: 3rem;
 }
 
-/* 3. 調整圖片的樣子 */
+/* 滑過時：背景微變、整體向右滑動 */
+.journal-item:hover { 
+  background: rgba(255,255,255,0.5); 
+  padding-left: 2rem; 
+}
+
+/* 左側：日期與分類 */
+.j-meta { 
+  flex: 0 0 130px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px;
+  border-right: 1px solid #eee; /* 增加一條細細的分隔線 */
+}
+.j-cat { font-family: var(--mono); font-size: 0.55rem; color: #666; letter-spacing: 0.1em; text-transform: uppercase; }
+.j-date { font-family: var(--mono); font-size: 0.65rem; color: #bbb; }
+
+/* 中間：標題與引言 */
+.j-content { flex-grow: 1; padding: 0 1rem; }
+.j-title { 
+  font-size: 1.6rem; 
+  margin-bottom: 1rem; 
+  font-family: var(--serif); 
+  font-weight: 400; 
+  color: #333; 
+  line-height: 1.3; 
+}
+.j-excerpt { 
+  font-size: 0.9rem; 
+  color: #888; 
+  font-family: 'Noto Serif TC', serif; 
+  line-height: 1.8; 
+  max-width: 600px; 
+  font-weight: 300; 
+}
+
+/* 右側：精緻縮圖 */
 .j-thumb {
-  width: 100%;
-  aspect-ratio: 4 / 5; /* 統一照片比例，很有雜誌感 */
+  width: 180px; /* 寬度稍微加大，更有視覺張力 */
+  aspect-ratio: 3 / 2;
+  flex-shrink: 0;
   background-size: cover;
   background-position: center;
-  margin-bottom: 1.5rem; /* 圖片跟文字的距離 */
-  filter: grayscale(10%);
-  transition: 0.5s;
+  filter: grayscale(90%); /* 平時接近黑白 */
+  transition: 0.8s ease;
+  border-radius: 1px;
 }
 
-/* 4. 滑過時照片變彩色 */
-.journal-item:hover .j-thumb {
-  filter: grayscale(0%);
-  transform: scale(1.02); /* 稍微放大 */
+.journal-item:hover .j-thumb { 
+  filter: grayscale(0%); 
+  transform: scale(1.05); 
 }
 
-/* 5. 標題與文字微調 */
-.j-title {
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  margin: 0.5rem 0;
-  line-height: 1.3;
-}
-
-.j-excerpt {
-  font-size: 0.85rem;
-  color: #777;
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* 最多顯示兩行，超過省略，保持整齊 */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* 手機版自動變回一欄 */
+/* 手機版：自動切換成上下堆疊 */
 @media (max-width: 768px) {
-  .journal-list {
-    grid-template-columns: 1fr;
-  }
+  .sec { padding: 4rem 5%; }
+  .journal-item { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .j-thumb { width: 100%; height: 220px; order: -1; } /* 照片移到最上方 */
+  .j-meta { border-right: none; border-bottom: 1px solid #eee; width: 100%; padding-bottom: 1rem; }
 }
 /* ABOUT & FOOTER */
 #about { 
@@ -472,11 +498,36 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
  
 <script src="data.js"></script>
 <script>
-// --- 唯一保留的開啟文章函數 ---
+/* 1. 自動從 data.js 渲染文章列表 */
+function renderPosts(filter = 'all') {
+  const container = document.querySelector('.journal-list');
+  if (!container) return;
+  container.innerHTML = ''; 
+  
+  // 篩選分類
+  const filtered = filter === 'all' ? POSTS : POSTS.filter(p => p.cat.includes(filter));
+  
+  filtered.forEach(p => {
+    container.innerHTML += `
+      <div class="journal-item rev" onclick="openArt('${p.id}')">
+        <div class="j-meta">
+          <span class="j-cat">${p.cat}</span>
+          <span class="j-date">${p.date}</span>
+        </div>
+        <div class="j-content">
+          <h3 class="j-title">${p.title}</h3>
+          <p class="j-excerpt">${p.excerpt || ""}</p>
+        </div>
+        <div class="j-thumb" style="background-image:url('${p.img}')"></div>
+      </div>
+    `;
+  });
+}
+
+/* 2. 開啟與關閉文章 */
 function openArt(id) {
   var p = POSTS.find(x => x.id === id);
   if (!p) return;
-  
   var wrap = document.getElementById('artWrap');
   var overlay = document.getElementById('artOverlay');
   
@@ -487,21 +538,25 @@ function openArt(id) {
     <img src="${p.img}" style="width:100%; margin-bottom:2rem; border-radius:2px; display:block;">
     <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem;">${p.content}</div>
   `;
-  
   overlay.classList.add('show');
   document.body.style.overflow = 'hidden';
-  overlay.scrollTop = 0; // 確保每次點開都在文章頂部
+  overlay.scrollTop = 0;
 }
 
-// --- 唯一保留的關閉文章函數 ---
 function closeArt() {
   document.getElementById('artOverlay').classList.remove('show');
   document.body.style.overflow = '';
 }
-  /* 1. 監控捲動：控制 Back to Top 出現 */
+
+/* 3. 側邊欄分類 (調用渲染函數) */
+function filterCat(catName) {
+  renderPosts(catName);
+}
+
+/* 4. 監控捲動：Back to Top */
 window.onscroll = function() {
   var btn = document.getElementById("backToTop");
-  // 當捲動超過 400 像素時，幫按鈕加上 .show 類別
+  if (!btn) return;
   if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
     btn.classList.add("show");
   } else {
@@ -509,46 +564,26 @@ window.onscroll = function() {
   }
 };
 
-/* 2. 點擊捲回頂部函數 */
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* 3. 相簿切換邏輯 (Paris / Museum) */
+/* 5. 相簿切換邏輯 */
 function filterGallery(tag, event) {
-  // 處理濾鏡按鈕的視覺反饋 (點擊的變亮，其他變淡)
   const filters = document.querySelectorAll('.g-filter');
-  filters.forEach(f => { 
-    f.style.opacity = '0.5'; 
-    f.style.borderBottom = 'none'; 
-  });
-  if (event) { 
-    event.target.style.opacity = '1'; 
-    event.target.style.borderBottom = '1px solid var(--ink)'; 
-  }
+  filters.forEach(f => { f.style.opacity = '0.5'; f.style.borderBottom = 'none'; });
+  if (event) { event.target.style.opacity = '1'; event.target.style.borderBottom = '1px solid var(--ink)'; }
 
-  // 核心：根據圖片的 class (paris / museum) 來決定顯示或隱藏
   const items = document.querySelectorAll('.g-item');
   items.forEach(item => {
-    if (tag === 'all' || item.classList.contains(tag)) {
-      item.style.display = 'block';
-    } else {
-      item.style.display = 'none';
-    }
+    item.style.display = (tag === 'all' || item.classList.contains(tag)) ? 'block' : 'none';
   });
 }
-/* 4. 側邊欄分類點擊邏輯 */
-function filterCat(catName) {
-  const items = document.querySelectorAll('.journal-item');
-  items.forEach(item => {
-    const catText = item.querySelector('.j-cat').innerText;
-    if (catName === 'all' || catText.includes(catName)) {
-      item.style.display = 'flex';
-    } else {
-      item.style.display = 'none';
-    }
-  });
-}
+
+/* 6. 網頁啟動 */
+window.onload = () => {
+  renderPosts(); // 這一行最重要，它會去抓 data.js 的資料
+};
 </script>
 </body>
 </html>
