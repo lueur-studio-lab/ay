@@ -89,38 +89,67 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .sec{padding:5rem 8%}
 .sec-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:1rem}
 
-.journal-list { border-top: 1px solid var(--border); margin-top: 2rem; }
-.journal-item {
-  display: flex;
-  align-items: center;
-  padding: 2.5rem 0;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.4s ease;
-  gap: 1.5rem;
+  <section id="featured" style="margin-bottom: 6rem; border-bottom: 1px solid var(--border); padding-bottom: 4rem;">
+  <span style="font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--blue-mid); text-transform: uppercase;">Featured Story</span>
+  
+  <div class="featured-flex" onclick="openArt('a1')" style="display: flex; gap: 4rem; align-items: center; margin-top: 2rem; cursor: pointer;">
+    <div style="flex: 1.5;">
+      <img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg" style="width: 100%; height: 500px; object-fit: cover;">
+    </div>
+    <div style="flex: 1;">
+      <div style="font-family: var(--mono); font-size: 0.7rem; color: #999; margin-bottom: 1rem;">PARIS · 01.04.2026</div>
+      <h2 style="font-size: 2.2rem; font-weight: 400; margin-bottom: 1.5rem;">巴黎，星期天</h2>
+      <p style="line-height: 1.8; color: var(--text); opacity: 0.8;">
+        沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。
+      </p>
+      <div style="margin-top: 2rem; font-family: var(--mono); font-size: 0.6rem; border-bottom: 1px solid var(--text); display: inline-block; padding-bottom: 5px;">READ MORE</div>
+    </div>
+  </div>
+</section>
+
+<h3 style="font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--blue-mid); text-transform: uppercase; margin-bottom: 2rem;">Recent Moments</h3>
+<div class="journal-list">
+  </div>
+  
+/* 網格容器 */
+.journal-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+  gap: 4rem 2.5rem; /* 加大間距，營造呼吸感 */
+  margin-top: 3rem;
 }
-.journal-item:hover { background: rgba(255,255,255,0.3); padding-left: 1rem; }
 
-.j-meta { flex: 0 0 120px; display: flex; flex-direction: column; gap: 5px; }
-.j-cat { font-family: var(--mono); font-size: 0.55rem; color: var(--blue); letter-spacing: 0.1em; text-transform: uppercase; }
-.j-date { font-family: var(--mono); font-size: 0.6rem; color: var(--muted); }
-
-.j-content { flex-grow: 1; }
-.j-title { font-size: 1.5rem; margin-bottom: 0.8rem; font-family: var(--serif); font-weight: 400; color: var(--ink); line-height: 1.3; }
-.j-excerpt { font-size: 0.85rem; color: var(--muted); font-family: 'Noto Serif TC'; line-height: 1.8; max-width: 550px; font-weight: 300; }
-
-.j-thumb {
-  width: 110px;
-  aspect-ratio: 3 / 2;
-  flex-shrink: 0;
-  background-size: cover;
-  background-position: center;
-  filter: grayscale(80%);
-  transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1);
-  border-radius: 2px;
+/* 每一格文章的設計 */
+.j-item {
+  border-bottom: none !important; 
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  transition: transform 0.4s ease;
 }
-.journal-item:hover .j-thumb { filter: grayscale(0%); transform: scale(1.05); }
 
+.j-item:hover {
+  transform: translateY(-8px); /* 滑過時輕微上浮 */
+}
+
+.j-item img {
+  width: 100%;
+  aspect-ratio: 3 / 4; /* 稍微細長的比例，很有時尚雜誌感 */
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  filter: grayscale(10%); /* 淡淡的灰度，統一色調 */
+  transition: 0.5s;
+}
+
+.j-item:hover img {
+  filter: grayscale(0%); /* 滑過時恢復彩色 */
+}
+
+.j-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+  line-height: 1.4;
+}
 @media (max-width: 768px) {
   .journal-item { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 2rem 0; }
   .j-thumb { width: 100%; height: 200px; order: -1; }
