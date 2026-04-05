@@ -1,3 +1,5 @@
+2026/4/5
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -41,7 +43,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .logo span{color:var(--blue)}
 .nav-r{display:flex;align-items:center;gap:1.5rem}
 .nav-r a{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
-
 /* HERO - 控制背景照片與層次 */
 .hero {
   min-height: 100vh;
@@ -127,7 +128,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   .j-thumb { width: 100%; height: 200px; order: -1; }
   .j-meta { flex-direction: row; gap: 15px; align-items: center; }
 }
-
 /* ABOUT & FOOTER */
 #about { 
   background: var(--bg2); 
@@ -162,12 +162,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   position: relative;
   border-radius: 12px;
   overflow: hidden; /* 確保光束不會跑出去 */
-  
   /* 內凹陰影打造質感 */
   box-shadow: 
     inset 10px 10px 20px rgba(0, 0, 0, 0.02), 
     inset -10px -10px 20px rgba(255, 255, 255, 0.8);
-  
   /* 這裡設定背景光束 */
   background: linear-gradient(
     135deg, 
@@ -176,7 +174,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     var(--bg) 100%
   );
 }
-
 /* 2. 用偽元素製作「斜射光束」動畫 */
 .about-vis::after {
   content: "";
@@ -228,7 +225,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .art-wrap { max-width: 750px; margin: 0 auto; }
 .art-cover { width: 100%; height: auto; margin: 2rem 0; border-radius: 2px; display: block; }
 
-* 控制 TOP 按鈕的樣式與毛玻璃 */
+/* 控制 TOP 按鈕的樣式與毛玻璃 */
 #backToTop {
   position: fixed !important; 
   bottom: 40px; 
@@ -254,7 +251,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   visibility: visible !important; 
   transform: translateY(0) !important;
 }
-
 /* 確保文章彈出層正常顯示 */
 .art-overlay.show { display: block !important; }
 #artWrap { background: var(--bg); min-height: 100vh; }
@@ -492,7 +488,7 @@ var POSTS = [
       <p>直到閉館時刻，趁著夜色步出，搭上地鐵。</p>
       <p>這個平凡的藝術午後，我很喜歡——是屬於自己的 ME TIME。</p>
       <p><em>有時候，放空也是一種奢侈。而這樣的時光，正是現在要好好珍惜的。</em></p>
-      <hr style="margin: 4.5rem 0 3.5rem; border: 0; border-top: 1px solid #eee;">      
+      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee; opacity: 0.6;">
       <p>One afternoon in mid-March, I booked a ticket for the Bourse de Commerce — Pinault Collection.</p>
       <p>I hadn't researched the current exhibition beforehand. I simply showed up, carrying nothing but curiosity and a quiet sense of anticipation.</p>
       <p>It was a weekday afternoon, and the crowds were few. Stepping into the main hall, I found myself beneath a vast, domed ceiling — hushed and expansive.</p>
@@ -538,7 +534,7 @@ var POSTS = [
       <p>或許，在往後的日子裡，這次的記憶也只剩下一句話：曾經來過，知道蒙娜麗莎在此。而其他的——又會留下多少？</p>
       <p>不是每一次造訪都要留下深刻的領悟，有時候只是走過、感受過、和好姐妹在夜裡邊走邊說著有的沒的——那本身，已經是一件值得的事了。</p>
       <p><em>在未來的某日回想起，大概會笑著說：那晚我們在羅浮宮閒晃，什麼都沒認真看，卻什麼都沒有白走。</em></p>
-      <hr style="margin: 4.5rem 0 3.5rem; border: 0; border-top: 1px solid #eee;">      
+      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee; opacity: 0.6;">      
       <p>On the first Friday evening of each month, the Louvre offers free admission by reservation. It had been exactly a year since my last visit.</p>
       <p>The Louvre at night is a different place entirely. Light falls across the stone colonnades in a deep, warm gold; the voices soften, the footsteps slow, and the darkness outside seems to settle over the palace like a second skin.</p>
       <p>That time, a haute couture exhibition was on display, woven seamlessly throughout the galleries. It had left a strong impression. Yet standing here again, the memory felt strangely blurred.</p>
@@ -627,7 +623,6 @@ function filterGallery(tag, event) {
     }
   });
 }
-
 /* 4. 側邊欄分類點擊邏輯 */
 function filterCat(catName) {
   const items = document.querySelectorAll('.journal-item');
