@@ -228,21 +228,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .art-wrap { max-width: 750px; margin: 0 auto; }
 .art-cover { width: 100%; height: auto; margin: 2rem 0; border-radius: 2px; display: block; }
 
-/* --- Back to Top 按鈕外觀 --- */
+* 控制 TOP 按鈕的樣式與毛玻璃 */
 #backToTop {
-  position: fixed; bottom: 40px; right: 40px; z-index: 999;
-  border: 1px solid rgba(43,45,66,0.1); background: rgba(242, 241, 238, 0.8);
-  backdrop-filter: blur(5px); color: #2b2d42; cursor: pointer;
-  padding: 12px 15px; font-family: 'Space Mono',monospace; font-size: 0.6rem;
-  letter-spacing: 0.1em; transition: all 0.4s; opacity: 0; visibility: hidden;
+  position: fixed !important; 
+  bottom: 40px; 
+  right: 40px; 
+  z-index: 9999;
+  background: rgba(242, 241, 238, 0.7) !important; 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(43,45,66,0.1); 
+  padding: 12px 18px; 
+  font-family: var(--mono); 
+  font-size: 0.6rem; 
+  cursor: pointer;
+  transition: all 0.4s ease; 
+  opacity: 0; 
+  visibility: hidden;
+  transform: translateY(20px); /* 初始位移，增加浮現感 */
 }
-#backToTop.show { opacity: 1; visibility: visible; }
-.art-overlay.show { 
-  display: block !important; 
+
+/* 當 JS 加上 .show 時，按鈕才會出現 */
+#backToTop.show { 
   opacity: 1 !important; 
   visibility: visible !important; 
-  z-index: 3000 !important; 
+  transform: translateY(0) !important;
 }
+
+/* 確保文章彈出層正常顯示 */
+.art-overlay.show { display: block !important; }
 #artWrap { background: var(--bg); min-height: 100vh; }
 </style>
 </head>
@@ -402,8 +416,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     </footer>
 
   </main>
-  <button id="backToTop" onclick="scrollToTop()" style="position: fixed; bottom: 40px; right: 40px; z-index: 999; border: 1px solid var(--border); background: rgba(242, 241, 238, 0.8); backdrop-filter: blur(5px); color: var(--ink); cursor: pointer; padding: 12px 15px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; transition: all 0.4s; opacity: 0; visibility: hidden;">↑ TOP</button>
-<!-- ARTICLE OVERLAY -->
+  <button id="backToTop" onclick="scrollToTop()">↑ TOP</button>
+  <!-- ARTICLE OVERLAY -->
 <div class="art-overlay" id="artOverlay">
   <div class="art-nav">
     <button class="art-back" onclick="closeArt()">← BACK</button>
@@ -573,6 +587,58 @@ function openArt(id) {
 function closeArt() {
   document.getElementById('artOverlay').classList.remove('show');
   document.body.style.overflow = '';
+}
+  /* 1. 監控捲動：控制 Back to Top 出現 */
+window.onscroll = function() {
+  var btn = document.getElementById("backToTop");
+  // 當捲動超過 400 像素時，幫按鈕加上 .show 類別
+  if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+    btn.classList.add("show");
+  } else {
+    btn.classList.remove("show");
+  }
+};
+
+/* 2. 點擊捲回頂部函數 */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* 3. 相簿切換邏輯 (Paris / Museum) */
+function filterGallery(tag, event) {
+  // 處理濾鏡按鈕的視覺反饋 (點擊的變亮，其他變淡)
+  const filters = document.querySelectorAll('.g-filter');
+  filters.forEach(f => { 
+    f.style.opacity = '0.5'; 
+    f.style.borderBottom = 'none'; 
+  });
+  if (event) { 
+    event.target.style.opacity = '1'; 
+    event.target.style.borderBottom = '1px solid var(--ink)'; 
+  }
+
+  // 核心：根據圖片的 class (paris / museum) 來決定顯示或隱藏
+  const items = document.querySelectorAll('.g-item');
+  items.forEach(item => {
+    if (tag === 'all' || item.classList.contains(tag)) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+/* 4. 側邊欄分類點擊邏輯 */
+function filterCat(catName) {
+  const items = document.querySelectorAll('.journal-item');
+  items.forEach(item => {
+    const catText = item.querySelector('.j-cat').innerText;
+    if (catName === 'all' || catText.includes(catName)) {
+      item.style.display = 'flex';
+    } else {
+      item.style.display = 'none';
+    }
+  });
 }
 </script>
 </body>
