@@ -151,7 +151,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 
 /* 左側：日期與分類 */
 .j-meta {
-  flex: 0 0 140px; /* 如果原本是 110px 或 130px，可以稍微加寬到 140px */
+  flex: 0 0 110px; /* 如果原本是 110px 或 130px，可以稍微加寬到 140px */
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -556,7 +556,7 @@ function renderPosts(filter = 'all') {
       <div class="journal-item rev" onclick="openArt('${p.id}')">
         <div class="j-meta">
           <span class="j-cat">${p.cat}</span>
-          <span class="j-date" style="font-size: 0.85rem; letter-spacing: 0.05em; color: var(--muted); margin-top: 5px;">
+          <span class="j-date" style="font-size: 0.6rem; letter-spacing: 0.05em; color: var(--muted); margin-top: 5px;">
             ${p.date}
           </span>
         </div>
@@ -577,13 +577,19 @@ function openArt(id) {
   var wrap = document.getElementById('artWrap');
   var overlay = document.getElementById('artOverlay');
   
-  wrap.innerHTML = `
-    <div style="font-family:var(--mono);font-size:.6rem;color:var(--blue-mid);text-transform:uppercase;letter-spacing:.1em">${p.cat}</div>
-    <h1 style="font-size:2.5rem;margin:1rem 0;font-family:var(--serif);color:#2b2d42;">${p.title}</h1>
-    <div style="font-family:var(--mono);font-size:.6rem;margin-bottom:2rem;color:var(--muted)">${p.date}</div>
-    <img src="${p.img}" style="width:100%; margin-bottom:2rem; border-radius:2px; display:block;">
-    <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem;">${p.content}</div>
-  `;
+  wwrap.innerHTML = `
+    <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:0.5rem;">${p.cat}</div>
+    
+    <h1 style="font-size:2.8rem; margin:0.5rem 0 1.5rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2;">${p.title}</h1>
+    
+    <div style="font-family:var(--mono); font-size:1.05rem; margin-bottom:3rem; color:var(--muted); letter-spacing:0.05em; font-weight:300;">
+      ${p.date}
+    </div>
+    
+    <img src="${p.img}" style="width:100%; margin-bottom:3rem; border-radius:2px; display:block;">
+    
+    <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem; text-align:justify;">${p.content}</div>
+`;
   overlay.classList.add('show');
   document.body.style.overflow = 'hidden';
   overlay.scrollTop = 0;
