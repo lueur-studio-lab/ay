@@ -574,13 +574,15 @@ function renderPosts(filter = 'all') {
 function openArt(id) {
   var p = POSTS.find(x => x.id === id);
   if (!p) return;
+  
   var wrap = document.getElementById('artWrap');
   var overlay = document.getElementById('artOverlay');
   
-  wwrap.innerHTML = `
-    <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:0.5rem;">${p.cat}</div>
+  // 修正這裡：把 wwrap 改回 wrap
+  wrap.innerHTML = `
+    <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:0.8rem;">${p.cat}</div>
     
-    <h1 style="font-size:2.8rem; margin:0.5rem 0 1.5rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2;">${p.title}</h1>
+    <h1 style="font-size:2.8rem; margin:0.5rem 0 1.2rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2;">${p.title}</h1>
     
     <div style="font-family:var(--mono); font-size:1.05rem; margin-bottom:3rem; color:var(--muted); letter-spacing:0.05em; font-weight:300;">
       ${p.date}
@@ -589,15 +591,11 @@ function openArt(id) {
     <img src="${p.img}" style="width:100%; margin-bottom:3rem; border-radius:2px; display:block;">
     
     <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem; text-align:justify;">${p.content}</div>
-`;
+  `;
+  
   overlay.classList.add('show');
   document.body.style.overflow = 'hidden';
   overlay.scrollTop = 0;
-}
-
-function closeArt() {
-  document.getElementById('artOverlay').classList.remove('show');
-  document.body.style.overflow = '';
 }
 
 /* 3. 側邊欄分類 (調用渲染函數) */
