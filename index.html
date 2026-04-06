@@ -373,7 +373,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 </nav>
 
 <div class="main-wrapper">
-  
   <aside class="sidebar">
     <div class="side-group">
       <h3>探索 · Explore</h3>
@@ -383,22 +382,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
         <li><a href="#about">About Me</a></li>
       </ul>
     </div>
-</aside>
+  </aside>
 
   <main class="content-area">
-    
     <section class="hero">
-  <div class="hero-bg"></div>
-  
-  <div class="hero-content">
-    <p class="sec-label rev">Est. 2026 · Chroniques Parisiennes</p>
-    <h1 class="hero-h1 rev">冷淡的凝視<br><i style="font-weight:400;color:var(--blue)">fragments</i></h1>
-    <p class="hero-desc rev">不是旅遊攻略，不是打卡清單。只是一個住在巴黎的人，記錄那些真實、無聊且偶爾很美的日常碎片。</p>
-    <div class="hero-links rev">
-      <a href="#recent" style="font-family:var(--mono);font-size:.6rem;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px">最新日常 →</a>
-    </div>
-  </div>
-</section>
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="sec-label">Est. 2026 · Chroniques Parisiennes</p>
+        <h1 class="hero-h1">冷淡的凝視<br><i style="font-weight:400;color:var(--blue)">fragments</i></h1>
+        <p class="hero-desc">不是旅遊攻略，不是打卡清單。只是一個住在巴黎的人，記錄那些真實、無聊且偶爾很美的日常碎片。</p>
+        <div class="hero-links">
+          <a href="#recent" style="font-family:var(--mono);font-size:.6rem;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px">最新日常 →</a>
+        </div>
+      </div>
+    </section>
 
     <div class="ticker">
       <div class="tick-inner">
@@ -407,233 +404,127 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     </div>
 
     <section id="recent" class="sec">
-    <p class="sec-label rev" style="letter-spacing: 0.3em;">
-    巴黎碎片 · PARISIAN FRAGMENTS
-    </p>      
-    <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 1.5rem; font-style: italic; font-weight: 300; color: var(--ink2);" class="rev">
-    Chroniques <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); font-weight: 300; margin-left: 15px; vertical-align: middle; opacity: 0.8;">/ Fragments</span>
-    </h2>     
-      <div class="journal-list">
-        <div class="journal-item rev" onclick="openArt('a1')">
-          <div class="j-meta">
-            <span class="j-cat">巴黎日常 ·Just Paris</span>
-            <span class="j-date">01.04.2026</span>
-          </div>
-          <div class="j-content">
-            <h3 class="j-title">巴黎，星期天</h3>
-            <p class="j-excerpt">沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。</p>
-          </div>
-          <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/lueur-studio-lab/ay/main/paris.jpg')"></div>
-        </div>
-
-        <div class="journal-item rev" onclick="openArt('a2')">
-          <div class="j-meta">
-            <span class="j-cat">巴黎日常 ·Just Paris</span>
-            <span class="j-date">04.04.2026</span>
-          </div>
-          <div class="j-content">
-            <h3 class="j-title">放空也是一種奢侈</h3>
-            <p class="j-excerpt">一個人的巴黎午後，在皮諾私人美術館的穹頂之下，放空，也是一種奢侈。</p>
-          </div>
-          <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/lueur-studio-lab/ay/main/boursedecommerce.jpg')"></div>
-        </div>
-
-        <div class="journal-item rev" onclick="openArt('a3')">
-          <div class="j-meta">
-            <span class="j-cat">巴黎日常 ·Just Paris</span>
-            <span class="j-date">05.04.2026</span>
-          </div>
-          <div class="j-content">
-            <h3 class="j-title">羅浮宮的夜</h3>
-            <p class="j-excerpt">每月第一個週五夜晚，免費開放的羅浮宮——再度造訪，才發現記憶比想像中更容易消散。</p>
-          </div>
-          <div class="j-thumb" style="background-image:url('https://raw.githubusercontent.com/lueur-studio-lab/ay/main/pyramidedulouvre.jpg')"></div>
-        </div>
-      </div>
+      <p class="sec-label">巴黎碎片 · PARISIAN FRAGMENTS</p>      
+      <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 2rem; font-style: italic; font-weight: 300; color: var(--ink2);">
+        Chroniques <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Fragments</span>
+      </h2>     
+      <div class="journal-list"></div>
     </section>
 
-    <section id="gallery" class="sec rev">
-    <p class="sec-label" style="letter-spacing: 0.3em; margin-bottom: 2rem;">
-      影像紀錄 · VISUAL DIARY
-    </p>      
-    <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 2.5rem; font-style: italic; font-weight: 300; color: var(--ink2);" class="rev">
-    Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); font-weight: 300; margin-left: 15px; vertical-align: middle; opacity: 0.8;">/ Frames
-    </span>
-    </h2>
+    <section id="gallery" class="sec">
+      <p class="sec-label">影像紀錄 · VISUAL DIARY</p>      
+      <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 2.5rem; font-style: italic; font-weight: 300; color: var(--ink2);">
+        Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Frames</span>
+      </h2>
       <div class="gallery-filters" style="margin-bottom: 30px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;">
         <span class="g-filter" onclick="filterGallery('all', event)" style="cursor:pointer; margin-right:20px; border-bottom: 1px solid var(--ink);">ALL</span>
         <span class="g-filter" onclick="filterGallery('paris', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">PARIS</span>
         <span class="g-filter" onclick="filterGallery('museum', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">MUSEUM</span>
       </div>
-
       <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-  
-  <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;">
-    <img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/paris.jpg" alt="Paris" style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-
-  <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;">
-    <img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/palaisroyal.jpg" alt="Palais Royal" style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-
-  <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;">
-    <img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/boursedecommerce.jpg" alt="Bourse de Commerce" style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-
-  <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;">
-    <img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/MuseeRodin.jpg" alt="Musée Rodin" style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-
-  <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;">
-    <img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/WingedVictoryofSamothrace.jpg" alt="Winged Victory" style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-
-  <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden; border-radius: 4px;">
-    <img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/lvfoundation.jpg" alt="LV Foundation" style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-
-</div>
+        <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/paris.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+        <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/palaisroyal.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/boursedecommerce.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/MuseeRodin.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+      </div>
     </section>
 
-  <section id="about" class="sec" style="padding: 4rem 8%; background: var(--bg2); margin: 4rem 0;">
-  <div style="max-width: 800px; margin: 0 auto; background: var(--bg); padding: 4rem 10%; border-radius: 2px; box-shadow: 0 10px 30px rgba(0,0,0,0.02);" class="rev">    
-  <p class="sec-label" style="letter-spacing: 0.3em; margin-bottom: 2rem; font-size: 0.6rem; opacity: 0.6;">
-  關於我 · ABOUT ME
-    </p>
-
-    <h2 style="font-size: 2.2rem; margin-bottom: 2.5rem; color: var(--blue-mid); font-family: var(--serif); font-weight: 300; line-height: 1.4;">
-      住在巴黎的<br>
-      <i style="font-weight: 400; color: var(--blue-mid); font-style: italic;">安</i>
-    </h2>
-    
-    <div style="opacity: 0.8; color: var(--ink2); font-family: 'Noto Serif TC'; font-weight: 300;">
-      <p class="about-bio" style="margin-bottom: 1.5rem; line-height: 1.5;">
-        幾年前搬來巴黎，起初以為這是一場遠行，後來才發現，這已成了我的生活方式。習慣帶著手機走進瑪黑區的蜿蜒巷弄，拾起破碎的光影與記憶。
-      </p>
-      <p class="about-bio" style="line-height: 1.5;">
-        這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴，就讓照片與文字替我紀錄著。
-      </p>
-    </div>
-
-  </div>
-</section>
-
-    <footer style="padding: 4rem 8% 2rem; border-top: 1px solid var(--border); margin-top: 4rem;">
-  <a class="logo" href="#" style="display: block; margin-bottom: 1rem;">lueur.studio</a>
-  
-  <div style="font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.15em; color: var(--blue-mid); margin-bottom: 0.5rem;">
-    48° 51' 24" N / 2° 21' 08" E
-  </div>
-
-  <div class="f-copy" style="opacity: 0.4; font-family: var(--mono); font-size: 0.5rem; text-transform: uppercase;">
-    © 2026 lueur.studio · Paris · Silent Observation
-  </div>
-</footer>
-
-  </main>
-  <button id="backToTop" onclick="scrollToTop()">↑ TOP</button>
-  <!-- ARTICLE OVERLAY -->
-<div class="art-overlay" id="artOverlay">
-  <div class="art-nav">
-    <button class="art-back" onclick="closeArt()">← BACK</button>
-    <a class="logo" href="#" onclick="closeArt();return false;"><span>l</span>ueur.studio</a>
-  </div>
-  <div id="artWrap" class="art-wrap"></div>
-</div>
- 
-<script src="data.js"></script>
-<script>
-/* 1. 自動從 data.js 渲染文章列表 */
-function renderPosts(filter = 'all') {
-  const container = document.querySelector('.journal-list');
-  if (!container) return;
-  container.innerHTML = ''; 
-  
-  const filtered = filter === 'all' ? POSTS : POSTS.filter(p => p.cat.includes(filter));
-  
-  filtered.forEach(p => {
-    container.innerHTML += `
-      <div class="journal-item rev" onclick="openArt('${p.id}')">
-        <div class="j-meta">
-          <span class="j-cat">${p.cat}</span>
-          <span class="j-date" style="font-size: 0.6rem; letter-spacing: 0.05em; color: var(--muted); margin-top: 5px;">
-            ${p.date}
-          </span>
+    <section id="about" class="sec" style="padding: 4rem 8%; background: var(--bg2); margin: 4rem 0;">
+      <div style="max-width: 800px; margin: 0 auto; background: var(--bg); padding: 4rem 10%; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">    
+        <p class="sec-label" style="opacity: 0.6;">關於我 · ABOUT ME</p>
+        <h2 style="font-size: 2.2rem; margin-bottom: 2rem; color: var(--blue-mid); font-family: var(--serif); font-weight: 300;">住在巴黎的 <i style="font-weight: 400; font-style: italic;">安</i></h2>
+        <div style="opacity: 0.8; color: var(--ink2); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 0.95rem;">
+          <p style="margin-bottom: 1.5rem; line-height: 2.2;">幾年前搬來巴黎，起初以為這是一場遠行，後來才發現，這已成了我的生活方式。習慣帶著手機走進瑪黑區的蜿蜒巷弄，拾起破碎的光影與記憶。</p>
+          <p style="line-height: 2.2;">這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴。</p>
         </div>
-        <div class="j-content">
-          <h3 class="j-title">${p.title}</h3>
-          <p class="j-excerpt">${p.excerpt || ""}</p>
-        </div>
-        <div class="j-thumb" style="background-image:url('${p.img}')"></div>
       </div>
-    `;
-  });
-}
+    </section>
 
-/* 2. 開啟與關閉文章 */
-function openArt(id) {
-  var p = POSTS.find(x => x.id === id);
-  if (!p) return;
-  
-  var wrap = document.getElementById('artWrap');
-  var overlay = document.getElementById('artOverlay');
-  
-  // 修正這裡：把 wwrap 改回 wrap
-  wrap.innerHTML = `
-    <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:0.8rem;">${p.cat}</div>
-    
-    <h1 style="font-size:2.8rem; margin:0.5rem 0 1.2rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2;">${p.title}</h1>
-    
-    <div style="font-family:var(--mono); font-size:1.05rem; margin-bottom:3rem; color:var(--muted); letter-spacing:0.05em; font-weight:300;">
-      ${p.date}
+    <footer style="padding: 4rem 8% 2rem; border-top: 1px solid var(--border);">
+      <a class="logo" href="#">lueur.studio</a>
+      <div style="font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.15em; color: var(--blue-mid); margin: 1rem 0 0.5rem;">48° 51' 24" N / 2° 21' 08" E</div>
+      <div style="opacity: 0.4; font-family: var(--mono); font-size: 0.5rem; text-transform: uppercase;">© 2026 lueur.studio · Paris</div>
+    </footer>
+  </main>
+
+  <button id="backToTop" onclick="scrollToTop()">↑ TOP</button>
+
+  <div class="art-overlay" id="artOverlay">
+    <div class="art-nav">
+      <button class="art-back" onclick="closeArt()">← BACK</button>
+      <a class="logo" href="#" onclick="closeArt();return false;"><span>l</span>ueur.studio</a>
     </div>
-    
-    <img src="${p.img}" style="width:100%; margin-bottom:3rem; border-radius:2px; display:block;">
-    
-    <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem; text-align:justify;">${p.content}</div>
-  `;
-  
-  overlay.classList.add('show');
-  document.body.style.overflow = 'hidden';
-  overlay.scrollTop = 0;
-}
+    <div id="artWrap" class="art-wrap"></div>
+  </div>
 
-/* 3. 側邊欄分類 (調用渲染函數) */
-function filterCat(catName) {
-  renderPosts(catName);
-}
+  <script src="data.js"></script>
+  <script>
+    function renderPosts(filter = 'all') {
+      const container = document.querySelector('.journal-list');
+      if (!container) return;
+      container.innerHTML = ''; 
+      const filtered = (filter === 'all') ? POSTS : POSTS.filter(p => p.cat.includes(filter));
+      filtered.forEach(p => {
+        container.innerHTML += `
+          <div class="journal-item" onclick="openArt('${p.id}')">
+            <div class="j-meta">
+              <span class="j-cat">${p.cat}</span>
+              <span class="j-date">${p.date}</span>
+            </div>
+            <div class="j-content">
+              <h3 class="j-title">${p.title}</h3>
+              <p class="j-excerpt">${p.excerpt || ""}</p>
+            </div>
+            <div class="j-thumb" style="background-image:url('${p.img}')"></div>
+          </div>`;
+      });
+    }
 
-/* 4. 監控捲動：Back to Top */
-window.onscroll = function() {
-  var btn = document.getElementById("backToTop");
-  if (!btn) return;
-  if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-    btn.classList.add("show");
-  } else {
-    btn.classList.remove("show");
-  }
-};
+    function openArt(id) {
+      const p = POSTS.find(x => x.id === id);
+      if (!p) return;
+      const wrap = document.getElementById('artWrap');
+      const overlay = document.getElementById('artOverlay');
+      wrap.innerHTML = `
+        <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:0.8rem;">${p.cat}</div>
+        <h1 style="font-size:2.8rem; margin:0.5rem 0 1.2rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2;">${p.title}</h1>
+        <div style="font-family:var(--mono); font-size:1.05rem; margin-bottom:3rem; color:var(--muted); letter-spacing:0.05em; font-weight:300;">${p.date}</div>
+        <img src="${p.img}" style="width:100%; margin-bottom:3rem; border-radius:2px; display:block;">
+        <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem; text-align:justify;">${p.content}</div>`;
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      overlay.scrollTop = 0;
+    }
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+    function closeArt() {
+      const overlay = document.getElementById('artOverlay');
+      if (overlay) {
+        overlay.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      }
+    }
 
-/* 5. 相簿切換邏輯 */
-function filterGallery(tag, event) {
-  const filters = document.querySelectorAll('.g-filter');
-  filters.forEach(f => { f.style.opacity = '0.5'; f.style.borderBottom = 'none'; });
-  if (event) { event.target.style.opacity = '1'; event.target.style.borderBottom = '1px solid var(--ink)'; }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-  const items = document.querySelectorAll('.g-item');
-  items.forEach(item => {
-    item.style.display = (tag === 'all' || item.classList.contains(tag)) ? 'block' : 'none';
-  });
-}
+    window.onscroll = function() {
+      const btn = document.getElementById("backToTop");
+      if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+        btn.classList.add("show");
+      } else {
+        btn.classList.remove("show");
+      }
+    };
 
-/* 6. 網頁啟動 */
-window.onload = () => {
-  renderPosts(); // 這一行最重要，它會去抓 data.js 的資料
-};
-</script>
+    function filterGallery(tag, event) {
+      document.querySelectorAll('.g-filter').forEach(f => { f.style.opacity = '0.5'; f.style.borderBottom = 'none'; });
+      event.target.style.opacity = '1'; event.target.style.borderBottom = '1px solid var(--ink)';
+      document.querySelectorAll('.g-item').forEach(item => {
+        item.style.display = (tag === 'all' || item.classList.contains(tag)) ? 'block' : 'none';
+      });
+    }
+
+    window.onload = () => { renderPosts(); };
+  </script>
+</div>
 </body>
 </html>
