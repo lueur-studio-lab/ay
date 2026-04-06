@@ -150,12 +150,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 }
 
 /* 左側：日期與分類 */
-.j-meta { 
-  flex: 0 0 130px; 
-  display: flex; 
-  flex-direction: column; 
+.j-meta {
+  flex: 0 0 140px; /* 如果原本是 110px 或 130px，可以稍微加寬到 140px */
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  border-right: 1px solid #eee; /* 增加一條細細的分隔線 */
+  border-right: 1px solid var(--border);
 }
 .j-cat { font-family: var(--mono); font-size: 0.55rem; color: #666; letter-spacing: 0.1em; text-transform: uppercase; }
 .j-date { font-family: var(--mono); font-size: 0.65rem; color: #bbb; }
@@ -549,7 +549,6 @@ function renderPosts(filter = 'all') {
   if (!container) return;
   container.innerHTML = ''; 
   
-  // 篩選分類
   const filtered = filter === 'all' ? POSTS : POSTS.filter(p => p.cat.includes(filter));
   
   filtered.forEach(p => {
@@ -557,7 +556,9 @@ function renderPosts(filter = 'all') {
       <div class="journal-item rev" onclick="openArt('${p.id}')">
         <div class="j-meta">
           <span class="j-cat">${p.cat}</span>
-          <span class="j-date">${p.date}</span>
+          <span class="j-date" style="font-size: 0.85rem; letter-spacing: 0.05em; color: var(--muted); margin-top: 5px;">
+            ${p.date}
+          </span>
         </div>
         <div class="j-content">
           <h3 class="j-title">${p.title}</h3>
