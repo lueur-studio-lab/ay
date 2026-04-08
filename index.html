@@ -528,43 +528,80 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       });
     }
 
-    // --- 2. 照片牆渲染 (修正了原本 function function 的錯誤) ---
-    function renderGallery(filter = 'all', event) {
-      const grid = document.getElementById('galleryGrid');
-      if (!grid) return;
+   // --- 2. 照片牆渲染 (已升級：支援相簿紀錄) ---
+let currentIdx = 0;      // 紀錄目前點開的是第幾張
+let currentList = [];    // 紀錄目前篩選後的照片清單
 
-      if (event) {
-        document.querySelectorAll('.g-filter').forEach(f => {
-          f.style.opacity = '0.5';
-          f.style.borderBottom = 'none';
-        });
-        event.target.style.opacity = '1';
-        event.target.style.borderBottom = '1px solid var(--ink)';
-      }
+function renderGallery(filter = 'all', event) {
+  const grid = document.getElementById('galleryGrid');
+  if (!grid) return;
 
-      grid.innerHTML = '';
-      const filtered = (filter === 'all') ? GALLERY_DATA : GALLERY_DATA.filter(item => item.cat === filter);
+  // 更新濾鏡按鈕樣式
+  if (event) {
+    document.querySelectorAll('.g-filter').forEach(f => {
+      f.style.opacity = '0.5';
+      f.style.borderBottom = 'none';
+    });
+    event.target.style.opacity = '1';
+    event.target.style.borderBottom = '1px solid var(--ink)';
+  }
 
-      filtered.forEach(item => {
-        grid.innerHTML += `
-          <div class="g-item" style="cursor:zoom-in; overflow:hidden;" onclick="openLightbox('${item.img}', '${item.desc || ""}')">
-            <img src="${item.img}" style="width:100%; aspect-ratio:3/4; object-fit:cover; transition:0.6s ease; border-radius:2px;" loading="lazy">
-          </div>`;
-      });
-    }
+  grid.innerHTML = '';
+  
+  // 💡 重要：更新當前清單，這樣左右切換才不會跳到被隱藏的照片
+  currentList = (filter === 'all') ? GALLERY_DATA : GALLERY_DATA.filter(item => item.cat === filter);
 
-    // --- 3. 燈箱功能 ---
-    function openLightbox(src, desc) {
-      document.getElementById('lightboxImg').src = src;
-      document.getElementById('lightboxDesc').innerHTML = desc;
-      document.getElementById('lightbox').style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
+  currentList.forEach((item, index) => {
+    grid.innerHTML += `
+      <div class="g-item" style="cursor:zoom-in; overflow:hidden;" onclick="openLightbox(${index})">
+        <img src="${item.img}" style="width:100%; aspect-ratio:3/4; object-fit:cover; transition:0.6s ease; border-radius:2px;" loading="lazy">
+      </div>`;
+  });
+}
 
-    function closeLightbox(event) {
-      document.getElementById('lightbox').style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
+// --- 3. 燈箱功能 (已升級：支援左右切換) ---
+function openLightbox(index) {
+  currentIdx = index;
+  updateLightboxContent();
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+// 💡 新增：統一更新燈箱內容的 function
+function updateLightboxContent() {
+  const item = currentList[currentIdx];
+  const img = document.getElementById('lightboxImg');
+  const desc = document.getElementById('lightboxDesc');
+  
+  img.src = item.img;
+  desc.innerHTML = item.desc || "";
+
+  // 如果是第一張，隱藏左箭頭；最後一張，隱藏右箭頭 (如果妳有加箭頭的話)
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  if(prevBtn) prevBtn.style.visibility = (currentIdx > 0) ? 'visible' : 'hidden';
+  if(nextBtn) nextBtn.style.visibility = (currentIdx < currentList.length - 1) ? 'visible' : 'hidden';
+}
+
+// 💡 新增：左右切換按鈕呼叫的 function
+function changeImg(step, event) {
+  if (event) event.stopPropagation(); // 阻止點擊箭頭時關閉燈箱
+  currentIdx += step;
+  
+  // 確保索引不會超出範圍
+  if (currentIdx < 0) currentIdx = 0;
+  if (currentIdx >= currentList.length) currentIdx = currentList.length - 1;
+  
+  updateLightboxContent();
+}
+
+function closeLightbox(event) {
+  // 只有點擊背景或關閉按鈕才關閉
+  if (event.target.id === 'lightbox' || event.target.id === 'closeBtn') {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+}
 
     // --- 4. 打開文章彈窗 ---
     function openArt(id) {
@@ -621,14 +658,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       renderGallery(); 
     };
 </script>
-  <div id="lightbox" onclick="closeLightbox(event)" 
-     style="display:none; position:fixed; z-index:9999; inset:0; background:rgba(242,241,238,0.98); cursor:zoom-out; flex-direction:column; align-items:center; justify-content:center;">
-  
-  <img id="lightboxImg" style="max-width:90%; max-height:80vh; box-shadow:0 15px 40px rgba(0,0,0,0.1); border-radius:2px;">
-  
-  <div id="lightboxDesc" 
-       style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase;">
-  </div>
+  <div id="lightbox" onclick="closeLightbox(event)" style="...">
+  <div id="prevBtn" onclick="changeImg(-1, event)" style="position:absolute; left:20px; color:var(--ink); font-size:2rem; cursor:pointer; z-index:10;">‹</div>
+
+  <img id="lightboxImg" src="" style="...">
+  <div id="lightboxDesc"></div>
+
+  <div id="nextBtn" onclick="changeImg(1, event)" style="position:absolute; right:20px; color:var(--ink); font-size:2rem; cursor:pointer; z-index:10;">›</div>
 </div>
 </body>
 </html>
