@@ -329,9 +329,10 @@
 
 <div id="lightbox" onclick="closeLightbox(event)">
   <div id="prevBtn" onclick="changeImg(-1, event)">‹</div>
-  <div style="position:relative; display:flex; flex-direction:column; align-items:center; cursor:default;">
-    <img id="lightboxImg" src="" style="max-width:85vw; max-height:75vh; box-shadow:0 10px 30px rgba(0,0,0,0.05); border-radius:2px;">
-<div id="lightboxDesc"></div>
+  <div style="position:relative; display:inline-block;">
+  <img id="lightboxImg" src="" style="max-width:85vw; max-height:75vh; box-shadow:0 10px 30px rgba(0,0,0,0.05); border-radius:2px;">
+  <div id="lightboxWatermark" style="position:absolute; bottom:20px; right:25px; font-family:var(--mono); font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:0.2em; text-transform:uppercase; pointer-events:none; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">lueur.studio</div>
+  </div>
   </div>
   <div id="nextBtn" onclick="changeImg(1, event)">›</div>
   <div id="closeBtn" style="position:absolute; top:30px; right:30px; font-family:var(--mono); font-size:0.8rem; cursor:pointer; opacity:0.5; letter-spacing:0.1em;">CLOSE</div>
