@@ -47,6 +47,29 @@
     .hero-h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
     .hero-desc { max-width: 500px; font-size: 0.9rem; color: var(--ink2); margin-bottom: 2rem; }
 
+    .hero-content::after {
+  content: "© lueur.studio";
+  position: absolute;
+  /* 這裡的定位是相對於 hero-content 的容器 */
+  bottom: -40px; 
+  right: 0;
+  
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink); /* 使用跟文字一樣的深色，但調低透明度 */
+  opacity: 0.3;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 300;
+  pointer-events: none;
+}
+
+/* 如果妳希望浮水印在手機版位置稍微調整，可以微調 bottom 值 */
+@media (max-width: 768px) {
+  .hero-content::after {
+    bottom: -60px;
+  }
+}
     /* TICKER */
     .ticker{background:var(--ink);color:var(--bg);padding:12px 0;overflow:hidden;white-space:nowrap;font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase}
     .tick-inner{display:inline-block;animation:scroll 30s linear infinite}
@@ -325,18 +348,23 @@
     </footer>
   </main>
 </div>
- 
+
 <div id="lightbox" onclick="closeLightbox(event)">
   <div id="prevBtn" onclick="changeImg(-1, event)">‹</div>
+  
   <div style="position:relative; display:flex; flex-direction:column; align-items:center; cursor:default; max-width:90vw;">
+    
     <div style="position:relative; display:block; max-width:100%;">
-      <img id="lightboxImg" src="" style="max-width:100%; max-height:80vh; box-shadow:0 10px 30px rgba(0,0,0,0.05); border-radius:2px; display:block;">   
-      <div id="lightboxWatermark" style="position:absolute; bottom:25px; right:30px; font-family:var(--mono); font-size:12px; color:rgba(255,255,255,0.7); letter-spacing:0.25em; text-transform:uppercase; pointer-events:none; text-shadow: 0 1px 4px rgba(0,0,0,0.3); z-index:10001; font-weight: 300;">
-         © lueur.studio
+      <img id="lightboxImg" src="" style="max-width:100%; max-height:80vh; box-shadow:0 10px 30px rgba(0,0,0,0.05); border-radius:2px; display:block;">
+      
+      <div id="lightboxWatermark" style="position:absolute; bottom:25px; right:30px; font-family:var(--mono); font-size:10px; color:rgba(255,255,255,0.6); letter-spacing:0.15em; text-transform:uppercase; pointer-events:none; text-shadow: 0 1px 4px rgba(0,0,0,0.3); z-index:10001; font-weight: 300;">
+          © lueur.studio
       </div>
     </div>
+    
     <div id="lightboxDesc"></div>
   </div>
+  
   <div id="nextBtn" onclick="changeImg(1, event)">›</div>
   <div id="closeBtn" style="position:absolute; top:30px; right:30px; font-family:var(--mono); font-size:0.8rem; cursor:pointer; opacity:0.5; letter-spacing:0.1em;">CLOSE</div>
 </div>
@@ -356,10 +384,16 @@
     const container = document.querySelector('.journal-list');
     if (!container) return;
     container.innerHTML = '';
-    const filtered = (filter === 'all') ? POSTS : POSTS.filter(p => p.cat.includes(filter));
+
+    // 💡 關鍵：在 filter 之後加上 .reverse()
+    const filtered = (filter === 'all') 
+        ? [...POSTS].reverse() 
+        : POSTS.filter(p => p.cat.includes(filter)).reverse();
+// 在 filtered.forEach 裡面判斷，如果是 index === 0
+// 可以多加一個 <span class="new-badge">New</span>
     filtered.forEach(p => {
-      let thumbUrl = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
-      container.innerHTML += `
+        let thumbUrl = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
+        container.innerHTML += `
         <div class="journal-item" onclick="openArt('${p.id}')">
           <div class="j-meta"><span class="j-cat">${p.cat}</span><span class="j-date">${p.date}</span></div>
           <div class="j-content">
@@ -369,7 +403,7 @@
           <div class="j-thumb" style="background-image:url('${thumbUrl}')"></div>
         </div>`;
     });
-  }
+}
 
   function renderGallery(filter = 'all', event) {
     const grid = document.getElementById('galleryGrid');
