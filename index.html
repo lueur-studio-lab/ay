@@ -488,13 +488,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
           </div>`;
       });
     }
-
-    是的，妳現在 index.html 腳本區塊（<script> 標籤內）的寫法需要做一次「升級」，好讓它能夠從 data.js 讀取照片資料並自動分類。
-
-請把妳 index.html 裡原本的整個 <script> 內容，替換成下面這段完整的版本。
-
-🛠️ 升級後的 index.html 腳本
-JavaScript
     // --- 1. 文章列表渲染 ---
     function renderPosts(filter = 'all') {
       const container = document.querySelector('.journal-list');
