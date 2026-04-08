@@ -153,11 +153,11 @@ var POSTS = [
 ];
 // data.js 最下方
 const GALLERY_DATA = [
-  { img: 'images/palaisroyal.webp', cat: 'paris', desc: 'Le Palais-Royal — 巴黎皇家宮殿' },
-  { img: 'images/MuseeRodin.webp', cat: 'museum', desc: 'Le musée Rodin — 沉思者 Le Penseur' },
-  { img: 'images/lvfoundation.webp', cat: 'museum', desc: 'The Fondation Louis Vuitton' },
-  { img: 'images/citywalk.webp', cat: 'paris' , desc: 'City walk in Paris' },
-  { img: 'images/canalsaintmartin.webp', cat: 'paris' , desc: 'Canal Saint-Martin — 聖馬丁運河' },
-  { img: 'images/lasaintechapelle.webp', cat: 'museum', desc: 'La Sainte-Chapelle — 聖徒禮拜堂' },
-  { img: 'images/boursedecommerce02.webp', cat: 'museum' , desc: 'Bourse de Commerce - Pinault Collection — 巴黎商業交易所─皮諾私人美術館' },
+  { img: 'images/palaisroyal.webp', cat: 'paris', desc: 'Le Palais-Royal · 巴黎皇家宮殿' },
+  { img: 'images/MuseeRodin.webp', cat: 'museum', desc: 'Le musée Rodin · 沉思者 Le Penseur' },
+  { img: 'images/lvfoundation.webp', cat: 'museum', desc: 'Fondation Louis Vuitton · 路易威登藝術基金會' },
+  { img: 'images/citywalk.webp', cat: 'paris' , desc: 'City walk in Paris · 城市漫步' },
+  { img: 'images/canalsaintmartin.webp', cat: 'paris' , desc: 'Canal Saint-Martin · 聖馬丁運河' },
+  { img: 'images/lasaintechapelle.webp', cat: 'museum', desc: 'La Sainte-Chapelle · 聖徒禮拜堂' },
+  { img: 'images/boursedecommerce02.webp', cat: 'museum' , desc: 'Bourse de Commerce - Pinault Collection · 巴黎商業交易所─皮諾私人美術館' },
 ];
