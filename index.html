@@ -501,8 +501,7 @@ function openArt(id) {
     coverImg = 'images/' + coverImg;
   }
 
-  // 2. 💡 關鍵：處理內文中的所有圖片，幫它們包上浮水印外殼
-  // 我們搜尋 <img ...> 標籤，並將其替換為帶有 span 浮水印的結構
+  // 2. 💡 處理內文中的圖片（加上浮水印外殼）
   let processedContent = p.content.replace(
     /<img (.*?)>/g, 
     `<div class="art-img-container">
@@ -511,17 +510,46 @@ function openArt(id) {
      </div>`
   );
 
-  // 3. 渲染到 HTML
-  // 注意：這裡假設妳的 HTML 裡有這些 ID，請根據妳實際的 ID 名稱微調
-  document.getElementById('artHero').style.backgroundImage = `url('${coverImg}')`;
-  document.getElementById('artTitle').innerText = p.title;
-  document.getElementById('artDate').innerText = p.date;
-  document.getElementById('artContent').innerHTML = processedContent; // 這裡要放處理過的內容
+  // 3. 渲染整個文章結構到 wrap 裡
+  wrap.innerHTML = `
+    <div style="max-width: 700px; margin: 0 auto;"> 
+      <div class="art-nav" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem;">
+        <button class="art-back" 
+                onclick="document.getElementById('artOverlay').style.display='none'; document.body.style.overflow='auto';" 
+                style="background:none; border:none; font-family:var(--mono); font-size:0.7rem; color:var(--muted); cursor:pointer; letter-spacing:0.15em; padding:0;">
+          ← BACK
+        </button>
+        <a class="logo" href="#" 
+           onclick="document.getElementById('artOverlay').style.display='none'; document.body.style.overflow='auto'; return false;" 
+           style="font-size:0.8rem; text-decoration:none; color:var(--ink);">
+          lueur.studio
+        </a>
+      </div>
 
-  // 4. 顯示文章視窗
-  wrap.classList.add('active');
-  overlay.classList.add('active');
-  document.body.style.overflow = 'hidden'; // 禁止底層滾動
+      <div style="text-align: left; margin-top: 2rem;">
+        <div style="font-family:var(--mono); font-size:0.65rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:0.25em; margin-bottom:1.2rem;">
+          ${p.cat}
+        </div>
+        <h1 style="font-size: clamp(2rem, 5vw, 2.8rem); margin:1rem 0 1.5rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2; letter-spacing:0.02em;">
+          ${p.title}
+        </h1>
+        <div style="font-family:var(--serif); font-size:1.1rem; color:var(--muted); letter-spacing:0.05em; font-weight:300; font-style: italic; margin-bottom: 3.5rem;">
+          ${p.date}
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-bottom: 5rem; position:relative;" class="art-img-container">
+        <img src="${coverImg}" style="width:100%; max-width:550px; height:auto; border-radius:2px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+        <span class="art-watermark">lueur.studio</span>
+      </div>
+      
+      <div class="art-content-body" style="line-height:2.3; font-family:var(--serif); color:#3a3c52; font-size:1.1rem; text-align:justify; padding-bottom: 100px;">
+        ${processedContent} </div>
+    </div>`;
+  
+  overlay.style.display = 'block'; 
+  document.body.style.overflow = 'hidden'; 
+  overlay.scrollTop = 0;
 }
 
   // ✨ 這裡解決了返回鍵沒反應 + 電腦版太寬的問題
