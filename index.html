@@ -180,7 +180,7 @@
 
     #backToTop { position: fixed; bottom: 40px; right: 40px; z-index: 999; background: rgba(242, 241, 238, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(43,45,66,0.1); padding: 12px 18px; font-family: var(--mono); font-size: 0.6rem; cursor: pointer; transition: 0.4s; opacity: 0; visibility: hidden; }
     #backToTop.show { opacity: 1; visibility: visible; }
-    .art-overlay { position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; overflow-y: auto; display: none; padding: 100px 12% 60px; }
+    .art-overlay { position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; overflow-y: auto; display: none; padding: 40px 8% 60px; }
     .art-overlay.show { display: block; }
 </style>
 </head>
@@ -278,12 +278,7 @@
 </div>
 
 <button id="backToTop" onclick="scrollToTop()">↑ TOP</button>
-
-<div class="art-overlay" id="artOverlay">
-  <div class="art-nav">
-    <button class="art-back" onclick="closeArt()">← BACK</button>
-    <a class="logo" href="#" onclick="closeArt();return false;"><span>l</span>ueur.studio</a>
-  </div>
+  <div class="art-overlay" id="artOverlay">
   <div id="artWrap" class="art-wrap"></div>
 </div>
 <script src="data.js"></script>
