@@ -428,7 +428,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     <span class="g-filter" onclick="renderGallery('museum', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">MUSEUM</span>
   </div>
 
-  <div class="gallery-grid" id="galleryGrid"></div>
+  <div class="gallery-grid" id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; min-height: 300px;">
+    </div>
 </section>
 
     <section id="about" class="sec" style="padding: 4rem 8%; background: var(--bg2); margin: 4rem 0;">
