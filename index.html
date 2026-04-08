@@ -473,33 +473,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 
   <script src="data.js"></script>
   <script>
-    function renderPosts(filter = 'all') {
-      const container = document.querySelector('.journal-list');
-      if (!container) return;
-      container.innerHTML = ''; 
-      const filtered = (filter === 'all') ? POSTS : POSTS.filter(p => p.cat.includes(filter));
-      
-      filtered.forEach(p => {
-        // 關鍵修正：確保路徑包含 images/
-        let thumbUrl = p.img;
-        if (!thumbUrl.startsWith('http') && !thumbUrl.startsWith('images/')) {
-          thumbUrl = 'images/' + thumbUrl;
-        }
-
-        container.innerHTML += `
-          <div class="journal-item" onclick="openArt('${p.id}')">
-            <div class="j-meta">
-              <span class="j-cat">${p.cat}</span>
-              <span class="j-date">${p.date}</span>
-            </div>
-            <div class="j-content">
-              <h3 class="j-title">${p.title}</h3>
-              <p class="j-excerpt">${p.excerpt || ""}</p>
-            </div>
-            <div class="j-thumb" style="background-image:url('${thumbUrl}')"></div>
-          </div>`;
-      });
-    }
     // --- 1. 文章列表渲染 ---
     function renderPosts(filter = 'all') {
       const container = document.querySelector('.journal-list');
@@ -525,47 +498,45 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       });
     }
 
-    // --- 2. 照片牆渲染 (精緻版 + 燈箱 + 地點文字) ---
-function function renderGallery(filter = 'all', event) {
-  const grid = document.getElementById('galleryGrid');
-  if (!grid) return;
+    // --- 2. 照片牆渲染 (修正了原本 function function 的錯誤) ---
+    function renderGallery(filter = 'all', event) {
+      const grid = document.getElementById('galleryGrid');
+      if (!grid) return;
 
-  // 更新按鈕樣式
-  if (event) {
-    document.querySelectorAll('.g-filter').forEach(f => {
-      f.style.opacity = '0.5';
-      f.style.borderBottom = 'none';
-    });
-    event.target.style.opacity = '1';
-    event.target.style.borderBottom = '1px solid var(--ink)';
-  }
+      if (event) {
+        document.querySelectorAll('.g-filter').forEach(f => {
+          f.style.opacity = '0.5';
+          f.style.borderBottom = 'none';
+        });
+        event.target.style.opacity = '1';
+        event.target.style.borderBottom = '1px solid var(--ink)';
+      }
 
-  grid.innerHTML = '';
-  const filtered = (filter === 'all') ? GALLERY_DATA : GALLERY_DATA.filter(item => item.cat === filter);
+      grid.innerHTML = '';
+      const filtered = (filter === 'all') ? GALLERY_DATA : GALLERY_DATA.filter(item => item.cat === filter);
 
-  filtered.forEach(item => {
-    // 💡 關鍵：這裡要傳入 item.img 和 item.desc
-    grid.innerHTML += `
-      <div class="g-item" style="cursor:zoom-in; overflow:hidden;" onclick="openLightbox('${item.img}', '${item.desc || ""}')">
-        <img src="${item.img}" style="width:100%; aspect-ratio:3/4; object-fit:cover; transition:0.6s ease; border-radius:2px;" loading="lazy">
-      </div>`;
-  });
-}
+      filtered.forEach(item => {
+        grid.innerHTML += `
+          <div class="g-item" style="cursor:zoom-in; overflow:hidden;" onclick="openLightbox('${item.img}', '${item.desc || ""}')">
+            <img src="${item.img}" style="width:100%; aspect-ratio:3/4; object-fit:cover; transition:0.6s ease; border-radius:2px;" loading="lazy">
+          </div>`;
+      });
+    }
 
-// 💡 對應的開啟/關閉函數
-function openLightbox(src, desc) {
-  document.getElementById('lightboxImg').src = src;
-  document.getElementById('lightboxDesc').innerHTML = desc;
-  document.getElementById('lightbox').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
+    // --- 3. 燈箱功能 ---
+    function openLightbox(src, desc) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxDesc').innerHTML = desc;
+      document.getElementById('lightbox').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
 
-function closeLightbox(event) {
-  document.getElementById('lightbox').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
+    function closeLightbox(event) {
+      document.getElementById('lightbox').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
 
-    // --- 3. 打開文章彈窗 (修正左對齊與圖片置中) ---
+    // --- 4. 打開文章彈窗 ---
     function openArt(id) {
       const p = POSTS.find(x => x.id === id);
       if (!p) return;
@@ -595,7 +566,6 @@ function closeLightbox(event) {
       overlay.scrollTop = 0;
     }
 
-    // --- 4. 其他輔助功能 ---
     function closeArt() {
       const overlay = document.getElementById('artOverlay');
       if (overlay) {
@@ -615,12 +585,12 @@ function closeLightbox(event) {
       }
     };
 
-    // 網頁載入時啟動
+    // 啟動
     window.onload = () => { 
       renderPosts(); 
-      renderGallery(); // 記得啟動照片牆
+      renderGallery(); 
     };
-  </script>
+</script>
   <div id="lightbox" onclick="closeLightbox(event)" 
      style="display:none; position:fixed; z-index:9999; inset:0; background:rgba(242,241,238,0.98); cursor:zoom-out; flex-direction:column; align-items:center; justify-content:center;">
   
@@ -629,7 +599,6 @@ function closeLightbox(event) {
   <div id="lightboxDesc" 
        style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase;">
   </div>
-</div>
 </div>
 </body>
 </html>
