@@ -203,6 +203,40 @@
     #backToTop.show { opacity: 1; visibility: visible; }
     .art-overlay { position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; overflow-y: auto; display: none; padding: 40px 8% 60px; }
     .art-overlay.show { display: block; }
+
+    /* 1. 為圖片容器建立定位基準 */
+.j-thumb, .g-item {
+  position: relative;
+  display: block;
+}
+
+/* 2. 建立網頁版浮水印 */
+.j-thumb::after, .g-item::after {
+  content: "©lueur.studio"; /* 浮水印文字 */
+  position: absolute;
+  bottom: 12px;
+  right: 15px;
+  
+  /* 樣式設定：極簡、纖細 */
+  font-family: var(--mono);
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.5); /* 50% 透明的白色 */
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  
+  /* 增加一點文字陰影，確保在白底照片上也看得到 */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  
+  pointer-events: none; /* 確保滑鼠點擊可以穿透，不影響點擊圖片 */
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+/* 3. 滑鼠移上去時稍微變明顯一點 (增加一點互動姿態) */
+.journal-item:hover .j-thumb::after, 
+.g-item:hover::after {
+  color: rgba(255, 255, 255, 0.8);
+}
 </style>
 </head>
 <body>
