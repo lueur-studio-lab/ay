@@ -417,25 +417,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     </section>
 
     <section id="gallery" class="sec">
-      <p class="sec-label">影像紀錄 · VISUAL DIARY</p>      
-      <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 2.5rem; font-style: italic; font-weight: 300; color: var(--ink2);">
-        Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Frames</span>
-      </h2>
-      <div class="gallery-filters" style="margin-bottom: 30px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;">
-        <span class="g-filter" onclick="filterGallery('all', event)" style="cursor:pointer; margin-right:20px; border-bottom: 1px solid var(--ink);">ALL</span>
-        <span class="g-filter" onclick="filterGallery('paris', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">PARIS</span>
-        <span class="g-filter" onclick="filterGallery('museum', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">MUSEUM</span>
-      </div>
-      <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-        <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;"><img src="images/palaisroyal.webp" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="images/MuseeRodin.webp" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="images/lvfoundation.webp" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;"><img src="images/citywalk.webp" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;"><img src="images/canalsaintmartin.webp" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="images/lasaintechapelle.webp" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="images/boursedecommerce02.webp" style="width: 100%; height: 100%; object-fit: cover;"></div>
-      </div>
-    </section>
+  <p class="sec-label">影像紀錄 · VISUAL DIARY</p>
+  <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 2.5rem; font-style: italic; font-weight: 300; color: var(--ink2);">
+    Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Frames</span>
+  </h2>
+  
+  <div class="gallery-filters" style="margin-bottom: 30px; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;">
+    <span class="g-filter" onclick="renderGallery('all', event)" style="cursor:pointer; margin-right:20px; border-bottom: 1px solid var(--ink);">ALL</span>
+    <span class="g-filter" onclick="renderGallery('paris', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">PARIS</span>
+    <span class="g-filter" onclick="renderGallery('museum', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">MUSEUM</span>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
 
     <section id="about" class="sec" style="padding: 4rem 8%; background: var(--bg2); margin: 4rem 0;">
       <div style="max-width: 800px; margin: 0 auto; background: var(--bg); padding: 3rem 10%; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">    
@@ -495,6 +489,65 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       });
     }
 
+    是的，妳現在 index.html 腳本區塊（<script> 標籤內）的寫法需要做一次「升級」，好讓它能夠從 data.js 讀取照片資料並自動分類。
+
+請把妳 index.html 裡原本的整個 <script> 內容，替換成下面這段完整的版本。
+
+🛠️ 升級後的 index.html 腳本
+JavaScript
+    // --- 1. 文章列表渲染 ---
+    function renderPosts(filter = 'all') {
+      const container = document.querySelector('.journal-list');
+      if (!container) return;
+      container.innerHTML = '';
+      
+      const filtered = (filter === 'all') ? POSTS : POSTS.filter(p => p.cat.includes(filter));
+      
+      filtered.forEach(p => {
+        let thumbUrl = p.img;
+        if (!thumbUrl.startsWith('http') && !thumbUrl.startsWith('images/')) {
+          thumbUrl = 'images/' + thumbUrl;
+        }
+        container.innerHTML += `
+          <div class="journal-item" onclick="openArt('${p.id}')">
+            <div class="j-meta"><span class="j-cat">${p.cat}</span><span class="j-date">${p.date}</span></div>
+            <div class="j-content">
+              <h3 class="j-title">${p.title}</h3>
+              <p class="j-excerpt">${p.excerpt || ""}</p>
+            </div>
+            <div class="j-thumb" style="background-image:url('${thumbUrl}')"></div>
+          </div>`;
+      });
+    }
+
+    // --- 2. 照片牆渲染 (升級版：從 GALLERY_DATA 抓取) ---
+    function renderGallery(filter = 'all', event) {
+      const grid = document.getElementById('galleryGrid');
+      if (!grid) return;
+
+      // 更新按鈕樣式
+      if (event) {
+        document.querySelectorAll('.g-filter').forEach(f => {
+          f.style.opacity = '0.5';
+          f.style.borderBottom = 'none';
+        });
+        event.target.style.opacity = '1';
+        event.target.style.borderBottom = '1px solid var(--ink)';
+      }
+
+      grid.innerHTML = '';
+      // 從 data.js 裡的 GALLERY_DATA 陣列抓資料
+      const filtered = (filter === 'all') ? GALLERY_DATA : GALLERY_DATA.filter(item => item.cat === filter);
+
+      filtered.forEach(item => {
+        grid.innerHTML += `
+          <div class="g-item ${item.cat}" style="aspect-ratio: 3/4; overflow: hidden; border-radius: 2px;">
+            <img src="${item.img}" style="width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease;" loading="lazy">
+          </div>`;
+      });
+    }
+
+    // --- 3. 打開文章彈窗 (修正左對齊與圖片置中) ---
     function openArt(id) {
       const p = POSTS.find(x => x.id === id);
       if (!p) return;
@@ -512,11 +565,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
           <h1 style="font-size:2.8rem; margin:0.5rem 0 1.2rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2;">${p.title}</h1>
           <div style="font-family:var(--mono); font-size:1.05rem; color:var(--muted); letter-spacing:0.05em; font-weight:300;">${p.date}</div>
         </div>
-        
         <div style="text-align: center; margin-bottom: 4rem;">
           <img src="${coverImg}" style="width:100%; max-width:450px; height:auto; border-radius:2px; display:inline-block;">
         </div>
-        
         <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem; text-align:justify;">
           ${p.content}
         </div>`;
@@ -526,6 +577,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       overlay.scrollTop = 0;
     }
 
+    // --- 4. 其他輔助功能 ---
     function closeArt() {
       const overlay = document.getElementById('artOverlay');
       if (overlay) {
@@ -545,15 +597,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       }
     };
 
-    function filterGallery(tag, event) {
-      document.querySelectorAll('.g-filter').forEach(f => { f.style.opacity = '0.5'; f.style.borderBottom = 'none'; });
-      event.target.style.opacity = '1'; event.target.style.borderBottom = '1px solid var(--ink)';
-      document.querySelectorAll('.g-item').forEach(item => {
-        item.style.display = (tag === 'all' || item.classList.contains(tag)) ? 'block' : 'none';
-      });
-    }
-
-    window.onload = () => { renderPosts(); };
+    // 網頁載入時啟動
+    window.onload = () => { 
+      renderPosts(); 
+      renderGallery(); // 記得啟動照片牆
+    };
   </script>
 </div>
 </body>
