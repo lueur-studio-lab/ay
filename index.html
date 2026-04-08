@@ -257,15 +257,18 @@
   color: rgba(255, 255, 255, 0.8);
 }
     /* 文章內圖片容器：鎖定浮水印範圍 */
-.art-img-container {
+..art-img-container {
   position: relative;
-  display: inline-block; 
-  max-width: 100%;
-  margin: 1.5rem 0;
+  display: block;      /* 確保是區塊元素 */
+  margin: 2rem auto;   /* auto 會讓它水平置中 */
+  max-width: 100%;     /* 防止溢出 */
+  width: fit-content;  /* 讓容器寬度剛好等於圖片寬度，浮水印才不會飄走 */
+  text-align: center;
 }
 
 .art-img-container img {
-  display: block;
+  display: block;      /* 消除底部間隙 */
+  margin: 0 auto;      /* 圖片本身置中 */
   max-width: 100%;
   height: auto;
   border-radius: 2px;
@@ -274,8 +277,8 @@
 /* 文章內浮水印樣式 */
 .art-watermark {
   position: absolute;
-  bottom: 15px; /* 距離圖片底邊 15px */
-  right: 20px;  /* 距離圖片右邊 20px */
+  bottom: 12px;
+  right: 15px; /* 從原本的 20px 改成 15px，更貼近圖片邊緣但不超出 */
   font-family: var(--mono);
   font-size: 10px;
   color: rgba(255, 255, 255, 0.6);
@@ -438,11 +441,11 @@
     
     let coverImg = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
 
-    // 自動幫內文圖片包上浮水印容器
-    let processedContent = p.content.replace(
-        /<img (.*?)>/g, 
-        `<div class="art-img-container"><img $1><span class="art-watermark">lueur.studio</span></div>`
-    );
+    // 自動幫內文圖片包上容器，移除可能會干擾寬度的行內樣式
+let processedContent = p.content.replace(
+    /<img (.*?)>/g, 
+    `<div class="art-img-container"><img $1><span class="art-watermark">lueur.studio</span></div>`
+);
 
     wrap.innerHTML = `
     <div style="max-width: 700px; margin: 0 auto;"> 
