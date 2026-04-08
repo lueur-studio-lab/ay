@@ -443,30 +443,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 </div>
 </section>
 
-   <section id="about" class="sec" 
-         style="padding: 10rem 8%; 
-                position: relative; 
-                overflow: hidden;
-                /* 1. 套用背景照片 */
-                background-image: url('images/palaisroyal02.webp'); 
+  <section id="about" class="sec" 
+         style="padding: 10rem 8%; 
+                margin: 4rem 0;
+                position: relative;
+                /* 關鍵：使用 linear-gradient 把淡化層直接蓋在照片上面 */
+                background: linear-gradient(rgba(242, 241, 238, 0.9), rgba(242, 241, 238, 0.9)), 
+                            url('images/palaisroyal02.webp');
                 background-size: cover;
                 background-position: center;
-                background-attachment: fixed;
-                margin: 4rem 0;">
-  
-  <div class="about-overlay" 
-       style="position: absolute; 
-              inset: 0; 
-              width: 100%;  /* 💡 確保寬度鋪滿 💡 */
-              height: 100%; /* 💡 確保高度鋪滿 💡 */
-              background-color: rgba(242, 241, 238, 0.9); /* 💡 遮罩稍微再加深一點，更霧面 💡 */
-              z-index: 1;">
-  </div>
+                background-attachment: fixed; /* 保持高級視差感 */">
 
-  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 2; padding: 0 10%;"> 
+  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 2; padding: 0 10%;"> 
     <p class="sec-label" style="opacity: 0.6;">關於我 · ABOUT ME</p>
     <h2 style="font-size: 2.2rem; margin-bottom: 2rem; color: var(--blue-mid); font-family: var(--serif); font-weight: 300;">住在巴黎的 <i style="font-weight: 400; font-style: italic;">安</i></h2>
-    <div style="opacity: 0.8; color: var(--ink2); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 0.95rem;">
+    <div style="opacity: 0.9; color: var(--ink); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 0.95rem;">
       <p style="margin-bottom: 1.5rem; line-height: 2.2;">幾年前搬來巴黎，起初以為這是一場遠行，後來才發現，這已成了我的生活方式。習慣帶著手機走進瑪黑區的蜿蜒巷弄，拾起破碎的光影與記憶。</p>
       <p style="line-height: 2.2;">這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴。</p>
     </div>
