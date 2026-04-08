@@ -438,8 +438,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 
 <div id="lightbox" onclick="closeLightbox(event)" 
      style="display:none; position:fixed; z-index:9999; inset:0; background:rgba(242,241,238,0.98); cursor:zoom-out; flex-direction:column; align-items:center; justify-content:center;">
-  <img id="lightboxImg" style="max-width:90%; max-height:80vh; box-shadow:0 15px 40px rgba(0,0,0,0.1); border-radius:2px;">
-  <div id="lightboxDesc" style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase;"></div>
+  
+  <div id="prevBtn" onclick="changeImg(-1, event)" 
+       style="position:absolute; left:30px; top:50%; transform:translateY(-50%); font-size:3rem; cursor:pointer; color:var(--ink); opacity:0.4; transition:0.3s; padding:20px; z-index:10000;">
+    ‹
+  </div>
+
+  <div style="position:relative; display:flex; flex-direction:column; align-items:center; cursor:default;">
+    <img id="lightboxImg" src="" 
+         style="max-width:85vw; max-height:75vh; box-shadow:0 10px 30px rgba(0,0,0,0.05); border-radius:2px;">
+    
+    <div id="lightboxDesc" 
+         style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase;">
+    </div>
+  </div>
+
+  <div id="nextBtn" onclick="changeImg(1, event)" 
+       style="position:absolute; right:30px; top:50%; transform:translateY(-50%); font-size:3rem; cursor:pointer; color:var(--ink); opacity:0.4; transition:0.3s; padding:20px; z-index:10000;">
+    ›
+  </div>
+  
+  <div id="closeBtn" 
+       style="position:absolute; top:30px; right:30px; font-family:var(--mono); font-size:0.8rem; cursor:pointer; opacity:0.5; letter-spacing:0.1em;">
+    CLOSE
+  </div>
 </div>
 </section>
     
