@@ -144,7 +144,7 @@ var POSTS = [
 const GALLERY_DATA = [
   { img: 'images/palaisroyal.webp', cat: 'paris', desc: 'Le Palais-Royal · 法國女人' },
   { img: 'images/palaisroyal03.webp', cat: 'paris', desc: 'Le Palais-Royal · 白紗迴聲' },
-  { img: 'images/palaisroyal0ˋ.webp', cat: 'paris', desc: 'Le Palais-Royal · 光影的交會點' },
+  { img: 'images/palaisroyal04.webp', cat: 'paris', desc: 'Le Palais-Royal · 光影的交會點' },
   { img: 'images/citywalk.webp', cat: 'paris' , desc: 'City walk in Paris · 城市漫步' },
   { img: 'images/canalsaintmartin.webp', cat: 'paris' , desc: 'Canal Saint-Martin · 靈魂的停靠站' },
   { img: 'images/lasaintechapelle.webp', cat: 'museum', desc: 'La Sainte-Chapelle · 最美的彩色玻璃窗教堂' },
