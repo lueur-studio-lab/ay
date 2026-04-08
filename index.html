@@ -375,43 +375,48 @@ function openArt(id) {
   if (!coverImg.startsWith('http') && !coverImg.startsWith('images/')) {
     coverImg = 'images/' + coverImg;
   }
-// 補上這個關閉函數，返回鍵才會生效
-function closeArt() {
-  const overlay = document.getElementById('artOverlay');
-  overlay.classList.remove('show'); // 讓彈窗消失
-  document.body.style.overflow = 'auto'; // 讓主網頁可以重新捲動
-}
-  wrap.innerHTML = `
-    <div class="art-nav" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem;">
-      <button class="art-back" onclick="closeArt()" style="background:none; border:none; font-family:var(--mono); font-size:0.7rem; color:var(--muted); cursor:pointer; letter-spacing:0.15em;">← BACK</button>
-      <a class="logo" href="#" onclick="closeArt();return false;" style="font-size:0.8rem; text-decoration:none;">lueur.studio</a>
-    </div>
 
-    <div style="text-align: left; margin-top: 2rem;">
-      <div class="art-category-tag" style="font-family:var(--mono); font-size:0.65rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:0.25em; margin-bottom:1.2rem; display:block;">
-        ${p.cat}
+  // ✨ 這裡解決了返回鍵沒反應 + 電腦版太寬的問題
+  wrap.innerHTML = `
+    <div style="max-width: 700px; margin: 0 auto;"> <div class="art-nav" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem;">
+        <button class="art-back" 
+                onclick="document.getElementById('artOverlay').style.display='none'; document.body.style.overflow='auto';" 
+                style="background:none; border:none; font-family:var(--mono); font-size:0.7rem; color:var(--muted); cursor:pointer; letter-spacing:0.15em; padding:0;">
+          ← BACK
+        </button>
+        <a class="logo" href="#" 
+           onclick="document.getElementById('artOverlay').style.display='none'; document.body.style.overflow='auto'; return false;" 
+           style="font-size:0.8rem; text-decoration:none; color:var(--ink);">
+          lueur.studio
+        </a>
+      </div>
+
+      <div style="text-align: left; margin-top: 2rem;">
+        <div style="font-family:var(--mono); font-size:0.65rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:0.25em; margin-bottom:1.2rem;">
+          ${p.cat}
+        </div>
+        
+        <h1 style="font-size: clamp(2rem, 5vw, 2.8rem); margin:1rem 0 1.5rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2; letter-spacing:0.02em;">
+          ${p.title}
+        </h1>
+        
+        <div style="font-family:var(--serif); font-size:1.1rem; color:var(--muted); letter-spacing:0.05em; font-weight:300; font-style: italic; margin-bottom: 3.5rem;">
+          ${p.date}
+        </div>
       </div>
       
-      <h1 style="font-size:2.8rem; margin:0.5rem 0 1.5rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2; letter-spacing:0.02em;">
-        ${p.title}
-      </h1>
-      
-      <div style="font-family:var(--serif); font-size:1.1rem; color:var(--muted); letter-spacing:0.05em; font-weight:300; font-style: italic; margin-bottom: 3.5rem;">
-        ${p.date}
+      <div style="text-align: center; margin-bottom: 5rem;">
+        <img src="${coverImg}" style="width:100%; max-width:550px; height:auto; border-radius:2px; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
       </div>
-    </div>
-    
-    <div style="text-align: center; margin-bottom: 5rem;">
-      <img src="${coverImg}" style="width:100%; max-width:480px; height:auto; border-radius:2px; display:inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
-    </div>
-    
-    <div class="art-content-body" 
-         style="line-height:2.3; font-family:var(--serif); color:#3a3c52; font-size:1.15rem; text-align:justify;">
-      ${p.content}
+      
+      <div class="art-content-body" 
+           style="line-height:2.3; font-family:var(--serif); color:#3a3c52; font-size:1.1rem; text-align:justify; padding-bottom: 100px;">
+        ${p.content}
+      </div>
     </div>`;
   
-  overlay.classList.add('show');
-  document.body.style.overflow = 'hidden';
+  overlay.style.display = 'block'; // 強制顯示
+  document.body.style.overflow = 'hidden'; // 禁止底層捲動
   overlay.scrollTop = 0;
 }
   window.onscroll = function() {
