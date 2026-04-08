@@ -4,7 +4,7 @@ var POSTS = [
     title: '巴黎，星期天',
     cat: '巴黎日常 ·Just Paris',
     date: '01.04.2026',
-    img: 'images/images/paris.webp',
+    img: 'images/paris.webp',
     excerpt: '沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。', 
     content: `
       <p>上週末，一個興起。</p>
