@@ -151,3 +151,14 @@ var POSTS = [
   }
   */
 ];
+// data.js 最下方
+const GALLERY_DATA = [
+  { img: 'images/palaisroyal.webp', cat: 'paris' },
+  { img: 'images/MuseeRodin.webp', cat: 'museum' },
+  { img: 'images/lvfoundation.webp', cat: 'museum' },
+  { img: 'images/citywalk.webp', cat: 'paris' },
+  { img: 'images/canalsaintmartin.webp', cat: 'paris' },
+  { img: 'images/lasaintechapelle.webp', cat: 'museum' },
+  { img: 'images/boursedecommerce02.webp', cat: 'museum' },
+  { img: 'images/coffee01.webp', cat: 'paris' }
+];
