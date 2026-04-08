@@ -376,7 +376,12 @@ function openArt(id) {
   if (!coverImg.startsWith('http') && !coverImg.startsWith('images/')) {
     coverImg = 'images/' + coverImg;
   }
-
+// 補上這個關閉函數，返回鍵才會生效
+function closeArt() {
+  const overlay = document.getElementById('artOverlay');
+  overlay.classList.remove('show'); // 移除顯示類名
+  document.body.style.overflow = 'auto'; // 恢復頁面捲動
+}
   wrap.innerHTML = `
     <div style="text-align: left; margin-bottom: 4rem;"> <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:1rem;">${p.cat}</div>
       
