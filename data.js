@@ -107,7 +107,7 @@ var POSTS = [
       走廊裡的人聲輕了，腳步也慢了，彷彿夜色本身替這座宮殿換上了另一副面孔。</p>
       <p>那時恰逢高訂展，展品與各個廳室的搭配渾然天成，留下了深刻的印象。</p>
       <p>然而這次重遊，記憶卻變得模糊——許多展品與畫作，彷彿似曾相識，又彷彿從未謀面。</p>
-      <<figure style="margin: 3.5rem 0; text-align: center;">
+      <figure style="margin: 3.5rem 0; text-align: center;">
   <img src="images/WingedVictoryofSamothrace.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
   <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
