@@ -477,7 +477,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
       if (!container) return;
       container.innerHTML = ''; 
       const filtered = (filter === 'all') ? POSTS : POSTS.filter(p => p.cat.includes(filter));
+      
       filtered.forEach(p => {
+        // 關鍵修正：確保路徑包含 images/
+        let thumbUrl = p.img;
+        if (!thumbUrl.startsWith('http') && !thumbUrl.startsWith('images/')) {
+          thumbUrl = 'images/' + thumbUrl;
+        }
+
         container.innerHTML += `
           <div class="journal-item" onclick="openArt('${p.id}')">
             <div class="j-meta">
@@ -488,7 +495,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
               <h3 class="j-title">${p.title}</h3>
               <p class="j-excerpt">${p.excerpt || ""}</p>
             </div>
-            <div class="j-thumb" style="background-image:url('${p.img}')"></div>
+            <div class="j-thumb" style="background-image:url('${thumbUrl}')"></div>
           </div>`;
       });
     }
