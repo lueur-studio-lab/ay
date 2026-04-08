@@ -142,11 +142,15 @@ var POSTS = [
 ];
 
 const GALLERY_DATA = [
-  { img: 'images/palaisroyal.webp', cat: 'paris', desc: 'Le Palais-Royal · 巴黎皇家宮殿' },
-  { img: 'images/MuseeRodin.webp', cat: 'museum', desc: 'Le musée Rodin · 沉思者 Le Penseur' },
-  { img: 'images/lvfoundation.webp', cat: 'museum', desc: 'Fondation Louis Vuitton · 路易威登藝術基金會' },
+  { img: 'images/palaisroyal.webp', cat: 'paris', desc: 'Le Palais-Royal · 法國女人' },
+  { img: 'images/palaisroyal03.webp', cat: 'paris', desc: 'Le Palais-Royal · 白紗迴聲' },
+  { img: 'images/palaisroyal0ˋ.webp', cat: 'paris', desc: 'Le Palais-Royal · 光影的交會點' },
   { img: 'images/citywalk.webp', cat: 'paris' , desc: 'City walk in Paris · 城市漫步' },
-  { img: 'images/canalsaintmartin.webp', cat: 'paris' , desc: 'Canal Saint-Martin · 聖馬丁運河' },
-  { img: 'images/lasaintechapelle.webp', cat: 'museum', desc: 'La Sainte-Chapelle · 聖徒禮拜堂' },
-  { img: 'images/boursedecommerce02.webp', cat: 'museum' , desc: 'Bourse de Commerce - Pinault Collection · 巴黎商業交易所─皮諾私人美術館' },
+  { img: 'images/canalsaintmartin.webp', cat: 'paris' , desc: 'Canal Saint-Martin · 靈魂的停靠站' },
+  { img: 'images/lasaintechapelle.webp', cat: 'museum', desc: 'La Sainte-Chapelle · 最美的彩色玻璃窗教堂' },
+  { img: 'images/boursedecommerce02.webp', cat: 'museum' , desc: 'Bourse de Commerce - Pinault Collection · 皮諾私人美術館' },
+  { img: 'images/lvfoundation.webp', cat: 'museum', desc: 'Fondation Louis Vuitton · 路易威登藝術基金會' },
+  { img: 'images/MuseeRodin.webp', cat: 'museum', desc: 'Le musée Rodin · 沉思者 Le Penseur' },
+  { img: 'images/petitpalais.webp', cat: 'museum', desc: 'Petit Palais · 大腦的背後' },
+
 ];
