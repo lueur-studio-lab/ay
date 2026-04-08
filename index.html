@@ -67,8 +67,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   overflow: hidden;
 
   /* 1. 確保這裡的網址是 raw.githubusercontent... */
-  background-image: url('https://raw.githubusercontent.com/lueur-studio-lab/ay/main/palaisroyal02.jpg'); 
-  
+  background-image: url('images/palaisroyal02.webp');  
   /* 2. 讓照片鋪滿，不重複 */
   background-size: cover;
   background-position: center;
@@ -109,8 +108,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   
   <div class="featured-flex" onclick="openArt('a1')" style="display: flex; gap: 4rem; align-items: center; margin-top: 2rem; cursor: pointer;">
     <div style="flex: 1.5;">
-      <img src="https://raw.githubusercontent.com/yuunawang-lab/my-art-site/main/paris.jpg" style="width: 100%; height: 500px; object-fit: cover;">
-    </div>
+      <img src="paris.webp" style="width: 100%; height: 500px; object-fit: cover;">    </div>
     <div style="flex: 1;">
       <div style="font-family: var(--mono); font-size: 0.7rem; color: #999; margin-bottom: 1rem;">PARIS · 01.04.2026</div>
       <h2 style="font-size: 2.2rem; font-weight: 400; margin-bottom: 1.5rem;">巴黎，星期天</h2>
@@ -428,13 +426,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
         <span class="g-filter" onclick="filterGallery('paris', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">PARIS</span>
         <span class="g-filter" onclick="filterGallery('museum', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">MUSEUM</span>
       </div>
-      <div class="gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-        <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/paris.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/palaisroyal.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/boursedecommerce.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/MuseeRodin.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/WingedVictoryofSamothrace.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
-        <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;"><img src="https://raw.githubusercontent.com/lueur-studio-lab/ay/main/lvfoundation.jpg" style="width: 100%; height: 100%; object-fit: cover;"></div>
+      <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;">
+      <img src="citywalk.webp" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;">
+      <img src="canalsaintmartin.webp" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;">
+      <img src="lasaintechapelle.webp" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="g-item museum" style="aspect-ratio: 3/4; overflow: hidden;">
+      <img src="boursedecommerce02.webp" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div class="g-item paris" style="aspect-ratio: 3/4; overflow: hidden;">
+      <img src="coffee01.webp" style="width: 100%; height: 100%; object-fit: cover;">
       </div>
     </section>
 
