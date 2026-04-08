@@ -13,9 +13,9 @@ var POSTS = [
       <p>星期天，當然人很多。這是預料中的事。</p>
       <p>但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。</p>
       <p>點了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。</p>
-      <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
+      <blockquote class="art-quote">      
       沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。
-      </div>
+      </blockquote>
       <p>就這樣一直待到快打烊，走出店外，天空還亮著。</p>
       <p>夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。</p>
       <p><em>C'est ça, le bonheur.</em></p>
@@ -32,9 +32,9 @@ var POSTS = [
       <p>Sunday, so of course it was packed. I knew it would be.</p>
       <p>But the moment I walked in, a single bar stool opened up. Something like fate. I sat down.</p>
       <p>Ordered a coffee, opened the notebook, and started writing — all the things that had been piling up in my head, unprocessed.</p>
-      <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
+      <blockquote class="art-quote">      
       No one knew me here. The noise around me softened into white noise, and somehow my thoughts became clearer.
-      </div>
+      </blockquote>      
       <p>I stayed until almost closing time. Walking out, the sky was still light.</p>
       <p>That's Paris in summer time — nearly half past seven in the evening and the light still refuses to leave.<br>
       Standing there on the pavement, I thought: this is exactly what Sundays should feel like.<br>
@@ -61,9 +61,9 @@ var POSTS = [
         — Le film Camata —
       </figcaption>
       </figure>
-      <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
+      <blockquote class="art-quote">
       時間彷彿在此凝止。我也找了個位置坐下，似懂非懂地看著螢幕上的畫面，卻意外地感到一種平靜。
-      </div>
+      </blockquote>
       <p>起身，走上樓層，每一件展品似乎都在訴說著什麼。</p>
       <p>不確定自己能否完全共鳴，但在駐足與思索之間，思緒反而漸漸變得清晰。</p>
       <p>就這樣走走停停，在不同的展間裡緩行，心靈也在不知不覺中被滋養了。</p>
@@ -75,9 +75,9 @@ var POSTS = [
       <p>I hadn't researched the current exhibition beforehand. I simply showed up, carrying nothing but curiosity and a quiet sense of anticipation.</p>
       <p>It was a weekday afternoon, and the crowds were few. Stepping into the main hall, I found myself beneath a vast, domed ceiling — hushed and expansive.</p>
       <p>Visitors stood or sat in stillness, their eyes fixed on a large screen where images moved at an unhurried pace. </p>
-      <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
+      <blockquote class="art-quote">
       Time seemed to pause. I found a seat and settled in, watching the film without fully understanding it, yet feeling, somehow, at ease.
-      </div>
+      </blockquote>
       <p>I eventually rose and made my way upstairs. Each piece seemed to be saying something — whether I truly grasped it or not, I wasn't always sure.</p>
       <p>But the act of pausing, of wondering, had a strange clarifying effect.</p>
       <p>I drifted from room to room, unhurried, and somewhere in that gentle wandering, I felt something in me quietly restored.</p>
@@ -115,9 +115,9 @@ var POSTS = [
   </figcaption>
 </figure>
       <p>大多數的細節已悄然淡去，唯有勝利女神那份凌空而立的優雅，依然清晰地刻在腦海之中。</p>
-      <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
+      <blockquote class="art-quote">
       與朋友邊走邊聊，說的不全是眼前的畫，更多是生活裡的瑣碎與近況。有時走著走著，話題自然停了，各自在某件展品前沉默片刻，再繼續前行。這種陪伴不需要解釋，卻讓整個夜晚多了一份溫度。
-      </div>
+      </blockquote>
       <p>我們不約而同地感嘆：好幾次來看展，卻從未認真聆聽過那些著名畫作背後的故事與解說。</p>
       <p>或許，在往後的日子裡，這次的記憶也只剩下一句話：曾經來過，知道蒙娜麗莎在此。而其他的——又會留下多少？</p>
       <p>不是每一次造訪都要留下深刻的領悟，有時候只是走過、感受過、和好姐妹在夜裡邊走邊說著有的沒的——那本身，已經是一件值得的事了。</p>
@@ -127,9 +127,9 @@ var POSTS = [
       <p>The Louvre at night is a different place entirely. Light falls across the stone colonnades in a deep, warm gold; the voices soften, the footsteps slow, and the darkness outside seems to settle over the palace like a second skin.</p>
       <p>That time, a haute couture exhibition was on display, woven seamlessly throughout the galleries. It had left a strong impression. Yet standing here again, the memory felt strangely blurred.</p>
       <p>Most details had quietly slipped away — all except the Winged Victory of Samothrace, whose poised and timeless grace remained as vivid as ever.</p>
-      <div style="margin: 2.5rem 0; border-left: 2px solid #eee; padding-left: 1.5rem; font-style: italic; color: #888; line-height: 1.7; font-size: 0.95rem;">
+      <blockquote class="art-quote">
       My friend and I walked and talked — not always about the art, but about life, the small and scattered things that fill the days between visits like this. Every so often, mid-conversation, we'd both fall quiet in front of something, linger for a moment, then move on.
-      </div>      
+      </blockquote>
       <p>We found ourselves wondering aloud: how many times had we been to places like this, and never once stopped to really listen to the stories behind what we were looking at?</p>
       <p>Sometimes it's enough to have simply passed through — to have wandered these galleries with your best girl, talking about everything and nothing, until the lights told you it was time to go.</p>
       <p><em>And someday, looking back, I think we'll laugh and say: we didn't really look at anything that night. But none of it was wasted.</em></p>
