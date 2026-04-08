@@ -9,10 +9,6 @@
     gtag('js', new Date());
     gtag('config', 'G-SZRMZ00SD1');
   </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lueur.studio — 巴黎日常</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@200;300;400&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root {
@@ -86,80 +82,107 @@
     #nextBtn { right: 20px; }
     #prevBtn:hover, #nextBtn:hover { opacity: 1; }
 
-    /* 新增這段來控制標題樣式 */
-#lightboxDesc {
-  font-family: var(--mono);
-  font-size: 0.75rem;      /* 字體調小一點，更有精緻感 */
-  color: var(--muted);
-  margin-top: 1.5rem;      /* 與照片保持距離 */
-  line-height: 1.8;        /* 增加行高，避免兩行字擠在一起 */
-  letter-spacing: 0.05em;
-  text-align: center;
-  
-  /* ✨ 核心修正：限制寬度並置中 */
-  max-width: 600px;        /* 電腦版標題最長只到 600px */
-  width: 80%;              /* 手機版會自動留出左右各 10% 的空白 */
-  margin-left: auto;
-  margin-right: auto;
-  word-break: keep-all;    /* 避免中文字在不該斷的地方斷掉 */
-}
+    #lightboxDesc {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+      text-align: center;
+      max-width: 600px;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      word-break: keep-all;
+    }
 
-/* 針對手機的小調整 */
-@media (max-width: 768px) {
-  #lightboxDesc {
-    font-size: 0.65rem;
-    width: 85vw;
-  }
-} /* <--- 確保這裡有正確閉合 */
-      #about { 
-        background-attachment: scroll !important; padding: 6rem 5% !important; 
-        background: linear-gradient(rgba(242, 241, 238, 0.95), rgba(242, 241, 238, 0.95)), url('images/palaisroyal02.webp') !important;
-        background-size: cover !important; background-position: 70% center !important;
+    @media (max-width: 768px) {
+      #lightboxDesc {
+        font-size: 0.65rem;
+        width: 85vw;
       }
-      
+    }
+
+    #about { 
+      background-attachment: scroll !important; padding: 6rem 5% !important; 
+      background: linear-gradient(rgba(242, 241, 238, 0.95), rgba(242, 241, 238, 0.95)), url('images/palaisroyal02.webp') !important;
+      background-size: cover !important; background-position: 70% center !important;
+    }
+    
+    @media (max-width: 768px) {
       #prevBtn, #nextBtn { font-size: 3rem !important; opacity: 0.6 !important; width: 50px; z-index: 10001; }
       #prevBtn { left: 5px !important; }
       #nextBtn { right: 5px !important; }
       #lightboxImg { max-width: 90vw !important; max-height: 60vh !important; }
     }
-/* 💡 專門控制文章點開後的文字層次 */
-.art-content-body {
-  font-family: var(--serif);
-  font-weight: 300;     /* 英文使用較纖細的 300 */
-}
 
-.art-content-body p {
-  margin-bottom: 1.8rem; /* 段落間距加大，更有呼吸感 */
-  letter-spacing: 0.02em;
-}
+    /* ✨ 彈窗文章內容美化 ✨ */
+    .art-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem; 
+      padding: 0 0 1rem 0;
+    }
 
-/* 💡 針對內容中的中文字進行優化 */
-/* 由於 Noto Serif TC 在 300 時可能略顯厚重，我們將中文字體比例調細 */
-.art-content-body {
-  /* 增加中文字的渲染質感 */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    .art-back {
+      background: none;
+      border: none;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-/* 如果妳希望內容中的中文更細，可以使用以下技巧 */
-@supports (font-variation-settings: normal) {
-  .art-content-body {
-    font-weight: 200; /* 對於支援變體字體的瀏覽器使用更細的字重 */
-  }
-}
+    .art-back:hover {
+      color: var(--ink);
+      transform: translateX(-5px);
+    }
 
-/* 處理標題與內文的法式引言或斜體 */
-.art-content-body i, 
-.hero-h1 i {
-  font-style: italic;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 400; /* 斜體通常需要稍微明顯一點才好看 */
-}
+    .art-category-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--blue-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+
+    .art-content-body {
+      font-family: var(--serif);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .art-content-body p {
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.02em;
+    }
+
+    @supports (font-variation-settings: normal) {
+      .art-content-body { font-weight: 200; }
+    }
+
+    .art-content-body i, .hero-h1 i {
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+    }
+
     #backToTop { position: fixed; bottom: 40px; right: 40px; z-index: 999; background: rgba(242, 241, 238, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(43,45,66,0.1); padding: 12px 18px; font-family: var(--mono); font-size: 0.6rem; cursor: pointer; transition: 0.4s; opacity: 0; visibility: hidden; }
     #backToTop.show { opacity: 1; visibility: visible; }
     .art-overlay { position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; overflow-y: auto; display: none; padding: 100px 12% 60px; }
     .art-overlay.show { display: block; }
-  </style>
+</style>
 </head>
 <body>
 
