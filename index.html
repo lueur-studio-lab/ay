@@ -107,10 +107,10 @@
 /* 針對手機的小調整 */
 @media (max-width: 768px) {
   #lightboxDesc {
-    font-size: 0.65rem;    /* 手機版字體再縮小一點點 */
-    width: 85vw;           /* 寬度稍微放寬到 85% */
+    font-size: 0.65rem;
+    width: 85vw;
   }
-}
+} /* <--- 確保這裡有正確閉合 */
       #about { 
         background-attachment: scroll !important; padding: 6rem 5% !important; 
         background: linear-gradient(rgba(242, 241, 238, 0.95), rgba(242, 241, 238, 0.95)), url('images/palaisroyal02.webp') !important;
@@ -122,7 +122,39 @@
       #nextBtn { right: 5px !important; }
       #lightboxImg { max-width: 90vw !important; max-height: 60vh !important; }
     }
+/* 💡 專門控制文章點開後的文字層次 */
+.art-content-body {
+  font-family: var(--serif);
+  font-weight: 300;     /* 英文使用較纖細的 300 */
+}
 
+.art-content-body p {
+  margin-bottom: 1.8rem; /* 段落間距加大，更有呼吸感 */
+  letter-spacing: 0.02em;
+}
+
+/* 💡 針對內容中的中文字進行優化 */
+/* 由於 Noto Serif TC 在 300 時可能略顯厚重，我們將中文字體比例調細 */
+.art-content-body {
+  /* 增加中文字的渲染質感 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 如果妳希望內容中的中文更細，可以使用以下技巧 */
+@supports (font-variation-settings: normal) {
+  .art-content-body {
+    font-weight: 200; /* 對於支援變體字體的瀏覽器使用更細的字重 */
+  }
+}
+
+/* 處理標題與內文的法式引言或斜體 */
+.art-content-body i, 
+.hero-h1 i {
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; /* 斜體通常需要稍微明顯一點才好看 */
+}
     #backToTop { position: fixed; bottom: 40px; right: 40px; z-index: 999; background: rgba(242, 241, 238, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(43,45,66,0.1); padding: 12px 18px; font-family: var(--mono); font-size: 0.6rem; cursor: pointer; transition: 0.4s; opacity: 0; visibility: hidden; }
     #backToTop.show { opacity: 1; visibility: visible; }
     .art-overlay { position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; overflow-y: auto; display: none; padding: 100px 8% 60px; }
@@ -310,27 +342,40 @@
       document.body.style.overflow = 'auto';
     }
   }
-
-  function openArt(id) {
-    const p = POSTS.find(x => x.id === id);
-    if (!p) return;
-    const wrap = document.getElementById('artWrap');
-    let coverImg = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
-    wrap.innerHTML = `
-      <div style="text-align: left; margin-bottom: 3rem;">
-        <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:0.8rem;">${p.cat}</div>
-        <h1 style="font-size:2.8rem; margin:0.5rem 0 1.2rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2;">${p.title}</h1>
-        <div style="font-family:var(--mono); font-size:1.05rem; color:var(--muted); letter-spacing:0.05em; font-weight:300;">${p.date}</div>
-      </div>
-      <div style="text-align: center; margin-bottom: 4rem;"><img src="${coverImg}" style="width:100%; max-width:450px; border-radius:2px;"></div>
-      <div style="line-height:2.2; font-family:'Noto Serif TC'; color:#3a3c52; font-size:1.1rem; text-align:justify;">${p.content}</div>`;
-    document.getElementById('artOverlay').classList.add('show');
-    document.body.style.overflow = 'hidden';
+// --- 4. 打開文章彈窗 (已修正字體問題) ---
+function openArt(id) {
+  const p = POSTS.find(x => x.id === id);
+  if (!p) return;
+  const wrap = document.getElementById('artWrap');
+  const overlay = document.getElementById('artOverlay');
+  
+  let coverImg = p.img;
+  if (!coverImg.startsWith('http') && !coverImg.startsWith('images/')) {
+    coverImg = 'images/' + coverImg;
   }
 
-  function closeArt() { document.getElementById('artOverlay').classList.remove('show'); document.body.style.overflow = 'auto'; }
-  function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
+  wrap.innerHTML = `
+    <div style="text-align: left; margin-bottom: 3rem;">
+      <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:0.8rem;">${p.cat}</div>
+      <h1 style="font-size:2.8rem; margin:0.5rem 0 1.2rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2; letter-spacing:0.02em;">
+        ${p.title}
+      </h1>
+      <div style="font-family:var(--mono); font-size:1.05rem; color:var(--muted); letter-spacing:0.05em; font-weight:300;">${p.date}</div>
+    </div>
+    
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <img src="${coverImg}" style="width:100%; max-width:450px; height:auto; border-radius:2px; display:inline-block;">
+    </div>
+    
+    <div class="art-content-body" 
+         style="line-height:2.2; font-family:var(--serif); color:#3a3c52; font-size:1.1rem; text-align:justify;">
+      ${p.content}
+    </div>`;
+  
+  overlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  overlay.scrollTop = 0;
+}
   window.onscroll = function() {
     const btn = document.getElementById("backToTop");
     if (document.documentElement.scrollTop > 400) btn.classList.add("show");
