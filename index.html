@@ -427,14 +427,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     <span class="g-filter" onclick="renderGallery('paris', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">PARIS</span>
     <span class="g-filter" onclick="renderGallery('museum', event)" style="cursor:pointer; margin-right:20px; opacity: 0.5;">MUSEUM</span>
   </div>
-
-  <div class="gallery-grid" id="galleryGrid" 
+<div class="gallery-grid" id="galleryGrid" 
      style="display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-            gap: 20px; 
-            max-height: 70vh; /* 💡 關鍵：限制高度為螢幕的 70%，超過會出現內部捲軸 */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+            gap: 15px; 
+            max-height: 70vh; 
             overflow-y: auto; 
             padding-right: 10px;">
+  </div>
+
+<div id="lightbox" onclick="closeLightbox(event)" 
+     style="display:none; position:fixed; z-index:9999; inset:0; background:rgba(242,241,238,0.98); cursor:zoom-out; flex-direction:column; align-items:center; justify-content:center;">
+  <img id="lightboxImg" style="max-width:90%; max-height:80vh; box-shadow:0 15px 40px rgba(0,0,0,0.1); border-radius:2px;">
+  <div id="lightboxDesc" style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase;"></div>
 </div>
 </section>
 
@@ -521,11 +526,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
     }
 
     // --- 2. 照片牆渲染 (精緻版 + 燈箱 + 地點文字) ---
-function renderGallery(filter = 'all', event) {
+function function renderGallery(filter = 'all', event) {
   const grid = document.getElementById('galleryGrid');
   if (!grid) return;
 
-  // 切換濾鏡按鈕樣式 (這裡維持妳原本的邏輯)
+  // 更新按鈕樣式
   if (event) {
     document.querySelectorAll('.g-filter').forEach(f => {
       f.style.opacity = '0.5';
@@ -535,50 +540,29 @@ function renderGallery(filter = 'all', event) {
     event.target.style.borderBottom = '1px solid var(--ink)';
   }
 
-  // 1. 💡 微調 CSS 💡：縮小格子寬度，增加呼吸感
-  grid.style.display = 'grid';
-  grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(180px, 1fr))'; // 💡 從 250px 縮小到 180px 💡
-  grid.style.gap = '15px';
-  grid.style.maxHeight = '70vh'; // 💡 維持捲軸 💡
-  grid.style.overflowY = 'auto';
-  grid.style.paddingRight = '8px'; // 💡 幫內部捲軸留一點點空間 💡
-
   grid.innerHTML = '';
-  
-  // 從 data.js 讀取 GALLERY_DATA
   const filtered = (filter === 'all') ? GALLERY_DATA : GALLERY_DATA.filter(item => item.cat === filter);
 
   filtered.forEach(item => {
-    // 💡 onclick：傳送 src 與 desc 💡
+    // 💡 關鍵：這裡要傳入 item.img 和 item.desc
     grid.innerHTML += `
-      <div class="g-item" style="cursor:zoom-in; overflow:hidden;" onclick="openLightbox('${item.img}', '${item.desc}')">
+      <div class="g-item" style="cursor:zoom-in; overflow:hidden;" onclick="openLightbox('${item.img}', '${item.desc || ""}')">
         <img src="${item.img}" style="width:100%; aspect-ratio:3/4; object-fit:cover; transition:0.6s ease; border-radius:2px;" loading="lazy">
       </div>`;
   });
 }
 
-// 💡 打開燈箱並填入文字 💡
+// 💡 對應的開啟/關閉函數
 function openLightbox(src, desc) {
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightboxImg');
-  const txt = document.getElementById('lightboxDesc');
-  
-  img.src = src;
-  txt.innerHTML = desc; // 💡 填入的地點文字 💡
-  lb.style.display = 'flex';
-  
-  // 💡 放大時防止底層捲動 💡
-  document.body.style.overflow = 'hidden'; 
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxDesc').innerHTML = desc;
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
 }
 
-// 💡 輔助：關閉燈箱 💡
 function closeLightbox(event) {
-  const lb = document.getElementById('lightbox');
-  // 💡 防止點擊文字區塊時關閉燈箱 💡
-  if (event.target === lb || event.target.tagName === 'IMG') {
-    lb.style.display = 'none';
-    document.body.style.overflow = 'auto'; // 💡 恢復底層捲動 💡
-  }
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
 
     // --- 3. 打開文章彈窗 (修正左對齊與圖片置中) ---
