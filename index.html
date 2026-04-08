@@ -167,11 +167,32 @@
       margin-bottom: 1.8rem;
       letter-spacing: 0.02em;
     }
-
+/* 👈 把代碼貼在這裡，就在 .art-content-body p 的下面 */
+    .art-content-body blockquote, 
+    .art-content-body i {
+      font-size: 1.05rem !important; 
+      line-height: 2 !important;   
+      display: block;                
+      margin: 2.5rem 0;                
+      padding-left: 1.5rem;          
+      border-left: 1px solid var(--border); 
+      opacity: 0.8;
+      font-style: italic;
+    }
     @supports (font-variation-settings: normal) {
       .art-content-body { font-weight: 200; }
     }
-
+    /* 統一所有文章的斜體引言樣式 */
+.art-quote {
+  font-size: 1.05rem !important;   /* 強制固定大小 */
+  line-height: 2 !important;       /* 強制固定行高 */
+  color: #555 !important;          /* 強制固定顏色 */
+  margin: 3rem 0 !important;       /* 上下留白 */
+  padding-left: 1.5rem !important; /* 左側線條間距 */
+  border-left: 2px solid #ddd !important; /* 灰色的左邊線 */
+  font-style: italic !important;   /* 斜體 */
+  display: block !important;
+}
     .art-content-body i, .hero-h1 i {
       font-style: italic;
       font-family: 'Cormorant Garamond', serif;
