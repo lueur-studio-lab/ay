@@ -442,24 +442,44 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
   <div id="lightboxDesc" style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-top: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase;"></div>
 </div>
 </section>
-
+    
+<style>
+  /* 在 style 標籤內加入這段，專門修復手機版的背景 */
+  @media (max-width: 768px) {
+    #about {
+      /* 手機版關閉視差，避免照片變形 */
+      background-attachment: scroll !important; 
+      /* 手機版增加內距，讓文字更有呼吸感 */
+      padding: 6rem 5% !important; 
+      /* 手機版讓背景更模糊、更朦朧 */
+      background: linear-gradient(rgba(242, 241, 238, 0.95), rgba(242, 241, 238, 0.95)), 
+                  url('images/palaisroyal02.webp') !important;
+      background-size: cover !important;
+      background-position: 70% center !important; /* 稍微調整照片中心 */
+    }
+    
+    #about .about-content {
+      padding: 0 !important; /* 移除手機版額外的左右邊距 */
+    }
+  }
+</style>
+    
   <section id="about" class="sec" 
          style="padding: 10rem 8%; 
                 margin: 4rem 0;
                 position: relative;
-                /* 關鍵：使用 linear-gradient 把淡化層直接蓋在照片上面 */
                 background: linear-gradient(rgba(242, 241, 238, 0.9), rgba(242, 241, 238, 0.9)), 
                             url('images/palaisroyal02.webp');
                 background-size: cover;
                 background-position: center;
-                background-attachment: fixed; /* 保持高級視差感 */">
+                background-attachment: scroll;">
 
-  <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 2; padding: 0 10%;"> 
+  <div class="about-content" style="max-width: 800px; margin: 0 auto; position: relative; z-index: 2; padding: 0 10%;"> 
     <p class="sec-label" style="opacity: 0.6;">關於我 · ABOUT ME</p>
     <h2 style="font-size: 2.2rem; margin-bottom: 2rem; color: var(--blue-mid); font-family: var(--serif); font-weight: 300;">住在巴黎的 <i style="font-weight: 400; font-style: italic;">安</i></h2>
-    <div style="opacity: 0.9; color: var(--ink); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 0.95rem;">
-      <p style="margin-bottom: 1.5rem; line-height: 2.2;">幾年前搬來巴黎，起初以為這是一場遠行，後來才發現，這已成了我的生活方式。習慣帶著手機走進瑪黑區的蜿蜒巷弄，拾起破碎的光影與記憶。</p>
-      <p style="line-height: 2.2;">這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴。</p>
+    <div style="opacity: 0.9; color: var(--ink); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 1rem; line-height: 2;">
+      <p style="margin-bottom: 1.5rem;">幾年前搬來巴黎，以為是一場旅行。後來才明白，這已是我的生活方式。習慣走進瑪黑區的巷弄，帶著手機——拾起光影，也拾起記憶。</p>
+      <p style="margin-bottom: 1.5rem;">這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴。</p>
     </div>
   </div>
 </section>
