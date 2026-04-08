@@ -286,7 +286,6 @@
   </div>
   <div id="artWrap" class="art-wrap"></div>
 </div>
-
 <script src="data.js"></script>
 <script>
   let currentIdx = 0;
@@ -379,22 +378,31 @@ function openArt(id) {
 // 補上這個關閉函數，返回鍵才會生效
 function closeArt() {
   const overlay = document.getElementById('artOverlay');
-  overlay.classList.remove('show'); // 移除顯示類名
-  document.body.style.overflow = 'auto'; // 恢復頁面捲動
+  overlay.classList.remove('show'); // 讓彈窗消失
+  document.body.style.overflow = 'auto'; // 讓主網頁可以重新捲動
 }
   wrap.innerHTML = `
-    <div style="text-align: left; margin-bottom: 4rem;"> <div style="font-family:var(--mono); font-size:.7rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:.2em; margin-bottom:1rem;">${p.cat}</div>
+    <div class="art-nav" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem;">
+      <button class="art-back" onclick="closeArt()" style="background:none; border:none; font-family:var(--mono); font-size:0.7rem; color:var(--muted); cursor:pointer; letter-spacing:0.15em;">← BACK</button>
+      <a class="logo" href="#" onclick="closeArt();return false;" style="font-size:0.8rem; text-decoration:none;">lueur.studio</a>
+    </div>
+
+    <div style="text-align: left; margin-top: 2rem;">
+      <div class="art-category-tag" style="font-family:var(--mono); font-size:0.65rem; color:var(--blue-mid); text-transform:uppercase; letter-spacing:0.25em; margin-bottom:1.2rem; display:block;">
+        ${p.cat}
+      </div>
       
-      <h1 style="font-size:2.8rem; margin:0.5rem 0 2rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2; letter-spacing:0.02em;">
+      <h1 style="font-size:2.8rem; margin:0.5rem 0 1.5rem; font-family:var(--serif); color:#2b2d42; font-weight:300; line-height:1.2; letter-spacing:0.02em;">
         ${p.title}
       </h1>
       
-      <div style="font-family:var(--serif); font-size:1.1rem; color:var(--muted); letter-spacing:0.05em; font-weight:300; opacity:0.8;">
+      <div style="font-family:var(--serif); font-size:1.1rem; color:var(--muted); letter-spacing:0.05em; font-weight:300; font-style: italic; margin-bottom: 3.5rem;">
         ${p.date}
       </div>
     </div>
     
-    <div style="text-align: center; margin-bottom: 5rem;"> <img src="${coverImg}" style="width:100%; max-width:480px; height:auto; border-radius:2px; display:inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+    <div style="text-align: center; margin-bottom: 5rem;">
+      <img src="${coverImg}" style="width:100%; max-width:480px; height:auto; border-radius:2px; display:inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
     </div>
     
     <div class="art-content-body" 
