@@ -4,7 +4,7 @@ var POSTS = [
     title: '巴黎，星期天',
     cat: '巴黎日常 ·Just Paris',
     date: '01.04.2026',
-    img: 'paris.webp',
+    img: 'images/paris.webp',
     excerpt: '沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。', 
     content: `
       <p>上週末，一個興起。</p>
@@ -20,8 +20,13 @@ var POSTS = [
       <p>夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。</p>
       <p><em>C'est ça, le bonheur.</em></p>
       <figure style="margin: 3.5rem 0; text-align: center;">
-      <img src="coffee01.webp" style="width:100%; height:auto; display:block; border-radius:2px;">      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">Iced Latte</figcaption>
-      </figure>
+  <img src="images/coffee01.webp" 
+       style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+  
+  <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
+    — Iced Latte —
+  </figcaption>
+</figure>
       <hr style="margin: 4.5rem 0 3.5rem; border: 0; border-top: 1px solid #eee;">      
       <p>Last Sunday, on a whim.</p>
       <p>No plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door.<br>
@@ -43,7 +48,7 @@ var POSTS = [
     title: '放空也是一種奢侈',
     cat: '巴黎日常 ·Just Paris',
     date: '04.04.2026',
-    img: 'boursedecommerce.webp',    
+    img: 'images/boursedecommerce.webp',    
     excerpt: '一個人的巴黎午後，在皮諾私人美術館的穹頂之下，放空，也是一種奢侈。', 
     content: `
       <p>三月中旬的某一天，預約了下午場的巴黎證券交易所——皮諾私人美術館。</p>
@@ -51,7 +56,12 @@ var POSTS = [
       <p>平日的午後，人潮稀落。踏入展廳，穹頂之下的空間靜謐而開闊，<br>
       每一位觀展的人都安靜地凝視著前方的大螢幕，影像緩緩流動。</p>
       <figure style="margin: 3.5rem 0; text-align: center;">
-      <img src="bourse02.webp" style="width:100%; height:auto; display:block; border-radius:2px;">      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">Le film Camata</figcaption>
+      <img src="images/bourse02.webp" 
+       style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
+  
+      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
+        — Le film Camata —
+      </figcaption>
       </figure>
       <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
       時間彷彿在此凝止。我也找了個位置坐下，似懂非懂地看著螢幕上的畫面，卻意外地感到一種平靜。
@@ -74,8 +84,13 @@ var POSTS = [
       <p>But the act of pausing, of wondering, had a strange clarifying effect.</p>
       <p>I drifted from room to room, unhurried, and somewhere in that gentle wandering, I felt something in me quietly restored.</p>
       <figure style="margin: 3.5rem 0; text-align: center;">
-      <img src="bourse03.webp" style="width:100%; height:auto; display:block; border-radius:2px;">      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">Le film Camata</figcaption>
-      </figure>
+  <img src="images/bourse03.webp" 
+       style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
+  
+  <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
+    — Le film Camata —
+  </figcaption>
+</figure>
       <p>When closing time came, I stepped out into the evening and caught the metro home.</p>
       <p>It was an ordinary afternoon, and yet — I loved it. A ME TIME, entirely my own.</p>
       
@@ -87,7 +102,7 @@ var POSTS = [
     title: '羅浮宮的夜',
     cat: '巴黎日常 ·Just Paris',
     date: '05.04.2026',
-    img: 'pyramidedulouvre.webp',
+    img: 'images/pyramidedulouvre.webp',
     excerpt: '每月第一個週五夜晚，免費開放的羅浮宮——再度造訪，才發現記憶比想像中更容易消散。', 
     content: `
       <p>每個月的第一個週五晚上，羅浮宮開放免費預約入場。</p>
@@ -96,10 +111,14 @@ var POSTS = [
       走廊裡的人聲輕了，腳步也慢了，彷彿夜色本身替這座宮殿換上了另一副面孔。</p>
       <p>那時恰逢高訂展，展品與各個廳室的搭配渾然天成，留下了深刻的印象。</p>
       <p>然而這次重遊，記憶卻變得模糊——許多展品與畫作，彷彿似曾相識，又彷彿從未謀面。</p>
-      <figure style="margin: 3.5rem 0; text-align: center;">
-      <img src="WingedVictoryofSamothrace.webp" style="width:100%; height:auto; display:block; border-radius:2px;">
-      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase;">Winged Victory of Samothrace</figcaption>
-      </figure>
+      <<figure style="margin: 3.5rem 0; text-align: center;">
+  <img src="images/WingedVictoryofSamothrace.webp" 
+       style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
+  
+  <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
+    — Winged Victory of Samothrace —
+  </figcaption>
+</figure>
       <p>大多數的細節已悄然淡去，唯有勝利女神那份凌空而立的優雅，依然清晰地刻在腦海之中。</p>
       <div style="margin: 2.5rem 0; border-left: 2px solid #ddd; padding-left: 1.5rem; font-style: italic; color: #555; line-height: 1.8;">
       與朋友邊走邊聊，說的不全是眼前的畫，更多是生活裡的瑣碎與近況。有時走著走著，話題自然停了，各自在某件展品前沉默片刻，再繼續前行。這種陪伴不需要解釋，卻讓整個夜晚多了一份溫度。
@@ -127,7 +146,7 @@ var POSTS = [
     title: '標題',
     cat: '巴黎日常 ·Just Paris',
     date: 'XX.XX.2026',
-    img: 'XX.webp',
+    img: 'images/XX.webp',
     content: `<p>第一段</p><p>第二段</p>`
   }
   */
