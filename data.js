@@ -21,6 +21,7 @@ var POSTS = [
       <p><em>C'est ça, le bonheur.</em></p>
       <figure style="margin: 3.5rem 0; text-align: center;">
         <img src="images/coffee01.webp" style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
         <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
           — Iced Latte —
         </figcaption>
@@ -57,6 +58,7 @@ var POSTS = [
       <figure style="margin: 3.5rem 0; text-align: center;">
       <img src="images/bourse02.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
+       <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
       <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
         — Le film Camata —
       </figcaption>
@@ -84,6 +86,7 @@ var POSTS = [
       <figure style="margin: 3.5rem 0; text-align: center;">
       <img src="images/bourse03.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
+       <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
       <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
         — Le film Camata —
       </figcaption>
@@ -110,6 +113,7 @@ var POSTS = [
       <figure style="margin: 3.5rem 0; text-align: center;">
   <img src="images/WingedVictoryofSamothrace.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
+       <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
   <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
     — Winged Victory of Samothrace —
   </figcaption>
