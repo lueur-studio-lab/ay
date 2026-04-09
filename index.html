@@ -362,7 +362,11 @@
 
   function closeArt() { document.getElementById('artOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
- function renderGallery() {
+ // 全域變數，用來追蹤當前燈箱顯示的照片清單與索引
+let currentList = [];
+let currentIdx = 0;
+
+function renderGallery() {
   const grid = document.getElementById('galleryGrid');
   if (!grid) return;
   grid.innerHTML = '';
@@ -379,13 +383,57 @@
   });
 }
 
-// 確保這個函數存在，才能點開相簿
+// 點擊相簿時執行的函數
 function openAlbum(albumId) {
   const album = ALBUMS.find(a => a.id === albumId);
   if (!album) return;
   
-  currentList = album.photos; // 切換燈箱的照片清單為該相簿內容
-  openLightbox(0); // 從第一張開始看
+  // 1. 將相簿內的所有照片放入 currentList
+  currentList = album.photos; 
+  // 2. 從第一張照片開始開啟燈箱
+  openLightbox(0); 
+}
+
+// 燈箱核心函數
+function openLightbox(idx) {
+  currentIdx = idx;
+  const overlay = document.getElementById('artOverlay');
+  const wrap = document.getElementById('artWrap');
+  
+  // 獲取當前照片的 URL
+  const photoUrl = currentList[currentIdx];
+
+  wrap.innerHTML = `
+    <div class="art-inner-container">
+      <div class="art-nav">
+        <button class="art-back" onclick="closeArt()">← CLOSE</button>
+        <div class="logo">lueur.studio</div>
+      </div>
+      
+      <div class="art-img-container">
+        <img src="${photoUrl}">
+        <span class="art-watermark">lueur.studio</span>
+      </div>
+
+      ${currentList.length > 1 ? `
+        <div style="display:flex; justify-content:center; gap:2rem; margin-top:1rem;">
+          <button onclick="changePhoto(-1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.7rem; color:var(--muted);">PREV</button>
+          <span style="font-family:var(--mono); font-size:0.7rem; color:var(--muted);">${currentIdx + 1} / ${currentList.length}</span>
+          <button onclick="changePhoto(1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.7rem; color:var(--muted);">NEXT</button>
+        </div>
+      ` : ''}
+    </div>`;
+
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+// 切換照片的函數
+function changePhoto(step) {
+  let newIdx = currentIdx + step;
+  if (newIdx < 0) newIdx = currentList.length - 1;
+  if (newIdx >= currentList.length) newIdx = 0;
+  openLightbox(newIdx);
 }
 
   function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
