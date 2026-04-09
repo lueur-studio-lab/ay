@@ -256,63 +256,83 @@
 .g-item:hover::after {
   color: rgba(255, 255, 255, 0.8);
 }
-   /* 文章內容整體容器：左對齊 */
+  我看過妳貼出的代碼了，問題點出在 CSS 的權重 以及 容器屬性。妳原本寫 display: flex 在 .art-img-container 上，這會讓它變成一個寬度 $100\%$ 的長條，所以浮水印會跑到螢幕的最右邊，而不是圖片的右下角。請直接使用下面這段修整過的完整 CSS，我已經幫妳把邏輯順序排好，並修正了尺寸與浮水印定位：修正後的完整 CSS (請替換掉舊的相關部分)CSS/* 1. 文章內容主容器：標題、日期左對齊 */
 .art-inner-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
-    text-align: left; /* 標題日期一律靠左 */
+    text-align: left; 
 }
 
-/* 標題與日期樣式統一 */
+/* 2. 標題與日期 */
 .art-main-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* 稍微縮小一點點，更有氣質 */
     font-weight: 300;
     margin: 10px 0;
+    line-height: 1.3;
 }
 .art-date {
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: #888;
-    margin-bottom: 40px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #999;
+    margin-bottom: 50px; /* 加大與照片的間距 */
 }
-/* 首圖與內文照片：強制置中 */
-.art-featured-image, .art-img-container {
-    display: flex;
-    justify-content: center; /* 水平置中 */
+
+/* 3. 圖片容器修正：這是浮水印跟照片大小的關鍵 */
+.art-featured-image, 
+.art-img-container {
     position: relative;
+    display: block;    /* 這裡改回 block */
+    text-align: center; /* 讓裡面的 inline-block 圖片置中 */
     width: 100%;
-    margin: 30px 0;
+    margin: 40px 0;
 }
 
+/* 4. 統一限制所有照片尺寸 (首圖 + 內文圖) */
 .art-img-container img {
-    max-width: 90%; /* 縮小首圖與照片，不撐滿 */
+    display: inline-block; 
+    max-width: 85% !important; /* 限制寬度在 85%，照片就不會太巨大 */
     height: auto;
+    border-radius: 1px;
 }
 
-/* 強制統一所有字體大小 (不管中英文、不管是 p 還是 h2) */
+/* 5. 浮水印：精準定位在圖片右下角 */
+.art-watermark {
+    position: absolute;
+    bottom: 15px;
+    /* 核心邏輯：圖片寬 85%，置中後左右各剩 7.5%，所以 right 設為 10% 左右會最準 */
+    right: 10%; 
+    font-family: var(--mono);
+    font-size: 9px !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    pointer-events: none;
+    letter-spacing: 1px;
+    z-index: 10;
+}
+
+/* 6. 強制統一所有內文字體 (中英文、標籤) */
+.art-content-body,
 .art-content-body p, 
 .art-content-body h2, 
 .art-content-body h3, 
 .art-content-body div,
 .art-content-body span {
-    font-size: 16px !important; /* 強制所有內文 16px */
+    font-size: 15px !important; /* 15-16px 是閱讀最舒服的大小 */
     line-height: 1.8 !important;
-    font-weight: normal !important;
+    font-weight: 300 !important;
+    color: #444 !important;
+    text-align: justify;
     margin-bottom: 1.5rem;
-    color: #333;
 }
 
-/* 浮水印：精準定位在每張圖片的右下角 */
-.art-watermark {
-    position: absolute;
-    bottom: 15px;
-    right: 7%; /* 配合圖片的 90% 寬度，稍微往內縮 */
-    font-size: 10px !important; /* 浮水印要小 */
-    color: rgba(255,255,255,0.5);
-    z-index: 10;
-    pointer-events: none;
-    letter-spacing: 1px;
+/* 7. 針對斜體/引言的特別加強 (不被上面規則吃掉) */
+.art-content-body i, 
+.art-content-body em,
+.art-quote {
+    font-style: italic !important;
+    font-family: var(--serif);
+    opacity: 0.8;
 }
 </style>
 </head>
@@ -457,24 +477,22 @@
         </div>`;
     });
   }
-
- function openArt(id) {
+function openArt(id) {
     const p = POSTS.find(x => x.id === id);
     if (!p) return;
     
     const overlay = document.getElementById('artOverlay');
     const wrap = document.getElementById('artWrap');
     
-    // 1. 統一處理首圖路徑
+    // 統一處理首圖路徑
     let coverImg = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
 
-    // 2. 處理內文照片的浮水印 (確保包裹在 container 內)
+    // 處理內文圖片：確保每張圖都有自己的 container 和浮水印
     let processedContent = p.content.replace(
         /<img (.*?)>/g, 
         `<div class="art-img-container"><img $1><span class="art-watermark">lueur.studio</span></div>`
     );
 
-    // 3. 渲染 HTML 結構
     wrap.innerHTML = `
       <div class="art-inner-container">
         <div class="art-nav">
@@ -489,7 +507,10 @@
         </div>
 
         <div class="art-featured-image">
-          <img src="${coverImg}" alt="${p.title}">
+          <div class="art-img-container">
+            <img src="${coverImg}" alt="${p.title}">
+            <span class="art-watermark">lueur.studio</span>
+          </div>
         </div>
 
         <div class="art-content-body">
@@ -499,10 +520,9 @@
     `;
 
     overlay.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // 防止底層捲動
+    document.body.style.overflow = 'hidden';
     overlay.scrollTop = 0;
 }
-
 // 關閉文章的函數（也要確保有寫）
 function closeArt() {
     document.getElementById('artOverlay').style.display = 'none';
