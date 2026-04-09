@@ -256,37 +256,58 @@
 .g-item:hover::after {
   color: rgba(255, 255, 255, 0.8);
 }
-    /* 文章內圖片容器：鎖定浮水印範圍 */
-..art-img-container {
-  position: relative;
-  display: block;      /* 確保是區塊元素 */
-  margin: 2rem auto;   /* auto 會讓它水平置中 */
-  max-width: 100%;     /* 防止溢出 */
-  width: fit-content;  /* 讓容器寬度剛好等於圖片寬度，浮水印才不會飄走 */
-  text-align: center;
+   /* 1. 限制文章最大寬度並置中 */
+.art-inner-container {
+    max-width: 800px; /* 控制整篇文章的寬度 */
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center; /* 讓標題、日期、首圖預設置中 */
 }
 
-.art-img-container img {
-  display: block;      /* 消除底部間隙 */
-  margin: 0 auto;      /* 圖片本身置中 */
-  max-width: 100%;
-  height: auto;
-  border-radius: 2px;
+/* 2. 統一日期字體 */
+.art-date {
+    font-family: "Optima", "Didot", serif; /* 換成妳 Chroniques 那種字體 */
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #999;
+    margin-bottom: 40px;
+    text-transform: uppercase;
 }
 
-/* 文章內浮水印樣式 */
+/* 3. 首圖樣式：限制寬度、置中 */
+.art-featured-image {
+    width: 100%;
+    margin: 0 auto 50px auto;
+}
+.art-featured-image img {
+    max-width: 90%; /* 首圖不會撐滿，留一點呼吸空間 */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 4. 固定內文字體大小 (中英統一) */
+.art-content-body {
+    font-size: 16px; /* 這裡設定妳最想要的固定大小 */
+    line-height: 1.8;
+    color: #333;
+    text-align: justify; /* 讓文字兩端對齊比較像雜誌 */
+}
+
+/* 5. 修正內文照片浮水印：讓它緊貼圖片右下角 */
+.art-img-container {
+    position: relative;
+    display: inline-block; /* 關鍵：寬度會等於圖片寬度 */
+    margin: 20px 0;
+}
 .art-watermark {
-  position: absolute;
-  bottom: 12px;
-  right: 15px; /* 從原本的 20px 改成 15px，更貼近圖片邊緣但不超出 */
-  font-family: var(--mono);
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  pointer-events: none;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-  z-index: 5;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    pointer-events: none;
+    font-family: sans-serif;
 }
 </style>
 </head>
@@ -432,50 +453,48 @@
     });
   }
 
-  // 2. 文章彈窗邏輯（完整修正版：解決重複標題、保留浮水印）
-function openArt(id) {
+ function openArt(id) {
     const p = POSTS.find(x => x.id === id);
     if (!p) return;
     
     const overlay = document.getElementById('artOverlay');
     const wrap = document.getElementById('artWrap');
     
+    // 1. 統一處理首圖路徑
     let coverImg = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
 
-    // 關鍵步：處理內文圖片浮水印
+    // 2. 處理內文照片的浮水印 (確保包裹在 container 內)
     let processedContent = p.content.replace(
         /<img (.*?)>/g, 
         `<div class="art-img-container"><img $1><span class="art-watermark">lueur.studio</span></div>`
     );
 
-    // 把處理好的內容「一次性」塞進去，這會覆蓋掉任何重複的內容
+    // 3. 渲染 HTML 結構
     wrap.innerHTML = `
-      <div style="max-width: 740px; margin: 0 auto; position: relative;">
+      <div class="art-inner-container">
         <div class="art-nav">
           <button class="art-back" onclick="closeArt()">← BACK</button>
           <a class="logo" href="#" onclick="closeArt(); return false;">lueur.studio</a>
         </div>
 
-        <span class="art-category-tag">${p.cat}</span>
-        <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2; font-weight: 300;">${p.title}</h1>
-        <div style="font-family: var(--mono); font-size: 0.7rem; color: #bbb; margin-bottom: 3.5rem; letter-spacing: 0.1em;">
-          PUBLISHED ON — ${p.date}
+        <div class="art-header">
+          <span class="art-category-tag">${p.cat}</span>
+          <h1 class="art-main-title">${p.title}</h1>
+          <p class="art-date">PUBLISHED ON — ${p.date || '08.04.2026'}</p>
         </div>
 
-        <div class="art-img-container" style="margin-bottom: 4rem;">
-          <img src="${coverImg}" style="width: 100%; border-radius: 2px;">
-          <span class="art-watermark">lueur.studio</span>
+        <div class="art-featured-image">
+          <img src="${coverImg}" alt="${p.title}">
         </div>
 
         <div class="art-content-body">
           ${processedContent}
         </div>
-        
-        <div style="height: 100px;"></div>
-      </div>`;
+      </div>
+    `;
 
     overlay.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // 防止底層捲動
     overlay.scrollTop = 0;
 }
 
