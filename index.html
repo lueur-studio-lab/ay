@@ -405,6 +405,7 @@ function openLightbox(idx) {
   currentIdx = idx;
   const overlay = document.getElementById('artOverlay');
   const wrap = document.getElementById('artWrap');
+
   
   // 取得檔名
   let photoFile = currentList[currentIdx];
@@ -440,12 +441,22 @@ function openLightbox(idx) {
   document.body.style.overflow = 'hidden';
 }
 
-// 切換照片的函數
+// 請將此函數補在 openLightbox 之後
 function changePhoto(step) {
-  let newIdx = currentIdx + step;
-  if (newIdx < 0) newIdx = currentList.length - 1;
-  if (newIdx >= currentList.length) newIdx = 0;
-  openLightbox(newIdx);
+  currentIdx += step;
+  
+  // 循環邏輯：第一張往前變最後一張，最後一張往後變第一張
+  if (currentIdx < 0) currentIdx = currentList.length - 1;
+  if (currentIdx >= currentList.length) currentIdx = 0;
+  
+  openLightbox(currentIdx);
+}
+
+// 補上關閉函數 (如果妳還沒寫)
+function closeArt() {
+  const overlay = document.getElementById('artOverlay');
+  overlay.style.display = 'none';
+  document.body.style.overflow = 'auto';
 }
 
   function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
