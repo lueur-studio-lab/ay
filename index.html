@@ -171,14 +171,15 @@
 
 /* --- 統一文章彈窗內文的字體與大小 --- */
 .art-content-body p, 
-.art-content-body div,
-.art-content-body span {
-    font-size: 15px !important;    /* 這裡的大小可以與妳的標籤（如 cat/date）視覺統一 */
-    line-height: 2 !important;     /* 保持行距舒適 */
-    font-weight: 300 !important;   /* 保持輕盈感 */
-    color: var(--ink2) !important; /* 使用原本的墨色 */
-    margin-bottom: 1.5rem;         /* 段落間距 */
-    font-family: 'Noto Serif TC', serif !important; /* 確保中文字體美觀 */
+.art-content-body div {
+    font-size: 14.5px !important;    /* 這是最精緻的閱讀大小，接近妳標籤的比例 */
+    line-height: 2 !important;       /* 增加行距營造呼吸感 */
+    letter-spacing: 0.02em !important;
+    font-weight: 300 !important;
+    color: var(--ink2) !important;
+    margin-bottom: 2rem !important;  /* 段落與段落間的距離 */
+    font-family: 'Noto Serif TC', serif !important;
+    text-align: justify;             /* 讓文字兩端對齊，排版更像雜誌 */
 }
 
 /* 確保內文中的標籤或細小文字不要因為上面的設定而變大 */
@@ -197,11 +198,12 @@
     max-width: 75% !important; /* 妳要的縮小比例 */
 }
 
-.art-img-container img { 
-    display: block; 
-    width: 100%; 
-    height: auto; 
-    border-radius: 2px;
+.art-img-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain; /* 確保長圖不會被裁切 */
+    max-height: 80vh;    /* 限制高度，避免圖片太長要滾動很久 */
 }
 
 .art-watermark { 
@@ -217,17 +219,21 @@
     letter-spacing: 1px; 
 }
 
-.art-quote { 
-    font-size: 1.05rem !important; 
-    line-height: 2 !important; 
-    color: #555 !important; 
-    margin: 3rem 0 !important; 
-    padding-left: 1.5rem !important; 
-    border-left: 1px solid var(--border) !important; 
-    font-style: italic !important; 
-    display: block; 
+.art-quote, 
+.art-content-body blockquote {
+    font-size: 14.5px !important;    /* 保持與內文一樣大，不要突兀 */
+    font-style: italic !important;
+    line-height: 1.8 !important;
+    color: #777 !important;          /* 顏色稍微淺一點做區隔 */
+    margin: 3rem 0 !important;
+    padding: 0 0 0 1.5rem !important;
+    border-left: 1px solid var(--border) !important;
+    display: block !important;
 }
-    
+    /* 3. 確保英文段落（如果是單獨分開的話）也同步 */
+.art-content-body span {
+    font-size: 14.5px !important;
+}
   </style>
 </head>
 <body>
@@ -295,7 +301,7 @@
           <span style="color: var(--pale); margin: 0 0.5rem; font-weight: 300;">·</span>    
           <span style="font-weight: 400;">在巴黎</span>
           <span style="color: var(--pale); margin: 0 0.5rem; font-weight: 300;">·</span>
-          <span style="font-weight: 400;">拾光者</span>
+          <span style="font-weight: 400;">拾光</span>
         </h2>
         <div style="opacity: 0.9; color: var(--ink); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 1rem; line-height: 2.2;">
           <p style="margin-bottom: 1.5rem;">幾年前搬來巴黎，以為是一場旅行。後來才明白，這已是我的生活方式。習慣走進瑪黑區的巷弄，帶著手機——拾起光影，也拾起記憶。</p>
@@ -400,8 +406,13 @@ function openLightbox(idx) {
   const overlay = document.getElementById('artOverlay');
   const wrap = document.getElementById('artWrap');
   
-  // 獲取當前照片的 URL
-  const photoUrl = currentList[currentIdx];
+  // 取得檔名
+  let photoFile = currentList[currentIdx];
+  
+  // 修正路徑：確保如果資料裡沒寫 images/，程式會自動補上
+  let finalSrc = photoFile.startsWith('http') || photoFile.startsWith('images/') 
+                 ? photoFile 
+                 : 'images/' + photoFile;
 
   wrap.innerHTML = `
     <div class="art-inner-container">
@@ -411,20 +422,21 @@ function openLightbox(idx) {
       </div>
       
       <div class="art-img-container">
-        <img src="${photoUrl}">
+        <img src="${finalSrc}" alt="Gallery Image">
         <span class="art-watermark">lueur.studio</span>
       </div>
 
       ${currentList.length > 1 ? `
-        <div style="display:flex; justify-content:center; gap:2rem; margin-top:1rem;">
-          <button onclick="changePhoto(-1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.7rem; color:var(--muted);">PREV</button>
-          <span style="font-family:var(--mono); font-size:0.7rem; color:var(--muted);">${currentIdx + 1} / ${currentList.length}</span>
-          <button onclick="changePhoto(1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.7rem; color:var(--muted);">NEXT</button>
+        <div style="display:flex; justify-content:center; gap:2rem; margin-top:2rem; align-items:center;">
+          <button onclick="changePhoto(-1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.6rem; color:var(--muted); letter-spacing:0.1em;">PREV</button>
+          <span style="font-family:var(--mono); font-size:0.65rem; color:var(--ink2); opacity:0.6; letter-spacing:0.1em;">${currentIdx + 1} / ${currentList.length}</span>
+          <button onclick="changePhoto(1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.6rem; color:var(--muted); letter-spacing:0.1em;">NEXT</button>
         </div>
       ` : ''}
     </div>`;
 
   overlay.style.display = 'block';
+  overlay.scrollTop = 0; // 確保每次打開都在頂部
   document.body.style.overflow = 'hidden';
 }
 
