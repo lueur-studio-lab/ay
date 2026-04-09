@@ -39,7 +39,7 @@ var POSTS = [
       No one knew me here. The noise around me softened into white noise, and somehow my thoughts became clearer.
       </blockquote>      
       <p>I stayed until almost closing time. Walking out, the sky was still light.<br>
-      <p>That's Paris in summer time — nearly half past seven in the evening and the light still refuses to leave.<br>
+      That's Paris in summer time — nearly half past seven in the evening and the light still refuses to leave.<br>
       Standing there on the pavement, I thought: this is exactly what Sundays should feel like.<br>
       You don't need to do anything meaningful. Just exist, quietly, for a while.</p>
       <p><em>C'est ça, le bonheur.</em></p>
@@ -69,7 +69,7 @@ var POSTS = [
       時間彷彿在此凝止。我也找了個位置坐下，似懂非懂地看著螢幕上的畫面，卻意外地感到一種平靜。
       </blockquote>
       <p>起身，走上樓層，每一件展品似乎都在訴說著什麼。<br>
-        不確定自己能否完全共鳴，但在駐足與思索之間，思緒反而漸漸變得清晰。<br>>
+        不確定自己能否完全共鳴，但在駐足與思索之間，思緒反而漸漸變得清晰。<br>
         就這樣走走停停，在不同的展間裡緩行，心靈也在不知不覺中被滋養了。<br>
         直到閉館時刻，趁著夜色步出，搭上地鐵。<br>
         這個平凡的藝術午後，我很喜歡——是屬於自己的 ME TIME。</p>
@@ -106,12 +106,13 @@ var POSTS = [
     img: 'pyramidedulouvre.webp',
     excerpt: '每月第一個週五夜晚，免費開放的羅浮宮——再度造訪，才發現記憶比想像中更容易消散。', 
     content: `
-      <p>每個月的第一個週五晚上，羅浮宮開放免費預約入場。</p>
+      <p>每個月的第一個週五晚上，羅浮宮開放免費預約入場。<br>
         距離上一次造訪，已是整整一年前的事了。<br>
         入夜後的羅浮宮，和白天是截然不同的。燈光打在石砌的廊柱上，泛著一種沉靜的金黃；<br>
         走廊裡的人聲輕了，腳步也慢了，彷彿夜色本身替這座宮殿換上了另一副面孔。<br>
       <p>那時恰逢高訂展，展品與各個廳室的搭配渾然天成，留下了深刻的印象。<br>
-         然而這次重遊，記憶卻變得模糊——許多展品與畫作，彷彿似曾相識，又彷彿從未謀面。</p>
+         然而這次重遊，記憶卻變得模糊——許多展品與畫作，彷彿似曾相識，又彷彿從未謀面。<br>
+         大多數的細節已悄然淡去，唯有勝利女神那份凌空而立的優雅，依然清晰地刻在腦海之中。</p>
       <figure style="margin: 3.5rem 0; text-align: center;">
       <img src="images/WingedVictoryofSamothrace.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
@@ -120,7 +121,6 @@ var POSTS = [
         — Winged Victory of Samothrace —
         </figcaption>
         </figure>
-      <p>大多數的細節已悄然淡去，唯有勝利女神那份凌空而立的優雅，依然清晰地刻在腦海之中。</p>
       <blockquote class="art-quote">
       與朋友邊走邊聊，說的不全是眼前的畫，更多是生活裡的瑣碎與近況。有時走著走著，話題自然停了，各自在某件展品前沉默片刻，再繼續前行。這種陪伴不需要解釋，卻讓整個夜晚多了一份溫度。
       </blockquote>
