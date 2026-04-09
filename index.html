@@ -432,24 +432,58 @@
     });
   }
 
-  // 2. 文章彈窗邏輯（修復：整合版，修正圖片浮水印與排版）
-  function openArt(id) {
+  // 2. 文章彈窗邏輯（完整修正版：解決重複標題、保留浮水印）
+function openArt(id) {
     const p = POSTS.find(x => x.id === id);
     if (!p) return;
+    
     const overlay = document.getElementById('artOverlay');
     const wrap = document.getElementById('artWrap');
     
     let coverImg = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
 
-    // 自動幫內文圖片包上容器，移除可能會干擾寬度的行內樣式
-let processedContent = p.content.replace(
-    /<img (.*?)>/g, 
-    `<div class="art-img-container"><img $1><span class="art-watermark">lueur.studio</span></div>`
-);
-  function closeArt() {
+    // 關鍵步：處理內文圖片浮水印
+    let processedContent = p.content.replace(
+        /<img (.*?)>/g, 
+        `<div class="art-img-container"><img $1><span class="art-watermark">lueur.studio</span></div>`
+    );
+
+    // 把處理好的內容「一次性」塞進去，這會覆蓋掉任何重複的內容
+    wrap.innerHTML = `
+      <div style="max-width: 740px; margin: 0 auto; position: relative;">
+        <div class="art-nav">
+          <button class="art-back" onclick="closeArt()">← BACK</button>
+          <a class="logo" href="#" onclick="closeArt(); return false;">lueur.studio</a>
+        </div>
+
+        <span class="art-category-tag">${p.cat}</span>
+        <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1.2; font-weight: 300;">${p.title}</h1>
+        <div style="font-family: var(--mono); font-size: 0.7rem; color: #bbb; margin-bottom: 3.5rem; letter-spacing: 0.1em;">
+          PUBLISHED ON — ${p.date}
+        </div>
+
+        <div class="art-img-container" style="margin-bottom: 4rem;">
+          <img src="${coverImg}" style="width: 100%; border-radius: 2px;">
+          <span class="art-watermark">lueur.studio</span>
+        </div>
+
+        <div class="art-content-body">
+          ${processedContent}
+        </div>
+        
+        <div style="height: 100px;"></div>
+      </div>`;
+
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    overlay.scrollTop = 0;
+}
+
+// 關閉文章的函數（也要確保有寫）
+function closeArt() {
     document.getElementById('artOverlay').style.display = 'none';
     document.body.style.overflow = 'auto';
-  }
+}
 
   function renderGallery(filter = 'all') {
   const grid = document.getElementById('galleryGrid');
