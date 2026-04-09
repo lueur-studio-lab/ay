@@ -106,9 +106,20 @@
     transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
     border-radius: 2px;
 }
-    /* 當滑鼠移過整條文章時，縮圖變亮 */
+.journal-item {
+    cursor: pointer;
+    transition: background 0.4s ease;
+}
+
+.j-thumb {
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+/* 整個項目 hover 時，圖片浮動且去背色消失 */
 .journal-item:hover .j-thumb {
-    filter: grayscale(0%);
+    filter: grayscale(0%) !important;
+    transform: translateY(-10px) scale(1.02); /* 向上浮起並微放 */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 }
     /* 針對手機版的調整：讓縮圖排在文字下方並撐滿寬度 */
 @media (max-width: 768px) {
@@ -158,6 +169,24 @@
     overflow-y: auto; display: none; padding: 40px 8% 60px; 
 }
 
+/* --- 統一文章彈窗內文的字體與大小 --- */
+.art-content-body p, 
+.art-content-body div,
+.art-content-body span {
+    font-size: 15px !important;    /* 這裡的大小可以與妳的標籤（如 cat/date）視覺統一 */
+    line-height: 2 !important;     /* 保持行距舒適 */
+    font-weight: 300 !important;   /* 保持輕盈感 */
+    color: var(--ink2) !important; /* 使用原本的墨色 */
+    margin-bottom: 1.5rem;         /* 段落間距 */
+    font-family: 'Noto Serif TC', serif !important; /* 確保中文字體美觀 */
+}
+
+/* 確保內文中的標籤或細小文字不要因為上面的設定而變大 */
+.art-content-body .j-cat, 
+.art-content-body .j-date {
+    font-size: 0.65rem !important; /* 恢復小字標籤的大小 */
+    letter-spacing: 0.2em;
+}
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
 
 /* 這裡修正：讓容器緊貼圖片寬度，這樣浮水印才會貼在圖片右下角 */
@@ -198,6 +227,7 @@
     font-style: italic !important; 
     display: block; 
 }
+    
   </style>
 </head>
 <body>
@@ -251,6 +281,9 @@
 
     <section id="gallery" class="sec">
       <p class="sec-label">影像紀錄 · VISUAL DIARY</p>
+      <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 3rem; font-style: italic; font-weight: 300; color: var(--ink2);">
+    Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Frames</span>
+    </h2>
       <div class="gallery-grid" id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;"></div>
     </section>
 
@@ -336,11 +369,11 @@
 
   ALBUMS.forEach(album => {
     grid.innerHTML += `
-      <div class="g-item" onclick="openAlbum('${album.id}')" style="cursor:pointer; position:relative;">
-        <img src="${album.cover}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px;">
-        <div class="album-overlay" style="position:absolute; bottom:0; left:0; padding:1.5rem; color:#fff; background:linear-gradient(transparent, rgba(0,0,0,0.6)); width:100%; pointer-events:none;">
-          <div style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase;">${album.cat}</div>
-          <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.3rem; font-style:italic;">${album.title}</div>
+      <div class="g-item" onclick="openAlbum('${album.id}')" style="cursor:pointer; position:relative; overflow:hidden;">
+        <img src="${album.cover}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px; display:block;">
+        <div class="album-overlay" style="position:absolute; bottom:0; left:0; right:0; padding:1.5rem; color:#fff; background:linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events:none;">
+          <div style="font-family:var(--mono); font-size:0.55rem; letter-spacing:0.15em; text-transform:uppercase;">${album.cat}</div>
+          <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.2rem; font-style:italic;">${album.title}</div>
         </div>
       </div>`;
   });
