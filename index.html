@@ -47,32 +47,157 @@
     .hero-h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
     .hero-content::after { content: "© lueur.studio"; position: absolute; bottom: 20px; right: 0; font-family: var(--mono); font-size: 11px; color: var(--ink); opacity: 0.3; letter-spacing: 0.2em; pointer-events: none; }
 
-    /* TICKER */
-    .ticker{background:var(--ink);color:var(--bg);padding:12px 0;overflow:hidden;white-space:nowrap;font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;text-transform:uppercase}
-    .tick-inner{display:inline-block;animation:scroll 30s linear infinite}
-    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .ticker {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: .55rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  display: flex; /* 確保內部元素水平排列 */
+}
+
+.tick-inner {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 0;
+  animation: scroll-endless 20s linear infinite; /* 調整秒數控制速度 */
+}
+
+.tick-inner span {
+  display: inline-block;
+  padding-right: 2rem; /* 兩組文字之間的間距 */
+}
+
+@keyframes scroll-endless {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* 滾動到一半時精確重置 */
+  }
+}
 
     /* JOURNAL / SECTION */
     .sec{padding:5rem 8%}
     .sec-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#999;margin-bottom:2rem;display:block;}
-    .journal-item { display: flex; align-items: center; padding: 3rem 0; border-bottom: 1px solid #eee; cursor: pointer; transition: 0.5s; gap: 3rem; }
+.journal-item {
+    display: flex;
+    align-items: center; /* 確保內容垂直置中 */
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 3rem;
+    transition: 0.3s ease;
+}
     .j-meta { flex: 0 0 110px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--border); }
     .j-cat { font-family: var(--mono); font-size: 0.55rem; color: #666; letter-spacing: 0.2em; text-transform: uppercase; }
     .j-date { font-family: var(--mono); font-size: 0.65rem; color: #bbb; }
-    .j-thumb { width: 180px; aspect-ratio: 3/2; background-size: cover; background-position: center; filter: grayscale(90%); transition: 0.8s; position: relative; }
+.j-thumb {
+    flex-shrink: 0;           /* 防止縮圖被擠壓 */
+    width: 220px;             /* 固定寬度 */
+    aspect-ratio: 3 / 2;      /* ✨ 強制統一比例 (3:2)，無論原圖比例為何 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(90%);
+    transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+    border-radius: 2px;
+}
+    /* 當滑鼠移過整條文章時，縮圖變亮 */
+.journal-item:hover .j-thumb {
+    filter: grayscale(0%);
+}
+    /* 針對手機版的調整：讓縮圖排在文字下方並撐滿寬度 */
+@media (max-width: 768px) {
+    .journal-item {
+        flex-direction: column-reverse; /* 手機版圖在上或在下可自選，這裏設定圖在下 */
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+    .j-thumb {
+        width: 100%;
+        aspect-ratio: 16 / 9; /* 手機版可以使用更寬的比例 */
+    }
+    .j-meta {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 5px;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+/* --- 文章彈窗：導覽列（BACK 靠左，Logo 靠右） --- */
+.art-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 關鍵：推開兩端 */
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+}
 
-    /* --- 文章彈窗與浮水印 --- */
-    .art-overlay { position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; overflow-y: auto; display: none; padding: 40px 8% 60px; }
-    .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
-    .art-img-container { position: relative; display: inline-block; max-width: 85%; margin: 30px auto; left: 50%; transform: translateX(-50%); }
-    .art-img-container img { display: block; width: 100%; height: auto; }
-    .art-watermark { position: absolute; bottom: 12px; right: 15px; font-family: var(--mono); font-size: 9px !important; color: rgba(255, 255, 255, 0.45) !important; text-shadow: 0 1px 3px rgba(0,0,0,0.2); pointer-events: none; z-index: 10; letter-spacing: 1px; }
+.art-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    transition: 0.3s;
+}
+.art-back:hover { color: var(--ink); transform: translateX(-5px); }
 
-    .art-content-body p { font-size: 16px !important; line-height: 1.8 !important; font-weight: 300 !important; color: #333; margin-bottom: 1.5rem; }
-    .art-quote { font-size: 1.05rem !important; line-height: 2 !important; color: #555 !important; margin: 3rem 0 !important; padding-left: 1.5rem !important; border-left: 1px solid var(--border) !important; font-style: italic !important; display: block; }
+/* --- 文章彈窗與浮水印：修正對齊與大小 --- */
+.art-overlay { 
+    position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; 
+    overflow-y: auto; display: none; padding: 40px 8% 60px; 
+}
 
-    #backToTop { position: fixed; bottom: 40px; right: 40px; z-index: 999; background: rgba(242,241,238,0.7); backdrop-filter: blur(10px); border: 1px solid var(--border); padding: 12px 18px; font-family: var(--mono); font-size: 0.6rem; cursor: pointer; transition: 0.4s; opacity: 0; visibility: hidden; }
-    #backToTop.show { opacity: 1; visibility: visible; }
+.art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
+
+/* 這裡修正：讓容器緊貼圖片寬度，這樣浮水印才會貼在圖片右下角 */
+.art-img-container { 
+    position: relative; 
+    display: table; /* 關鍵：讓容器寬度等於圖片寬度 */
+    margin: 40px auto !important; 
+    max-width: 75% !important; /* 妳要的縮小比例 */
+}
+
+.art-img-container img { 
+    display: block; 
+    width: 100%; 
+    height: auto; 
+    border-radius: 2px;
+}
+
+.art-watermark { 
+    position: absolute; 
+    bottom: 12px; 
+    right: 15px; 
+    font-family: var(--mono); 
+    font-size: 9px !important; 
+    color: rgba(255, 255, 255, 0.45) !important; 
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2); 
+    pointer-events: none; 
+    z-index: 10; 
+    letter-spacing: 1px; 
+}
+
+.art-quote { 
+    font-size: 1.05rem !important; 
+    line-height: 2 !important; 
+    color: #555 !important; 
+    margin: 3rem 0 !important; 
+    padding-left: 1.5rem !important; 
+    border-left: 1px solid var(--border) !important; 
+    font-style: italic !important; 
+    display: block; 
+}
   </style>
 </head>
 <body>
@@ -110,8 +235,11 @@
     </section>
 
     <div class="ticker">
-      <div class="tick-inner">PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦</div>
-    </div>
+  <div class="tick-inner">
+    <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
+    <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
+  </div>
+</div>
 
     <section id="recent" class="sec">
       <p class="sec-label">巴黎碎片 · PARISIAN FRAGMENTS</p>      
@@ -143,11 +271,23 @@
       </div>
     </section>
 
-    <footer style="padding: 4rem 8% 2rem; border-top: 1px solid var(--border);">
-      <a class="logo" href="#">lueur.studio</a>
-      <div style="font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.15em; color: var(--blue-mid); margin: 1rem 0 0.5rem;">48° 51' 24" N / 2° 21' 08" E</div>
-      <div style="opacity: 0.4; font-family: var(--mono); font-size: 0.5rem; text-transform: uppercase;">© 2026 lueur.studio · Paris</div>
-    </footer>
+   <footer style="padding: 5rem 8% 3rem; border-top: 1px solid var(--border); background: var(--bg);">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+    
+    <a class="logo" href="#" style="color: var(--blue); font-size: 0.9rem; text-decoration: none; flex: 1; text-align: left;">
+      <span>l</span>ueur.studio
+    </a>
+
+    <div style="font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--blue-mid); text-transform: uppercase; flex: 2; text-align: center;">
+      48° 51' 24" N / 2° 21' 08" E
+    </div>
+
+    <div style="opacity: 0.3; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); flex: 1; text-align: right;">
+      © 2026 lueur.studio
+    </div>
+
+  </div>
+</footer>
   </main>
 </div>
 
@@ -189,14 +329,31 @@
 
   function closeArt() { document.getElementById('artOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-  function renderGallery() {
-    const grid = document.getElementById('galleryGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    ALBUMS.forEach(album => {
-      grid.innerHTML += `<div class="g-item" style="cursor:pointer;position:relative;"><img src="${album.cover}" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px;"></div>`;
-    });
-  }
+ function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  ALBUMS.forEach(album => {
+    grid.innerHTML += `
+      <div class="g-item" onclick="openAlbum('${album.id}')" style="cursor:pointer; position:relative;">
+        <img src="${album.cover}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px;">
+        <div class="album-overlay" style="position:absolute; bottom:0; left:0; padding:1.5rem; color:#fff; background:linear-gradient(transparent, rgba(0,0,0,0.6)); width:100%; pointer-events:none;">
+          <div style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase;">${album.cat}</div>
+          <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.3rem; font-style:italic;">${album.title}</div>
+        </div>
+      </div>`;
+  });
+}
+
+// 確保這個函數存在，才能點開相簿
+function openAlbum(albumId) {
+  const album = ALBUMS.find(a => a.id === albumId);
+  if (!album) return;
+  
+  currentList = album.photos; // 切換燈箱的照片清單為該相簿內容
+  openLightbox(0); // 從第一張開始看
+}
 
   function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
   window.onscroll = () => { document.getElementById("backToTop").classList.toggle("show", window.scrollY > 400); };
