@@ -477,24 +477,37 @@ let processedContent = p.content.replace(
     document.body.style.overflow = 'auto';
   }
 
-  // 3. 影像牆（Gallery）邏輯
-  function renderGallery(filter = 'all', event) {
-    const grid = document.getElementById('galleryGrid');
-    if (!grid) return;
-    if (event) {
-        document.querySelectorAll('.g-filter').forEach(f => { f.style.opacity = '0.5'; f.style.borderBottom = 'none'; });
-        event.target.style.opacity = '1';
-        event.target.style.borderBottom = '1px solid var(--ink)';
-    }
-    grid.innerHTML = '';
-    currentList = (filter === 'all') ? GALLERY_DATA : GALLERY_DATA.filter(item => item.cat === filter);
-    currentList.forEach((item, index) => {
-        grid.innerHTML += `
-        <div class="g-item" style="cursor:zoom-in; overflow:hidden;" onclick="openLightbox(${index})">
-          <img src="${item.img}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px;" loading="lazy">
-        </div>`;
-    });
-  }
+  function renderGallery(filter = 'all') {
+  const grid = document.getElementById('galleryGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  // 根據類別篩選相簿封面
+  const filtered = (filter === 'all') 
+    ? ALBUMS 
+    : ALBUMS.filter(a => a.cat.toLowerCase() === filter.toLowerCase());
+
+  filtered.forEach(album => {
+    grid.innerHTML += `
+      <div class="g-item" onclick="openAlbum('${album.id}')" style="cursor:pointer; position:relative;">
+        <img src="${album.cover}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px;">
+        <div class="album-overlay" style="position:absolute; bottom:0; left:0; padding:1.5rem; color:#fff; background:linear-gradient(transparent, rgba(0,0,0,0.5)); width:100%;">
+          <div style="font-family:var(--mono); font-size:0.6rem; letter-spacing:0.2em;">${album.cat}</div>
+          <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.3rem;">${album.title}</div>
+        </div>
+      </div>`;
+  });
+}
+
+// 點擊封面後執行的動作
+function openAlbum(albumId) {
+  const album = ALBUMS.find(a => a.id === albumId);
+  if (!album) return;
+  
+  // 重要：把當前要顯示的照片清單換成該相簿的 photos
+  currentList = album.photos; 
+  openLightbox(0); // 從第一張照片開始看
+}
 
   function openLightbox(index) {
     currentIdx = index;
