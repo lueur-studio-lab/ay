@@ -7,36 +7,38 @@ var POSTS = [
     img: 'paris.webp',
     excerpt: '沒有計畫的星期天，一本筆記本，一個剛好空出的吧檯位子。待到快打烊，走出去天還亮著——夏令時間的幸福就是這樣。', 
     content: `
-      <p>上週末，一個興起。</p>
-      <p>沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。<br>
+      <p>上週末，一個興起。<br>
+      沒有計畫，沒有行程，只是拿起包包，順手塞了一本小筆記本，就出門了。<br>
       目的地是一家收藏在手機裡很久的韓系咖啡廳——那種會讓人在 IG 上存了又存、卻一直找不到理由去的地方。</p>
-      <p>星期天，當然人很多。這是預料中的事。</p>
-      <p>但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。</p>
-      <p>點了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。</p>
+      <p>星期天，當然人很多。這是預料中的事。<br>
+       但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。<br>
+       點了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。</p>
       <blockquote class="art-quote">      
       沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。
       </blockquote>
-      <p>就這樣一直待到快打烊，走出店外，天空還亮著。</p>
-      <p>夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。站在路邊那一刻，突然覺得，星期天就應該是這個樣子。不需要做什麼有意義的事，只要好好地存在就夠了。</p>
+      <p>就這樣一直待到快打烊，走出店外，天空還亮著。<br>
+      夏令時間的巴黎是這樣的——明明已經快晚上七點多，光線還捨不得走。<br>
+      站在路邊那一刻，突然覺得，星期天就應該是這個樣子。<br>
+      不需要做什麼有意義的事，只要好好地存在就夠了。</p>
       <p><em>C'est ça, le bonheur.</em></p>
       <figure style="margin: 3.5rem 0; text-align: center;">
-        <img src="images/coffee01.webp" style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-        <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
-        <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
-          — Iced Latte —
-        </figcaption>
+      <img src="images/coffee01.webp" style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+      <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
+      <figcaption style="font-size: 0.75rem; color: #999; margin-top: 1.2rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
+       — Iced Latte —
+      </figcaption>
       </figure>
       <hr style="margin: 4.5rem 0 3.5rem; border: 0; border-top: 1px solid #eee;">      
-      <p>Last Sunday, on a whim.</p>
-      <p>No plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door.<br>
+      <p>Last Sunday, on a whim.<br>
+      No plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door.<br>
       The destination: a Korean café I'd been saving on my phone for months — the kind of place you screenshot on Instagram and never quite get around to visiting.</p>
-      <p>Sunday, so of course it was packed. I knew it would be.</p>
-      <p>But the moment I walked in, a single bar stool opened up. Something like fate. I sat down.</p>
-      <p>Ordered a coffee, opened the notebook, and started writing — all the things that had been piling up in my head, unprocessed.</p>
+      <p>Sunday, so of course it was packed. I knew it would be.<br>
+      But the moment I walked in, a single bar stool opened up. Something like fate. I sat down.<br>
+      Ordered a coffee, opened the notebook, and started writing — all the things that had been piling up in my head, unprocessed.<br>
       <blockquote class="art-quote">      
       No one knew me here. The noise around me softened into white noise, and somehow my thoughts became clearer.
       </blockquote>      
-      <p>I stayed until almost closing time. Walking out, the sky was still light.</p>
+      <p>I stayed until almost closing time. Walking out, the sky was still light.<br>
       <p>That's Paris in summer time — nearly half past seven in the evening and the light still refuses to leave.<br>
       Standing there on the pavement, I thought: this is exactly what Sundays should feel like.<br>
       You don't need to do anything meaningful. Just exist, quietly, for a while.</p>
