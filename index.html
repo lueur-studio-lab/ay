@@ -256,58 +256,63 @@
 .g-item:hover::after {
   color: rgba(255, 255, 255, 0.8);
 }
-   /* 1. 限制文章最大寬度並置中 */
+   /* 文章內容整體容器：左對齊 */
 .art-inner-container {
-    max-width: 800px; /* 控制整篇文章的寬度 */
+    max-width: 800px;
     margin: 0 auto;
     padding: 40px 20px;
-    text-align: center; /* 讓標題、日期、首圖預設置中 */
+    text-align: left; /* 標題日期一律靠左 */
 }
 
-/* 2. 統一日期字體 */
+/* 標題與日期樣式統一 */
+.art-main-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin: 10px 0;
+}
 .art-date {
-    font-family: "Optima", "Didot", serif; /* 換成妳 Chroniques 那種字體 */
     font-size: 12px;
-    letter-spacing: 2px;
-    color: #999;
+    letter-spacing: 1px;
+    color: #888;
     margin-bottom: 40px;
-    text-transform: uppercase;
 }
-
-/* 3. 首圖樣式：限制寬度、置中 */
-.art-featured-image {
-    width: 100%;
-    margin: 0 auto 50px auto;
-}
-.art-featured-image img {
-    max-width: 90%; /* 首圖不會撐滿，留一點呼吸空間 */
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-/* 4. 固定內文字體大小 (中英統一) */
-.art-content-body {
-    font-size: 16px; /* 這裡設定妳最想要的固定大小 */
-    line-height: 1.8;
-    color: #333;
-    text-align: justify; /* 讓文字兩端對齊比較像雜誌 */
-}
-
-/* 5. 修正內文照片浮水印：讓它緊貼圖片右下角 */
-.art-img-container {
+/* 首圖與內文照片：強制置中 */
+.art-featured-image, .art-img-container {
+    display: flex;
+    justify-content: center; /* 水平置中 */
     position: relative;
-    display: inline-block; /* 關鍵：寬度會等於圖片寬度 */
-    margin: 20px 0;
+    width: 100%;
+    margin: 30px 0;
 }
+
+.art-img-container img {
+    max-width: 90%; /* 縮小首圖與照片，不撐滿 */
+    height: auto;
+}
+
+/* 強制統一所有字體大小 (不管中英文、不管是 p 還是 h2) */
+.art-content-body p, 
+.art-content-body h2, 
+.art-content-body h3, 
+.art-content-body div,
+.art-content-body span {
+    font-size: 16px !important; /* 強制所有內文 16px */
+    line-height: 1.8 !important;
+    font-weight: normal !important;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* 浮水印：精準定位在每張圖片的右下角 */
 .art-watermark {
     position: absolute;
-    bottom: 10px;
-    right: 15px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.6);
+    bottom: 15px;
+    right: 7%; /* 配合圖片的 90% 寬度，稍微往內縮 */
+    font-size: 10px !important; /* 浮水印要小 */
+    color: rgba(255,255,255,0.5);
+    z-index: 10;
     pointer-events: none;
-    font-family: sans-serif;
+    letter-spacing: 1px;
 }
 </style>
 </head>
