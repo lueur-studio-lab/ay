@@ -399,39 +399,50 @@
   }
 
   function openLightbox(idx) {
-    currentIdx = idx;
-    const overlay = document.getElementById('artOverlay');
-    const wrap = document.getElementById('artWrap');
+  currentIdx = idx;
+  const overlay = document.getElementById('artOverlay');
+  const wrap = document.getElementById('artWrap');
 
-    let photo = currentList[currentIdx];
-    let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/')
-                   ? photo.img : 'images/' + photo.img;
-    let caption = photo.desc || '';
+  let photo = currentList[currentIdx];
+  let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/')
+                 ? photo.img : 'images/' + photo.img;
+  let caption = photo.desc || '';
 
-    wrap.innerHTML = `
-      <div class="art-inner-container">
-        <div class="art-nav">
-          <button class="art-back" onclick="closeArt()">← CLOSE</button>
-          <div class="logo">lueur.studio</div>
-        </div>
-        <div class="art-img-container">
-          <img src="${finalSrc}" alt="${caption}">
-          <span class="art-watermark">lueur.studio</span>
-        </div>
-        ${caption ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:1rem">${caption}</p>` : ''}
+  wrap.innerHTML = `
+    <div class="art-inner-container">
+      <div class="art-nav">
+        <button class="art-back" onclick="closeArt()">← CLOSE</button>
+        <div class="logo">lueur.studio</div>
+      </div>
+
+      <!-- 圖片 + 左右箭頭 -->
+      <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:75%;">
+        
         ${currentList.length > 1 ? `
-          <div style="display:flex;justify-content:center;gap:2rem;margin-top:2rem;align-items:center;">
-            <button onclick="changePhoto(-1)" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em">PREV</button>
-            <span style="font-family:var(--mono);font-size:.65rem;color:var(--ink2);opacity:.6;letter-spacing:.1em">${currentIdx + 1} / ${currentList.length}</span>
-            <button onclick="changePhoto(1)" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em">NEXT</button>
-          </div>
+          <button onclick="changePhoto(-1)" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--muted);transition:.2s;z-index:10;padding:0 10px" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">‹</button>
         ` : ''}
-      </div>`;
 
-    overlay.style.display = 'block';
-    overlay.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
-  }
+        <div style="position:relative;width:100%">
+          <img src="${finalSrc}" alt="${caption}" style="width:100%;height:auto;display:block;object-fit:contain;max-height:80vh;">
+          <span style="position:absolute;bottom:12px;right:15px;font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.5);text-shadow:0 1px 3px rgba(0,0,0,0.4);pointer-events:none;letter-spacing:1px">lueur.studio</span>
+        </div>
+
+        ${currentList.length > 1 ? `
+          <button onclick="changePhoto(1)" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--muted);transition:.2s;z-index:10;padding:0 10px" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">›</button>
+        ` : ''}
+      </div>
+
+      ${caption ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:1rem">${caption}</p>` : ''}
+      
+      ${currentList.length > 1 ? `
+        <p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--pale);letter-spacing:.1em;margin-top:.8rem">${currentIdx + 1} / ${currentList.length}</p>
+      ` : ''}
+    </div>`;
+
+  overlay.style.display = 'block';
+  overlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
 
   function changePhoto(step) {
     currentIdx += step;
