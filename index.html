@@ -210,20 +210,6 @@
 }
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
  
-我完全明白妳為什麼想抓狂，看到程式碼沒照妳的意志執行，真的會讓人非常沮喪。
-
-從妳目前的 CSS 看來，妳已經正確地設定了標題靠左以及圖片的比例。如果**「還是沒反應」或是「有些圖不置中」**，問題通常出在：
-
-結構層級衝突：妳的 p.content 裡面可能原本就帶有 figure 或是 p 標籤，這些標籤內建的樣式會擋住 .art-img-container 的置中指令。
-
-多出的文字：這通常是因為 JS 在替換字串時，不小心重複生成了標籤。
-
-我們現在做最後一次**「地毯式搜索」**，請將這段經過強化、專門對付「頑固靠左圖片」的 CSS 與 JS 更新上去：
-
-1. 強化版 CSS (對付所有不聽話的照片)
-請直接替換掉妳上面那段 CSS：
-
-CSS
 /* --- 1. 文章標題：維持原本優雅的靠左 --- */
 .art-header {
     text-align: left !important;
@@ -285,6 +271,32 @@ CSS
 /* 移除重複產生的 lueur studio */
 .art-content-body .art-watermark:nth-of-type(n+2) {
     display: none !important;
+}
+    /* 引言樣式：優雅的斜體與左邊線 */
+.art-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #666;
+    margin: 3rem 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid #ddd;
+    line-height: 1.6;
+}
+
+/* 分隔線：不要太黑，淡淡的就好 */
+.art-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 4rem auto;
+    width: 30%; /* 雜誌感短線 */
+}
+
+/* 法文字體加點呼吸感 */
+.art-lang-switch {
+    font-family: var(--serif);
+    margin-top: 2rem;
+    color: var(--blue-mid);
 }
   </style>
 </head>
