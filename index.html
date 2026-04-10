@@ -189,33 +189,41 @@
 }
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
 
-/* 這裡修正：讓容器緊貼圖片寬度，這樣浮水印才會貼在圖片右下角 */
-.art-img-container { 
-    position: relative; 
-    display: table; /* 關鍵：讓容器寬度等於圖片寬度 */
-    margin: 40px auto !important; 
-    max-width: 75% !important; /* 妳要的縮小比例 */
+/* 1. 核心容器：確保它緊貼圖片邊緣 */
+.art-img-container {
+    position: relative;
+    display: inline-block; /* 關鍵：讓容器寬度 = 圖片寬度，浮水印才不會飄走 */
+    width: auto;
+    max-width: 100%;       /* 確保手機版不會超出螢幕 */
+    margin: 0 auto;        /* 居中顯示 */
 }
 
 .art-img-container img {
+    display: block;        /* 消除圖片下方多餘的間隙 */
     width: 100%;
     height: auto;
-    display: block;
-    object-fit: contain; /* 確保長圖不會被裁切 */
-    max-height: 80vh;    /* 限制高度，避免圖片太長要滾動很久 */
+    max-height: 80vh;      /* 避免圖片太長 */
+    object-fit: contain;
 }
 
-.art-watermark { 
-    position: absolute; 
-    bottom: 12px; 
-    right: 15px; 
-    font-family: var(--mono); 
-    font-size: 9px !important; 
-    color: rgba(255, 255, 255, 0.45) !important; 
-    text-shadow: 0 1px 3px rgba(0,0,0,0.2); 
-    pointer-events: none; 
-    z-index: 10; 
-    letter-spacing: 1px; 
+/* 2. 浮水印：位置與字體統一 */
+.art-watermark {
+    position: absolute;
+    bottom: 1.5rem;        /* 距離圖片底部一點距離，更優雅 */
+    right: 1.5rem;         /* 距離圖片右側一點距離 */
+    
+    /* 統一字體大小與樣式 */
+    font-size: 14.5px !important; 
+    font-family: 'Noto Serif TC', serif !important;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    
+    /* 視覺效果：白色半透明並加上柔和陰影，確保在白圖或黑圖上都看得到 */
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); 
+    
+    pointer-events: none;  /* 滑鼠點不到它，不影響操作 */
+    z-index: 10;
 }
 
 .art-quote, 
