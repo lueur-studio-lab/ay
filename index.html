@@ -209,46 +209,58 @@
     letter-spacing: 0.2em;
 }
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
-
-/* 文章容器：增加呼吸感 */
-.art-content-body {
-    max-width: 700px; /* 縮小閱讀寬度，更有雜誌專欄感 */
-    margin: 0 auto;
-    line-height: 1.8;
-}
  
+/* --- 1. 文章標題區：回歸原本的靠左對齊 --- */
+.art-header {
+    text-align: left !important; /* 修正：標題、分類、日期全部靠左 */
+    margin-bottom: 50px;
+    padding-left: 20px; /* 增加一點左側留白 */
+}
 
-/* 1. 圖片包裝容器：負責「置中」 */
+.art-header h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 2.5rem;
+    margin: 10px 0;
+    letter-spacing: -0.5px;
+}
+
+/* --- 2. 圖片容器：解決置中與浮水印 --- */
 .art-img-container {
-    position: relative;          /* 必須是 relative，浮水印才能「貼」在它身上 */
-    display: table !important;   /* 關鍵：讓容器寬度縮小到跟圖片一樣寬，margin: auto 才會生效 */
-    margin: 4rem auto !important; /* 強制水平置中 */
-    max-width: 100%;
-}
-/* 2. 文章首圖：負責「縮小」 */
-.art-header-img {
-    width: auto !important;
-    max-width: 75% !important;   /* 妳覺得太大，我們再往下調到 75% 看看 */
-    max-height: 60vh !important;  /* 限制高度 */
-    margin: 0 auto !important;
-    display: block !important;
-}
-/* 內文圖片：保持適中 */
-.art-img-container img:not(.art-header-img) {
-    width: auto !important;
-    max-width: 100% !important; 
-    max-height: 75vh !important;
-    display: block;
+    position: relative !important;
+    display: table !important;    /* 關鍵：讓容器寬度精準等於圖片寬度 */
+    margin: 4rem auto !important;  /* 圖片本身依然在中間，增加呼吸感 */
+    max-width: 85% !important;     /* 妳覺得原本太大的問題，在這裡統一縮小 */
 }
 
-/* 3. 浮水印：負責「保護與標記」 */
+/* --- 3. 圖片本身：雜誌感縮放 --- */
+.art-img-container img {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;    
+    max-height: 65vh !important;   /* 限制高度，避免首圖壓迫 */
+    height: auto !important;
+}
+
+/* --- 4. 浮水印：嵌入圖片右下角 --- */
 .art-watermark {
-    position: absolute !important; /* 強制蓋在圖片上 */
-    bottom: 15px !important;       /* 距離圖片底部 15px */
-    right: 15px !important;        /* 距離圖片右邊 15px */
-    color: rgba(255, 255, 255, 0.8) !important; /* 白色半透明 */
+    position: absolute !important;
+    bottom: 12px !important;
+    right: 15px !important;
+    display: block !important;
+    color: rgba(255, 255, 255, 0.7) !important;
     font-size: 10px !important;
-    pointer-events: none;          /* 讓滑鼠點不到它，不影響操作 */
+    letter-spacing: 1px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    pointer-events: none;
+    font-family: var(--mono);
+}
+
+/* --- 5. 內文寬度：精緻閱讀感 --- */
+.art-content-body {
+    max-width: 680px !important;
+    margin: 0 auto !important;
+    text-align: justify;
 }
     
 .art-quote, 
@@ -387,31 +399,31 @@
     const p = POSTS.find(x => x.id === id);
     if (!p) return;
 
-   // 確保每一張圖片後面都緊跟著浮水印標籤
-let processedContent = p.content.replace(/<img (.*?)>/g, (match) => {
-    return `<div class="art-img-container">${match}<span class="art-watermark">© lueur.studio</span></div>`;
-});
-      
-   // 首圖也要補上浮水印標籤
-document.getElementById('artWrap').innerHTML = `
-  <div class="art-inner-container">
+    // 處理內文圖片與浮水印
+    let processedContent = p.content.replace(/<img (.*?)>/g, (match) => {
+        return `<div class="art-img-container">${match}<span class="art-watermark">© lueur.studio</span></div>`;
+    });
+
+    document.getElementById('artWrap').innerHTML = `
+      <div class="art-inner-container">
         <div class="art-nav">
           <button class="art-back" onclick="closeArt()">← BACK</button>
           <a class="logo" href="#" onclick="closeArt(); return false;">lueur.studio</a>
         </div>
 
-        <div class="art-header" style="text-align:center; margin-bottom: 60px;">
-          <span class="j-cat" style="letter-spacing:0.4em; color:#a5b4fc;">${p.cat}</span>
-          <h1 style="font-family:serif; font-weight:200; font-size:2.8rem; margin:20px 0;">${p.title}</h1>
-          <p style="color:#ccc; font-size:12px;">— ${p.date} —</p>
+        <div class="art-header">
+          <span class="j-cat" style="letter-spacing:0.3em; color:var(--blue-mid);">${p.cat}</span>
+          <h1>${p.title}</h1>
+          <p style="font-family:var(--mono); color:#bbb;">— PUBLISHED ON ${p.date}</p>
         </div>
 
         <div class="art-img-container">
-      <img class="art-header-img" src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}">
-      <span class="art-watermark">© lueur.studio</span>
-    </div>
-    <div class="art-content-body">${processedContent}</div>
-  </div>`;
+          <img src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}">
+          <span class="art-watermark">© lueur.studio</span>
+        </div>
+
+        <div class="art-content-body">${processedContent}</div>
+      </div>`;
 
     document.getElementById('artOverlay').style.display = 'block';
     document.getElementById('artOverlay').scrollTop = 0;
