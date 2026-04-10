@@ -28,7 +28,7 @@ var POSTS = [
        — Iced Latte —
       </figcaption>
       </figure>
-      <hr style="margin: 4.5rem 0 3.5rem; border: 0; border-top: 1px solid #eee;">      
+      <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid #eee;">      
       <p>Last Sunday, on a whim.<br>
       No plans, no agenda. Just grabbed my bag, tossed in a small notebook, and walked out the door.<br>
       The destination: a Korean café I'd been saving on my phone for months — the kind of place you screenshot on Instagram and never quite get around to visiting.</p>
@@ -57,8 +57,8 @@ var POSTS = [
           沒有特別去研究當期的展覽主題，只是帶著一份期待與好奇，就這樣出發了。<br>
           平日的午後，人潮稀落。踏入展廳，穹頂之下的空間靜謐而開闊，<br>
           每一位觀展的人都安靜地凝視著前方的大螢幕，影像緩緩流動。</p>
-<figure style="margin: 0.8rem 0; text-align: center;">
-<img src="images/bourse02.webp" 
+      <figure style="margin: 0.8rem 0; text-align: center;">
+      <img src="images/bourse02.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
        <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
       <figcaption style="font-size: 0.75rem; color: #999; margin-top: 0.5rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
@@ -74,7 +74,7 @@ var POSTS = [
         直到閉館時刻，趁著夜色步出，搭上地鐵。<br>
         這個平凡的藝術午後，我很喜歡——是屬於自己的 ME TIME。</p>
       <p><em>有時候，放空也是一種奢侈。而這樣的時光，正是現在要好好珍惜的。</em></p>
-      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee; opacity: 0.6;">
+      <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid #eee;">
       <p>One afternoon in mid-March, I booked a ticket for the Bourse de Commerce — Pinault Collection.<br>
         I hadn't researched the current exhibition beforehand. I simply showed up, carrying nothing but curiosity and a quiet sense of anticipation.<br>
         It was a weekday afternoon, and the crowds were few. Stepping into the main hall, I found myself beneath a vast, domed ceiling — hushed and expansive.<br>
@@ -85,8 +85,8 @@ var POSTS = [
       <p>I eventually rose and made my way upstairs. Each piece seemed to be saying something — whether I truly grasped it or not, I wasn't always sure.<br>
       But the act of pausing, of wondering, had a strange clarifying effect.<br>
       I drifted from room to room, unhurried, and somewhere in that gentle wandering, I felt something in me quietly restored.</p>
-<figure style="margin: 0.8rem 0; text-align: center;">
-<img src="images/bourse03.webp" 
+      <figure style="margin: 0.8rem 0; text-align: center;">
+      <img src="images/bourse03.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
        <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
       <figcaption style="font-size: 0.75rem; color: #999; margin-top: 0.5rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
@@ -113,8 +113,8 @@ var POSTS = [
       <p>那時恰逢高訂展，展品與各個廳室的搭配渾然天成，留下了深刻的印象。<br>
          然而這次重遊，記憶卻變得模糊——許多展品與畫作，彷彿似曾相識，又彷彿從未謀面。<br>
          大多數的細節已悄然淡去，唯有勝利女神那份凌空而立的優雅，依然清晰地刻在腦海之中。</p>
-<figure style="margin: 0.8rem 0; text-align: center;">
-<img src="images/WingedVictoryofSamothrace.webp" 
+      <figure style="margin: 0.8rem 0; text-align: center;">
+      <img src="images/WingedVictoryofSamothrace.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
        <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
        <figcaption style="font-size: 0.75rem; color: #999; margin-top: 0.5rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
@@ -128,7 +128,7 @@ var POSTS = [
          或許，在往後的日子裡，這次的記憶也只剩下一句話：曾經來過，知道蒙娜麗莎在此。而其他的——又會留下多少？<br>
          不是每一次造訪都要留下深刻的領悟，有時候只是走過、感受過、和好姐妹在夜裡邊走邊說著有的沒的——那本身，已經是一件值得的事了。</p>
       <p><em>在未來的某日回想起，大概會笑著說：那晚我們在羅浮宮閒晃，什麼都沒認真看，卻什麼都沒有白走。</em></p>
-      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee; opacity: 0.6;">      
+      <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid #eee;">
       <p>On the first Friday evening of each month, the Louvre offers free admission by reservation. It had been exactly a year since my last visit.<br>
       The Louvre at night is a different place entirely. Light falls across the stone colonnades in a deep, warm gold; <br>
       the voices soften, the footsteps slow, and the darkness outside seems to settle over the palace like a second skin.</p>
