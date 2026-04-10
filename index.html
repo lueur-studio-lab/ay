@@ -167,7 +167,28 @@
     position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; 
     overflow-y: auto; display: none; padding: 40px 8% 60px; 
 }
+/* --- 讓文章內的 figure 自動縮小到圖片寬度 --- */
+.art-content-body figure {
+    display: table;       /* 關鍵：讓容器寬度跟隨內部圖片 */
+    margin: 1.5rem auto;  /* 居中顯示，並縮小上下間距 */
+    max-width: 100%;
+}
+/* --- 讓浮水印文字靠右對齊，並統一字體 --- */
+.art-content-body figure p:contains("©"), 
+.art-content-body figure p {
+    text-align: right !important;
+    font-size: 14.5px !important; /* 統一內文字體大小 */
+    color: #ccc !important;
+    margin-top: 0.3rem !important; /* 縮小與圖片的距離 */
+    font-family: 'Noto Serif TC', serif !important;
+}
 
+/* 確保圖片不會超出容器 */
+.art-content-body figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 /* --- 統一文章彈窗內文的字體與大小 --- */
 .art-content-body p, 
 .art-content-body div {
