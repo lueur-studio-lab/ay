@@ -273,15 +273,18 @@
     display: none !important;
 }
     /* 引言樣式：優雅的斜體與左邊線 */
-.art-quote {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: #666;
-    margin: 3rem 0;
-    padding-left: 1.5rem;
-    border-left: 1px solid #ddd;
-    line-height: 1.6;
+.art-quote, 
+.art-content-body blockquote {
+    font-size: 14.5px !important;    /* 強制與內文大小一致 */
+    font-family: 'Noto Serif TC', serif !important; /* 保持字體統一 */
+    font-style: italic !important;   /* 稍微斜體做區隔即可 */
+    line-height: 1.8 !important;     /* 保持舒適的行距 */
+    color: #777 !important;          /* 顏色稍微淡一點，優雅地做出層次 */
+    margin: 3rem 0 !important;
+    padding: 0 0 0 1.5rem !important;
+    border-left: 1px solid var(--border) !important;
+    display: block !important;
+    text-align: justify;             /* 兩端對齊 */
 }
 
 /* 分隔線：不要太黑，淡淡的就好 */
