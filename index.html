@@ -396,17 +396,19 @@
   function renderGallery() {
     const grid = document.getElementById('galleryGrid');
     if (!grid) return;
-    grid.innerHTML = '';
+    grid.innerHTML = ''; // 清空容器，防止重複渲染
+
     ALBUMS.forEach(album => {
+      // 這裡只寫一次渲染邏輯
       grid.innerHTML += `
-  <div class="g-item" onclick="openAlbum('${album.id}')" ...>
-    <img src="${album.cover}" ...>
-    <div class="album-overlay" ...>
-      <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.2rem; font-style:italic;">
-        ${album.title}
-      </div>
-    </div>
-  </div>`;
+        <div class="g-item" onclick="openAlbum('${album.id}')" style="position:relative; cursor:pointer; overflow:hidden; aspect-ratio:1/1;">
+          <img src="${album.cover}" style="width:100%; height:100%; object-fit:cover; display:block; transition:0.6s;">
+          <div class="album-overlay" style="position:absolute; inset:0; background:linear-gradient(transparent, rgba(0,0,0,0.5)); display:flex; flex-direction:column; justify-content:flex-end; padding:20px; opacity:1;">
+            <div style="color:white; font-family:var(--serif); font-size:1.1rem; font-style:italic;">
+              ${album.title}
+            </div>
+          </div>
+        </div>`;
     });
   }
 // 在 openArt 函數內
