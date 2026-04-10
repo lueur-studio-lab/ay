@@ -45,7 +45,6 @@
     .hero-bg { position: absolute; inset: 0; background-color: rgba(242, 241, 238, 0.85); z-index: 1; }
     .hero-content { position: relative; z-index: 2; }
     .hero-h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
-    .hero-content::after { content: "© lueur.studio"; position: absolute; bottom: 20px; right: 0; font-family: var(--mono); font-size: 11px; color: var(--ink); opacity: 0.3; letter-spacing: 0.2em; pointer-events: none; }
 
     .ticker {
   background: var(--ink);
@@ -432,7 +431,7 @@
         ` : ''}
       </div>
 
-      ${caption ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:1rem">${caption}</p>` : ''}
+      ${caption ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:3rem">${caption}</p>` : ''}
       
       ${currentList.length > 1 ? `
         <p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--pale);letter-spacing:.1em;margin-top:.8rem">${currentIdx + 1} / ${currentList.length}</p>
