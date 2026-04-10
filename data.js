@@ -13,6 +13,8 @@ var POSTS = [
       <p>星期天，當然人很多。這是預料中的事。<br>
        但走進去的瞬間，吧檯剛好空出一個位子。像是某種默契，我坐下了。<br>
        點了一杯咖啡，打開筆記本，開始寫最近堆在心裡、一直沒有整理的東西。</p>
+      <figure style="margin: 0.8rem 0; text-align: center;">
+      </figure>
       <blockquote class="art-quote">      
       沒有人打擾，沒有人認識我。周圍的聲音變成一種白噪音，反而讓思緒變得清楚。
       </blockquote>
@@ -53,7 +55,6 @@ var POSTS = [
       <figure style="margin: 0.8rem 0; text-align: center;">
       <img src="images/bourse02.webp" 
        style="width: 100%; max-width: 450px; height: auto; display: inline-block; border-radius: 2px;">
-       <p style="font-size:0.6rem; color:#ccc; text-align:right;">© lueur.studio</p>
       <figcaption style="font-size: 0.75rem; color: #999; margin-top: 0.5rem; font-family: var(--mono); letter-spacing: 0.15em; text-transform: uppercase;">
         — Le film Camata —
       </figcaption>
