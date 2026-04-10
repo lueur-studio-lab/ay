@@ -189,41 +189,43 @@
 }
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
 
-/* 1. 核心容器：確保它緊貼圖片邊緣 */
+/* --- 修復浮水印飄移問題 --- */
 .art-img-container {
     position: relative;
-    display: inline-block; /* 關鍵：讓容器寬度 = 圖片寬度，浮水印才不會飄走 */
-    width: auto;
-    max-width: 100%;       /* 確保手機版不會超出螢幕 */
-    margin: 0 auto;        /* 居中顯示 */
+    /* 關鍵：讓容器的寬度「剛好等於」裡面圖片的寬度 */
+    display: block; 
+    width: fit-content; 
+    max-width: 90%;      /* 留一點點邊界，不要貼死螢幕 */
+    margin: 0 auto;      /* 讓圖片在螢幕中間 */
 }
 
 .art-img-container img {
-    display: block;        /* 消除圖片下方多餘的間隙 */
-    width: 100%;
+    display: block;
+    max-width: 100%;     /* 確保寬度不超過容器 */
+    max-height: 85vh;    /* 限制高度，避免直式照片太長要滾動 */
     height: auto;
-    max-height: 80vh;      /* 避免圖片太長 */
     object-fit: contain;
+    border-radius: 2px;
 }
 
-/* 2. 浮水印：位置與字體統一 */
+/* --- 統一字體大小的浮水印 --- */
 .art-watermark {
     position: absolute;
-    bottom: 1.5rem;        /* 距離圖片底部一點距離，更優雅 */
-    right: 1.5rem;         /* 距離圖片右側一點距離 */
+    bottom: 20px;        /* 距離圖片底邊 20px */
+    right: 20px;         /* 距離圖片右邊 20px */
     
-    /* 統一字體大小與樣式 */
-    font-size: 14.5px !important; 
+    /* 統一字體大小 14.5px，跟內文一樣 */
+    font-size: 14.5px !important;
     font-family: 'Noto Serif TC', serif !important;
     font-weight: 300;
+    
+    /* 顏色建議：白色半透明，並加一點陰影防止在淺色背景看不見 */
+    color: rgba(255, 255, 255, 0.75) !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    
     letter-spacing: 0.05em;
-    
-    /* 視覺效果：白色半透明並加上柔和陰影，確保在白圖或黑圖上都看得到 */
-    color: rgba(255, 255, 255, 0.8) !important;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); 
-    
-    pointer-events: none;  /* 滑鼠點不到它，不影響操作 */
-    z-index: 10;
+    pointer-events: none;
+    z-index: 5;
 }
 
 .art-quote, 
