@@ -210,39 +210,41 @@
 }
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
 
-/* --- 文章首圖優化 --- */
+/* 限制首圖高度，避免太大 */
 .art-header-img {
-    width: 100%;
-    max-height: 70vh;          /* 限制首圖最高為螢幕高度的 70%，避免過大 */
-    object-fit: cover;         /* 確保圖片裁切比例美觀 */
-    display: block;
-    margin: 0 auto 3rem;       /* 下方留白 */
+    width: auto !important;         /* 寬度自動，不要撐滿 */
+    max-width: 90% !important;      /* 最寬只到 90% */
+    max-height: 70vh !important;    /* 最高只到螢幕的 70% */
+    object-fit: contain !important; /* 確保圖片不被裁切 */
+    display: block !important;
 }
-/* --- 內文圖片容器置中 --- */
+/* 讓圖片容器變成一個強力的置中器 */
 .art-img-container {
-    position: relative;
-    display: table;            /* 讓容器寬度等於圖片寬度 */
-    margin: 2.5rem auto;       /* auto 是置中的關鍵 */
-    max-width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* 這行是置中的核心 */
+    justify-content: center !important;
+    margin: 3rem 0 !important;
+    width: 100% !important;
+    position: relative !important;
 }
 
-.art-img-container img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;            /* 確保圖片本身在容器內也置中 */
+/* 內文圖片也加上限制，不要太大 */
+.art-img-container img:not(.art-header-img) {
+    width: auto !important;
+    max-width: 85% !important;      /* 內文圖稍小一點點，更有雜誌感 */
+    height: auto !important;
+    display: block !important;
 }
 
-/* 讓浮水印「飛進入」圖片右下角 */
+/* 浮水印調整：確保跟著圖片走 */
 .art-watermark {
-    position: absolute;   /* 絕對定位 */
-    bottom: 15px;         /* 距離圖片底邊 15px */
-    right: 15px;          /* 距離圖片右邊 15px */
-    
-    font-size: 14.5px !important;
-    color: rgba(255, 255, 255, 0.7) !important; /* 白色半透明 */
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);      /* 加一點陰影避免在白圖上看不見 */
-    pointer-events: none; /* 確保滑鼠點擊可以穿過文字 */
+    margin-top: 10px !important;
+    position: static !important;    /* 讓它像截圖中一樣乖乖待在圖片下方 */
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--pale);
+    letter-spacing: 1px;
 }
 
 .art-quote, 
@@ -404,12 +406,12 @@
         </div>
 
         <div class="art-img-container">
-          <img class="art-header-img" src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}">
-          <span class="art-watermark">© lueur.studio</span>
-        </div>
+      <img class="art-header-img" src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}">
+      <span class="art-watermark">© lueur.studio</span>
+    </div>
 
         <div class="art-content-body">${processedContent}</div>
-      </div>`;
+  </div>`;
 
     document.getElementById('artOverlay').style.display = 'block';
     document.getElementById('artOverlay').scrollTop = 0; // 開啟時回到頂端
