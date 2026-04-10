@@ -210,19 +210,27 @@
 }
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
 
-/* --- 修改這裡：修復文章圖靠左的問題 --- */
-/* 文章與相簿通用的圖片容器 */
+/* --- 文章首圖優化 --- */
+.art-header-img {
+    width: 100%;
+    max-height: 70vh;          /* 限制首圖最高為螢幕高度的 70%，避免過大 */
+    object-fit: cover;         /* 確保圖片裁切比例美觀 */
+    display: block;
+    margin: 0 auto 3rem;       /* 下方留白 */
+}
+/* --- 內文圖片容器置中 --- */
 .art-img-container {
-    position: relative;   /* 讓內部的 absolute 元素以它為準 */
-    display: table;       /* 關鍵：容器寬度會等於圖片寬度 */
-    margin: 2rem auto;    /* 置中並保有上下間距 */
+    position: relative;
+    display: table;            /* 讓容器寬度等於圖片寬度 */
+    margin: 2.5rem auto;       /* auto 是置中的關鍵 */
     max-width: 100%;
 }
 
 .art-img-container img {
     display: block;
-    width: 100%;
+    max-width: 100%;
     height: auto;
+    margin: 0 auto;            /* 確保圖片本身在容器內也置中 */
 }
 
 /* 讓浮水印「飛進入」圖片右下角 */
@@ -370,12 +378,11 @@
     });
   }
 
-  // 2. 開啟文章彈窗
   function openArt(id) {
     const p = POSTS.find(x => x.id === id);
     if (!p) return;
 
-    // 在這裡處理內文圖片的浮水印
+    // 處理內文圖片：確保每一張圖都被置中的容器包裹
     let processedContent = p.content.replace(/<img (.*?)>/g, `
       <div class="art-img-container">
         <img $1>
@@ -389,20 +396,25 @@
           <button class="art-back" onclick="closeArt()">← BACK</button>
           <a class="logo" href="#" onclick="closeArt(); return false;">lueur.studio</a>
         </div>
+
         <div class="art-header">
-          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--blue-mid);text-transform:uppercase;letter-spacing:0.25em;display:block;margin-bottom:1.2rem;">${p.cat}</span>
+          <span class="j-cat" style="display:block;margin-bottom:1.2rem;">${p.cat}</span>
           <h1 style="font-size:2.5rem;font-weight:300;margin:10px 0;">${p.title}</h1>
           <p style="font-size:12px;color:#888;margin-bottom:40px;">PUBLISHED ON — ${p.date}</p>
         </div>
+
         <div class="art-img-container">
-          <img src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}">
+          <img class="art-header-img" src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}">
           <span class="art-watermark">© lueur.studio</span>
         </div>
+
         <div class="art-content-body">${processedContent}</div>
       </div>`;
+
     document.getElementById('artOverlay').style.display = 'block';
+    document.getElementById('artOverlay').scrollTop = 0; // 開啟時回到頂端
     document.body.style.overflow = 'hidden';
-  }
+}
 
   function closeArt() {
     document.getElementById('artOverlay').style.display = 'none';
