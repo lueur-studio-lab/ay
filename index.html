@@ -210,43 +210,31 @@
 }
 .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
 
-/* --- 修復浮水印飄移問題 --- */
+/* --- 修改這裡：修復文章圖靠左的問題 --- */
+/* 文章與相簿通用的圖片容器 */
 .art-img-container {
-    position: relative;
-    /* 關鍵：讓容器的寬度「剛好等於」裡面圖片的寬度 */
-    display: block; 
-    width: fit-content; 
-    max-width: 90%;      /* 留一點點邊界，不要貼死螢幕 */
-    margin: 0 auto;      /* 讓圖片在螢幕中間 */
+    position: relative;   /* 讓內部的 absolute 元素以它為準 */
+    display: table;       /* 關鍵：容器寬度會等於圖片寬度 */
+    margin: 2rem auto;    /* 置中並保有上下間距 */
+    max-width: 100%;
 }
 
 .art-img-container img {
     display: block;
-    max-width: 100%;     /* 確保寬度不超過容器 */
-    max-height: 85vh;    /* 限制高度，避免直式照片太長要滾動 */
+    width: 100%;
     height: auto;
-    object-fit: contain;
-    border-radius: 2px;
 }
 
-/* --- 統一字體大小的浮水印 --- */
+/* 讓浮水印「飛進入」圖片右下角 */
 .art-watermark {
-    position: absolute;
-    bottom: 20px;        /* 距離圖片底邊 20px */
-    right: 20px;         /* 距離圖片右邊 20px */
+    position: absolute;   /* 絕對定位 */
+    bottom: 15px;         /* 距離圖片底邊 15px */
+    right: 15px;          /* 距離圖片右邊 15px */
     
-    /* 統一字體大小 14.5px，跟內文一樣 */
     font-size: 14.5px !important;
-    font-family: 'Noto Serif TC', serif !important;
-    font-weight: 300;
-    
-    /* 顏色建議：白色半透明，並加一點陰影防止在淺色背景看不見 */
-    color: rgba(255, 255, 255, 0.75) !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    
-    letter-spacing: 0.05em;
-    pointer-events: none;
-    z-index: 5;
+    color: rgba(255, 255, 255, 0.7) !important; /* 白色半透明 */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);      /* 加一點陰影避免在白圖上看不見 */
+    pointer-events: none; /* 確保滑鼠點擊可以穿過文字 */
 }
 
 .art-quote, 
@@ -411,16 +399,24 @@
     grid.innerHTML = '';
     ALBUMS.forEach(album => {
       grid.innerHTML += `
-        <div class="g-item" onclick="openAlbum('${album.id}')" style="cursor:pointer; position:relative; overflow:hidden;">
-          <img src="${album.cover}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px; display:block;">
-          <div class="album-overlay" style="position:absolute; bottom:0; left:0; right:0; padding:1.5rem; color:#fff; background:linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events:none;">
-            <div style="font-family:var(--mono); font-size:0.55rem; letter-spacing:0.15em; text-transform:uppercase;">${album.cat}</div>
-            <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.2rem; font-style:italic;">${album.title}</div>
-          </div>
-        </div>`;
+  <div class="g-item" onclick="openAlbum('${album.id}')" ...>
+    <img src="${album.cover}" ...>
+    <div class="album-overlay" ...>
+      <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.2rem; font-style:italic;">
+        ${album.title}
+      </div>
+    </div>
+  </div>`;
     });
   }
-
+// 在 openArt 函數內
+let processedContent = p.content.replace(/<img (.*?)>/g, `
+    <div class="art-img-container">
+        <img $1>
+        <span class="art-watermark">© lueur.studio</span>
+    </div>
+`);
+  
   function openAlbum(albumId) {
     const album = ALBUMS.find(a => a.id === albumId);
     if (!album) return;
@@ -484,6 +480,7 @@
   function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
   window.onscroll = () => { document.getElementById("backToTop").classList.toggle("show", window.scrollY > 400); };
   window.onload = () => { renderPosts(); renderGallery(); };
+
 </script>
 </body>
 </html>
