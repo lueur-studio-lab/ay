@@ -401,6 +401,7 @@ function openAlbum(albumId) {
 }
 
 // 燈箱核心函數
+// 燈箱核心函數
 function openLightbox(idx) {
   currentIdx = idx;
   const overlay = document.getElementById('artOverlay');
@@ -429,15 +430,14 @@ function openLightbox(idx) {
 
       ${currentList.length > 1 ? `
         <div style="display:flex; justify-content:center; gap:2rem; margin-top:2rem; align-items:center;">
-          <button onclick="changePhoto(-1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.6rem; color:var(--muted); letter-spacing:0.1em;">PREV</button>
-          <span style="font-family:var(--mono); font-size:0.65rem; color:var(--ink2); opacity:0.6; letter-spacing:0.1em;">${currentIdx + 1} / ${currentList.length}</span>
-          <button onclick="changePhoto(1)" style="background:none; border:none; cursor:pointer; font-family:var(--mono); font-size:0.6rem; color:var(--muted); letter-spacing:0.1em;">NEXT</button>
+          <button onclick="changePhoto(-1)" ...>PREV</button>
+          ...
         </div>
       ` : ''}
     </div>`;
 
   overlay.style.display = 'block';
-  overlay.scrollTop = 0; // 確保每次打開都在頂部
+  overlay.scrollTop = 0;
   document.body.style.overflow = 'hidden';
 }
 
@@ -462,6 +462,9 @@ function closeArt() {
   function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
   window.onscroll = () => { document.getElementById("backToTop").classList.toggle("show", window.scrollY > 400); };
   window.onload = () => { renderPosts(); renderGallery(); };
+
+<button id="backToTop" onclick="scrollToTop()" style="position:fixed;bottom:2rem;right:2rem;display:none;font-family:var(--mono);font-size:.6rem;padding:.5rem 1rem;background:var(--ink);color:var(--bg);border:none;cursor:pointer;z-index:500">↑ TOP</button>
+
 </script>
 </body>
 </html>
