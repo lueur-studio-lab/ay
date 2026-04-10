@@ -333,6 +333,7 @@
 <div class="art-overlay" id="artOverlay">
   <div id="artWrap"></div>
 </div>
+<button id="backToTop" onclick="scrollToTop()" style="position:fixed;bottom:2rem;right:2rem;display:none;font-family:var(--mono);font-size:.6rem;padding:.5rem 1rem;background:var(--ink);color:var(--bg);border:none;cursor:pointer;z-index:500">↑ TOP</button>
 
 <script src="data.js"></script>
 <script>
@@ -358,7 +359,7 @@
     document.getElementById('artWrap').innerHTML = `
       <div class="art-inner-container">
         <div class="art-nav"><button style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:0.7rem;color:var(--muted);" onclick="closeArt()">← BACK</button><a class="logo" href="#" onclick="closeArt(); return false;">lueur.studio</a></div>
-        <div class="art-header"><span class="art-category-tag" style="font-family:var(--mono);font-size:0.65rem;color:var(--blue-mid);text-transform:uppercase;letter-spacing:0.25em;display:block;margin-bottom:1.2rem;">${p.cat}</span><h1 style="font-size:2.5rem;font-weight:300;margin:10px 0;">${p.title}</h1><p style="font-size:12px;color:#888;margin-bottom:40px;">PUBLISHED ON — ${p.date}</p></div>
+        <div class="art-header"><span style="font-family:var(--mono);font-size:0.65rem;color:var(--blue-mid);text-transform:uppercase;letter-spacing:0.25em;display:block;margin-bottom:1.2rem;">${p.cat}</span><h1 style="font-size:2.5rem;font-weight:300;margin:10px 0;">${p.title}</h1><p style="font-size:12px;color:#888;margin-bottom:40px;">PUBLISHED ON — ${p.date}</p></div>
         <div class="art-img-container"><img src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}"><span class="art-watermark">lueur.studio</span></div>
         <div class="art-content-body">${processedContent}</div>
       </div>`;
@@ -366,105 +367,82 @@
     document.body.style.overflow = 'hidden';
   }
 
-  function closeArt() { document.getElementById('artOverlay').style.display = 'none'; document.body.style.overflow = 'auto'; }
+  function closeArt() {
+    document.getElementById('artOverlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
 
- // 全域變數，用來追蹤當前燈箱顯示的照片清單與索引
-let currentList = [];
-let currentIdx = 0;
+  let currentList = [];
+  let currentIdx = 0;
 
-function renderGallery() {
-  const grid = document.getElementById('galleryGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
+  function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    ALBUMS.forEach(album => {
+      grid.innerHTML += `
+        <div class="g-item" onclick="openAlbum('${album.id}')" style="cursor:pointer; position:relative; overflow:hidden;">
+          <img src="${album.cover}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px; display:block;">
+          <div class="album-overlay" style="position:absolute; bottom:0; left:0; right:0; padding:1.5rem; color:#fff; background:linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events:none;">
+            <div style="font-family:var(--mono); font-size:0.55rem; letter-spacing:0.15em; text-transform:uppercase;">${album.cat}</div>
+            <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.2rem; font-style:italic;">${album.title}</div>
+          </div>
+        </div>`;
+    });
+  }
 
-  ALBUMS.forEach(album => {
-    grid.innerHTML += `
-      <div class="g-item" onclick="openAlbum('${album.id}')" style="cursor:pointer; position:relative; overflow:hidden;">
-        <img src="${album.cover}" style="width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:2px; display:block;">
-        <div class="album-overlay" style="position:absolute; bottom:0; left:0; right:0; padding:1.5rem; color:#fff; background:linear-gradient(transparent, rgba(0,0,0,0.7)); pointer-events:none;">
-          <div style="font-family:var(--mono); font-size:0.55rem; letter-spacing:0.15em; text-transform:uppercase;">${album.cat}</div>
-          <div style="font-family:var(--serif); font-size:1.1rem; margin-top:0.2rem; font-style:italic;">${album.title}</div>
+  function openAlbum(albumId) {
+    const album = ALBUMS.find(a => a.id === albumId);
+    if (!album) return;
+    currentList = album.photos;
+    openLightbox(0);
+  }
+
+  function openLightbox(idx) {
+    currentIdx = idx;
+    const overlay = document.getElementById('artOverlay');
+    const wrap = document.getElementById('artWrap');
+
+    let photo = currentList[currentIdx];
+    let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/')
+                   ? photo.img : 'images/' + photo.img;
+    let caption = photo.desc || '';
+
+    wrap.innerHTML = `
+      <div class="art-inner-container">
+        <div class="art-nav">
+          <button class="art-back" onclick="closeArt()">← CLOSE</button>
+          <div class="logo">lueur.studio</div>
         </div>
+        <div class="art-img-container">
+          <img src="${finalSrc}" alt="${caption}">
+          <span class="art-watermark">lueur.studio</span>
+        </div>
+        ${caption ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:1rem">${caption}</p>` : ''}
+        ${currentList.length > 1 ? `
+          <div style="display:flex;justify-content:center;gap:2rem;margin-top:2rem;align-items:center;">
+            <button onclick="changePhoto(-1)" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em">PREV</button>
+            <span style="font-family:var(--mono);font-size:.65rem;color:var(--ink2);opacity:.6;letter-spacing:.1em">${currentIdx + 1} / ${currentList.length}</span>
+            <button onclick="changePhoto(1)" style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em">NEXT</button>
+          </div>
+        ` : ''}
       </div>`;
-  });
-}
 
-// 點擊相簿時執行的函數
-function openAlbum(albumId) {
-  const album = ALBUMS.find(a => a.id === albumId);
-  if (!album) return;
-  
-  // 1. 將相簿內的所有照片放入 currentList
-  currentList = album.photos; 
-  // 2. 從第一張照片開始開啟燈箱
-  openLightbox(0); 
-}
+    overlay.style.display = 'block';
+    overlay.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
 
-// 燈箱核心函數
-// 燈箱核心函數
-function openLightbox(idx) {
-  currentIdx = idx;
-  const overlay = document.getElementById('artOverlay');
-  const wrap = document.getElementById('artWrap');
-
-  
-  // 取得檔名
-  let photoFile = currentList[currentIdx];
-  
-  // 修正路徑：確保如果資料裡沒寫 images/，程式會自動補上
-  let finalSrc = photoFile.startsWith('http') || photoFile.startsWith('images/') 
-                 ? photoFile 
-                 : 'images/' + photoFile;
-
-  wrap.innerHTML = `
-    <div class="art-inner-container">
-      <div class="art-nav">
-        <button class="art-back" onclick="closeArt()">← CLOSE</button>
-        <div class="logo">lueur.studio</div>
-      </div>
-      
-      <div class="art-img-container">
-        <img src="${finalSrc}" alt="Gallery Image">
-        <span class="art-watermark">lueur.studio</span>
-      </div>
-
-      ${currentList.length > 1 ? `
-        <div style="display:flex; justify-content:center; gap:2rem; margin-top:2rem; align-items:center;">
-          <button onclick="changePhoto(-1)" ...>PREV</button>
-          ...
-        </div>
-      ` : ''}
-    </div>`;
-
-  overlay.style.display = 'block';
-  overlay.scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-}
-
-// 請將此函數補在 openLightbox 之後
-function changePhoto(step) {
-  currentIdx += step;
-  
-  // 循環邏輯：第一張往前變最後一張，最後一張往後變第一張
-  if (currentIdx < 0) currentIdx = currentList.length - 1;
-  if (currentIdx >= currentList.length) currentIdx = 0;
-  
-  openLightbox(currentIdx);
-}
-
-// 補上關閉函數 (如果妳還沒寫)
-function closeArt() {
-  const overlay = document.getElementById('artOverlay');
-  overlay.style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
+  function changePhoto(step) {
+    currentIdx += step;
+    if (currentIdx < 0) currentIdx = currentList.length - 1;
+    if (currentIdx >= currentList.length) currentIdx = 0;
+    openLightbox(currentIdx);
+  }
 
   function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
   window.onscroll = () => { document.getElementById("backToTop").classList.toggle("show", window.scrollY > 400); };
   window.onload = () => { renderPosts(); renderGallery(); };
-
-<button id="backToTop" onclick="scrollToTop()" style="position:fixed;bottom:2rem;right:2rem;display:none;font-family:var(--mono);font-size:.6rem;padding:.5rem 1rem;background:var(--ink);color:var(--bg);border:none;cursor:pointer;z-index:500">↑ TOP</button>
-
 </script>
 </body>
 </html>
