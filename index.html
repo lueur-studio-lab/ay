@@ -352,9 +352,9 @@
   <div id="artWrap"></div>
 </div>
 <button id="backToTop" onclick="scrollToTop()" style="position:fixed;bottom:2rem;right:2rem;display:none;font-family:var(--mono);font-size:.6rem;padding:.5rem 1rem;background:var(--ink);color:var(--bg);border:none;cursor:pointer;z-index:500">↑ TOP</button>
-
 <script src="data.js"></script>
 <script>
+  // 1. 渲染文章列表
   function renderPosts() {
     const container = document.querySelector('.journal-list');
     if (!container) return;
@@ -370,15 +370,34 @@
     });
   }
 
+  // 2. 開啟文章彈窗
   function openArt(id) {
     const p = POSTS.find(x => x.id === id);
     if (!p) return;
-    let processedContent = p.content.replace(/<img (.*?)>/g, `<div class="art-img-container"><img $1><span class="art-watermark">lueur.studio</span></div>`);
+
+    // 在這裡處理內文圖片的浮水印
+    let processedContent = p.content.replace(/<img (.*?)>/g, `
+      <div class="art-img-container">
+        <img $1>
+        <span class="art-watermark">© lueur.studio</span>
+      </div>
+    `);
+
     document.getElementById('artWrap').innerHTML = `
       <div class="art-inner-container">
-        <div class="art-nav"><button style="background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:0.7rem;color:var(--muted);" onclick="closeArt()">← BACK</button><a class="logo" href="#" onclick="closeArt(); return false;">lueur.studio</a></div>
-        <div class="art-header"><span style="font-family:var(--mono);font-size:0.65rem;color:var(--blue-mid);text-transform:uppercase;letter-spacing:0.25em;display:block;margin-bottom:1.2rem;">${p.cat}</span><h1 style="font-size:2.5rem;font-weight:300;margin:10px 0;">${p.title}</h1><p style="font-size:12px;color:#888;margin-bottom:40px;">PUBLISHED ON — ${p.date}</p></div>
-        <div class="art-img-container"><img src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}"><span class="art-watermark">lueur.studio</span></div>
+        <div class="art-nav">
+          <button class="art-back" onclick="closeArt()">← BACK</button>
+          <a class="logo" href="#" onclick="closeArt(); return false;">lueur.studio</a>
+        </div>
+        <div class="art-header">
+          <span style="font-family:var(--mono);font-size:0.65rem;color:var(--blue-mid);text-transform:uppercase;letter-spacing:0.25em;display:block;margin-bottom:1.2rem;">${p.cat}</span>
+          <h1 style="font-size:2.5rem;font-weight:300;margin:10px 0;">${p.title}</h1>
+          <p style="font-size:12px;color:#888;margin-bottom:40px;">PUBLISHED ON — ${p.date}</p>
+        </div>
+        <div class="art-img-container">
+          <img src="${p.img.startsWith('http') ? p.img : 'images/'+p.img}">
+          <span class="art-watermark">© lueur.studio</span>
+        </div>
         <div class="art-content-body">${processedContent}</div>
       </div>`;
     document.getElementById('artOverlay').style.display = 'block';
@@ -390,16 +409,16 @@
     document.body.style.overflow = 'auto';
   }
 
+  // 3. 相簿功能
   let currentList = [];
   let currentIdx = 0;
 
   function renderGallery() {
     const grid = document.getElementById('galleryGrid');
     if (!grid) return;
-    grid.innerHTML = ''; // 清空容器，防止重複渲染
+    grid.innerHTML = ''; 
 
     ALBUMS.forEach(album => {
-      // 這裡只寫一次渲染邏輯
       grid.innerHTML += `
         <div class="g-item" onclick="openAlbum('${album.id}')" style="position:relative; cursor:pointer; overflow:hidden; aspect-ratio:1/1;">
           <img src="${album.cover}" style="width:100%; height:100%; object-fit:cover; display:block; transition:0.6s;">
@@ -411,14 +430,7 @@
         </div>`;
     });
   }
-// 在 openArt 函數內
-let processedContent = p.content.replace(/<img (.*?)>/g, `
-    <div class="art-img-container">
-        <img $1>
-        <span class="art-watermark">© lueur.studio</span>
-    </div>
-`);
-  
+
   function openAlbum(albumId) {
     const album = ALBUMS.find(a => a.id === albumId);
     if (!album) return;
@@ -426,51 +438,42 @@ let processedContent = p.content.replace(/<img (.*?)>/g, `
     openLightbox(0);
   }
 
+  // 4. 相簿 Lightbox (修正浮水印對齊)
   function openLightbox(idx) {
-  currentIdx = idx;
-  const overlay = document.getElementById('artOverlay');
-  const wrap = document.getElementById('artWrap');
+    currentIdx = idx;
+    const overlay = document.getElementById('artOverlay');
+    const wrap = document.getElementById('artWrap');
 
-  let photo = currentList[currentIdx];
-  let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/')
-                 ? photo.img : 'images/' + photo.img;
-  let caption = photo.desc || '';
+    let photo = currentList[currentIdx];
+    let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
+    let caption = photo.desc || '';
 
-  wrap.innerHTML = `
-    <div class="art-inner-container">
-      <div class="art-nav">
-        <button class="art-back" onclick="closeArt()">← CLOSE</button>
-        <div class="logo">lueur.studio</div>
-      </div>
-
-      <!-- 圖片 + 左右箭頭 -->
-      <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:75%;">
-        
-        ${currentList.length > 1 ? `
-          <button onclick="changePhoto(-1)" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--muted);transition:.2s;z-index:10;padding:0 10px" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">‹</button>
-        ` : ''}
-
-        <div style="position:relative;width:100%">
-          <img src="${finalSrc}" alt="${caption}" style="width:100%;height:auto;display:block;object-fit:contain;max-height:80vh;">
-          <span style="position:absolute;bottom:12px;right:15px;font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.5);text-shadow:0 1px 3px rgba(0,0,0,0.4);pointer-events:none;letter-spacing:1px">lueur.studio</span>
+    wrap.innerHTML = `
+      <div class="art-inner-container">
+        <div class="art-nav">
+          <button class="art-back" onclick="closeArt()">← CLOSE</button>
+          <div class="logo">lueur.studio</div>
         </div>
 
-        ${currentList.length > 1 ? `
-          <button onclick="changePhoto(1)" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--muted);transition:.2s;z-index:10;padding:0 10px" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted)'">›</button>
-        ` : ''}
-      </div>
+        <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:75%;">
+          ${currentList.length > 1 ? `<button onclick="changePhoto(-1)" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--muted);z-index:10;">‹</button>` : ''}
 
-      ${caption ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:3rem">${caption}</p>` : ''}
-      
-      ${currentList.length > 1 ? `
-        <p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--pale);letter-spacing:.1em;margin-top:.8rem">${currentIdx + 1} / ${currentList.length}</p>
-      ` : ''}
-    </div>`;
+          <div class="art-img-container">
+            <img src="${finalSrc}" alt="${caption}" style="width:100%;height:auto;display:block;object-fit:contain;max-height:80vh;">
+            <span class="art-watermark">© lueur.studio</span>
+          </div>
 
-  overlay.style.display = 'block';
-  overlay.scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-}
+          ${currentList.length > 1 ? `<button onclick="changePhoto(1)" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.8rem;color:var(--muted);z-index:10;">›</button>` : ''}
+        </div>
+
+        ${caption ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:3rem">${caption}</p>` : ''}
+        ${currentList.length > 1 ? `<p style="text-align:center;font-family:var(--mono);font-size:.6rem;color:var(--pale);letter-spacing:.1em;margin-top:.8rem">${currentIdx + 1} / ${currentList.length}</p>` : ''}
+      </div>`;
+
+    overlay.style.display = 'block';
+    overlay.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
 
   function changePhoto(step) {
     currentIdx += step;
@@ -480,9 +483,19 @@ let processedContent = p.content.replace(/<img (.*?)>/g, `
   }
 
   function scrollToTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
-  window.onscroll = () => { document.getElementById("backToTop").classList.toggle("show", window.scrollY > 400); };
-  window.onload = () => { renderPosts(); renderGallery(); };
+  
+  // 修正 Scroll 事件錯誤
+  window.onscroll = () => { 
+    const btn = document.getElementById("backToTop");
+    if (btn) {
+      btn.style.display = window.scrollY > 400 ? "block" : "none";
+    }
+  };
 
+  window.onload = () => { 
+    renderPosts(); 
+    renderGallery(); 
+  };
 </script>
 </body>
 </html>
