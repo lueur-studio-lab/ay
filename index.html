@@ -235,46 +235,55 @@
    浮水印：最終切割方案 (確保文章不變形、不巨大)
    ========================================= */
 
-/* 1. 【通用樣式】設定字體與陰影 (不影響尺寸) */
-.art-watermark {
-    display: block !important;
-    visibility: visible !important;
-    color: rgba(255, 255, 255, 0.8) !important;
-    font-family: var(--mono) !important;
-    font-size: 11px !important;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5) !important;
-    white-space: nowrap !important;
-    pointer-events: none;
-}
+/* =========================================
+   最終修復：恢復文章圖片比例 + 相簿浮水印修正
+   ========================================= */
 
-/* 2. 【文章專用】維持妳原本最完美的設定 (絕對不巨大) */
-/* 強制文章容器縮小，並維持定位基準 */
+/* 1. 【核心修復】恢復文章圖片原本的優雅比例 */
 .art-inner-container .art-img-container {
-    display: table !important; /* 使 margin auto 有效，同時維持定位基準 */
-    max-width: 85% !important; /* 妳要的縮小比例 */
-    margin: 4rem auto !important; /* 置中，並縮小上下間距 */
+    display: block !important;
+    width: fit-content !important;   /* 根據圖片實際大小縮放 */
+    max-width: 80% !important;      /* 妳要的縮小比例，可依喜好改為 75% 或 85% */
+    margin: 3rem auto !important;    /* 上下留白，左右置中 */
+    position: relative !important;   /* 浮水印的基準 */
 }
 
-/* 維持文章浮水印原本的定位 (20px) */
+/* 確保圖片本身不被拉伸變形 */
+.art-inner-container .art-img-container img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;        /* 關鍵：確保等比例縮放 */
+}
+
+/* 2. 【文章浮水印】定位在右下角 */
 .art-inner-container .art-img-container .art-watermark {
     position: absolute !important;
     bottom: 20px !important;
     right: 20px !important;
-    left: auto !important;
     transform: none !important;
 }
 
-/* 3. 【相簿專用】強制定位與物理性拽回 (不影響尺寸) */
-/* 使用 transform 強制位移，不更動容器寬度 */
+/* 3. 【相簿專用】解決浮水印掉出框外的問題 (不影響圖片尺寸) */
 .j-album-container .art-watermark,
 .j-gallery-item .art-watermark,
 .gallery-item .art-watermark {
     position: absolute !important;
     bottom: 30px !important;
     right: 0 !important;
-    left: auto !important;
-    transform: translateX(-50px) !important; /* 強制向左再多拽 50px */
+    transform: translateX(-60px) !important; /* 強制向左拽回，不影響圖片 */
     z-index: 9999 !important;
+}
+
+/* 4. 【通用樣式】字體與陰影 */
+.art-watermark {
+    display: block !important;
+    visibility: visible !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-family: var(--mono) !important;
+    font-size: 10px !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+    white-space: nowrap !important;
+    pointer-events: none;
 }
 /* --- 4. 內文寬度與多餘文字清理 --- */
 .art-content-body {
