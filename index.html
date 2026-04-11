@@ -232,40 +232,36 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 
-/* --- 2. 圖片置中：地毯式覆蓋所有標籤 --- */
-/* 不管是包在 container, figure 還是 p 裡，通通強迫置中 */
-.art-img-container, 
-.art-content-body figure, 
-.art-content-body p:has(img) {
-    display: table !important; 
-    margin: 4rem auto !important; /* 核心置中指令 */
-    position: relative !important;
-    max-width: 85% !important;    /* 妳要的縮小比例 */
-}
-
-.art-img-container img,
-.art-content-body img {
-    display: block !important;
-    margin: 0 auto !important;
-    width: auto !important;
-    max-width: 100% !important;
-    max-height: 65vh !important;
-    height: auto !important;
-}
-
-/* --- 3. 浮水印：精準嵌入 --- */
-.art-watermark {
+/* 1. 文章內圖片：維持妳原本最完美的樣子 */
+.art-img-container .art-watermark {
     position: absolute !important;
-    bottom: 12px !important;
-    right: 15px !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    transform: none !important; /* 取消任何位移 */
+    left: auto !important;
+}
+
+/* 2. 相簿專用：解決掉出框外的問題 */
+.j-album-container .art-watermark,
+.j-gallery-item .art-watermark,
+.gallery-item .art-watermark {
+    position: absolute !important;
+    bottom: 30px !important;
+    /* 這裡稍微往內拉，避開相簿容器的邊緣誤差 */
+    right: 50px !important; 
+    z-index: 9999 !important;
+    white-space: nowrap !important;
+}
+
+/* 3. 通用視覺樣式：字體與陰影 */
+.art-watermark {
     display: block !important;
-    color: rgba(255, 255, 255, 0.7) !important;
-    font-size: 10px !important;
-    letter-spacing: 1px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    pointer-events: none;
+    visibility: visible !important;
+    color: rgba(255, 255, 255, 0.8) !important;
     font-family: var(--mono) !important;
-    z-index: 5;
+    font-size: 11px !important;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5) !important;
+    pointer-events: none;
 }
 
 /* --- 4. 內文寬度與多餘文字清理 --- */
