@@ -307,44 +307,36 @@
     margin-top: 2rem;
     color: var(--blue-mid);
 }
-/* --- 相簿浮水印：最終強制定位方案 --- */
+/* --- 相簿浮水印：最終對齊方案 --- */
 
-/* 1. 強制相簿容器不要剪裁內容，並確保它是定位基準 */
+/* 1. 確保相簿項目的容器是絕對定位的基準 */
 .j-album-container, 
 .j-gallery-item, 
 .gallery-item,
 .art-img-container {
     position: relative !important;
-    overflow: visible !important;
+    overflow: hidden !important; /* 強制切除超出圖片範圍的內容 */
     display: flex !important;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
 }
 
-/* 2. 針對相簿內的圖片強制縮小一點點，為浮水印騰出空間 */
-.j-album-container img, 
-.gallery-item img {
-    box-sizing: border-box !important;
-    padding: 0 40px !important; /* 在左右增加 40px 內縮，確保浮水印不會掉到圖片外 */
-}
-
-/* 3. 浮水印樣式：改用右下角固定，並配合圖片內縮位移 */
+/* 2. 針對圖片本身建立一個「虛擬邊界」，確保浮水印鎖定在圖片內 */
 .art-watermark, 
 .watermark {
     display: block !important;
     visibility: visible !important;
     position: absolute !important;
     
-    /* 位置：底部與右側邊緣各縮進 50px */
-    bottom: 50px !important; 
-    right: 60px !important; 
-    left: auto !important;
+    /* 改用 Transform 位移：先定位在右下角，再向內強行拉回 */
+    bottom: 30px !important; 
+    right: 0 !important;
+    transform: translateX(-60px) !important; /* 核心修正：向左強行拉回 60px */
     
+    /* 視覺增強 */
     z-index: 9999 !important;
-    color: rgba(255, 255, 255, 0.85) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
     font-size: 11px !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
-    
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6) !important;
     white-space: nowrap !important;
     pointer-events: none;
 }
