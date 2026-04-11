@@ -307,47 +307,51 @@
     margin-top: 2rem;
     color: var(--blue-mid);
 }
-/* --- 浮水印終極修正：安全邊界版 --- */
+/* --- 相簿浮水印：最終強制定位方案 --- */
 
-/* 1. 確保相簿容器與圖片層級正確 */
+/* 1. 強制相簿容器不要剪裁內容，並確保它是定位基準 */
 .j-album-container, 
 .j-gallery-item, 
 .gallery-item,
 .art-img-container {
     position: relative !important;
-    overflow: visible !important; /* 允許浮水印在微調時微幅溢出而不被切掉 */
+    overflow: visible !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 
-/* 2. 使用右側固定距離定位，並增加安全餘裕 */
+/* 2. 針對相簿內的圖片強制縮小一點點，為浮水印騰出空間 */
+.j-album-container img, 
+.gallery-item img {
+    box-sizing: border-box !important;
+    padding: 0 40px !important; /* 在左右增加 40px 內縮，確保浮水印不會掉到圖片外 */
+}
+
+/* 3. 浮水印樣式：改用右下角固定，並配合圖片內縮位移 */
 .art-watermark, 
 .watermark {
     display: block !important;
     visibility: visible !important;
     position: absolute !important;
     
-    /* 位置設定 */
-    bottom: 25px !important; 
-    right: 15px !important;  /* 固定從右側邊緣往內推 35px */
-    left: auto !important;   /* 取消之前的 left 設定 */
+    /* 位置：底部與右側邊緣各縮進 50px */
+    bottom: 50px !important; 
+    right: 60px !important; 
+    left: auto !important;
     
-    /* 視覺樣式 */
     z-index: 9999 !important;
-    color: rgba(255, 255, 255, 0.8) !important; 
-    font-family: var(--mono) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
     font-size: 11px !important;
-    letter-spacing: 1px;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5) !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
     
     white-space: nowrap !important;
     pointer-events: none;
 }
 
-/* 3. 針對相簿內圖片縮放的特殊處理 */
-.j-album-container img, 
-.gallery-item img {
-    display: block;
-    max-width: 100%;
-    height: auto;
+/* 4. 保留相簿呼吸間距 */
+.art-inner-container .art-img-container {
+    margin: 60px auto !important; 
 }
   </style>
 </head>
@@ -387,6 +391,7 @@
 
     <div class="ticker">
   <div class="tick-inner">
+    <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
     <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
     <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
   </div>
