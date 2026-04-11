@@ -307,26 +307,45 @@
     margin-top: 2rem;
     color: var(--blue-mid);
 }
-    /* 針對相簿/幻燈片模式下的浮水印優化 */
-.gallery-item, .slider-image-container {
+   /* --- 浮水印終極修正版：同時適用文章與相簿 --- */
+
+/* 1. 確保所有容器都能定位 */
+.art-img-container, 
+.j-album-container, 
+.gallery-item, 
+.g-item {
     position: relative !important;
-    overflow: hidden; /* 確保浮水印不會跑出圖片邊界 */
+    overflow: hidden !important; /* 防止浮水印跑出去 */
 }
 
-/* 修正相簿浮水印位置 */
-.gallery-item .watermark, 
-.slider-image-container .watermark {
+/* 2. 強制統一浮水印樣式 */
+.art-watermark, 
+.watermark {
+    display: block !important;
+    visibility: visible !important;
     position: absolute !important;
-    bottom: 15px !important; /* 距離底部距離 */
-    right: 15px !important;  /* 距離右側距離 */
-    z-index: 10;            /* 確保在圖片之上 */
-    opacity: 0.6;           /* 保持適度透明感 */
-    pointer-events: none;    /* 防止干擾點擊切換照片 */
+    
+    /* 座標：稍微離開邊緣更有質感 */
+    bottom: 20px !important; 
+    right: 20px !important;
+    
+    /* 層級：設為最高，確保不被圖片或箭頭遮住 */
+    z-index: 9999 !important;
+    
+    /* 視覺：使用白色半透明，並加上陰影確保在淺色地面也能看見 */
+    color: rgba(255, 255, 255, 0.7) !important; 
+    font-family: var(--mono) !important;
+    font-size: 10px !important;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+    
+    white-space: nowrap;
+    pointer-events: none; /* 點擊會穿透，不影響翻頁 */
 }
 
-/* 如果相簿有左右切換箭頭，避免浮水印被遮擋 */
-.j-gallery-container .watermark {
-    margin-right: 10px;
+/* 3. 針對相簿內部的額外修正 */
+.art-inner-container .art-img-container {
+    margin: 40px auto !important; /* 確保相簿圖片垂直居中時有空間 */
 }
   </style>
 </head>
