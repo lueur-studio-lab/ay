@@ -309,43 +309,44 @@
 }
    /* --- 浮水印終極修正版：同時適用文章與相簿 --- */
 
-/* 1. 確保所有容器都能定位 */
+/* --- 浮水印終極修正：解決相簿溢出問題 --- */
+
+/* 1. 確保所有容器都能定位並剪裁邊緣 */
 .art-img-container, 
 .j-album-container, 
 .gallery-item, 
 .g-item {
     position: relative !important;
-    overflow: hidden !important; /* 防止浮水印跑出去 */
+    overflow: hidden !important; /* 強制把超出圖片範圍的浮水印切掉 */
 }
 
-/* 2. 強制統一浮水印樣式 */
+/* 2. 強制統一浮水印樣式與位置 */
 .art-watermark, 
 .watermark {
     display: block !important;
     visibility: visible !important;
     position: absolute !important;
     
-    /* 座標：稍微離開邊緣更有質感 */
-    bottom: 20px !important; 
-    right: 20px !important;
+    /* 座標：把 right 加大，確保它離右邊邊緣遠一點，不會掉出去 */
+    bottom: 25px !important; 
+    right: 50px !important;  /* 從 20px 增加到 50px */
+    margin-right: 0 !important;
     
-    /* 層級：設為最高，確保不被圖片或箭頭遮住 */
+    /* 層級與視覺 */
     z-index: 9999 !important;
-    
-    /* 視覺：使用白色半透明，並加上陰影確保在淺色地面也能看見 */
-    color: rgba(255, 255, 255, 0.7) !important; 
+    color: rgba(255, 255, 255, 0.8) !important; 
     font-family: var(--mono) !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
     letter-spacing: 1px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5) !important;
     
-    white-space: nowrap;
-    pointer-events: none; /* 點擊會穿透，不影響翻頁 */
+    white-space: nowrap !important;
+    pointer-events: none;
 }
 
-/* 3. 針對相簿內部的額外修正 */
+/* 3. 相簿圖片間距修正 (增加呼吸感) */
 .art-inner-container .art-img-container {
-    margin: 40px auto !important; /* 確保相簿圖片垂直居中時有空間 */
+    margin: 40px auto !important; 
 }
   </style>
 </head>
