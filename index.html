@@ -93,8 +93,13 @@
 }
     .j-meta { flex: 0 0 110px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--border); }
     .j-cat { font-family: var(--mono); font-size: 0.55rem; color: #666; letter-spacing: 0.2em; text-transform: uppercase; }
-    .j-date { font-family: var(--mono); font-size: 0.65rem; color: #bbb; }
-.j-thumb {
+.j-date {
+    font-family: 'Noto Serif TC', serif !important; /* 改為襯線體 */
+    font-size: 0.75rem !important;
+    color: #999 !important;
+    font-style: italic;
+}
+    .j-thumb {
     flex-shrink: 0;           /* 防止縮圖被擠壓 */
     width: 220px;             /* 固定寬度 */
     aspect-ratio: 3 / 2;      /* ✨ 強制統一比例 (3:2)，無論原圖比例為何 */
@@ -218,12 +223,13 @@
 }
 
 .art-header p {
-    font-family: var(--mono) !important;
-    color: #bbb !important;
-    font-size: 11px !important;
-    letter-spacing: 1px;
+    font-family: 'Noto Serif TC', serif !important; /* 切換為與內文相同的襯線體 */
+    color: #999 !important;                         /* 顏色稍微深一點點，增加易讀性 */
+    font-size: 13px !important;                      /* 稍微調大一點點，與內文 14.5px 做出微小層次 */
+    letter-spacing: 0.05em !important;               /* 縮小間距，讓它看起來更像優雅的筆記 */
     text-align: left !important;
-    margin-top: 10px;
+    margin-top: 8px;
+    font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 
 /* --- 2. 圖片置中：地毯式覆蓋所有標籤 --- */
@@ -300,6 +306,27 @@
     font-family: var(--serif);
     margin-top: 2rem;
     color: var(--blue-mid);
+}
+    /* 針對相簿/幻燈片模式下的浮水印優化 */
+.gallery-item, .slider-image-container {
+    position: relative !important;
+    overflow: hidden; /* 確保浮水印不會跑出圖片邊界 */
+}
+
+/* 修正相簿浮水印位置 */
+.gallery-item .watermark, 
+.slider-image-container .watermark {
+    position: absolute !important;
+    bottom: 15px !important; /* 距離底部距離 */
+    right: 15px !important;  /* 距離右側距離 */
+    z-index: 10;            /* 確保在圖片之上 */
+    opacity: 0.6;           /* 保持適度透明感 */
+    pointer-events: none;    /* 防止干擾點擊切換照片 */
+}
+
+/* 如果相簿有左右切換箭頭，避免浮水印被遮擋 */
+.j-gallery-container .watermark {
+    margin-right: 10px;
 }
   </style>
 </head>
