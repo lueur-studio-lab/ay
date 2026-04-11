@@ -307,9 +307,9 @@
     margin-top: 2rem;
     color: var(--blue-mid);
 }
- /* --- 浮水印終極位移修正版 --- */
+/* --- 浮水印終極修正：左側定位版 --- */
 
-/* 1. 確保父級容器不要干擾 */
+/* 1. 確保圖片容器有 overflow hidden */
 .j-album-container, 
 .j-gallery-item, 
 .gallery-item {
@@ -317,23 +317,24 @@
     overflow: hidden !important; 
 }
 
-/* 2. 使用物理位移 (Transform) 強制推回畫面內 */
+/* 2. 改用左側定位 (百分比)，徹底解決溢出問題 */
 .art-watermark, 
 .watermark {
     display: block !important;
     visibility: visible !important;
     position: absolute !important;
     
-    /* 改用百分比定位搭配位移，這是最穩定的做法 */
     bottom: 30px !important; 
-    right: 30px !important;
-    transform: translateX(-60px) !important; /* 強制往左再多拽 20px */
     
-    /* 視覺增強：稍微加粗與加深陰影，確保在石板路上更清晰 */
+    /* 核心改動：不再從右邊推，改從左邊推 */
+    /* 這裡的 80% 代表它會出現在圖片寬度的 80% 處，隨圖片縮放移動 */
+    left: 80% !important; 
+    right: auto !important; /* 關閉右側定位 */
+    
     z-index: 9999 !important;
     color: rgba(255, 255, 255, 0.9) !important; 
     font-size: 11px !important;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.6) !important;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6) !important;
     
     white-space: nowrap !important;
     pointer-events: none;
