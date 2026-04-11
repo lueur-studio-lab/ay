@@ -307,44 +307,39 @@
     margin-top: 2rem;
     color: var(--blue-mid);
 }
-   /* --- 浮水印終極修正版：同時適用文章與相簿 --- */
+ /* --- 浮水印終極位移修正版 --- */
 
-/* --- 浮水印終極修正：解決相簿溢出問題 --- */
-
-/* 1. 確保所有容器都能定位並剪裁邊緣 */
-.art-img-container, 
+/* 1. 確保父級容器不要干擾 */
 .j-album-container, 
-.gallery-item, 
-.g-item {
+.j-gallery-item, 
+.gallery-item {
     position: relative !important;
-    overflow: hidden !important; /* 強制把超出圖片範圍的浮水印切掉 */
+    overflow: hidden !important; 
 }
 
-/* 2. 強制統一浮水印樣式與位置 */
+/* 2. 使用物理位移 (Transform) 強制推回畫面內 */
 .art-watermark, 
 .watermark {
     display: block !important;
     visibility: visible !important;
     position: absolute !important;
     
-    /* 座標：把 right 加大，確保它離右邊邊緣遠一點，不會掉出去 */
-    bottom: 25px !important; 
-    right: 50px !important;  /* 從 20px 增加到 50px */
-    margin-right: 0 !important;
+    /* 改用百分比定位搭配位移，這是最穩定的做法 */
+    bottom: 30px !important; 
+    right: 30px !important;
+    transform: translateX(-20px) !important; /* 強制往左再多拽 20px */
     
-    /* 層級與視覺 */
+    /* 視覺增強：稍微加粗與加深陰影，確保在石板路上更清晰 */
     z-index: 9999 !important;
-    color: rgba(255, 255, 255, 0.8) !important; 
-    font-family: var(--mono) !important;
+    color: rgba(255, 255, 255, 0.9) !important; 
     font-size: 11px !important;
-    letter-spacing: 1px;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.5) !important;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.6) !important;
     
     white-space: nowrap !important;
     pointer-events: none;
 }
 
-/* 3. 相簿圖片間距修正 (增加呼吸感) */
+/* 3. 保留相簿呼吸間距 */
 .art-inner-container .art-img-container {
     margin: 40px auto !important; 
 }
