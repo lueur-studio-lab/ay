@@ -175,13 +175,14 @@ var POSTS = [
       <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0;">
 
       <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0;">
+        <p>After moving to Paris, life felt like a constant search for direction — <br>
+        finding a place to live, figuring out work, moving from internship to something more permanent.</p>
         <p>Then came a stretch of time that was forced upon me; less a holiday, more a waiting period with no clear end in sight.<br>
         I still went out with friends, visited exhibitions, talked about how things felt — but something was missing, and I couldn't quite name it.</p>
         
         <p>My phone was full of it, though: afternoon light in cafés, the quiet drift of people through gallery halls, the unhurried randomness of Parisian streets.<br>
         After conversations with a few mentors and friends I deeply admire, something clicked one evening.<br>
-        It felt sudden, but looking back, it had been building for a while — I'd studied web design during my master's,<br>
-        thought about doing something with it last year, never followed through.<br>
+        It felt sudden, but looking back, it had been building for a while — I'd studied web design during my master's, thought about doing something with it last year, never followed through.<br>
         This time, I did.</p>
 
         <p><strong>Why not just post on Instagram?</strong></p>
