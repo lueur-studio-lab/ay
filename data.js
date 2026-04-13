@@ -143,7 +143,52 @@ var POSTS = [
 
   <p class="art-lang-switch"><em>And someday, looking back, I think we'll laugh and say: we didn't really look at anything that night. But none of it was wasted.</em></p>
 `
-  }
+  },
+  {
+    id: "intro-paris",
+    title: "在巴黎，拾起那些被遺落的瞬間",
+    enTitle: "Picking Up the Moments Left Behind in Paris",
+    category: "Chroniques / Fragments",
+    date: "2024.04.11", // 你可以根據需求調整日期
+    summary: "一個搬來巴黎的人，在等待與迷茫之間，找到了記錄日常的理由——不為演算法，只為自己。",
+    enSummary: "Someone who moved to Paris and, somewhere between waiting and not knowing what comes next, found a reason to start writing — not for the algorithm, but for herself.",
+    content: `
+    <h3 class="intro-heading">契機</h3>
+    <p>搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
+    後來有了一段被迫暫停的日子，與其說是放假，不如說是一個不知所措的等待期。<br>
+    照常和朋友出門、逛展覽、聊心情，卻總覺得少了點什麼。</p>
+
+    <p>手機裡存著咖啡廳的午後光線、展覽裡人來人往的片段、巴黎街頭的隨性瞬間。<br>
+    在和一位很欣賞的姊姊聊完天後，某個夜晚，那個開關突然被啟動了。<br>
+    說是突然，其實早有伏筆——碩士課程裡接觸過網頁設計，去年也曾動念，只是沒有真正落實，就這樣擱著。<br>
+    這一次，終於做了。</p>
+
+    <h3 class="intro-heading">初衷</h3>
+    <p>為什麼不發在 Instagram？因為想要一個更安靜的地方，不被演算法追著跑。<br>
+    社群的消耗，好像比自己以為的還要來得重。<br>
+    能夠建立一個屬於自己的空間，是一份小小的成就感，也是一本記事——記錄著那些巴黎的點滴，還有在歐洲生活的平凡與不平凡。</p>
+
+    <h3 class="intro-heading">對你說</h3>
+    <p>這裡沒有什麼大道理，就是日常的分享，像是和朋友說話一樣的小文章。<br>
+    或許你會在某篇裡找到一點共鳴，也說不定。</p>
+
+    <div class="lang-divider"></div> <h3 class="intro-heading">How it started</h3>
+    <p>After moving to Paris, life felt like a constant search for direction — finding a place to live, figuring out work, moving from internship to something more permanent.<br>
+    Then came a stretch of time that was forced upon me; less a holiday, more a waiting period with no clear end in sight.</p>
+    
+    <p>My phone was full of it, though: afternoon light in cafés, the quiet drift of people through gallery halls, the unhurried randomness of Parisian streets.<br>
+    After a conversation with someone I deeply admire, something clicked one evening.<br>
+    I'd studied web design during my master's, thought about doing something with it last year, never followed through. This time, I did.</p>
+
+    <h3 class="intro-heading">Why not just post on Instagram?</h3>
+    <p>Because I wanted somewhere quieter. Somewhere the algorithm couldn't reach.<br>
+    The weight of social media had been heavier than I'd realised, and building a space that was entirely my own felt like a small but meaningful achievement.</p>
+
+    <h3 class="intro-heading">A note to you</h3>
+    <p>There's nothing profound here. Just small writings, the kind you'd share with a friend over coffee.<br>
+    Maybe you'll find something that resonates. Either way, you're welcome here.</p>
+`
+}
 ];
 
 const ALBUMS = [
