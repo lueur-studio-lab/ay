@@ -236,56 +236,16 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   相簿浮水印：精準鎖定照片邊界方案
+   回溯穩定方案：保住文章，單獨修正相簿
    ========================================= */
 
-/* 1. 【關鍵修正】強制讓相簿容器與圖片同寬，避免浮水印飄走 */
-.j-album-container, 
-.j-gallery-item, 
-.gallery-item,
-#artWrap div[style*="position:relative"] {
-    position: relative !important;
-    display: table !important;    /* 👈 讓容器寬度由內容(圖片)決定 */
-    margin-left: auto !important;  /* 置中 */
-    margin-right: auto !important; /* 置中 */
-    max-width: 100%;
-}
-
-/* 2. 【核心浮水印】鎖定在「縮小後」的容器右下角 */
-.art-watermark, 
-#artWrap div > div > span[style*="position:absolute"] {
-    position: absolute !important;
-    display: block !important;
-    visibility: visible !important;
-    z-index: 500 !important;
-    
-    /* 👈 這裡 20px 現在會相對於「圖片邊界」而非螢幕邊界 */
-    bottom: 15px !important;
-    right: 15px !important; 
-    
-    left: auto !important;
-    transform: none !important;
-
-    /* 樣式保持 */
-    color: rgba(255, 255, 255, 0.7) !important;
-    font-family: var(--mono) !important;
-    font-size: 10px !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-    white-space: nowrap !important;
-    pointer-events: none;
-}
-
-/* 3. 【恢復切換按鈕】保持可見性 */
-#artWrap button {
-    display: block !important;
-    z-index: 2000 !important;
-}
-
-/* 4. 【文章圖片比例】維持優雅縮小 */
+/* 1. 【文章專用】完全恢復妳原本正常的設定 */
 .art-inner-container .art-img-container {
+    display: block !important;
     width: fit-content !important;
     max-width: 80% !important;
     margin: 3rem auto !important;
+    position: relative !important;
 }
 
 .art-inner-container .art-img-container img {
@@ -294,12 +254,55 @@
     height: auto !important;
 }
 
-/* 5. 【內文寬度與細節】 */
+/* 2. 【核心浮水印】恢復最原始的定位邏輯 */
+.art-watermark {
+    position: absolute !important;
+    display: block !important;
+    visibility: visible !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    z-index: 999 !important;
+    pointer-events: none;
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-family: var(--mono) !important;
+    font-size: 10px !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+    white-space: nowrap !important;
+    transform: none !important; /* 👈 確保沒有位移 */
+}
+
+/* 3. 【相簿專用修復】重點：解決飛出去的問題 */
+/* 針對相簿與燈箱，強制容器寬度緊貼圖片 */
+.j-album-container, 
+.j-gallery-item, 
+.gallery-item,
+#artWrap div[style*="position:relative"] {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+/* 👈 這是最重要的修正：精確捕捉燈箱裡那個「飄走」的浮水印 */
+#artWrap div[style*="position:relative"] > span {
+    right: 20px !important;
+    bottom: 20px !important;
+    left: auto !important;
+    position: absolute !important;
+}
+
+/* 4. 【恢復切換按鈕】 */
+#artWrap button {
+    z-index: 9999 !important;
+    display: block !important;
+}
+
+/* 5. 內文美化保持不變 */
 .art-content-body {
     max-width: 680px !important;
     margin: 0 auto !important;
 }
-
 .art-quote, .art-content-body blockquote {
     font-size: 14.5px !important;
     font-family: 'Noto Serif TC', serif !important;
@@ -309,13 +312,6 @@
     margin: 3rem 0 !important;
     padding: 0 0 0 1.5rem !important;
     border-left: 1px solid var(--border) !important;
-}
-
-.art-divider {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 4rem auto;
-    width: 30%;
 }
   </style>
 </head>
