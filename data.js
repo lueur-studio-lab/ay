@@ -153,60 +153,9 @@ var POSTS = [
     summary: "一個搬來巴黎的人，在等待與迷茫之間，找到了記錄日常的理由——不為演算法，只為自己。",
     enSummary: "Someone who moved to Paris and, somewhere between waiting and not knowing what comes next, found a reason to start writing — not for the algorithm, but for herself.",
     content: `
-    <style>
-        .intro-container {
-            width: 100% !important;
-            max-width: fit-content !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-        }
-        
-.intro-cover {
-    display: block !important;
-    width: 100% !important;
-    aspect-ratio: 16 / 9; /* ✨ 雜誌感寬螢幕 */
-    background-image: url('images/louvre02.webp'); /* 修正後：拿掉了多餘的 } */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 0 auto 5rem auto; /* ✨ 與導覽列分開，並在下方留白 */
-    border-radius: 2px;
-}
+    <img src="images/louvre02.webp" alt="Louvre Night">
 
-        .intro-text p {
-            font-size: 14.5px !important;
-            line-height: 2 !important;
-            margin-bottom: 2rem !important;
-            font-family: 'Noto Serif TC', serif !important;
-            text-align: justify !important;
-            color: var(--ink2) !important;
-        }
-
-        .intro-heading {
-            display: block !important;
-            font-weight: 500 !important;
-            font-size: 1.1rem !important;
-            margin-top: 3rem !important;
-            margin-bottom: 1.2rem !important;
-            color: #555 !important;
-            font-family: 'Noto Serif TC', serif !important;
-            letter-spacing: 0.1em;
-        }
-
-        .intro-divider {
-            width: 30px !important;
-            height: 1px !important;
-            background-color: #eee !important;
-            margin: 5rem 0 !important;
-            display: block !important;
-        }
-    </style>
-        
-        <div class="intro-container">
-        <div class="intro-cover"></div>
-        
-    <div class="intro-text">
-        <span class="intro-heading">契機</span>
+    <div class="art-quote" style="font-style: normal; border-left: 2px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem;">契機</div>
         <p>搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
         後來有了一段被迫暫停的日子，與其說是放假，不如說是一個不知所措的等待期。<br>
         照常和朋友出門、逛展覽、聊心情，卻總覺得少了點什麼。</p>
@@ -216,20 +165,17 @@ var POSTS = [
         說是突然，其實早有伏筆——碩士課程裡接觸過網頁設計，去年也曾動念，只是沒有真正落實，就這樣擱著。<br>
         這一次，終於做了。</p>
 
-        <span class="intro-heading">初衷</span>
-        <p>為什麼不發在 Instagram？因為想要一個更安靜的地方，不被演算法追著跑。<br>
+    <div class="art-quote" style="font-style: normal; border-left: 2px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem;">初衷</div>        <p>為什麼不發在 Instagram？因為想要一個更安靜的地方，不被演算法追著跑。<br>
         社群的消耗，好像比自己以為的還要來得重。<br>
         能夠建立一個屬於自己的空間，是一份小小的成就感，也是一本記事，<br>
         記錄著那些巴黎的點滴，還有在歐洲生活的平凡與不平凡。</p>
 
-        <span class="intro-heading">對你說</span>
-        <p>這裡沒有什麼大道理，就是日常的分享，像是和朋友說話一樣的小文章。<br>
+    <div class="art-quote" style="font-style: normal; border-left: 2px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem;">對你說</div>        <p>這裡沒有什麼大道理，就是日常的分享，像是和朋友說話一樣的小文章。<br>
         或許你會在某篇裡找到一點共鳴，也說不定。</p>
 
-        <div class="intro-divider"></div>
+    <hr class="art-divider">
 
-        <span class="intro-heading">How it started</span>
-        <p>After moving to Paris, life felt like a constant search for direction — finding a place to live, figuring out work, moving from internship to something more permanent.<br>
+    <div class="art-quote" style="font-style: normal; border-left: 2px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem;">How it started</div>        <p>After moving to Paris, life felt like a constant search for direction — finding a place to live, figuring out work, moving from internship to something more permanent.<br>
         Then came a stretch of time that was forced upon me; less a holiday, more a waiting period with no clear end in sight.<br>
         I still went out with friends, visited exhibitions, talked about how things felt — but something was missing, and I couldn't quite name it.</p>
         
@@ -239,15 +185,14 @@ var POSTS = [
         thought about doing something with it last year, never followed through.<br>
         This time, I did.</p>
 
-        <span class="intro-heading">Why not just post on Instagram?</span>
+    <div class="art-quote" style="font-style: normal; border-left: 2px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem;">Why not just post on Instagram?</div>
         <p>Because I wanted somewhere quieter. Somewhere the algorithm couldn't reach.<br>
         The weight of social media had been heavier than I'd realised,<br>
         and building a space that was entirely my own felt like a small but meaningful achievement.<br>
         A place to keep things — the everyday moments of life in Paris, the ordinary and not-so-ordinary of living in Europe.</p>
 
 
-        <span class="intro-heading">A note to you</span>
-        <p>There's nothing profound here. Just small writings, the kind you'd share with a friend over coffee.<br>
+    <div class="art-quote" style="font-style: normal; border-left: 2px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem;">A note to you</div>        <p>There's nothing profound here. Just small writings, the kind you'd share with a friend over coffee.<br>
         Maybe you'll find something that resonates. Maybe you won't. Either way, you're welcome here.</p>
       </div>
     </div>
