@@ -236,46 +236,51 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   最終修復：全站浮水印對齊方案 (不再位移)
+   最終對齊方案：修復浮水印位移 + 恢復切換按鈕
    ========================================= */
 
-/* 1. 【通用容器基準】確保浮水印有個家 */
+/* 1. 【通用容器基準】 */
 .art-img-container, 
 .j-album-container, 
 .j-gallery-item, 
-.gallery-item,
-#artWrap div[style*="position:relative"] {
+.gallery-item {
     position: relative !important;
+    overflow: hidden !important; 
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important;
-    overflow: hidden !important; /* 👈 關鍵：不讓浮水印超出圖片邊界 */
 }
 
-/* 2. 【核心浮水印樣式】 */
+/* 2. 【核心浮水印】精確瞄準，不影響其他按鈕 */
 .art-watermark, 
-#artWrap span[style*="© lueur.studio"] {
+#artWrap div > div > span[style*="position:absolute"] {
     position: absolute !important;
     display: block !important;
     visibility: visible !important;
-    z-index: 9999 !important;
+    z-index: 500 !important; /* 降低層級，讓按鈕 (z-index: 10) 能點到 */
     
-    /* 👈 修正：刪除 translateX(-60px)，改用標準右下角定位 */
-    right: 20px !important; 
+    /* 👈 修正：鎖定在右下角，不使用 translateX */
     bottom: 20px !important;
-    transform: none !important; 
+    right: 20px !important;
     left: auto !important;
+    transform: none !important;
 
-    /* 視覺美化 */
+    /* 樣式 */
     color: rgba(255, 255, 255, 0.7) !important;
     font-family: var(--mono) !important;
     font-size: 10px !important;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
     white-space: nowrap !important;
-    pointer-events: none;
+    pointer-events: none; /* 👈 關鍵：讓滑鼠可以穿透浮水印點擊 */
 }
 
-/* 3. 【文章圖片比例】讓文章內圖片優雅縮小 */
+/* 3. 【恢復切換按鈕】強制顯示並確保在最上層 */
+#artWrap button {
+    display: block !important;
+    visibility: visible !important;
+    z-index: 2000 !important; /* 確保按鈕在浮水印之上 */
+}
+
+/* 4. 【文章圖片比例】維持優雅縮小 */
 .art-inner-container .art-img-container {
     width: fit-content !important;
     max-width: 80% !important;
@@ -288,18 +293,12 @@
     height: auto !important;
 }
 
-/* 4. 【內文細節】保持文字美感 */
+/* 5. 【內文寬度與細節】 */
 .art-content-body {
     max-width: 680px !important;
     margin: 0 auto !important;
 }
 
-/* 移除重複產生的浮水印 */
-.art-content-body .art-watermark:nth-of-type(n+2) {
-    display: none !important;
-}
-
-/* 引言樣式 */
 .art-quote, .art-content-body blockquote {
     font-size: 14.5px !important;
     font-family: 'Noto Serif TC', serif !important;
@@ -309,6 +308,13 @@
     margin: 3rem 0 !important;
     padding: 0 0 0 1.5rem !important;
     border-left: 1px solid var(--border) !important;
+}
+
+.art-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 4rem auto;
+    width: 30%;
 }
   </style>
 </head>
