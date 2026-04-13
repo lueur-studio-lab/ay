@@ -154,7 +154,6 @@ var POSTS = [
     enSummary: "Someone who moved to Paris and, somewhere between waiting and not knowing what comes next, found a reason to start writing — not for the algorithm, but for herself.",
     content: `
     <style>
-        /* 1. 這裡的設定只會在這篇文章打開時生效，完全不干擾全局、不碰圖片 CSS */
         .intro-container {
             width: 100% !important;
             max-width: fit-content !important;
@@ -162,23 +161,18 @@ var POSTS = [
             padding: 0 !important;
         }
         
-        /* 2. Intro 封面照片：雜誌感的寬螢幕比例 (16:9) */
-        .intro-cover {
-            display: block !important;
-            width: 100% !important;
-            aspect-ratio: 16 / 9; /* ✨ 雜誌感寬螢幕 */
-            background-image: url('images/${image_5.png}'); /* ✨ ✨ 請將檔名改為妳實際保存的名稱，例如 'images/louvre_pyramid_night.webp' */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin: 0 auto 5rem auto; /* ✨ 與導覽列分開，並在下方留白 */
-            border-radius: 2px;
-            
-            /* ✨ 優雅氛圍：稍微去飽和度，讓文字更好讀 */
-            /* filter: grayscale(70%); */
-        }
+.intro-cover {
+    display: block !important;
+    width: 100% !important;
+    aspect-ratio: 16 / 9; /* ✨ 雜誌感寬螢幕 */
+    background-image: url('images/louvre02.webp'); /* 修正後：拿掉了多餘的 } */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 auto 5rem auto; /* ✨ 與導覽列分開，並在下方留白 */
+    border-radius: 2px;
+}
 
-        /* 3. 文字內容區域的氛圍：保持安靜透明 */
         .intro-text p {
             font-size: 14.5px !important;
             line-height: 2 !important;
@@ -188,7 +182,6 @@ var POSTS = [
             color: var(--ink2) !important;
         }
 
-        /* 4. Intro 專用的標題樣式 (契機、初衷) */
         .intro-heading {
             display: block !important;
             font-weight: 500 !important;
@@ -200,7 +193,6 @@ var POSTS = [
             letter-spacing: 0.1em;
         }
 
-        /* 5. 英文版前的短線 */
         .intro-divider {
             width: 30px !important;
             height: 1px !important;
@@ -209,8 +201,10 @@ var POSTS = [
             display: block !important;
         }
     </style>
+        
         <div class="intro-container">
         <div class="intro-cover"></div>
+        
     <div class="intro-text">
         <span class="intro-heading">契機</span>
         <p>搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
