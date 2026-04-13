@@ -236,10 +236,10 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   回溯穩定方案：保住文章，單獨修正相簿
+   終極定位方案：解決直式照片浮水印飄移
    ========================================= */
 
-/* 1. 【文章專用】完全恢復妳原本正常的設定 */
+/* 1. 【文章圖片】恢復妳最初最穩定的狀態 */
 .art-inner-container .art-img-container {
     display: block !important;
     width: fit-content !important;
@@ -254,25 +254,8 @@
     height: auto !important;
 }
 
-/* 2. 【核心浮水印】恢復最原始的定位邏輯 */
-.art-watermark {
-    position: absolute !important;
-    display: block !important;
-    visibility: visible !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    z-index: 999 !important;
-    pointer-events: none;
-    color: rgba(255, 255, 255, 0.7) !important;
-    font-family: var(--mono) !important;
-    font-size: 10px !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-    white-space: nowrap !important;
-    transform: none !important; /* 👈 確保沒有位移 */
-}
-
-/* 3. 【相簿專用修復】重點：解決飛出去的問題 */
-/* 針對相簿與燈箱，強制容器寬度緊貼圖片 */
+/* 2. 【相簿與燈箱容器】強制讓容器「縮」到圖片寬度 */
+/* 這是修復直式照片的關鍵：不讓容器寬度超過圖片 */
 .j-album-container, 
 .j-gallery-item, 
 .gallery-item,
@@ -281,37 +264,48 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    width: 100% !important;
+    width: fit-content !important; /* 👈 讓容器不要撐開 */
+    margin: 0 auto !important;     /* 居中 */
 }
 
-/* 👈 這是最重要的修正：精確捕捉燈箱裡那個「飄走」的浮水印 */
+/* 3. 【核心浮水印定位】 */
+/* 增加這行選取器：#artWrap img + span */
+/* 意思是：緊跟在圖片後面的那個 span (浮水印) */
+.art-watermark, 
+#artWrap img + span,
 #artWrap div[style*="position:relative"] > span {
-    right: 20px !important;
-    bottom: 20px !important;
-    left: auto !important;
     position: absolute !important;
+    bottom: 20px !important;
+    right: 20px !important; /* 現在會根據 fit-content 的寬度來定位 */
+    left: auto !important;
+    transform: none !important;
+    z-index: 500 !important;
+    
+    /* 視覺樣式 */
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-family: var(--mono) !important;
+    font-size: 10px !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+    white-space: nowrap !important;
+    pointer-events: none;
 }
 
-/* 4. 【恢復切換按鈕】 */
+/* 4. 【確保按鈕不被遮擋】 */
 #artWrap button {
     z-index: 9999 !important;
-    display: block !important;
 }
 
-/* 5. 內文美化保持不變 */
+/* 5. 內文美化保持 */
 .art-content-body {
     max-width: 680px !important;
     margin: 0 auto !important;
 }
-.art-quote, .art-content-body blockquote {
+.art-quote {
     font-size: 14.5px !important;
     font-family: 'Noto Serif TC', serif !important;
-    font-style: italic !important;
-    line-height: 1.8 !important;
-    color: #777 !important;
-    margin: 3rem 0 !important;
-    padding: 0 0 0 1.5rem !important;
     border-left: 1px solid var(--border) !important;
+    padding-left: 1.5rem !important;
+    color: #777 !important;
 }
   </style>
 </head>
