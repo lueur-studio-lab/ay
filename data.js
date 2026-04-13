@@ -150,11 +150,10 @@ var POSTS = [
     enTitle: "Picking Up the Moments Left Behind in Paris",
     category: "Chroniques / Fragments",
     date: "2024.04.11", // 你可以根據需求調整日期
+    img: 'louvre02.webp',
     summary: "一個搬來巴黎的人，在等待與迷茫之間，找到了記錄日常的理由——不為演算法，只為自己。",
     enSummary: "Someone who moved to Paris and, somewhere between waiting and not knowing what comes next, found a reason to start writing — not for the algorithm, but for herself.",
     content: `
-    <img src="images/louvre02.webp" alt="Louvre Night">
-
     <div class="art-quote" style="font-style: normal; border-left: 2px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem;">契機</div>
         <p>搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
         後來有了一段被迫暫停的日子，與其說是放假，不如說是一個不知所措的等待期。<br>
