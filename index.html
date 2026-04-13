@@ -366,26 +366,32 @@
 .art-inner-container .art-img-container {
     margin: 60px auto !important; 
 }
-    /* 這裡加入我剛剛給妳的氛圍指令 */
-        .art-inner-container p {
-            line-height: 1.8;
-            margin-bottom: 2rem; 
-        }
+    /* --- 氛圍指令：只針對「文字內容區域」內的段落生效 --- */
+/* 這樣就不會動到相簿裡的 p，也不會動到圖片容器 */
 
-        .lang-divider {
-            width: 30px;
-            height: 1px;
-            background-color: #ccc;
-            margin: 4rem 0; 
-        }
+.art-content-body p {
+    line-height: 1.8 !important;
+    margin-bottom: 1.8rem !important;
+    text-align: justify;
+}
 
-        .intro-heading {
-            font-weight: 500;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: #666;
-            font-family: 'Noto Serif TC', serif; /* 建議標題用襯線體更有質感 */
-        }
+/* 針對 Intro 標題 */
+.intro-heading {
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #666;
+    font-family: 'Noto Serif TC', serif;
+}
+
+/* 英文分隔線 */
+.lang-divider {
+    width: 30px;
+    height: 1px;
+    background-color: #ccc;
+    margin: 4rem 0; 
+}
   </style>
 </head>
 <body>
