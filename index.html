@@ -236,10 +236,10 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   終極定位方案：解決直式照片浮水印飄移
+   最終補救：圖片關聯定位方案
    ========================================= */
 
-/* 1. 【文章圖片】恢復妳最初最穩定的狀態 */
+/* 1. 【文章專用】恢復最穩定的 80% 比例 */
 .art-inner-container .art-img-container {
     display: block !important;
     width: fit-content !important;
@@ -254,34 +254,32 @@
     height: auto !important;
 }
 
-/* 2. 【相簿與燈箱容器】強制讓容器「縮」到圖片寬度 */
-/* 這是修復直式照片的關鍵：不讓容器寬度超過圖片 */
-.j-album-container, 
-.j-gallery-item, 
-.gallery-item,
+/* 2. 【相簿容器】維持彈性，但移除可能干擾的 table/flex 設定 */
+.j-album-container, .j-gallery-item, .gallery-item,
 #artWrap div[style*="position:relative"] {
     position: relative !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    width: fit-content !important; /* 👈 讓容器不要撐開 */
-    margin: 0 auto !important;     /* 居中 */
+    display: block !important; /* 改回 block，避免 flex 撐開寬度 */
+    text-align: center !important;
 }
 
-/* 3. 【核心浮水印定位】 */
-/* 增加這行選取器：#artWrap img + span */
-/* 意思是：緊跟在圖片後面的那個 span (浮水印) */
+/* 3. 【核心修正】強迫浮水印對齊圖片中心，再往右推 */
+/* 這個方法不論圖片多寬，都能保證浮水印鎖在中心往右偏移的位置 */
 .art-watermark, 
-#artWrap img + span,
 #artWrap div[style*="position:relative"] > span {
     position: absolute !important;
-    bottom: 20px !important;
-    right: 20px !important; /* 現在會根據 fit-content 的寬度來定位 */
-    left: auto !important;
-    transform: none !important;
-    z-index: 500 !important;
+    display: inline-block !important;
+    visibility: visible !important;
     
-    /* 視覺樣式 */
+    /* 👈 核心邏輯：先定位在容器中心 */
+    left: 50% !important;
+    bottom: 30px !important;
+    right: auto !important;
+    
+    /* 👈 核心邏輯：利用 transform 根據「自身寬度」與「圖片比例」修正 */
+    /* 這會讓它從中心點往右移動，距離中心約照片寬度的一半 */
+    transform: translateX(calc(-50% + min(35vw, 250px))) !important;
+
+    z-index: 999 !important;
     color: rgba(255, 255, 255, 0.7) !important;
     font-family: var(--mono) !important;
     font-size: 10px !important;
@@ -290,22 +288,22 @@
     pointer-events: none;
 }
 
-/* 4. 【確保按鈕不被遮擋】 */
+/* 4. 【按鈕回歸】 */
 #artWrap button {
+    display: block !important;
     z-index: 9999 !important;
 }
 
-/* 5. 內文美化保持 */
+/* 5. 內文美化 */
 .art-content-body {
     max-width: 680px !important;
     margin: 0 auto !important;
 }
 .art-quote {
-    font-size: 14.5px !important;
-    font-family: 'Noto Serif TC', serif !important;
     border-left: 1px solid var(--border) !important;
     padding-left: 1.5rem !important;
-    color: #777 !important;
+    font-style: italic;
+    color: #777;
 }
   </style>
 </head>
