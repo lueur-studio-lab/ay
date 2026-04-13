@@ -236,135 +236,79 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   浮水印：最終切割方案 (確保文章不變形、不巨大)
+   最終修復：全站浮水印對齊方案 (不再位移)
    ========================================= */
 
-/* =========================================
-   最終修復：恢復文章圖片比例 + 相簿浮水印修正
-   ========================================= */
-
-/* 1. 【核心修復】恢復文章圖片原本的優雅比例 */
-.art-inner-container .art-img-container {
-    display: block !important;
-    width: fit-content !important;   /* 根據圖片實際大小縮放 */
-    max-width: 80% !important;      /* 妳要的縮小比例，可依喜好改為 75% 或 85% */
-    margin: 3rem auto !important;    /* 上下留白，左右置中 */
-    position: relative !important;   /* 浮水印的基準 */
+/* 1. 【通用容器基準】確保浮水印有個家 */
+.art-img-container, 
+.j-album-container, 
+.j-gallery-item, 
+.gallery-item,
+#artWrap div[style*="position:relative"] {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important; /* 👈 關鍵：不讓浮水印超出圖片邊界 */
 }
 
-/* 確保圖片本身不被拉伸變形 */
-.art-inner-container .art-img-container img {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;        /* 關鍵：確保等比例縮放 */
-}
-
-/* 2. 【文章浮水印】定位在右下角 */
-.art-inner-container .art-img-container .art-watermark {
+/* 2. 【核心浮水印樣式】 */
+.art-watermark, 
+#artWrap span[style*="© lueur.studio"] {
     position: absolute !important;
-    bottom: 20px !important;
-    right: 20px !important;
-    transform: none !important;
-}
-
-/* 3. 【相簿專用】解決浮水印掉出框外的問題 (不影響圖片尺寸) */
-.j-album-container .art-watermark,
-.j-gallery-item .art-watermark,
-.gallery-item .art-watermark {
-    position: absolute !important;
-    bottom: 30px !important;
-    right: 0 !important;
-    transform: translateX(-60px) !important; /* 強制向左拽回，不影響圖片 */
-    z-index: 9999 !important;
-}
-
-/* 4. 【通用樣式】字體與陰影 */
-.art-watermark {
     display: block !important;
     visibility: visible !important;
+    z-index: 9999 !important;
+    
+    /* 👈 修正：刪除 translateX(-60px)，改用標準右下角定位 */
+    right: 20px !important; 
+    bottom: 20px !important;
+    transform: none !important; 
+    left: auto !important;
+
+    /* 視覺美化 */
     color: rgba(255, 255, 255, 0.7) !important;
     font-family: var(--mono) !important;
     font-size: 10px !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
     white-space: nowrap !important;
     pointer-events: none;
 }
-/* --- 4. 內文寬度與多餘文字清理 --- */
+
+/* 3. 【文章圖片比例】讓文章內圖片優雅縮小 */
+.art-inner-container .art-img-container {
+    width: fit-content !important;
+    max-width: 80% !important;
+    margin: 3rem auto !important;
+}
+
+.art-inner-container .art-img-container img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* 4. 【內文細節】保持文字美感 */
 .art-content-body {
     max-width: 680px !important;
     margin: 0 auto !important;
 }
 
-/* 移除重複產生的 lueur studio */
+/* 移除重複產生的浮水印 */
 .art-content-body .art-watermark:nth-of-type(n+2) {
     display: none !important;
 }
-    /* 引言樣式：優雅的斜體與左邊線 */
-.art-quote, 
-.art-content-body blockquote {
-    font-size: 14.5px !important;    /* 強制與內文大小一致 */
-    font-family: 'Noto Serif TC', serif !important; /* 保持字體統一 */
-    font-style: italic !important;   /* 稍微斜體做區隔即可 */
-    line-height: 1.8 !important;     /* 保持舒適的行距 */
-    color: #777 !important;          /* 顏色稍微淡一點，優雅地做出層次 */
+
+/* 引言樣式 */
+.art-quote, .art-content-body blockquote {
+    font-size: 14.5px !important;
+    font-family: 'Noto Serif TC', serif !important;
+    font-style: italic !important;
+    line-height: 1.8 !important;
+    color: #777 !important;
     margin: 3rem 0 !important;
     padding: 0 0 0 1.5rem !important;
     border-left: 1px solid var(--border) !important;
-    display: block !important;
-    text-align: justify;             /* 兩端對齊 */
-}
-
-/* 分隔線：不要太黑，淡淡的就好 */
-.art-divider {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 4rem auto;
-    width: 30%; /* 雜誌感短線 */
-}
-
-/* 法文字體加點呼吸感 */
-.art-lang-switch {
-    font-family: var(--serif);
-    margin-top: 2rem;
-    color: var(--blue-mid);
-}
-/* --- 相簿浮水印：最終對齊方案 --- */
-
-/* 1. 確保相簿項目的容器是絕對定位的基準 */
-.j-album-container, 
-.j-gallery-item, 
-.gallery-item,
-.art-img-container {
-    position: relative !important;
-    overflow: hidden !important; /* 強制切除超出圖片範圍的內容 */
-    display: flex !important;
-    justify-content: center !important;
-}
-
-/* 2. 針對圖片本身建立一個「虛擬邊界」，確保浮水印鎖定在圖片內 */
-.art-watermark, 
-.watermark {
-    display: block !important;
-    visibility: visible !important;
-    position: absolute !important;
-    
-    /* 改用 Transform 位移：先定位在右下角，再向內強行拉回 */
-    bottom: 30px !important; 
-    right: 0 !important;
-    transform: translateX(-60px) !important; /* 核心修正：向左強行拉回 60px */
-    
-    /* 視覺增強 */
-    z-index: 9999 !important;
-    color: rgba(255, 255, 255, 0.8) !important;
-    font-size: 11px !important;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.6) !important;
-    white-space: nowrap !important;
-    pointer-events: none;
-}
-
-/* 4. 保留相簿呼吸間距 */
-.art-inner-container .art-img-container {
-    margin: 60px auto !important; 
 }
   </style>
 </head>
