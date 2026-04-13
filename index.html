@@ -366,31 +366,32 @@
 .art-inner-container .art-img-container {
     margin: 60px auto !important; 
 }
-    /* --- 氛圍指令：只針對「文字內容區域」內的段落生效 --- */
-/* 這樣就不會動到相簿裡的 p，也不會動到圖片容器 */
+  /* --- 只針對 Intro 文章文字的設定，完全不影響圖片和相簿 --- */
 
+/* 1. 標題：契機、初衷 */
+.intro-heading {
+    display: block !important;
+    font-weight: 500 !important;
+    font-size: 1.1rem !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    color: #666 !important;
+    font-family: 'Noto Serif TC', serif !important;
+}
+
+/* 2. 只有文字內容段落的行高 */
 .art-content-body p {
     line-height: 1.8 !important;
-    margin-bottom: 1.8rem !important;
-    text-align: justify;
+    margin-bottom: 1.5rem !important;
 }
 
-/* 針對 Intro 標題 */
-.intro-heading {
-    font-weight: 500;
-    font-size: 1.1rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-    color: #666;
-    font-family: 'Noto Serif TC', serif;
-}
-
-/* 英文分隔線 */
+/* 3. 英文版前的短線 */
 .lang-divider {
-    width: 30px;
-    height: 1px;
-    background-color: #ccc;
-    margin: 4rem 0; 
+    width: 30px !important;
+    height: 1px !important;
+    background-color: #ccc !important;
+    margin: 4rem 0 !important;
+    display: block !important;
 }
   </style>
 </head>
