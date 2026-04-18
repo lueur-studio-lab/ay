@@ -236,14 +236,11 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   響應式終極方案：手機電腦全兼容
+   全兼容最終方案：浮水印 + 妳原本的排版
    ========================================= */
 
 /* 1. 【通用容器】 */
-.art-img-container, 
-.j-album-container, 
-.j-gallery-item, 
-.gallery-item,
+.j-album-container, .j-gallery-item, .gallery-item,
 #artWrap div[style*="position:relative"] {
     position: relative !important;
     display: flex !important;
@@ -252,36 +249,36 @@
     width: 100% !important;
 }
 
-/* 2. 【核心浮水印：手機版優先邏輯】 */
+/* 2. 【核心浮水印：通用定位】 */
 .art-watermark, 
 #artWrap div[style*="position:relative"] > span {
     position: absolute !important;
     bottom: 25px !important;
-    left: 50% !important; 
-    right: auto !important;
     z-index: 999 !important;
     pointer-events: none;
     white-space: nowrap !important;
-    
-    /* 手機版：根據螢幕寬度彈性偏移 */
-    transform: translateX(calc(-50% + 35vw)) !important; 
-    
     color: rgba(255, 255, 255, 0.7) !important;
     font-family: var(--mono) !important;
     font-size: 10px !important;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+
+    /* 手機版定位基準 */
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(calc(-50% + 35vw)) !important; 
 }
 
-/* 3. 【電腦版微調：當螢幕寬度超過 1024px 時】 */
+/* 3. 【電腦版精確修正】針對寬螢幕 */
 @media (min-width: 1024px) {
     #artWrap div[style*="position:relative"] > span {
-        /* 電腦版固定偏移值，防止浮水印隨寬螢幕飛走 */
-        /* 如果太靠左請改大(如240px)，太靠右請改小(如200px) */
-        transform: translateX(calc(-50% + 220px)) !important; 
+        left: auto !important;
+        right: 50% !important; 
+        /* 這裡的 180px 是偏移量，可以根據電腦看的效果微調 */
+        transform: translateX(180px) !important; 
     }
 }
 
-/* 4. 【文章圖片比例】維持妳最喜歡的 80% 優雅大小 */
+/* 4. 【文章圖片比例】維持 80% */
 .art-inner-container .art-img-container {
     display: block !important;
     width: fit-content !important;
@@ -289,25 +286,17 @@
     margin: 3rem auto !important;
     position: relative !important;
 }
-
 .art-inner-container .art-img-container img {
     display: block !important;
     width: 100% !important;
     height: auto !important;
 }
 
-/* 5. 【恢復按鈕與內文細節】 */
-#artWrap button { z-index: 9999 !important; }
-.art-content-body { max-width: 680px !important; margin: 0 auto !important; 
-}
-
-/* 4. 【按鈕回歸】 */
+/* 5. 【妳原本保留的部分：按鈕回歸與內文美化】 */
 #artWrap button {
     display: block !important;
     z-index: 9999 !important;
 }
-
-/* 5. 內文美化 */
 .art-content-body {
     max-width: 680px !important;
     margin: 0 auto !important;
@@ -315,8 +304,9 @@
 .art-quote {
     border-left: 1px solid var(--border) !important;
     padding-left: 1.5rem !important;
-    font-style: italic;
-    color: #777;
+    font-style: italic !important;
+    color: #777 !important;
+    margin: 3rem 0 !important;
 }
   </style>
 </head>
@@ -534,6 +524,31 @@
     if (btn) btn.style.display = window.scrollY > 400 ? 'block' : 'none';
   };
   window.onload = () => { renderPosts(); renderGallery(); };
+  <div id="fixed-back-btn" onclick="handleBackToTop()" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 10001; cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: #999; background: rgba(255,255,255,0.8); padding: 10px; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: opacity 0.3s;">
+    ↑
+</div>
+  // 取得文章容器
+const artWrapper = document.getElementById('artWrap');
+const backBtn = document.getElementById('fixed-back-btn');
+
+// 監聽文章的滾動
+artWrapper.onscroll = function() {
+    if (artWrapper.scrollTop > 500) {
+        backBtn.style.display = 'flex';
+        backBtn.style.opacity = '1';
+    } else {
+        backBtn.style.opacity = '0';
+        setTimeout(() => { if(backBtn.style.opacity === '0') backBtn.style.display = 'none'; }, 300);
+    }
+};
+
+// 點擊按鈕的動作
+function handleBackToTop() {
+    artWrapper.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
 </script>
 </body>
 </html>
