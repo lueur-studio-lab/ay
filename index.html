@@ -236,24 +236,23 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   全兼容最終方案：浮水印 + 妳原本的排版
+   全站浮水印：文章與相簿分離定位方案
    ========================================= */
 
-/* 1. 【通用容器】 */
-.j-album-container, .j-gallery-item, .gallery-item,
-#artWrap div[style*="position:relative"] {
+/* 1. 【通用容器基準】 */
+.art-img-container, 
+.j-album-container, 
+.j-gallery-item, 
+.gallery-item {
     position: relative !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    width: 100% !important;
 }
 
-/* 2. 【核心浮水印：通用定位】 */
-.art-watermark, 
-#artWrap div[style*="position:relative"] > span {
+/* 2. 【核心浮水印基礎樣式】 */
+.art-watermark {
     position: absolute !important;
-    bottom: 25px !important;
     z-index: 999 !important;
     pointer-events: none;
     white-space: nowrap !important;
@@ -261,30 +260,39 @@
     font-family: var(--mono) !important;
     font-size: 10px !important;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-
-    /* 手機版定位基準 */
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(calc(-50% + 35vw)) !important; 
+    transform: none !important; /* 清除所有之前的位移 */
 }
 
-/* 3. 【電腦版精確修正】針對寬螢幕 */
+/* 3. 【文章專用定位】鎖定在圖片容器內縮 20px */
+.art-inner-container .art-img-container .art-watermark {
+    right: 20px !important;
+    bottom: 20px !important;
+    left: auto !important;
+}
+
+/* 4. 【相簿/燈箱專用定位】單獨處理那個飄走的 span */
+#artWrap div[style*="position:relative"] > span {
+    position: absolute !important;
+    bottom: 25px !important;
+    left: 50% !important; /* 燈箱環境下，以中心點定位較穩 */
+    right: auto !important;
+    /* 手機版偏移量 */
+    transform: translateX(calc(-50% + 30vw)) !important;
+}
+
+/* 5. 【電腦版相簿微調】超過 1024px 時限制位移 */
 @media (min-width: 1024px) {
     #artWrap div[style*="position:relative"] > span {
-        left: auto !important;
-        right: 50% !important; 
-        /* 這裡的 180px 是偏移量，可以根據電腦看的效果微調 */
-        transform: translateX(180px) !important; 
+        transform: translateX(180px) !important;
     }
 }
 
-/* 4. 【文章圖片比例】維持 80% */
+/* 6. 【文章圖片比例】維持妳最喜歡的 80% 大小 */
 .art-inner-container .art-img-container {
-    display: block !important;
     width: fit-content !important;
     max-width: 80% !important;
     margin: 3rem auto !important;
-    position: relative !important;
+    display: block !important; /* 文章內改回 block 確保置中 */
 }
 .art-inner-container .art-img-container img {
     display: block !important;
@@ -292,11 +300,9 @@
     height: auto !important;
 }
 
-/* 5. 【妳原本保留的部分：按鈕回歸與內文美化】 */
-#artWrap button {
-    display: block !important;
-    z-index: 9999 !important;
-}
+/* 7. 【功能與排版保持】 */
+#artWrap button { display: block !important; z-index: 9999 !important; }
+.art-content-body { max-width: 680px !important; margin: 0 auto !important; }
 .art-content-body {
     max-width: 680px !important;
     margin: 0 auto !important;
