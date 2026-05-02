@@ -255,10 +255,10 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   最終補救方案：確保文章正常 + 相簿不飄移
+   終極防禦：手機電腦獨立定位邏輯
    ========================================= */
 
-/* 1. 【通用容器】強迫相簿容器縮小到跟照片一樣寬 */
+/* 1. 【通用容器】 */
 .art-img-container, 
 .j-album-container, 
 .j-gallery-item, 
@@ -268,21 +268,14 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    /* 👈 關鍵：讓容器寬度根據照片自動縮放，不佔滿全螢幕 */
-    width: fit-content !important; 
-    margin: 0 auto !important;
+    width: 100% !important; /* 電腦版需要 100% 來維持置中佈局 */
 }
 
-/* 2. 【核心浮水印樣式】 */
+/* 2. 【浮水印核心】 */
 .art-watermark, 
 #artWrap div[style*="position:relative"] > span {
     position: absolute !important;
-    /* 👈 因為容器已經縮小，我們直接用 right 定位，不論手機電腦都會準 */
-    right: 15px !important; 
-    bottom: 15px !important;
-    left: auto !important;
-    transform: none !important; 
-    
+    bottom: 25px !important;
     z-index: 999 !important;
     pointer-events: none;
     white-space: nowrap !important;
@@ -290,14 +283,35 @@
     font-family: var(--mono) !important;
     font-size: 10px !important;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+    
+    /* 預設手機版定位邏輯 */
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(calc(-50% + 32vw)) !important; 
 }
 
-/* 3. 【文章圖片比例】完全保留妳要求的 80% 設定 */
+/* 3. 【電腦版專屬修正】當螢幕寬度大於 1024px */
+@media (min-width: 1024px) {
+    #artWrap div[style*="position:relative"] > span {
+        left: auto !important;
+        right: 50% !important;
+        /* 180px 是根據妳電腦截圖計算的黃金位移量 */
+        transform: translateX(180px) !important; 
+    }
+    
+    /* 文章內的浮水印在電腦版維持靠右 */
+    .art-inner-container .art-img-container .art-watermark {
+        right: 20px !important;
+        left: auto !important;
+        transform: none !important;
+    }
+}
+
+/* 4. 【文章圖片比例】維持 80% */
 .art-inner-container .art-img-container {
     width: fit-content !important;
     max-width: 80% !important;
     margin: 3rem auto !important;
-    display: block !important;
 }
 .art-inner-container .art-img-container img {
     display: block !important;
@@ -305,14 +319,9 @@
     height: auto !important;
 }
 
-/* 4. 【按鈕與排版】完全保留原本設定 */
+/* 5. 【功能保持】 */
 #artWrap button { display: block !important; z-index: 9999 !important; }
 .art-content-body { max-width: 680px !important; margin: 0 auto !important; }
-.art-quote { 
-    border-left: 1px solid var(--border) !important; 
-    padding-left: 1.5rem !important; 
-    font-style: italic !important; 
-    color: #777 !important; }
   </style>
 </head>
 <body>
