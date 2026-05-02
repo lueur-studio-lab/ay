@@ -13,6 +13,25 @@
     gtag('js', new Date());
     gtag('config', 'G-SZRMZ00SD1');
   </script>
+
+  <script type="application/ld+json">
+{"@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "lueur.studio",
+  "author": {
+    "@type": "Person",
+    "name": "lueur"
+  },
+  "description": "住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。",
+  "url": "https://lueur-studio-lab.github.io/"}
+</script>
+  <!-- 讓搜尋引擎爬蟲看到的文章導航 -->
+<nav style="display:none;">
+  <h2>lueur.studio 文章列表</h2>
+  <a href="#art/pinault">巴黎證券交易所——皮諾私人美術館</a>
+  <a href="#art/sainte-chapelle">巴黎聖禮拜堂：最美彩色玻璃窗</a>
+  <p>在巴黎生活的台灣人，分享關於攝影、展覽與旅行的點點滴滴。</p>
+</nav>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root {
@@ -236,23 +255,34 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   全站浮水印：文章與相簿分離定位方案
+   最終補救方案：確保文章正常 + 相簿不飄移
    ========================================= */
 
-/* 1. 【通用容器基準】 */
+/* 1. 【通用容器】強迫相簿容器縮小到跟照片一樣寬 */
 .art-img-container, 
 .j-album-container, 
 .j-gallery-item, 
-.gallery-item {
+.gallery-item,
+#artWrap div[style*="position:relative"] {
     position: relative !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    /* 👈 關鍵：讓容器寬度根據照片自動縮放，不佔滿全螢幕 */
+    width: fit-content !important; 
+    margin: 0 auto !important;
 }
 
-/* 2. 【核心浮水印基礎樣式】 */
-.art-watermark {
+/* 2. 【核心浮水印樣式】 */
+.art-watermark, 
+#artWrap div[style*="position:relative"] > span {
     position: absolute !important;
+    /* 👈 因為容器已經縮小，我們直接用 right 定位，不論手機電腦都會準 */
+    right: 15px !important; 
+    bottom: 15px !important;
+    left: auto !important;
+    transform: none !important; 
+    
     z-index: 999 !important;
     pointer-events: none;
     white-space: nowrap !important;
@@ -260,39 +290,14 @@
     font-family: var(--mono) !important;
     font-size: 10px !important;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-    transform: none !important; /* 清除所有之前的位移 */
 }
 
-/* 3. 【文章專用定位】鎖定在圖片容器內縮 20px */
-.art-inner-container .art-img-container .art-watermark {
-    right: 20px !important;
-    bottom: 20px !important;
-    left: auto !important;
-}
-
-/* 4. 【相簿/燈箱專用定位】單獨處理那個飄走的 span */
-#artWrap div[style*="position:relative"] > span {
-    position: absolute !important;
-    bottom: 25px !important;
-    left: 50% !important; /* 燈箱環境下，以中心點定位較穩 */
-    right: auto !important;
-    /* 手機版偏移量 */
-    transform: translateX(calc(-50% + 30vw)) !important;
-}
-
-/* 5. 【電腦版相簿微調】超過 1024px 時限制位移 */
-@media (min-width: 1024px) {
-    #artWrap div[style*="position:relative"] > span {
-        transform: translateX(180px) !important;
-    }
-}
-
-/* 6. 【文章圖片比例】維持妳最喜歡的 80% 大小 */
+/* 3. 【文章圖片比例】完全保留妳要求的 80% 設定 */
 .art-inner-container .art-img-container {
     width: fit-content !important;
     max-width: 80% !important;
     margin: 3rem auto !important;
-    display: block !important; /* 文章內改回 block 確保置中 */
+    display: block !important;
 }
 .art-inner-container .art-img-container img {
     display: block !important;
@@ -300,11 +305,14 @@
     height: auto !important;
 }
 
-/* 7. 【功能與排版保持】 */
+/* 4. 【按鈕與排版】完全保留原本設定 */
 #artWrap button { display: block !important; z-index: 9999 !important; }
 .art-content-body { max-width: 680px !important; margin: 0 auto !important; }
-    
-.art-quote { border-left: 1px solid var(--border) !important; padding-left: 1.5rem !important; font-style: italic !important; color: #777 !important; }
+.art-quote { 
+    border-left: 1px solid var(--border) !important; 
+    padding-left: 1.5rem !important; 
+    font-style: italic !important; 
+    color: #777 !important; }
   </style>
 </head>
 <body>
