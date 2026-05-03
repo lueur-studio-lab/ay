@@ -149,7 +149,7 @@ var POSTS = [
     title: "在巴黎，拾起那些被遺落的瞬間",
     enTitle: "Picking Up the Moments Left Behind in Paris",
     cat: "Chroniques / Fragments",
-    date: "2024.04.11", // 你可以根據需求調整日期
+    date: "11.04.2026", 
     img: 'louvre02.webp',
     excerpt: "一個搬來巴黎的人，在等待與迷茫之間，找到了記錄日常的理由——不為演算法，只為自己。",
     content: `
