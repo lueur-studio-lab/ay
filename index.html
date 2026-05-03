@@ -255,10 +255,10 @@
     font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
 }
 /* =========================================
-   終極防禦：手機電腦獨立定位邏輯
+   終極方案：右側邊緣鎖定法 (相簿與文章通用)
    ========================================= */
 
-/* 1. 【通用容器】 */
+/* 1. 【通用容器基準】確保容器不會比螢幕寬 */
 .art-img-container, 
 .j-album-container, 
 .j-gallery-item, 
@@ -268,10 +268,11 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    width: 100% !important; /* 電腦版需要 100% 來維持置中佈局 */
+    max-width: 100vw !important;
+    overflow: hidden !important;
 }
 
-/* 2. 【浮水印核心】 */
+/* 2. 【浮水印鎖定邏輯】 */
 .art-watermark, 
 #artWrap div[style*="position:relative"] > span {
     position: absolute !important;
@@ -283,26 +284,25 @@
     font-family: var(--mono) !important;
     font-size: 10px !important;
     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-    
-    /* 預設手機版定位邏輯 */
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(calc(-50% + 32vw)) !important; 
+
+    /* 👈 核心邏輯：先靠右對齊，再根據照片比例往左拉 */
+    /* 手機版：從右側邊緣往左拉 20% 的螢幕寬度，這會讓它剛好落在直式照片內 */
+    left: auto !important;
+    right: 20% !important; 
+    transform: translateX(10px) !important; 
 }
 
-/* 3. 【電腦版專屬修正】當螢幕寬度大於 1024px */
+/* 3. 【電腦版與寬螢幕微調】 */
 @media (min-width: 1024px) {
     #artWrap div[style*="position:relative"] > span {
-        left: auto !important;
+        /* 電腦版螢幕太寬，改用固定距離中心點的方式 */
         right: 50% !important;
-        /* 180px 是根據妳電腦截圖計算的黃金位移量 */
-        transform: translateX(180px) !important; 
+        transform: translateX(200px) !important; 
     }
-    
-    /* 文章內的浮水印在電腦版維持靠右 */
+
+    /* 文章內的圖片因為寬度只有 80%，直接鎖定右側即可 */
     .art-inner-container .art-img-container .art-watermark {
         right: 20px !important;
-        left: auto !important;
         transform: none !important;
     }
 }
@@ -312,6 +312,7 @@
     width: fit-content !important;
     max-width: 80% !important;
     margin: 3rem auto !important;
+    position: relative !important;
 }
 .art-inner-container .art-img-container img {
     display: block !important;
