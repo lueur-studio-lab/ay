@@ -422,9 +422,7 @@
 </div>
 
 <div class="art-overlay" id="artOverlay">
-<div id="artWrap" onscroll="toggleBackBtn()" style="..."> 
-   <!-- 文章內容 -->
-</div>
+<div id="artWrap"></div>
 </div>
 <button id="backToTop" onclick="scrollToTop()" style="position:fixed;bottom:2rem;right:2rem;display:none;font-family:var(--mono);font-size:.6rem;padding:.5rem 1rem;background:var(--ink);color:var(--bg);border:none;cursor:pointer;z-index:500">↑ TOP</button>
 <script src="data.js"></script>
@@ -534,10 +532,40 @@
     if (currentIdx >= currentList.length) currentIdx = 0;
     openLightbox(currentIdx);
   }
-// 1. 回到頂端執行函數
+/* =========================================
+   最安全的回頂端邏輯 (不干擾文章渲染)
+   ========================================= */
+
+// 1. 核心開關函數
+function toggleBackBtn() {
+    const btn = document.getElementById('fixed-back-btn');
+    if (!btn) return;
+
+    // 檢查網頁捲動
+    const winScroll = window.scrollY || document.documentElement.scrollTop;
+    
+    // 檢查文章容器捲動 (加上 try-catch 防止它還沒生成時報錯)
+    let artScroll = 0;
+    try {
+        const artWrapper = document.getElementById('artWrap');
+        if (artWrapper) artScroll = artWrapper.scrollTop;
+    } catch (e) {}
+
+    if (winScroll > 400 || artScroll > 400) {
+        btn.style.display = 'flex';
+        btn.style.opacity = '1';
+    } else {
+        btn.style.opacity = '0';
+        // 只有在完全透明時才隱藏，避免閃爍
+        if (parseFloat(btn.style.opacity) === 0) {
+            setTimeout(() => { if(btn.style.opacity === '0') btn.style.display = 'none'; }, 300);
+        }
+    }
+}
+
+// 2. 點擊執行
 function handleBackToTop() {
     const artWrapper = document.getElementById('artWrap');
-    // 如果文章視窗是開著的且可見
     if (artWrapper && artWrapper.style.display !== 'none') {
         artWrapper.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -545,38 +573,18 @@ function handleBackToTop() {
     }
 }
 
-// 2. 切換按鈕顯示狀態 (由 HTML 的 onscroll 直接觸發)
-function toggleBackBtn() {
-    const btn = document.getElementById('fixed-back-btn');
-    const artWrapper = document.getElementById('artWrap');
-    if (!btn) return;
+// 3. 【最重要】使用全域監聽，不阻塞 window.onload
+document.addEventListener('scroll', toggleBackBtn, true); // true 代表補獲模式，連彈窗捲動都能抓到
 
-    // 同時檢查 網頁滾動高度 或 文章容器滾動高度
-    const isWindowScrolling = window.scrollY > 400;
-    const isArtScrolling = artWrapper && artWrapper.scrollTop > 400;
-
-    if (isWindowScrolling || isArtScrolling) {
-        btn.style.display = 'flex';
-        btn.style.opacity = '1';
-    } else {
-        btn.style.opacity = '0';
-        // 延遲一點點再隱藏，讓淡出效果跑完
-        setTimeout(() => {
-            if (btn.style.opacity === '0') btn.style.display = 'none';
-        }, 300);
-    }
+// 4. 恢復妳原本的渲染函數 (確保它們能跑)
+if (window.addEventListener) {
+    window.addEventListener('load', () => {
+        if (typeof renderPosts === 'function') renderPosts();
+        if (typeof renderGallery === 'function') renderGallery();
+    });
 }
-
-// 監聽網頁本身的滾動
-window.onscroll = toggleBackBtn;
-
-// 網頁初始化
-window.onload = () => {
-    if (typeof renderPosts === 'function') renderPosts();
-    if (typeof renderGallery === 'function') renderGallery();
-};
-<div id="fixed-back-btn" onclick="handleBackToTop()" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99999; cursor: pointer; width: 40px; height: 40px; background: rgba(255,255,255,0.9); border: 1px solid #eee; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: opacity 0.3s ease; opacity: 0;">
-    <span style="font-family: var(--mono); font-size: 14px; color: #999;">↑</span> </div> 
+<div id="fixed-back-btn" onclick="handleBackToTop()" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99999; cursor: pointer; width: 40px; height: 40px; background: white; border: 1px solid #eee; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: opacity 0.3s; opacity: 0;">
+<span style="color: #999;">↑</span></div> 
 </script>
 </body>
 </html>
