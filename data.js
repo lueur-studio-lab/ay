@@ -148,14 +148,14 @@ var POSTS = [
     id: "intro-paris",
     title: "在巴黎，拾起那些被遺落的瞬間",
     enTitle: "Picking Up the Moments Left Behind in Paris",
-    cat: "Chroniques / Fragments",
+    cat: '巴黎日常 · Just Paris',
     date: "11.04.2026", 
     img: 'louvre02.webp',
     excerpt: "一個搬來巴黎的人，在等待與迷茫之間，找到了記錄日常的理由——不為演算法，只為自己。",
     content: `
         <div style="margin-top: 2rem;">
         <p><strong>契機</strong></p>
-        <p>搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
+        <p>2年前搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
         後來有了一段被迫暫停的日子，與其說是放假，不如說是一個不知所措的等待期。<br>
         照常和朋友出門、逛展覽、聊心情，卻總覺得少了點什麼。</p>
 
@@ -173,13 +173,11 @@ var POSTS = [
       <p>或許你會在某篇裡找到一點共鳴，也說不定。</p>
 
       <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0;">
+      
+       <p>Two years after moving to Paris, life still felt like a constant search for direction — finding a place to live, figuring out internships, then work. Everything kept shifting.<br>
+A while back, I found myself in a stretch of forced stillness. Less a holiday, more a waiting period with no clear end in sight.<br>
+I still went out with friends, visited exhibitions, talked about how things felt — but something was missing, and I couldn't quite name it.</p>
 
-      <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0;">
-        <p>After moving to Paris, life felt like a constant search for direction — <br>
-        finding a place to live, figuring out work, moving from internship to something more permanent.<br>
-        Then came a stretch of time that was forced upon me; less a holiday, more a waiting period with no clear end in sight.<br>
-        I still went out with friends, visited exhibitions, talked about how things felt — but something was missing, and I couldn't quite name it.</p>
-        
         <p>My phone was full of it, though: afternoon light in cafés, the quiet drift of people through gallery halls, the unhurried randomness of Parisian streets.<br>
         After conversations with a few mentors and friends I deeply admire, something clicked one evening.<br>
         It felt sudden, but looking back, it had been building for a while — I'd studied web design during my master's, thought about doing something with it last year, never followed through.<br>
