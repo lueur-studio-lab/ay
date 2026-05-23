@@ -438,10 +438,26 @@
 </div>
 <script src="data.js"></script>
 <script>
+  /* ==========================================
+     1. 全域變數與初始化
+     ========================================== */
+  var currentList = [];
+  var currentIdx = 0;
+
+  window.onload = () => {
+    if (typeof renderPosts === 'function') renderPosts();
+    if (typeof renderGallery === 'function') renderGallery();
+  };
+
+  /* ==========================================
+     2. 文章系統 (Journal / Posts)
+     ========================================== */
   function renderPosts() {
     const container = document.querySelector('.journal-list');
     if (!container) return;
     container.innerHTML = '';
+    if (typeof POSTS === 'undefined') return;
+    
     [...POSTS].reverse().forEach(p => {
       let thumbUrl = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
       container.innerHTML += `
@@ -454,6 +470,7 @@
   }
 
   function openArt(id) {
+    if (typeof POSTS === 'undefined') return;
     const p = POSTS.find(x => x.id === id);
     if (!p) return;
     let processedContent = p.content.replace(/<img (.*?)>/g, `<div class="art-img-container"><img $1><span class="art-watermark">© lueur.studio</span></div>`);
@@ -484,12 +501,15 @@
     document.body.style.overflow = 'auto';
   }
 
-  let currentList = [], currentIdx = 0;
-
+  /* ==========================================
+     3. 相簿系統 (Visual Diary) - 完美修正版
+     ========================================== */
   function renderGallery() {
     const grid = document.getElementById('galleryGrid');
     if (!grid) return;
     grid.innerHTML = '';
+    if (typeof ALBUMS === 'undefined') return;
+    
     ALBUMS.forEach(album => {
       grid.innerHTML += `
         <div class="g-item" onclick="openAlbum('${album.id}')" style="position:relative;cursor:pointer;overflow:hidden;aspect-ratio:1/1;">
@@ -501,67 +521,29 @@
     });
   }
 
+  // 打開相簿，精確同步照片清單
   function openAlbum(albumId) {
+    if (typeof ALBUMS === 'undefined') return;
     const album = ALBUMS.find(a => a.id === albumId);
     if (!album) return;
-    currentList = album.photos;
-    openLightbox(0);
+    
+    currentList = album.photos; // 核心：綁定照片陣列
+    openLightbox(0);            // 從第一張照片開始
   }
-/* ===================================================
-   相簿核心功能（完全修復版 + 內建除錯監控）
-   =================================================== */
 
-// 宣告全域變數，確保所有人都在同一個時空
-if (typeof currentList === 'undefined') {
-    var currentList = [];
-    var currentIdx = 0;
-}
-
-// 1. 點擊相簿封面，初始化資料
-function openAlbum(albumId) {
-    console.log("嘗試打開相簿，ID 為:", albumId); // 除錯訊息
-    
-    if (typeof ALBUMS === 'undefined') {
-        console.error("錯誤：找不到 ALBUMS 數據，請檢查 data.js 是否載入成功");
-        return;
-    }
-
-    const album = ALBUMS.find(a => a.id === albumId);
-    if (!album) {
-        console.error("錯誤：在 ALBUMS 中找不到對應的 ID:", albumId);
-        return;
-    }
-    
-    // 【關鍵】將照片列表同步到全域變數
-    currentList = album.photos; 
-    console.log("相簿載入成功，照片總數:", currentList.length);
-    
-    // 從第一張照片 (索引 0) 開始渲染 Lightbox
-    openLightbox(0);
-}
-
-// 2. 渲染 Lightbox 畫面
-function openLightbox(idx) {
+  // Lightbox 渲染與左右切換 HTML
+  function openLightbox(idx) {
     currentIdx = idx;
-    console.log("目前正在渲染第", currentIdx + 1, "張照片");
-
     const overlay = document.getElementById('artOverlay');
     const wrap = document.getElementById('artWrap');
-    if (!overlay || !wrap) {
-        console.error("錯誤：網頁上找不到 #artOverlay 或 #artWrap 標籤");
-        return;
-    }
+    if (!overlay || !wrap) return;
 
     let photo = currentList[currentIdx];
-    if (!photo) {
-        console.error("錯誤：找不到索引為", currentIdx, "的照片數據");
-        return;
-    }
+    if (!photo) return;
 
     let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
     let caption = photo.desc || '';
 
-    // 寫入包含左右切換按鈕的 HTML
     wrap.innerHTML = `
       <div class="art-inner-container">
         <div class="art-nav">
@@ -593,86 +575,58 @@ function openLightbox(idx) {
     overlay.style.display = 'block';
     overlay.scrollTop = 0;
     document.body.style.overflow = 'hidden';
-}
+  }
 
-// 3. 【絕對獨立】切換照片函數，強制掛載在最外層 window 物件上
-window.changePhoto = function(step) {
-    console.log("changePhoto 函數被觸發了！按了按鈕，步伐為:", step);
-    console.log("當前索引:", currentIdx, "照片清單長度:", currentList.length);
+  // 獨立的左右切換邏輯
+  window.changePhoto = function(step) {
+    if (!currentList || currentList.length === 0) return;
 
-    if (!currentList || currentList.length === 0) {
-        console.error("切換失敗：目前照片清單 (currentList) 是空的！");
-        return;
-    }
-
-    // 計算新索引
     currentIdx += step;
 
-    // 循環邏輯
     if (currentIdx < 0) {
         currentIdx = currentList.length - 1;
     } else if (currentIdx >= currentList.length) {
         currentIdx = 0;
     }
 
-    console.log("計算後的新索引:", currentIdx, "即將重新渲染畫面...");
-    
-    // 重新呼叫刷新畫面
     openLightbox(currentIdx);
-};
-/* --- 1. 基礎渲染 (確保文章跟相簿優先跑出來) --- */
-window.onload = () => {
-    if (typeof renderPosts === 'function') renderPosts();
-    if (typeof renderGallery === 'function') renderGallery();
-};
+  };
 
-function handleBackToTop() {
-    // 取得文章彈窗層 (這是真正產生捲動條的地方)
+  /* ==========================================
+     4. 回到頂端與滾動偵測 (Back to Top)
+     ========================================== */
+  function handleBackToTop() {
     const overlay = document.getElementById('artOverlay');
-    
-    // 判斷：如果文章彈窗是開著的 (display 不是 none)
     if (overlay && window.getComputedStyle(overlay).display !== 'none') {
-        console.log("正在捲動文章置頂"); // 除錯用
-        overlay.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        overlay.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        // 如果文章沒開，則是捲動主網頁
-        console.log("正在捲動網頁置頂"); // 除錯用
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-}
-/* --- 3. 滾動偵測 (放在獨立函數，避免報錯卡死渲染) --- */
-function checkScroll() {
+  }
+
+  function checkScroll() {
     const btn = document.getElementById('fixed-back-btn');
+    const overlay = document.getElementById('artOverlay');
     if (!btn) return;
     
-    // 檢查主網頁滾動
     const winS = window.scrollY || document.documentElement.scrollTop;
-    // 檢查文章容器滾動
-    const artW = document.getElementById('artWrap');
-    const artS = artW ? artW.scrollTop : 0;
+    const artS = overlay ? overlay.scrollTop : 0;
 
     if (winS > 400 || artS > 400) {
         btn.style.display = 'flex';
         btn.style.opacity = '1';
     } else {
         btn.style.opacity = '0';
-        // 簡單處理：透明後就消失
         setTimeout(() => { if(btn.style.opacity === '0') btn.style.display = 'none'; }, 300);
     }
-}
+  }
 
-// 監聽網頁滾動
-window.onscroll = checkScroll;
-
-// 重要：妳原本打開文章的 function 裡應該也有相關邏輯，
-// 為了保險，我們直接讓 body 也能偵測
-document.body.onscroll = checkScroll;
+  // 統一綁定網頁與彈窗層的滾動事件
+  window.onscroll = checkScroll;
+  document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('artOverlay');
+    if (overlay) overlay.addEventListener('scroll', checkScroll);
+  });
 </script>
 </body>
 </html>
