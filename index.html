@@ -511,8 +511,9 @@
     if (typeof ALBUMS === 'undefined') return;
     
     ALBUMS.forEach(album => {
+      // 🟢 關鍵修正：點擊時，同時傳入照片索引 0 和相簿的 ID
       grid.innerHTML += `
-        <div class="g-item" onclick="openAlbum('${album.id}')" style="position:relative;cursor:pointer;overflow:hidden;aspect-ratio:1/1;">
+        <div class="g-item" onclick="openLightbox(0, '${album.id}')" style="position:relative;cursor:pointer;overflow:hidden;aspect-ratio:1/1;">
           <img src="${album.cover}" style="width:100%;height:100%;object-fit:cover;display:block;transition:0.6s;">
           <div style="position:absolute;inset:0;background:linear-gradient(transparent,rgba(0,0,0,0.5));display:flex;flex-direction:column;justify-content:flex-end;padding:20px;">
             <div style="color:white;font-family:var(--serif);font-size:1.1rem;font-style:italic">${album.title}</div>
@@ -532,7 +533,13 @@
   }
 
   // Lightbox 渲染與左右切換 HTML
-  function openLightbox(idx) {
+  function openLightbox(idx, albumId) {
+    // 🟢 如果有傳入相簿 ID，就更新當前的全域照片清單
+    if (albumId && typeof ALBUMS !== 'undefined') {
+      const album = ALBUMS.find(a => a.id === albumId);
+      if (album) currentList = album.photos;
+    }
+
     currentIdx = idx;
     const overlay = document.getElementById('artOverlay');
     const wrap = document.getElementById('artWrap');
@@ -540,7 +547,7 @@
 
     let photo = currentList[currentIdx];
     if (!photo) return;
-
+    
     let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
     let caption = photo.desc || '';
 
@@ -554,7 +561,7 @@
         <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:85%;">
           
           ${currentList.length > 1 ? `
-            <button onclick="window.changePhoto(-1); event.stopPropagation();" style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">‹</button>
+            <button onclick="changePhoto(-1); event.stopPropagation();" style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">‹</button>
           ` : ''}
           
           <div class="j-album-container" style="position:relative; width:100%; display:flex; justify-content:center;">
@@ -563,7 +570,7 @@
           </div>
           
           ${currentList.length > 1 ? `
-            <button onclick="window.changePhoto(1); event.stopPropagation();" style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">›</button>
+            <button onclick="changePhoto(1); event.stopPropagation();" style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">›</button>
           ` : ''}
           
         </div>
@@ -576,7 +583,20 @@
     overlay.scrollTop = 0;
     document.body.style.overflow = 'hidden';
   }
-
+  
+function changePhoto(step) {
+    if (!currentList || currentList.length === 0) return;
+    
+    // 計算新張數
+    currentIdx += step;
+    
+    // 循環邏輯
+    if (currentIdx < 0) currentIdx = currentList.length - 1;
+    if (currentIdx >= currentList.length) currentIdx = 0;
+    
+    // 重新載入，此時不需要再傳相簿 ID，因為清單已經在全域變數裡了
+    openLightbox(currentIdx);
+  }
   // 獨立的左右切換邏輯
   window.changePhoto = function(step) {
     if (!currentList || currentList.length === 0) return;
