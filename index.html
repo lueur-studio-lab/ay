@@ -531,8 +531,7 @@
     currentList = album.photos; // 核心：綁定照片陣列
     openLightbox(0);            // 從第一張照片開始
   }
-
- function openLightbox(idx, albumId) {
+function openLightbox(idx, albumId) {
     // 1. 同步相簿資料
     if (albumId && typeof ALBUMS !== 'undefined') {
       const album = ALBUMS.find(a => a.id === albumId);
