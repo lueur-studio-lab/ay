@@ -507,41 +507,103 @@
     currentList = album.photos;
     openLightbox(0);
   }
-/* 1. 打開相簿的函數 */
+/* ===================================================
+   相簿核心功能（完全修復版 + 內建除錯監控）
+   =================================================== */
+
+// 宣告全域變數，確保所有人都在同一個時空
+if (typeof currentList === 'undefined') {
+    var currentList = [];
+    var currentIdx = 0;
+}
+
+// 1. 點擊相簿封面，初始化資料
+function openAlbum(albumId) {
+    console.log("嘗試打開相簿，ID 為:", albumId); // 除錯訊息
+    
+    if (typeof ALBUMS === 'undefined') {
+        console.error("錯誤：找不到 ALBUMS 數據，請檢查 data.js 是否載入成功");
+        return;
+    }
+
+    const album = ALBUMS.find(a => a.id === albumId);
+    if (!album) {
+        console.error("錯誤：在 ALBUMS 中找不到對應的 ID:", albumId);
+        return;
+    }
+    
+    // 【關鍵】將照片列表同步到全域變數
+    currentList = album.photos; 
+    console.log("相簿載入成功，照片總數:", currentList.length);
+    
+    // 從第一張照片 (索引 0) 開始渲染 Lightbox
+    openLightbox(0);
+}
+
+// 2. 渲染 Lightbox 畫面
 function openLightbox(idx) {
     currentIdx = idx;
+    console.log("目前正在渲染第", currentIdx + 1, "張照片");
+
     const overlay = document.getElementById('artOverlay');
     const wrap = document.getElementById('artWrap');
+    if (!overlay || !wrap) {
+        console.error("錯誤：網頁上找不到 #artOverlay 或 #artWrap 標籤");
+        return;
+    }
+
     let photo = currentList[currentIdx];
+    if (!photo) {
+        console.error("錯誤：找不到索引為", currentIdx, "的照片數據");
+        return;
+    }
+
     let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
     let caption = photo.desc || '';
 
-    // 這裡就是妳貼的那段結構
+    // 寫入包含左右切換按鈕的 HTML
     wrap.innerHTML = `
       <div class="art-inner-container">
         <div class="art-nav">
           <button class="art-back" onclick="closeArt()">← CLOSE</button>
           <div class="logo">lueur.studio</div>
         </div>
+        
         <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:85%;">
-          ${currentList.length > 1 ? `<button onclick="changePhoto(-1)" style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:10000; padding:10px;">‹</button>` : ''}
+          
+          ${currentList.length > 1 ? `
+            <button onclick="window.changePhoto(-1); event.stopPropagation();" style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">‹</button>
+          ` : ''}
+          
           <div class="j-album-container" style="position:relative; width:100%; display:flex; justify-content:center;">
             <img src="${finalSrc}" alt="${caption}" style="width:100%; height:auto; display:block; object-fit:contain; max-height:80vh;">
             <span class="art-watermark">© lueur.studio</span>
           </div>
-          ${currentList.length > 1 ? `<button onclick="changePhoto(1)" style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:10000; padding:10px;">›</button>` : ''}
+          
+          ${currentList.length > 1 ? `
+            <button onclick="window.changePhoto(1); event.stopPropagation();" style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">›</button>
+          ` : ''}
+          
         </div>
+
         ${caption ? `<p style="text-align:center; font-family:var(--serif); font-size:1rem; color:var(--ink2); margin-top:1rem; font-style:italic;">${caption}</p>` : ''}
+        ${currentList.length > 1 ? `<p style="text-align:center; font-family:var(--mono); font-size:.6rem; color:var(--pale); letter-spacing:.1em; margin-top:.8rem">${currentIdx + 1} / ${currentList.length}</p>` : ''}
       </div>`;
 
     overlay.style.display = 'block';
     overlay.scrollTop = 0;
     document.body.style.overflow = 'hidden';
-} // 👈 確保 openLightbox 在這裡就用大括號結束了！
+}
 
-/* 2. 切換照片的函數（必須單獨寫在外面！） */
-function changePhoto(step) {
-    if (!currentList || currentList.length === 0) return;
+// 3. 【絕對獨立】切換照片函數，強制掛載在最外層 window 物件上
+window.changePhoto = function(step) {
+    console.log("changePhoto 函數被觸發了！按了按鈕，步伐為:", step);
+    console.log("當前索引:", currentIdx, "照片清單長度:", currentList.length);
+
+    if (!currentList || currentList.length === 0) {
+        console.error("切換失敗：目前照片清單 (currentList) 是空的！");
+        return;
+    }
 
     // 計算新索引
     currentIdx += step;
@@ -553,9 +615,11 @@ function changePhoto(step) {
         currentIdx = 0;
     }
 
-    // 重新呼叫自己，刷新這張照片
+    console.log("計算後的新索引:", currentIdx, "即將重新渲染畫面...");
+    
+    // 重新呼叫刷新畫面
     openLightbox(currentIdx);
-}
+};
 /* --- 1. 基礎渲染 (確保文章跟相簿優先跑出來) --- */
 window.onload = () => {
     if (typeof renderPosts === 'function') renderPosts();
