@@ -532,9 +532,8 @@
     openLightbox(0);            // 從第一張照片開始
   }
 
-  // Lightbox 渲染與左右切換 HTML
-  function openLightbox(idx, albumId) {
-    // 🟢 如果有傳入相簿 ID，就更新當前的全域照片清單
+ function openLightbox(idx, albumId) {
+    // 1. 同步相簿資料
     if (albumId && typeof ALBUMS !== 'undefined') {
       const album = ALBUMS.find(a => a.id === albumId);
       if (album) currentList = album.photos;
@@ -551,6 +550,7 @@
     let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
     let caption = photo.desc || '';
 
+    // 2. 渲染畫面（注意：這裡的 onclick 直接執行切換邏輯，不依賴外部函數）
     wrap.innerHTML = `
       <div class="art-inner-container">
         <div class="art-nav">
@@ -561,7 +561,8 @@
         <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:85%;">
           
           ${currentList.length > 1 ? `
-            <button onclick="changePhoto(-1); event.stopPropagation();" style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">‹</button>
+            <button onclick="let nextIdx = currentIdx - 1; if(nextIdx < 0){ nextIdx = currentList.length - 1; } openLightbox(nextIdx); event.stopPropagation();" 
+                    style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">‹</button>
           ` : ''}
           
           <div class="j-album-container" style="position:relative; width:100%; display:flex; justify-content:center;">
@@ -570,7 +571,8 @@
           </div>
           
           ${currentList.length > 1 ? `
-            <button onclick="changePhoto(1); event.stopPropagation();" style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">›</button>
+            <button onclick="let nextIdx = currentIdx + 1; if(nextIdx >= currentList.length){ nextIdx = 0; } openLightbox(nextIdx); event.stopPropagation();" 
+                    style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">›</button>
           ` : ''}
           
         </div>
