@@ -165,7 +165,7 @@ var POSTS = [
         這一次，終於做了。</p>
 
        <p><strong>初衷</strong></p>
-       <p> 社群的消耗，好像比自己以為的還要來得重。<br>
+       <p>社群的消耗，好像比自己以為的還要來得重。<br>
         能夠建立一個屬於自己的空間，是一份小小的成就感，也是一本記事，<br>
         記錄著那些巴黎的點滴，還有在歐洲生活的平凡與不平凡。</p>
 
@@ -175,8 +175,8 @@ var POSTS = [
       <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0;">
       
        <p>Two years after moving to Paris, life still felt like a constant search for direction — finding a place to live, figuring out internships, then work. Everything kept shifting.<br>
-A while back, I found myself in a stretch of forced stillness. Less a holiday, more a waiting period with no clear end in sight.<br>
-I still went out with friends, visited exhibitions, talked about how things felt — but something was missing, and I couldn't quite name it.</p>
+        A while back, I found myself in a stretch of forced stillness. Less a holiday, more a waiting period with no clear end in sight.<br>
+        I still went out with friends, visited exhibitions, talked about how things felt — but something was missing, and I couldn't quite name it.</p>
 
         <p>My phone was full of it, though: afternoon light in cafés, the quiet drift of people through gallery halls, the unhurried randomness of Parisian streets.<br>
         After conversations with a few mentors and friends I deeply admire, something clicked one evening.<br>
@@ -195,7 +195,44 @@ I still went out with friends, visited exhibitions, talked about how things felt
       </div>
     </div>
 `
-}
+},
+{
+    id: "a4",
+    title: "再見，五月",
+    enTitle: "May, Already",
+    cat: '巴黎日常 · Just Paris',
+    date: "31.05.2026", 
+    excerpt: "勞動節的罷工、倫敦來的朋友、突然變熱的天氣，還有吃不完的蛋糕——這個五月，平凡又充實。",
+    content: `
+
+      <p>今天是五月的最後一天。日子過得飛快。<br>
+      五一勞動節連假，和朋友搭車去巴黎近郊走走。因為罷工，原訂的地方沒有火車可以抵達，前一晚臨時改了目的地。<br>
+      到了才發現——兩年前我們已經來過了。記憶慢慢拼湊回來，然後兩個人就這樣笑蠢了自己。</p>
+      
+      <p>上旬朋友從倫敦來訪，沒有特別排行程，主打吃得開心、買有緣分的東西。兩天下來碳水含量嚴重超標，吃到昏昏欲睡。<br>
+      平日就正常上下班。天氣熱起來之前搶先買了一台新風扇——前一週還在發冷，後一週已經在翻背心和短袖，防曬襯衫都快穿不住了。</p>
+      
+      <p>這個月吃了好多美食和蛋糕。有自己買的，也有朋友特地買來我喜歡口味的小蛋糕。<br>
+      有和朋友一起分享的熱鬧，也有自己從甜點店帶回家慢慢享用的安靜。<br>
+      最印象深刻的，莫過於PSG贏球那晚——嬉鬧聲此起彼落，不時張望路上瘋狂的人群，到底是在慶祝還是作亂，似乎不論輸贏都會發生的事。</p>
+      
+      <p class="art-lang-switch"><em>這個五月，很棒，很幸福。</em></p>
+      
+      <hr class="art-divider">
+
+      <p>Today is the last day of May. The month flew by.<br>
+      During the Labour Day holiday, a friend and I took the train out to the Paris suburbs for a wander. A strike meant our original destination was unreachable, so we changed plans the night before.<br>
+      When we arrived, we slowly realised we'd already been there two years ago. The memories came back piece by piece — and we ended up laughing at ourselves the whole way home.</p>
+      
+      <p>Early in the month, a friend came to visit from London. No itinerary, no pressure — just good food and whatever we happened to stumble upon. Two days of excessive carbs later, we were barely keeping our eyes open.<br>
+      The rest of the week was the usual rhythm of commuting and working. I bought a new fan just before the heat arrived — one week I was cold from the rain, the next I was already digging out tank tops, too warm for anything with sleeves.</p>
+      
+      <p>So much good food this month. Cakes I picked out myself, and a small cake a friend brought over in exactly the flavour she knew I'd love.<br>
+      Moments shared loudly with friends, and quieter ones — a pastry from the patisserie, eaten slowly at home alone.<br>
+      The most memorable night of all: PSG winning the championship. The city erupted around us — we kept glancing out at the crowds spilling into the streets, half celebrating, half causing chaos. Honestly, it probably would have looked the same either way.</p>
+      
+      <p class="art-lang-switch"><em>May was a good one. A happy one.</em></p>
+},
 ];
 
 const ALBUMS = [
