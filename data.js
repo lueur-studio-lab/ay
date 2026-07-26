@@ -1,4 +1,4 @@
-var POSTS = [
+const POSTS = [
   {
     id: 'a1',
     title: '巴黎，星期天',
