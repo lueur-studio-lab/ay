@@ -2,9 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  
-  <!-- 1. 加上 defer 確保檔案按順序完全載入後才執行 -->
-  <script defer src="data.js"></script>
+  <script src="data.js"></script>
 
   <!-- SEO -->
   <meta name="description" content="住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。">
@@ -386,8 +384,11 @@
     if (overlay) overlay.addEventListener('scroll', checkScroll);
   }
 
-  // 確保在 window 完全加載（包含 external scripts）後才初始化
-  window.addEventListener('load', initApp);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
 </script>
 </body>
 </html>
