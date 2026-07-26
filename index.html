@@ -2,11 +2,14 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <script src="data.js"></script>
+  
+  <!-- 1. 加上 defer 確保檔案按順序完全載入後才執行 -->
+  <script defer src="data.js"></script>
+
   <!-- SEO -->
-<meta name="description" content="住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。">
-<meta name="keywords" content="巴黎日常, 台灣人在巴黎, 巴黎生活, 法國, 留學, 旅遊攝影, lueur">
-<meta name="author" content="lueur.studio">
+  <meta name="description" content="住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。">
+  <meta name="keywords" content="巴黎日常, 台灣人在巴黎, 巴黎生活, 法國, 留學, 旅遊攝影, lueur">
+  <meta name="author" content="lueur.studio">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SZRMZ00SD1"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -16,23 +19,19 @@
   </script>
 
   <script type="application/ld+json">
-{"@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "lueur.studio",
-  "author": {
-    "@type": "Person",
-    "name": "lueur"
-  },
-  "description": "住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。",
-  "url": "https://lueur-studio-lab.github.io/"}
-</script>
-  <!-- 讓搜尋引擎爬蟲看到的文章導航 -->
-<nav style="display:none;">
-  <h2>lueur.studio 文章列表</h2>
-  <a href="#art/pinault">巴黎證券交易所——皮諾私人美術館</a>
-  <a href="#art/sainte-chapelle">巴黎聖禮拜堂：最美彩色玻璃窗</a>
-  <p>在巴黎生活的台灣人，分享關於攝影、展覽與旅行的點點滴滴。</p>
-</nav>
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "lueur.studio",
+    "author": {
+      "@type": "Person",
+      "name": "lueur"
+    },
+    "description": "住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。",
+    "url": "https://lueur-studio-lab.github.io/"
+  }
+  </script>
+
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root {
@@ -45,7 +44,6 @@
     html{scroll-behavior:smooth}
     body { font-family: var(--serif); background: var(--bg); color: var(--ink); font-size: 16px; line-height: 2; font-weight: 300; }
 
-    /* --- 核心佈局 --- */
     .main-wrapper { display: flex; flex-direction: column; }
     @media(min-width: 1024px) { .main-wrapper { flex-direction: row; } }
     .sidebar { background: var(--bg); border-right: 1px solid var(--border); padding: 100px 2.5rem 3rem; width: 100%; }
@@ -64,276 +62,68 @@
     .nav-r{display:flex;align-items:center;gap:1.5rem}
     .nav-r a{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
 
-    /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 8%; position: relative; overflow: hidden; background-image: url('images/palaisroyal02.webp'); background-size: cover; background-position: center; }
     .hero-bg { position: absolute; inset: 0; background-color: rgba(242, 241, 238, 0.85); z-index: 1; }
     .hero-content { position: relative; z-index: 2; }
     .hero-h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
 
-    .ticker {
-  background: var(--ink);
-  color: var(--bg);
-  padding: 12px 0;
-  overflow: hidden;
-  white-space: nowrap;
-  font-family: var(--mono);
-  font-size: .55rem;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  display: flex; /* 確保內部元素水平排列 */
-}
+    .ticker { background: var(--ink); color: var(--bg); padding: 12px 0; overflow: hidden; white-space: nowrap; font-family: var(--mono); font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; display: flex; }
+    .tick-inner { display: inline-block; white-space: nowrap; padding-left: 0; animation: scroll-endless 20s linear infinite; }
+    .tick-inner span { display: inline-block; padding-right: 2rem; }
+    @keyframes scroll-endless { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-.tick-inner {
-  display: inline-block;
-  white-space: nowrap;
-  padding-left: 0;
-  animation: scroll-endless 20s linear infinite; /* 調整秒數控制速度 */
-}
-
-.tick-inner span {
-  display: inline-block;
-  padding-right: 2rem; /* 兩組文字之間的間距 */
-}
-
-@keyframes scroll-endless {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); /* 滾動到一半時精確重置 */
-  }
-}
-
-    /* JOURNAL / SECTION */
     .sec{padding:5rem 8%}
     .sec-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#999;margin-bottom:2rem;display:block;}
-.journal-item {
-    display: flex;
-    align-items: center; /* 確保內容垂直置中 */
-    padding: 2.5rem 0;
-    border-bottom: 1px solid var(--border);
-    gap: 3rem;
-    transition: 0.3s ease;
-}
+    .journal-item { display: flex; align-items: center; padding: 2.5rem 0; border-bottom: 1px solid var(--border); gap: 3rem; transition: 0.3s ease; cursor: pointer; }
     .j-meta { flex: 0 0 110px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid var(--border); }
     .j-cat { font-family: var(--mono); font-size: 0.55rem; color: #666; letter-spacing: 0.2em; text-transform: uppercase; }
-.j-date {
-    font-family: 'Noto Serif TC', serif !important; /* 改為襯線體 */
-    font-size: 0.75rem !important;
-    color: #999 !important;
-    font-style: italic;
-}
-    .j-thumb {
-    flex-shrink: 0;           /* 防止縮圖被擠壓 */
-    width: 220px;             /* 固定寬度 */
-    aspect-ratio: 3 / 2;      /* ✨ 強制統一比例 (3:2)，無論原圖比例為何 */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: grayscale(90%);
-    transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-    border-radius: 2px;
-}
-.journal-item {
-    cursor: pointer;
-    transition: background 0.4s ease;
-}
+    .j-date { font-family: 'Noto Serif TC', serif !important; font-size: 0.75rem !important; color: #999 !important; font-style: italic; }
+    .j-thumb { flex-shrink: 0; width: 220px; aspect-ratio: 3 / 2; background-size: cover; background-position: center; background-repeat: no-repeat; filter: grayscale(90%); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important; border-radius: 2px; }
+    .journal-item:hover .j-thumb { filter: grayscale(0%) !important; transform: translateY(-10px) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
 
-.j-thumb {
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
-}
-
-/* 整個項目 hover 時，圖片浮動且去背色消失 */
-.journal-item:hover .j-thumb {
-    filter: grayscale(0%) !important;
-    transform: translateY(-10px) scale(1.02); /* 向上浮起並微放 */
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-}
-    /* 針對手機版的調整：讓縮圖排在文字下方並撐滿寬度 */
-@media (max-width: 768px) {
-    .journal-item {
-        flex-direction: column-reverse; /* 手機版圖在上或在下可自選，這裏設定圖在下 */
-        align-items: flex-start;
-        gap: 1.5rem;
-    }
-    .j-thumb {
-        width: 100%;
-        aspect-ratio: 16 / 9; /* 手機版可以使用更寬的比例 */
-    }
-    .j-meta {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 5px;
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-/* --- 文章彈窗：導覽列（BACK 靠左，Logo 靠右） --- */
-.art-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* 關鍵：推開兩端 */
-    margin-bottom: 3rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-}
-
-.art-back {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    transition: 0.3s;
-}
-.art-back:hover { color: var(--ink); transform: translateX(-5px); }
-
-/* --- 文章彈窗與浮水印：修正對齊與大小 --- */
-.art-overlay { 
-    position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; 
-    overflow-y: auto; display: none; padding: 40px 8% 60px; 
-}
-/* --- 讓文章內的 figure 自動縮小到圖片寬度 --- */
-.art-content-body figure {
-    display: table;       /* 關鍵：讓容器寬度跟隨內部圖片 */
-    margin: 1.5rem auto;  /* 居中顯示，並縮小上下間距 */
-    max-width: 100%;
-}
-/* --- 讓浮水印文字靠右對齊，並統一字體 --- */
-.art-content-body figure p:contains("©"), 
-.art-content-body figure p {
-    text-align: right !important;
-    font-size: 14.5px !important; /* 統一內文字體大小 */
-    color: #ccc !important;
-    margin-top: 0.3rem !important; /* 縮小與圖片的距離 */
-    font-family: 'Noto Serif TC', serif !important;
-}
-
-/* 確保圖片不會超出容器 */
-.art-content-body figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-/* --- 統一文章彈窗內文的字體與大小 --- */
-.art-content-body p, 
-.art-content-body div {
-    font-size: 14.5px !important;    /* 這是最精緻的閱讀大小，接近妳標籤的比例 */
-    line-height: 2 !important;       /* 增加行距營造呼吸感 */
-    letter-spacing: 0.02em !important;
-    font-weight: 300 !important;
-    color: var(--ink2) !important;
-    margin-bottom: 2rem !important;  /* 段落與段落間的距離 */
-    font-family: 'Noto Serif TC', serif !important;
-    text-align: justify;             /* 讓文字兩端對齊，排版更像雜誌 */
-}
-
-/* 確保內文中的標籤或細小文字不要因為上面的設定而變大 */
-.art-content-body .j-cat, 
-.art-content-body .j-date {
-    font-size: 0.65rem !important; /* 恢復小字標籤的大小 */
-    letter-spacing: 0.2em;
-}
-.art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
- 
-/* --- 1. 文章標題：維持原本優雅的靠左 --- */
-.art-header {
-    text-align: left !important;
-    margin-bottom: 50px;
-    padding-left: 0 !important; /* 確保完全貼齊左側線條 */
-}
-
-.art-header p {
-    font-family: 'Noto Serif TC', serif !important; /* 切換為與內文相同的襯線體 */
-    color: #999 !important;                         /* 顏色稍微深一點點，增加易讀性 */
-    font-size: 13px !important;                      /* 稍微調大一點點，與內文 14.5px 做出微小層次 */
-    letter-spacing: 0.05em !important;               /* 縮小間距，讓它看起來更像優雅的筆記 */
-    text-align: left !important;
-    margin-top: 8px;
-    font-style: italic;                              /* 加入斜體，延續那種隨筆的法式感 */
-}
-/* =========================================
-   終極方案：右側邊緣鎖定法 (相簿與文章通用)
-   ========================================= */
-
-/* 1. 【通用容器基準】確保容器不會比螢幕寬 */
-.art-img-container, 
-.j-album-container, 
-.j-gallery-item, 
-.gallery-item,
-#artWrap div[style*="position:relative"] {
-    position: relative !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    max-width: 100vw !important;
-    overflow: hidden !important;
-}
-/* 2. 【浮水印鎖定邏輯】 */
-.art-watermark, 
-#artWrap div[style*="position:relative"] > span {
-    position: absolute !important;
-    bottom: 25px !important;
-    z-index: 999 !important;
-    pointer-events: none;
-    white-space: nowrap !important;
-    color: rgba(255, 255, 255, 0.7) !important;
-    font-family: var(--mono) !important;
-    font-size: 10px !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-
-    /* 👈 核心邏輯：先靠右對齊，再根據照片比例往左拉 */
-    /* 手機版：從右側邊緣往左拉 20% 的螢幕寬度，這會讓它剛好落在直式照片內 */
-    left: auto !important;
-    right: 20% !important; 
-    transform: translateX(10px) !important; 
-}
-
-/* 3. 【電腦版與寬螢幕微調】 */
-@media (min-width: 1024px) {
-    #artWrap div[style*="position:relative"] > span {
-        /* 電腦版螢幕太寬，改用固定距離中心點的方式 */
-        right: 50% !important;
-        transform: translateX(200px) !important; 
+    @media (max-width: 768px) {
+      .journal-item { flex-direction: column-reverse; align-items: flex-start; gap: 1.5rem; }
+      .j-thumb { width: 100%; aspect-ratio: 16 / 9; }
+      .j-meta { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 5px; width: 100%; flex-direction: row; justify-content: space-between; }
     }
 
-    /* 文章內的圖片因為寬度只有 80%，直接鎖定右側即可 */
-    .art-inner-container .art-img-container .art-watermark {
-        right: 20px !important;
-        transform: none !important;
+    .art-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .art-back { background: none; border: none; cursor: pointer; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; transition: 0.3s; }
+    .art-back:hover { color: var(--ink); transform: translateX(-5px); }
+    .art-overlay { position: fixed; inset: 0; z-index: 2000; background: #f2f1ee; overflow-y: auto; display: none; padding: 40px 8% 60px; }
+    .art-content-body figure { display: table; margin: 1.5rem auto; max-width: 100%; }
+    .art-content-body figure p { text-align: right !important; font-size: 14.5px !important; color: #ccc !important; margin-top: 0.3rem !important; font-family: 'Noto Serif TC', serif !important; }
+    .art-content-body figure img { display: block; width: 100%; height: auto; }
+    .art-content-body p, .art-content-body div { font-size: 14.5px !important; line-height: 2 !important; letter-spacing: 0.02em !important; font-weight: 300 !important; color: var(--ink2) !important; margin-bottom: 2rem !important; font-family: 'Noto Serif TC', serif !important; text-align: justify; }
+    .art-content-body .j-cat, .art-content-body .j-date { font-size: 0.65rem !important; letter-spacing: 0.2em; }
+    .art-inner-container { max-width: 800px; margin: 0 auto; text-align: left; }
+    .art-header { text-align: left !important; margin-bottom: 50px; padding-left: 0 !important; }
+    .art-header p { font-family: 'Noto Serif TC', serif !important; color: #999 !important; font-size: 13px !important; letter-spacing: 0.05em !important; text-align: left !important; margin-top: 8px; font-style: italic; }
+
+    .art-img-container, .j-album-container, .j-gallery-item, .gallery-item, #artWrap div[style*="position:relative"] { position: relative !important; display: flex !important; justify-content: center !important; align-items: center !important; max-width: 100vw !important; overflow: hidden !important; }
+    .art-watermark, #artWrap div[style*="position:relative"] > span { position: absolute !important; bottom: 25px !important; z-index: 999 !important; pointer-events: none; white-space: nowrap !important; color: rgba(255, 255, 255, 0.7) !important; font-family: var(--mono) !important; font-size: 10px !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important; left: auto !important; right: 20% !important; transform: translateX(10px) !important; }
+
+    @media (min-width: 1024px) {
+      #artWrap div[style*="position:relative"] > span { right: 50% !important; transform: translateX(200px) !important; }
+      .art-inner-container .art-img-container .art-watermark { right: 20px !important; transform: none !important; }
     }
-}
 
-/* 4. 【文章圖片比例】維持 80% */
-.art-inner-container .art-img-container {
-    width: fit-content !important;
-    max-width: 80% !important;
-    margin: 3rem auto !important;
-    position: relative !important;
-}
-.art-inner-container .art-img-container img {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-}
-
-/* 5. 【功能保持】 */
-#artWrap button { display: block !important; z-index: 9999 !important; }
-.art-content-body { max-width: 680px !important; margin: 0 auto !important; }
-
-   .art-divider {
-    border: none !important;
-    border-top: 3px dotted #ddd !important;
-    width: 30px !important;
-    margin: 6rem auto 4rem !important; /* 第一個數字 6rem 是與上方中文的距離 */
-    display: block !important;
-}
+    .art-inner-container .art-img-container { width: fit-content !important; max-width: 80% !important; margin: 3rem auto !important; position: relative !important; }
+    .art-inner-container .art-img-container img { display: block !important; width: 100% !important; height: auto !important; }
+    #artWrap button { display: block !important; z-index: 9999 !important; }
+    .art-content-body { max-width: 680px !important; margin: 0 auto !important; }
+    .art-divider { border: none !important; border-top: 3px dotted #ddd !important; width: 30px !important; margin: 6rem auto 4rem !important; display: block !important; }
   </style>
 </head>
 <body>
+
+<!-- 把爬蟲 SEO 導航移回 body 內部 -->
+<nav style="display:none;">
+  <h2>lueur.studio 文章列表</h2>
+  <a href="#art/pinault">巴黎證券交易所——皮諾私人美術館</a>
+  <a href="#art/sainte-chapelle">巴黎聖禮拜堂：最美彩色玻璃窗</a>
+  <p>在巴黎生活的台灣人，分享關於攝影、展覽與旅行的點點滴滴。</p>
+</nav>
 
 <nav>
   <a class="logo" href="#"><span>l</span>ueur.studio</a>
@@ -368,12 +158,12 @@
     </section>
 
     <div class="ticker">
-  <div class="tick-inner">
-    <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
-    <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
-    <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
-  </div>
-</div>
+      <div class="tick-inner">
+        <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
+        <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
+        <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
+      </div>
+    </div>
 
     <section id="recent" class="sec">
       <p class="sec-label">巴黎碎片 · PARISIAN FRAGMENTS</p>      
@@ -386,66 +176,57 @@
     <section id="gallery" class="sec">
       <p class="sec-label">影像紀錄 · VISUAL DIARY</p>
       <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 3rem; font-style: italic; font-weight: 300; color: var(--ink2);">
-    Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Frames</span>
-    </h2>
+        Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Frames</span>
+      </h2>
       <div class="gallery-grid" id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;"></div>
     </section>
 
     <section id="about" class="sec" style="padding: 10rem 8%; margin: 4rem 0; position: relative; background: linear-gradient(rgba(242, 241, 238, 0.9), rgba(242, 241, 238, 0.9)), url('images/palaisroyal02.webp'); background-size: cover; background-position: center; background-attachment: scroll;">
-  <div class="about-content" style="max-width: 800px; margin: 0; position: relative; z-index: 2; padding: 0;"> 
-    <p class="sec-label" style="opacity: 0.6; text-align: left;">關於我 · ABOUT ME</p>
-    
-    <h2 style="font-size: 2rem; margin-bottom: 2.5rem; font-family: var(--serif); font-weight: 500; letter-spacing: 0.15em; color: var(--ink); display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-start;">
-      <span style="font-weight: 400;">漫步</span>
-      <span style="color: var(--pale); margin: 0 0.5rem; font-weight: 300;">·</span>    
-      <span style="font-weight: 400;">在巴黎</span>
-    </h2>
+      <div class="about-content" style="max-width: 800px; margin: 0; position: relative; z-index: 2; padding: 0;"> 
+        <p class="sec-label" style="opacity: 0.6; text-align: left;">關於我 · ABOUT ME</p>
+        
+        <h2 style="font-size: 2rem; margin-bottom: 2.5rem; font-family: var(--serif); font-weight: 500; letter-spacing: 0.15em; color: var(--ink); display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-start;">
+          <span style="font-weight: 400;">漫步</span>
+          <span style="color: var(--pale); margin: 0 0.5rem; font-weight: 300;">·</span>    
+          <span style="font-weight: 400;">在巴黎</span>
+        </h2>
 
-    <div style="opacity: 0.9; color: var(--ink); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 1rem; line-height: 2.2; text-align: left;">
-      <p style="margin-bottom: 1.5rem;">幾年前搬來巴黎，以為是一場旅行。後來才明白，這已是我的生活方式。<br>
-        習慣走進瑪黑區的巷弄，帶著手機——拾起光影，也拾起記憶。</p>
-      <p>這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴。</p>
-    </div>
-  </div>
-</section>
+        <div style="opacity: 0.9; color: var(--ink); font-family: 'Noto Serif TC'; font-weight: 300; font-size: 1rem; line-height: 2.2; text-align: left;">
+          <p style="margin-bottom: 1.5rem;">幾年前搬來巴黎，以為是一場旅行。後來才明白，這已是我的生活方式。<br>
+            習慣走進瑪黑區的巷弄，帶著手機——拾起光影，也拾起記憶。</p>
+          <p>這個空間，是我寫給自己、也留給你的私語。關於異鄉生活的點滴。</p>
+        </div>
+      </div>
+    </section>
 
-   <footer style="padding: 5rem 8% 3rem; border-top: 1px solid var(--border); background: var(--bg);">
-  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
-    
-    <a class="logo" href="#" style="color: var(--blue); font-size: 0.9rem; text-decoration: none; flex: 1; text-align: left;">
-      <span>l</span>ueur.studio
-    </a>
-
-    <div style="font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--blue-mid); text-transform: uppercase; flex: 2; text-align: center;">
-      48° 51' 24" N / 2° 21' 08" E
-    </div>
-
-    <div style="opacity: 0.3; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); flex: 1; text-align: right;">
-      © 2026 lueur.studio
-    </div>
-
-  </div>
-</footer>
+    <footer style="padding: 5rem 8% 3rem; border-top: 1px solid var(--border); background: var(--bg);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+        <a class="logo" href="#" style="color: var(--blue); font-size: 0.9rem; text-decoration: none; flex: 1; text-align: left;">
+          <span>l</span>ueur.studio
+        </a>
+        <div style="font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--blue-mid); text-transform: uppercase; flex: 2; text-align: center;">
+          48° 51' 24" N / 2° 21' 08" E
+        </div>
+        <div style="opacity: 0.3; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); flex: 1; text-align: right;">
+          © 2026 lueur.studio
+        </div>
+      </div>
+    </footer>
   </main>
 </div>
 
 <div class="art-overlay" id="artOverlay">
-<div id="artWrap"></div>
+  <div id="artWrap"></div>
 </div>
-<button id="backToTop" onclick="scrollToTop()" style="position:fixed;bottom:2rem;right:2rem;display:none;font-family:var(--mono);font-size:.6rem;padding:.5rem 1rem;background:var(--ink);color:var(--bg);border:none;cursor:pointer;z-index:500">↑ TOP</button>
+
 <div id="fixed-back-btn" onclick="handleBackToTop()" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 100000; cursor: pointer; width: 40px; height: 40px; background: white; border: 1px solid #eee; border-radius: 50%; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: opacity 0.3s; opacity: 0;">
     <span style="color: #999; font-size: 20px; line-height: 1;">↑</span>
 </div>
+
 <script>
-  /* ==========================================
-     1. 全域變數
-     ========================================== */
   var currentList = [];
   var currentIdx = 0;
 
-  /* ==========================================
-     2. 文章系統 (Journal / Posts)
-     ========================================== */
   function renderPosts() {
     const container = document.querySelector('.journal-list');
     if (!container) return;
@@ -499,9 +280,6 @@
     document.body.style.overflow = 'auto';
   }
 
-  /* ==========================================
-     3. 相簿系統 (Visual Diary)
-     ========================================== */
   function renderGallery() {
     const grid = document.getElementById('galleryGrid');
     if (!grid) return;
@@ -573,9 +351,6 @@
     document.body.style.overflow = 'hidden';
   }
 
-  /* ==========================================
-     4. 回到頂端與滾動偵測
-     ========================================== */
   function handleBackToTop() {
     const overlay = document.getElementById('artOverlay');
     if (overlay && window.getComputedStyle(overlay).display !== 'none') {
@@ -604,9 +379,6 @@
 
   window.onscroll = checkScroll;
 
-  /* ==========================================
-     5. 啟動進入點 (放置於最後，確保所有函數已載入)
-     ========================================== */
   function initApp() {
     renderPosts();
     renderGallery();
@@ -614,11 +386,8 @@
     if (overlay) overlay.addEventListener('scroll', checkScroll);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-  } else {
-    initApp();
-  }
+  // 確保在 window 完全加載（包含 external scripts）後才初始化
+  window.addEventListener('load', initApp);
 </script>
 </body>
 </html>
