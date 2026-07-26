@@ -437,23 +437,11 @@
 </div>
 <script src="data.js"></script>
 <script>
- /* ==========================================
-     1. 全域變數與即時初始化 (免等待圖片載入)
+  /* ==========================================
+     1. 全域變數
      ========================================== */
   var currentList = [];
   var currentIdx = 0;
-
-  function initApp() {
-    if (typeof renderPosts === 'function') renderPosts();
-    if (typeof renderGallery === 'function') renderGallery();
-  }
-
-  // 網頁 HTML 結構一載入完成立刻執行，不被大圖卡住
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-  } else {
-    initApp();
-  }
 
   /* ==========================================
      2. 文章系統 (Journal / Posts)
@@ -461,9 +449,13 @@
   function renderPosts() {
     const container = document.querySelector('.journal-list');
     if (!container) return;
-    container.innerHTML = '';
-    if (typeof POSTS === 'undefined') return;
     
+    if (typeof POSTS === 'undefined') {
+      container.innerHTML = `<p style="color:red; padding:20px; border:1px dashed red;">⚠️ 找不到 POSTS 資料，請檢查 data.js 是否有載入！</p>`;
+      return;
+    }
+
+    container.innerHTML = '';
     [...POSTS].reverse().forEach(p => {
       let thumbUrl = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
       container.innerHTML += `
@@ -508,14 +500,18 @@
   }
 
   /* ==========================================
-     3. 相簿與 Lightbox 系統 (Visual Diary)
+     3. 相簿系統 (Visual Diary)
      ========================================== */
   function renderGallery() {
     const grid = document.getElementById('galleryGrid');
     if (!grid) return;
-    grid.innerHTML = '';
-    if (typeof ALBUMS === 'undefined') return;
+
+    if (typeof ALBUMS === 'undefined') {
+      grid.innerHTML = `<p style="color:red; grid-column: 1/-1; padding:20px; border:1px dashed red;">⚠️ 找不到 ALBUMS 資料，請檢查 data.js 是否有載入！</p>`;
+      return;
+    }
     
+    grid.innerHTML = '';
     ALBUMS.forEach(album => {
       grid.innerHTML += `
         <div class="g-item" onclick="openLightbox(0, '${album.id}')" style="position:relative;cursor:pointer;overflow:hidden;aspect-ratio:1/1;">
@@ -552,7 +548,6 @@
         </div>
         
         <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:85%;">
-          
           ${currentList.length > 1 ? `
             <button onclick="let n = currentIdx - 1; if(n < 0){ n = currentList.length - 1; } openLightbox(n); event.stopPropagation();" 
                     style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">‹</button>
@@ -567,7 +562,6 @@
             <button onclick="let n = currentIdx + 1; if(n >= currentList.length){ n = 0; } openLightbox(n); event.stopPropagation();" 
                     style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">›</button>
           ` : ''}
-          
         </div>
 
         ${caption ? `<p style="text-align:center; font-family:var(--serif); font-size:1rem; color:var(--ink2); margin-top:1rem; font-style:italic;">${caption}</p>` : ''}
@@ -580,7 +574,7 @@
   }
 
   /* ==========================================
-     4. 回到頂端與滾動偵測 (Back to Top)
+     4. 回到頂端與滾動偵測
      ========================================== */
   function handleBackToTop() {
     const overlay = document.getElementById('artOverlay');
@@ -609,10 +603,22 @@
   }
 
   window.onscroll = checkScroll;
-  document.addEventListener('DOMContentLoaded', () => {
+
+  /* ==========================================
+     5. 啟動進入點 (放置於最後，確保所有函數已載入)
+     ========================================== */
+  function initApp() {
+    renderPosts();
+    renderGallery();
     const overlay = document.getElementById('artOverlay');
     if (overlay) overlay.addEventListener('scroll', checkScroll);
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+  } else {
+    initApp();
+  }
 </script>
 </body>
 </html>
