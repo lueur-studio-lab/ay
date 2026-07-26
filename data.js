@@ -202,6 +202,7 @@ const POSTS = [
     enTitle: "May, Already",
     cat: '巴黎日常 · Just Paris',
     date: "31.05.2026", 
+    img: 'may.webp',
     excerpt: "勞動節的罷工、倫敦來的朋友、突然變熱的天氣，還有吃不完的蛋糕——這個五月，平凡又充實。",
     content: `
 
@@ -232,6 +233,7 @@ const POSTS = [
       The most memorable night of all: PSG winning the championship. The city erupted around us — we kept glancing out at the crowds spilling into the streets, half celebrating, half causing chaos. Honestly, it probably would have looked the same either way.</p>
       
       <p class="art-lang-switch"><em>May was a good one. A happy one.</em></p>
+      `
 },
 ];
 
