@@ -236,7 +236,12 @@
 
     container.innerHTML = '';
     [...POSTS].reverse().forEach(p => {
-      let thumbUrl = p.img.startsWith('http') || p.img.startsWith('images/') ? p.img : 'images/' + p.img;
+const img = p.img || 'default.webp';
+
+let thumbUrl =
+    img.startsWith('http') || img.startsWith('images/')
+        ? img
+        : 'images/' + img;
       container.innerHTML += `
         <div class="journal-item" onclick="openArt('${p.id}')">
           <div class="j-meta"><span class="j-cat">${p.cat}</span><span class="j-date">${p.date}</span></div>
