@@ -235,6 +235,114 @@ const POSTS = [
       <p class="art-lang-switch"><em>May was a good one. A happy one.</em></p>
       `
 },
+{
+    id: "a5",
+    title: "落地",
+    enTitle: "Landing",
+    cat: '巴黎日常 · Just Paris',
+    date: "21.08.2026", 
+    img: 'aug2026.webp',
+    excerpt: "法國碩士畢業後，帶著一張求職簽證和一股不肯認輸的傲氣，在巴黎找一個屬於自己的位置。",
+    content: `
+
+      <p>接到那通電話的時候，我的手在抖。<br>
+         聲音也是——但那是後來的事了。在那之前，還有很長的一段路要走。</p>
+      
+      <p>法國高商碩士畢業後的一年左右，我持著 RECE 居留身分在法國找一個理想。<br>
+      白天在餐飲業打工，結束一天的班後，回到家稍作休息，便打開電腦，準備下一份履歷。<br>
+      骨子裡有一股傲氣，或許也是一股不肯認輸的固執——不太敢打電話回家，不是沒有話說，而是不知道怎麼開口。<br>
+      怎麼解釋那些投出去沒有回音的履歷，那些走出面試公司卻不確定自己表現如何的日子。</p>
+
+      <p>每個日出日落，都推著我繼續往前。</p>
+      
+      <p>遠在台灣的閨蜜時常聽我說話，透過電話傳來聲音上的力量。<br>
+         而在巴黎，我也有能夠說話的親近友人——不會說好聽話灌迷湯，因為他們深知這裡的環境有多競爭。<br>
+         但他們總是在那，在我需要的時候，聽我說說話，陪我吃東西。<br>
+         儘管有時我得在腦海裡想很久，才能把那些話說出口——因為那是多麼不容易的一件事。</p>
+
+      <p>最難熬的一次，是進到最後一輪面試之後。</p>
+      
+      <p>每一關都順利，心裡隱隱覺得，這次或許真的可以。<br>
+        把手機放回口袋，繼續工作。那一整天，心情像被什麼東西壓著，說不出來，也沒有辦法說。<br>
+        空擋時間發了條訊息給朋友們，說下班想吃飯——沒有多說什麼，他們就答應了。<br>
+        下班後，朋友們已經在等我。問我發生了什麼事，聽我說，陪我吃飯聊聊，給我加油打氣，然後給了我一個溫暖的擁抱。</p>
+      <p>那個擁抱，撐過了那個夜晚。</p>
+      <p>但第二天，日子還是繼續運轉。</p>
+      
+      <p>年初，照常利用空檔準備履歷和面試。甚至在旅行途中，還特地安排了一堂課，和法語老師進行電話模擬練習；<br>
+         回到巴黎後，也找了朋友幫我繼續練膽量，讓自己能夠更從容地走進公司，面對線下的面試。<br>
+         等待的過程，心情總是七上八下。但我告訴自己：既然已經完成這場，就繼續好好準備下一場。</p>
+        
+       <p>而那一份屬於我的工作，終究還是來了。</p>
+       
+        <p>不是夢想中的職位，但是一個開始。<br>
+          更重要的是——終於踏進了我一直想進的產業。</p>
+        
+        <p>接電話時，手在顫抖，聲音也是——但那是興奮，是替自己開心的顫抖。<br>
+        掛上電話後，我愣了一下，才慢慢意識到，那段漫長的等待，結束了。</p>
+        
+        <p>入職後，為了順利通過試用期，我很認真地把同事教的每一個流程都寫下來，不會的隨時翻回去看。<br>
+        同事們說，沒關係，慢慢來，做好比較重要——然後耐心地、和善地教我，也告訴我一些只有在裡面才會知道的眉角。<br>
+        新環境加上新產業，需要適應的事情很多，但那種被接納的感覺，讓一切都稍微容易了一些。</p>
+        
+        <p>凡事都有它的道理。就像老天冥冥之中自有安排，在最好的時機給你一條路。<br>
+        或許過程坎坷曲折，繞了點遠路——但那是為了摘果實、歇息片刻，積攢足夠的能量，再出發。</p>
+      
+      <p class="art-lang-switch"><em>我是這樣相信著的。</em></p>
+      
+      <hr class="art-divider">
+
+      <p>My hand was shaking when I answered the phone.<br>
+        My voice too — but that came later. Before that, there was a long road to walk.</p>
+        
+     <p>About a year after graduating from a French Grande École, I was still in France on a RECE visa, searching for somewhere to belong.<br>
+     I was working part-time in hospitality, and after every shift, I'd come home, rest for a moment, then open my laptop to work on the next application.<br>
+     There's a stubbornness in me — maybe pride, maybe something closer to refusing to lose. I stopped calling home as often.<br>
+     Not because I had nothing to say, but because I didn't know how to say it. <br>
+     How do you explain the CVs that disappeared into silence, the days spent walking out of interview rooms not knowing if you'd done enough?</p>
+
+    <p>Every sunrise and sunset pushed me forward, whether I felt ready or not.</p>
+
+    <p>My closest friend in Taiwan listened from across the world, sending me energy through the phone.<br>
+    In Paris, I had a few true friends who wouldn't sugarcoat things — who knew exactly how competitive this city could be — but who were simply there.<br>
+    To listen. To share a meal. Even when it took me a long time to find the words, because some things are just hard to say out loud.</p>
+
+    <p>The hardest moment came after I made it to the final round of an interview process.</p>
+
+    <p>Everything had gone smoothly. I let myself believe, quietly, that maybe this was it.<br>
+    The rejection came by email, while I was mid-shift at work.<br>
+    The words on the screen were clear enough — I just needed a few extra seconds for them to land.<br>
+    I put my phone back in my pocket and kept working. The rest of that day, something heavy sat on my chest that I couldn't name and couldn't say out loud.<br>
+    During a break, I sent a message to my friends — just that I wanted to grab dinner after work. Nothing more. They said yes without asking why.<br>
+    When I finished my shift, they were already there waiting. They asked what happened, listened, ate with me, cheered me on — and then gave me a warm hug.</p>
+
+    <p>That hug got me through the night.</p>
+
+    <p>But the next day, life kept moving.</p>
+
+    <p>I used every spare moment to prepare — even arranging a mock phone interview with my French tutor while I was travelling.<br>
+    Back in Paris, I practised with a friend to build my confidence before walking into in-person interviews.<br>
+    The waiting was the hardest part, my mood swinging constantly, but I kept telling myself: you've finished this one, now prepare for the next.</p>
+
+    <p>And then the job came.</p>
+
+    <p>Not the dream title. But a beginning.<br>
+      And finally — a foot in the door of the industry I'd always wanted to be part of.</p>
+
+    <p>My hand was shaking when I answered. My voice too — but it was the kind of shaking that comes from joy, from being genuinely, quietly proud of yourself.<br>
+    When I hung up, I sat still for a moment, slowly realising the long wait was finally over.</p>
+
+    <p>Starting the role, I wrote down every process my colleagues walked me through, so I could refer back whenever I needed to.<br>
+    They told me to take my time — that doing things right mattered more than doing them fast — and they meant it.<br>
+    Patient, kind, and generous with the details that only insiders know.<br>
+    A new environment and a new industry meant there was a lot to take in, but that sense of being welcomed made everything a little easier to navigate.</p>
+
+    <p>Everything happens for a reason. The timing, the detours, the long way around — maybe it was all part of the journey.<br>
+    A chance to rest, to gather strength, to pick something up along the way before setting off again.</p>
+      
+    <p class="art-lang-switch"><em>That's what I choose to believe.</em></p>
+      `
+},
 ];
 
 const ALBUMS = [
