@@ -1,156 +1,243 @@
 <style>
-.note-form {
-  max-width: 680px;
-  margin-top: 3rem;
-  padding: 7px;
-  border: 1px solid #34312c;
-  background: #f7f5f0;
-  box-shadow: 7px 7px 0 rgba(52, 49, 44, 0.14);
-}
+  #comments {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 5rem 8% 8rem;
+  }
 
-.note-form__inner {
-  padding: 2.2rem 2rem 1.4rem;
-  border: 1px solid #bcb5aa;
-}
+  .back-home {
+    display: inline-block;
+    margin-bottom: 3.5rem;
+    color: #34312c;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+  }
 
-.note-form label {
-  display: block;
-  margin: 0 0 0.65rem;
-  color: #34312c;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-}
+  .back-home:hover {
+    opacity: 0.55;
+  }
 
-.note-form input,
-.note-form textarea {
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  margin: 0 0 2rem;
-  padding: 0.9rem 1rem;
-  border: 1px solid #bcb5aa;
-  border-radius: 0;
-  background: #fffefa;
-  color: #34312c;
-  font: inherit;
-  font-family: "Noto Serif TC", serif;
-  font-size: 1rem;
-  line-height: 1.8;
-  outline: none;
-}
+  .comments-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #34312c;
+  }
 
-.note-form textarea {
-  resize: vertical;
-  min-height: 180px;
-}
+  .comments-heading .sec-label {
+    margin: 0 0 0.65rem;
+    color: #34312c;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
 
-.note-form input:focus,
-.note-form textarea:focus {
-  border-color: #34312c;
-  box-shadow: inset 0 0 0 1px #34312c;
-}
+  .comments-heading h1 {
+    margin: 0;
+    color: #34312c;
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4.3rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1;
+  }
 
-.note-form input::placeholder,
-.note-form textarea::placeholder {
-  color: #aaa49c;
-}
+  .comments-heading p:last-child {
+    max-width: 260px;
+    margin: 0;
+    color: #827b72;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    text-align: right;
+  }
 
-.note-form__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 0.25rem;
-  border-top: 1px solid #bcb5aa;
-}
+  .note-form {
+    width: 100%;
+    max-width: 1080px;
+    margin: 3.5rem auto 0;
+    padding: 7px;
+    border: 1px solid #34312c;
+    background: #f7f5f0;
+    box-shadow: 7px 7px 0 rgba(52, 49, 44, 0.14);
+  }
 
-.note-form__footer span {
-  color: #827b72;
-  font-size: 0.62rem;
-  letter-spacing: 0.14em;
-}
+  .note-form__inner {
+    padding: 2.2rem 2rem 1.4rem;
+    border: 1px solid #bcb5aa;
+  }
 
-.note-form button {
-  margin-top: -1px;
-  padding: 0.9rem 1.2rem;
-  border: 1px solid #34312c;
-  border-radius: 0;
-  background: #34312c;
-  color: #fffefa;
-  font: inherit;
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-  transition: background .2s ease, color .2s ease;
-}
+  .note-form label {
+    display: block;
+    margin: 0 0 0.65rem;
+    color: #34312c;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+  }
 
-.note-form button:hover {
-  background: transparent;
-  color: #34312c;
-}
+  .note-form input,
+  .note-form textarea {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    margin: 0 0 2rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid #bcb5aa;
+    border-radius: 0;
+    background: #fffefa;
+    color: #34312c;
+    font-family: "Noto Serif TC", serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    outline: none;
+  }
 
-.note-form button i {
-  padding-left: 0.4rem;
-  font-size: 1rem;
-  font-style: normal;
-}
+  .note-form textarea {
+    min-height: 200px;
+    resize: vertical;
+  }
 
-#comment-status {
-  display: none;
-  margin: 1rem 0 0;
-  color: #5a6754;
-}
+  .note-form input:focus,
+  .note-form textarea:focus {
+    border-color: #34312c;
+    box-shadow: inset 0 0 0 1px #34312c;
+  }
+
+  .note-form input::placeholder,
+  .note-form textarea::placeholder {
+    color: #aaa49c;
+  }
+
+  .note-form__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.25rem;
+    border-top: 1px solid #bcb5aa;
+  }
+
+  .note-form__footer span {
+    color: #827b72;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+
+  .note-form button {
+    padding: 0.9rem 1.2rem;
+    border: 1px solid #34312c;
+    border-radius: 0;
+    background: #34312c;
+    color: #fffefa;
+    font: inherit;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .note-form button:hover {
+    background: transparent;
+    color: #34312c;
+  }
+
+  .note-form button i {
+    padding-left: 0.4rem;
+    font-size: 1rem;
+    font-style: normal;
+  }
+
+  #comment-status {
+    display: none;
+    margin: 1rem 0 0;
+    color: #5a6754;
+  }
+
+  @media (max-width: 640px) {
+    #comments {
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    .comments-heading {
+      display: block;
+    }
+
+    .comments-heading p:last-child {
+      margin-top: 1.2rem;
+      text-align: left;
+    }
+
+    .note-form__inner {
+      padding: 1.5rem 1.2rem 1.2rem;
+    }
+
+    .note-form__footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
 </style>
 
 <main>
-  <section class="sec" id="comments" style="padding:10rem 8%; margin:4rem 0;">
-    <p class="sec-label">留言 · LEAVE A NOTE</p>
+  <section class="sec" id="comments">
+    <a class="back-home" href="index.html">← BACK TO HOME</a>
 
-    <h1 style="font-family:var(--serif);font-size:2rem;font-style:italic;font-weight:300;margin:0 0 2rem;">
-      Say something
-    </h1>
+    <div class="comments-heading">
+      <div>
+        <p class="sec-label">留言 · LEAVE A NOTE</p>
+        <h1>寫一封小信給我</h1>
+      </div>
+
+      <p>For small thoughts, lingering moments,<br>and notes sent from afar.</p>
+    </div>
 
     <form
-  id="comment-form"
-  action="YOUR_APPS_SCRIPT_URL"
-  method="post"
-  target="comment-result"
-  class="note-form"
->
-  <div class="note-form__inner">
-    <label for="comment-name">YOUR NAME</label>
-    <input
-      id="comment-name"
-      name="name"
-      type="text"
-      placeholder="怎麼稱呼你？"
-      required
+      id="comment-form"
+      action="YOUR_APPS_SCRIPT_URL"
+      method="post"
+      target="comment-result"
+      class="note-form"
     >
+      <div class="note-form__inner">
+        <label for="comment-name">YOUR NAME</label>
+        <input
+          id="comment-name"
+          name="name"
+          type="text"
+          placeholder="怎麼稱呼你？"
+          required
+        >
 
-    <label for="comment-message">YOUR NOTE</label>
-    <textarea
-      id="comment-message"
-      name="message"
-      rows="6"
-      placeholder="留下想說的話⋯⋯"
-      required
-    ></textarea>
+        <label for="comment-message">YOUR NOTE</label>
+        <textarea
+          id="comment-message"
+          name="message"
+          rows="6"
+          placeholder="留下想說的話⋯⋯"
+          required
+        ></textarea>
 
-    <input name="website" type="text" tabindex="-1" autocomplete="off"
-      style="position:absolute;left:-9999px;" aria-hidden="true">
+        <input
+          name="website"
+          type="text"
+          tabindex="-1"
+          autocomplete="off"
+          style="position:absolute;left:-9999px;"
+          aria-hidden="true"
+        >
 
-    <div class="note-form__footer">
-      <span>FROM PARIS, WITH LOVE</span>
-      <button type="submit">SEND NOTE <i>→</i></button>
-    </div>
-  </div>
+        <div class="note-form__footer">
+          <span>FROM PARIS, WITH LOVE</span>
+          <button type="submit">SEND NOTE <i>→</i></button>
+        </div>
+      </div>
 
-  <p id="comment-status" aria-live="polite"></p>
-</form>
+      <p id="comment-status" aria-live="polite"></p>
+    </form>
 
-<iframe name="comment-result" style="display:none;"></iframe>
-
+    <iframe name="comment-result" style="display:none;"></iframe>
   </section>
 </main>
 
