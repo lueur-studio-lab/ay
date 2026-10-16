@@ -1,0 +1,65 @@
+<main>
+  <section class="sec" id="comments" style="padding:10rem 8%; margin:4rem 0;">
+    <p class="sec-label">留言 · LEAVE A NOTE</p>
+
+    <h1 style="font-family:var(--serif);font-size:2rem;font-style:italic;font-weight:300;margin:0 0 2rem;">
+      Say something
+    </h1>
+
+    <form
+      id="comment-form"
+      action="YOUR_APPS_SCRIPT_URL"
+      method="post"
+      target="comment-result"
+      style="max-width:680px;"
+    >
+      <label for="comment-name" style="display:block;margin-bottom:.6rem;font-size:.8rem;letter-spacing:.12em;">
+        YOUR NAME
+      </label>
+      <input
+        id="comment-name"
+        name="name"
+        type="text"
+        placeholder="怎麼稱呼你？"
+        required
+        style="box-sizing:border-box;width:100%;margin-bottom:1.5rem;padding:.9rem 0;background:transparent;border:0;border-bottom:1px solid var(--border);font:inherit;color:var(--ink);outline:none;"
+      >
+
+      <label for="comment-message" style="display:block;margin-bottom:.6rem;font-size:.8rem;letter-spacing:.12em;">
+        YOUR NOTE
+      </label>
+      <textarea
+        id="comment-message"
+        name="message"
+        rows="5"
+        placeholder="留下想說的話⋯⋯"
+        required
+        style="box-sizing:border-box;display:block;width:100%;resize:vertical;margin-bottom:1.5rem;padding:.9rem 0;background:transparent;border:0;border-bottom:1px solid var(--border);font:inherit;line-height:1.8;color:var(--ink);outline:none;"
+      ></textarea>
+
+      <!-- 防垃圾訊息：正常使用者看不到 -->
+      <input name="website" type="text" tabindex="-1" autocomplete="off"
+        style="position:absolute;left:-9999px;" aria-hidden="true">
+
+      <button type="submit"
+        style="padding:.9rem 1.6rem;border:1px solid var(--ink);background:transparent;color:var(--ink);font:inherit;font-size:.75rem;letter-spacing:.15em;cursor:pointer;">
+        SEND NOTE →
+      </button>
+
+      <p id="comment-status" aria-live="polite" style="display:none;margin-top:1rem;"></p>
+    </form>
+
+    <iframe name="comment-result" style="display:none;"></iframe>
+  </section>
+</main>
+
+<script>
+  const form = document.getElementById('comment-form');
+  const status = document.getElementById('comment-status');
+
+  form.addEventListener('submit', () => {
+    status.textContent = '謝謝你的留言。';
+    status.style.display = 'block';
+    form.reset();
+  });
+</script>
