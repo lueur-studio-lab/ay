@@ -1,3 +1,108 @@
+<style>
+.note-form {
+  max-width: 680px;
+  margin-top: 3rem;
+  padding: 7px;
+  border: 1px solid #34312c;
+  background: #f7f5f0;
+  box-shadow: 7px 7px 0 rgba(52, 49, 44, 0.14);
+}
+
+.note-form__inner {
+  padding: 2.2rem 2rem 1.4rem;
+  border: 1px solid #bcb5aa;
+}
+
+.note-form label {
+  display: block;
+  margin: 0 0 0.65rem;
+  color: #34312c;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.note-form input,
+.note-form textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin: 0 0 2rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid #bcb5aa;
+  border-radius: 0;
+  background: #fffefa;
+  color: #34312c;
+  font: inherit;
+  font-family: "Noto Serif TC", serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  outline: none;
+}
+
+.note-form textarea {
+  resize: vertical;
+  min-height: 180px;
+}
+
+.note-form input:focus,
+.note-form textarea:focus {
+  border-color: #34312c;
+  box-shadow: inset 0 0 0 1px #34312c;
+}
+
+.note-form input::placeholder,
+.note-form textarea::placeholder {
+  color: #aaa49c;
+}
+
+.note-form__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid #bcb5aa;
+}
+
+.note-form__footer span {
+  color: #827b72;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+}
+
+.note-form button {
+  margin-top: -1px;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #34312c;
+  border-radius: 0;
+  background: #34312c;
+  color: #fffefa;
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.note-form button:hover {
+  background: transparent;
+  color: #34312c;
+}
+
+.note-form button i {
+  padding-left: 0.4rem;
+  font-size: 1rem;
+  font-style: normal;
+}
+
+#comment-status {
+  display: none;
+  margin: 1rem 0 0;
+  color: #5a6754;
+}
+</style>
+
 <main>
   <section class="sec" id="comments" style="padding:10rem 8%; margin:4rem 0;">
     <p class="sec-label">留言 · LEAVE A NOTE</p>
@@ -7,49 +112,45 @@
     </h1>
 
     <form
-      id="comment-form"
-      action="YOUR_APPS_SCRIPT_URL"
-      method="post"
-      target="comment-result"
-      style="max-width:680px;"
+  id="comment-form"
+  action="YOUR_APPS_SCRIPT_URL"
+  method="post"
+  target="comment-result"
+  class="note-form"
+>
+  <div class="note-form__inner">
+    <label for="comment-name">YOUR NAME</label>
+    <input
+      id="comment-name"
+      name="name"
+      type="text"
+      placeholder="怎麼稱呼你？"
+      required
     >
-      <label for="comment-name" style="display:block;margin-bottom:.6rem;font-size:.8rem;letter-spacing:.12em;">
-        YOUR NAME
-      </label>
-      <input
-        id="comment-name"
-        name="name"
-        type="text"
-        placeholder="怎麼稱呼你？"
-        required
-        style="box-sizing:border-box;width:100%;margin-bottom:1.5rem;padding:.9rem 0;background:transparent;border:0;border-bottom:1px solid var(--border);font:inherit;color:var(--ink);outline:none;"
-      >
 
-      <label for="comment-message" style="display:block;margin-bottom:.6rem;font-size:.8rem;letter-spacing:.12em;">
-        YOUR NOTE
-      </label>
-      <textarea
-        id="comment-message"
-        name="message"
-        rows="5"
-        placeholder="留下想說的話⋯⋯"
-        required
-        style="box-sizing:border-box;display:block;width:100%;resize:vertical;margin-bottom:1.5rem;padding:.9rem 0;background:transparent;border:0;border-bottom:1px solid var(--border);font:inherit;line-height:1.8;color:var(--ink);outline:none;"
-      ></textarea>
+    <label for="comment-message">YOUR NOTE</label>
+    <textarea
+      id="comment-message"
+      name="message"
+      rows="6"
+      placeholder="留下想說的話⋯⋯"
+      required
+    ></textarea>
 
-      <!-- 防垃圾訊息：正常使用者看不到 -->
-      <input name="website" type="text" tabindex="-1" autocomplete="off"
-        style="position:absolute;left:-9999px;" aria-hidden="true">
+    <input name="website" type="text" tabindex="-1" autocomplete="off"
+      style="position:absolute;left:-9999px;" aria-hidden="true">
 
-      <button type="submit"
-        style="padding:.9rem 1.6rem;border:1px solid var(--ink);background:transparent;color:var(--ink);font:inherit;font-size:.75rem;letter-spacing:.15em;cursor:pointer;">
-        SEND NOTE →
-      </button>
+    <div class="note-form__footer">
+      <span>FROM PARIS, WITH LOVE</span>
+      <button type="submit">SEND NOTE <i>→</i></button>
+    </div>
+  </div>
 
-      <p id="comment-status" aria-live="polite" style="display:none;margin-top:1rem;"></p>
-    </form>
+  <p id="comment-status" aria-live="polite"></p>
+</form>
 
-    <iframe name="comment-result" style="display:none;"></iframe>
+<iframe name="comment-result" style="display:none;"></iframe>
+
   </section>
 </main>
 
