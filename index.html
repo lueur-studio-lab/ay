@@ -2,7 +2,12 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <script src="data.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>lueur.studio — 巴黎的微光</title>
+<link rel="canonical" href="https://lueur-studio-lab.github.io/ay/">
+
+<script src="data.js" defer></script>
 
   <!-- SEO -->
   <meta name="description" content="住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。">
@@ -26,8 +31,8 @@
       "name": "lueur"
     },
     "description": "住在巴黎的台灣人，記錄真實的巴黎日常、攝影與生活碎片。",
-    "url": "https://lueur-studio-lab.github.io/"
-  }
+    "url": "https://lueur-studio-lab.github.io/ay/"
+    }
   </script>
 
   <style>
@@ -61,8 +66,7 @@
     .nav-r a{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
 
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 8%; position: relative; overflow: hidden; background-image: url('images/palaisroyal02.webp'); background-size: cover; background-position: center; }
-    .hero-bg { position: absolute; inset: 0; background-color: rgba(242, 241, 238, 0.85); z-index: 1; }
-    .hero-content { position: relative; z-index: 2; }
+    .hero-bg { position: absolute; inset: 0; background-color: rgba(242, 241, 238, 0.78); z-index: 1; }    .hero-content { position: relative; z-index: 2; }
     .hero-h1 { font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 1.5rem; }
 
     .ticker { background: var(--ink); color: var(--bg); padding: 12px 0; overflow: hidden; white-space: nowrap; font-family: var(--mono); font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; display: flex; }
@@ -111,6 +115,45 @@
     #artWrap button { display: block !important; z-index: 9999 !important; }
     .art-content-body { max-width: 680px !important; margin: 0 auto !important; }
     .art-divider { border: none !important; border-top: 3px dotted #ddd !important; width: 30px !important; margin: 6rem auto 4rem !important; display: block !important; }
+  
+  .gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 360px));
+  gap: 1.5rem;
+  justify-content: start;
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+    .side-list a.is-active {
+  color: var(--blue);
+  padding-left: 5px;
+}
+
+.side-list a.is-active::before {
+  content: "— ";
+}
+
+    @media (max-width: 640px) {
+  .site-footer {
+    padding: 3rem 1.5rem 2.5rem !important;
+  }
+
+  .site-footer-inner {
+    align-items: flex-start !important;
+    flex-direction: column;
+    gap: 0.8rem !important;
+  }
+
+  .site-footer-inner > * {
+    flex: none !important;
+    text-align: left !important;
+  }
+}
+    
   </style>
 </head>
 <body>
@@ -177,10 +220,10 @@
       <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 3rem; font-style: italic; font-weight: 300; color: var(--ink2);">
         Between <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Frames</span>
       </h2>
-      <div class="gallery-grid" id="galleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;"></div>
+    <div class="gallery-grid" id="galleryGrid"></div>
     </section>
 
-    <section id="about" class="sec" style="padding: 10rem 8%; margin: 4rem 0; position: relative; background: linear-gradient(rgba(242, 241, 238, 0.9), rgba(242, 241, 238, 0.9)), url('images/palaisroyal02.webp'); background-size: cover; background-position: center; background-attachment: scroll;">
+    <section id="about" class="sec" style="padding: 10rem 8%; margin: 4rem 0; position: relative; background: linear-gradient(rgba(242, 241, 238, 0.80), rgba(242, 241, 238, 0.80)), url('images/palaisroyal02.webp'); background-size: cover; background-position: center; background-attachment: scroll;">
       <div class="about-content" style="max-width: 800px; margin: 0; position: relative; z-index: 2; padding: 0;"> 
         <p class="sec-label" style="opacity: 0.6; text-align: left;">關於我 · ABOUT ME</p>
         
@@ -197,14 +240,12 @@
         </div>
       </div>
     </section>
-
-    <p id="comment-status" aria-live="polite" style="margin-top:1rem;font-size:.9rem;display:none;"></p>
-  </form>
+<footer class="site-footer" style="padding: 5rem 8% 3rem; border-top: 1px solid var(--border); background: var(--bg);">
 </section>
     
     <footer style="padding: 5rem 8% 3rem; border-top: 1px solid var(--border); background: var(--bg);">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
-        <a class="logo" href="#" style="color: var(--blue); font-size: 0.9rem; text-decoration: none; flex: 1; text-align: left;">
+<div class="site-footer-inner" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+  <a class="logo" href="#" style="color: var(--blue); font-size: 0.9rem; text-decoration: none; flex: 1; text-align: left;">
           <span>l</span>ueur.studio
         </a>
         <div style="font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.2em; color: var(--blue-mid); text-transform: uppercase; flex: 2; text-align: center;">
@@ -385,14 +426,42 @@ let thumbUrl =
     }
   }
 
-  window.onscroll = checkScroll;
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  function setupSectionNav() {
+  const links = [...document.querySelectorAll('.side-list a[href^="#"]')];
 
-  function initApp() {
-    renderPosts();
-    renderGallery();
-    const overlay = document.getElementById('artOverlay');
-    if (overlay) overlay.addEventListener('scroll', checkScroll);
+  const sections = links
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  function updateActiveLink() {
+    const marker = window.scrollY + window.innerHeight * 0.35;
+    let current = sections[0];
+
+    sections.forEach(section => {
+      if (section.offsetTop <= marker) current = section;
+    });
+
+    links.forEach(link => {
+      link.classList.toggle(
+        'is-active',
+        link.getAttribute('href') === `#${current.id}`
+      );
+    });
   }
+
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink();
+}
+  
+function initApp() {
+  renderPosts();
+  renderGallery();
+  setupSectionNav();
+
+  const overlay = document.getElementById('artOverlay');
+  if (overlay) overlay.addEventListener('scroll', checkScroll);
+}
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
