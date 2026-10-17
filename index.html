@@ -169,7 +169,7 @@
 <nav>
   <a class="logo" href="#"><span>l</span>ueur.studio</a>
   <div class="nav-r">
-    <a href="#recent">日常</a>
+    <a href="journal.html">日常</a>
     <a href="#about">關於</a>
     <span style="font-family:var(--mono);font-size:.55rem;color:var(--muted)">Paris, FR</span>
   </div>
@@ -180,7 +180,7 @@
     <div class="side-group">
       <h3>探索 · Explore</h3>
       <ul class="side-list">
-        <li><a href="#recent">Parisian Fragments</a></li>
+        <li><a href="journal.html">Parisian Fragments</a></li>
         <li><a href="#gallery">Visual Diary</a></li>
         <li><a href="#about">About Me</a></li>
         <li><a href="comments.html">Leave a Note</a></li>
@@ -195,8 +195,7 @@
         <p class="sec-label">Est. 2026 · Chroniques Parisiennes</p>
         <h1 class="hero-h1">巴黎的微光<br><i style="font-weight:400;color:var(--blue)">fragments</i></h1>
         <p style="max-width: 500px; font-size: 0.9rem; color: var(--ink2); margin-bottom: 2rem;">不是旅遊攻略，不是打卡清單。只是一個住在巴黎的人，記錄那些真實、無聊且偶爾很美的日常碎片。</p>
-        <a href="#recent" style="font-family:var(--mono);font-size:.6rem;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px">最新日常 →</a>
-      </div>
+        <a href="journal.html" style="font-family:var(--mono);font-size:.6rem;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px">閱讀日常 →</a>      </div>
     </section>
 
     <div class="ticker">
@@ -206,14 +205,6 @@
         <span>PARIS DIARY ✦ LUEUR.STUDIO ✦ SILENT OBSERVATION ✦ FRAGMENT ✦ </span>
       </div>
     </div>
-
-    <section id="recent" class="sec">
-      <p class="sec-label">巴黎碎片 · PARISIAN FRAGMENTS</p>      
-      <h2 style="font-family: var(--serif); font-size: 2.2rem; margin-bottom: 2rem; font-style: italic; font-weight: 300; color: var(--ink2);">
-        Chroniques <span style="font-style: normal; font-size: 1.4rem; color: var(--muted); margin-left: 15px; opacity: 0.8;">/ Fragments</span>
-      </h2>      
-      <div class="journal-list"></div>
-    </section>
 
     <section id="gallery" class="sec">
       <p class="sec-label">影像紀錄 · VISUAL DIARY</p>
@@ -455,7 +446,6 @@ let thumbUrl =
 }
   
 function initApp() {
-  renderPosts();
   renderGallery();
   setupSectionNav();
 
