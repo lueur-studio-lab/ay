@@ -102,8 +102,8 @@
     .art-header { text-align: left !important; margin-bottom: 50px; padding-left: 0 !important; }
     .art-header p { font-family: 'Noto Serif TC', serif !important; color: #999 !important; font-size: 13px !important; letter-spacing: 0.05em !important; text-align: left !important; margin-top: 8px; font-style: italic; }
 
-    .art-img-container, .j-album-container, .j-gallery-item, .gallery-item, #artWrap div[style*="position:relative"] { position: relative !important; display: flex !important; justify-content: center !important; align-items: center !important; max-width: 100vw !important; overflow: hidden !important; }
-    .art-watermark, #artWrap div[style*="position:relative"] > span { position: absolute !important; bottom: 25px !important; z-index: 999 !important; pointer-events: none; white-space: nowrap !important; color: rgba(255, 255, 255, 0.7) !important; font-family: var(--mono) !important; font-size: 10px !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important; left: auto !important; right: 20% !important; transform: translateX(10px) !important; }
+    .art-img-container, .j-album-container, .j-gallery-item, .gallery-item { position: relative !important; display: flex !important; justify-content: center !important; align-items: center !important; max-width: 100vw !important; overflow: hidden !important; }
+    .art-watermark { position: absolute !important; bottom: 25px !important; z-index: 999 !important; pointer-events: none; white-space: nowrap !important; color: rgba(255, 255, 255, 0.7) !important; font-family: var(--mono) !important; font-size: 10px !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important; left: auto !important; right: 20% !important; transform: translateX(10px) !important; }
 
     @media (min-width: 1024px) {
       #artWrap div[style*="position:relative"] > span { right: 50% !important; transform: translateX(200px) !important; }
@@ -377,7 +377,7 @@ let thumbUrl =
         <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:85%;">
           ${currentList.length > 1 ? `
             <button onclick="let n = currentIdx - 1; if(n < 0){ n = currentList.length - 1; } openLightbox(n); event.stopPropagation();" 
-                    style="position:absolute; left:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">‹</button>
+        style="position:absolute; left:16px; top:50%; transform:translateY(-50%); background:rgba(242,241,238,.9); border:1px solid var(--border); border-radius:50%; cursor:pointer; font-size:2rem; color:var(--ink); z-index:100000; width:44px; height:44px;">‹</button>
           ` : ''}
           
           <div class="j-album-container" style="position:relative; width:100%; display:flex; justify-content:center;">
@@ -387,7 +387,7 @@ let thumbUrl =
           
           ${currentList.length > 1 ? `
             <button onclick="let n = currentIdx + 1; if(n >= currentList.length){ n = 0; } openLightbox(n); event.stopPropagation();" 
-                    style="position:absolute; right:-60px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:2.5rem; color:var(--muted); z-index:100000; padding:15px;">›</button>
+        style="position:absolute; right:16px; top:50%; transform:translateY(-50%); background:rgba(242,241,238,.9); border:1px solid var(--border); border-radius:50%; cursor:pointer; font-size:2rem; color:var(--ink); z-index:100000; width:44px; height:44px;">›</button>
           ` : ''}
         </div>
 
