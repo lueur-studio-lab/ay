@@ -120,13 +120,11 @@
       min-width: 0;
     }
 
-    .about-hero {
-      min-height: 100vh;
-      padding: 7rem 8% 6rem;
-      background:
-        linear-gradient(rgba(242,241,238,.80), rgba(242,241,238,.80)),
-        url("images/palaisroyal02.webp") center / cover;
-    }
+    .about-page {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 7rem 8% 7rem;
+}
 
     .back-home {
       display: inline-block;
@@ -222,41 +220,29 @@
     footer p:last-child { text-align: right; opacity: .5; }
 .about-story {
   max-width: 780px;
-  margin-top: 5rem;
-  padding-top: 4rem;
+  margin: 3.5rem 0 0;
+  padding: 4rem 0 0;
   border-top: 1px solid var(--border);
 }
 
 .about-story h2 {
   margin-bottom: 2.5rem;
   color: var(--ink);
-  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-style: italic;
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .about-story h3 {
   margin: 2.5rem 0 1rem;
   color: var(--blue);
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  font-style: italic;
+  font-family: var(--mono);
+  font-size: .65rem;
+  font-style: normal;
   font-weight: 400;
-}
-
-.about-story p {
-  max-width: 700px;
-  margin-bottom: 1.5rem;
-  color: var(--ink2);
-  font-family: "Noto Serif TC", serif;
-  font-size: 1rem;
-  line-height: 2.3;
-}
-
-.about-story hr {
-  margin: 4rem 0;
-  border: 0;
-  border-top: 1px solid var(--border);
+  letter-spacing: .18em;
+  text-transform: uppercase;
 }
     @media (min-width: 1024px) {
       .main-wrapper { flex-direction: row; }
@@ -273,10 +259,9 @@
     @media (max-width: 768px) {
       .nav-r { gap: .8rem; }
 
-      .about-hero {
-        min-height: auto;
-        padding: 5rem 1.5rem 4rem;
-      }
+      .about-page {
+  padding: 5rem 1.5rem 4rem;
+    }
 
       .about-details {
         grid-template-columns: 1fr;
@@ -330,35 +315,19 @@
 
         <div class="about-intro">
           <span class="page-label">關於我 · ABOUT ME</span>
-
-          <h1>漫步 · 在巴黎</h1>
-
-          <p>
-            幾年前搬來巴黎，以為是一場旅行。後來才明白，這已是我的生活方式。
-            習慣走進瑪黑區的巷弄，帶著手機——拾起光影，也拾起記憶。
-          </p>
-
-          <p>
-            這個空間，是我寫給自己、也留給你的私語。
-            關於異鄉生活的點滴，關於城市裡偶然停下來的瞬間。
-          </p>
-
-          <div class="about-details">
-            <span>Paris, France</span>
-            <span>Words · Images · Walking</span>
-            <span>Est. 2026</span>
           </div>
-          <section class="about-story">
-  <h2>在巴黎，拾起那些被遺落的瞬間</h2>
-
-  <h3>契機</h3>
-  <p>
-    2年前搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
-    後來有了一段被迫暫停的日子，與其說是放假，不如說是一個不知所措的等待期。<br>
-    照常和朋友出門、逛展覽、聊心情，卻總覺得少了點什麼。
-  </p>
-
-  <p>
+          </section>
+        <section class="about-story">
+    <h2>在巴黎，拾起那些被遺落的瞬間</h2>
+  
+    <h3>契機</h3>
+    <p>
+      2年前搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
+      後來有了一段被迫暫停的日子，與其說是放假，不如說是一個不知所措的等待期。<br>
+      照常和朋友出門、逛展覽、聊心情，卻總覺得少了點什麼。
+    </p>
+  
+    <p>
     手機裡存著咖啡廳的午後光線、展覽裡人來人往的片段、巴黎街頭的隨性瞬間。<br>
     在和幾位知心的前輩聊完天後，某個夜晚，那個開關突然被啟動了。<br>
     說是突然，其實早有伏筆——碩士課程裡接觸過網頁設計，去年也曾動念，只是沒有真正落實，就這樣擱著。<br>
@@ -401,8 +370,7 @@
   <h3>A note to you</h3>
   <p>Maybe you'll find something that resonates. Maybe you won't. Either way, you're welcome here.</p>
 </section>
-        </div>
-      </section>
+      
     </main>
   </div>
 
