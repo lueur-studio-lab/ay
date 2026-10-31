@@ -45,10 +45,10 @@
       --mono:'Inter', sans-serif;
 
       /* ── 相簿大圖（燈箱）的顏色：想換背景只要改這四行 ── */
-     --lb-bg: #f2f1ee;
-     --lb-fg: #3a3c52;
-     --lb-line: rgba(43,45,66,.15);
-     --lb-arrow-bg: rgba(242,241,238,.9);
+      --lb-bg: #1f2030;                    /* 背景色 */
+      --lb-fg: rgba(242,241,238,.8);       /* 文字與箭頭顏色 */
+      --lb-line: rgba(242,241,238,.18);    /* 分隔線與箭頭外框 */
+      --lb-arrow-bg: rgba(31,32,48,.55);   /* 箭頭圓圈底色 */
     }
     html{scroll-behavior:smooth}
     body { font-family: var(--serif); background: var(--bg); color: var(--ink); font-size: 16px; line-height: 2; font-weight: 300; }
@@ -119,13 +119,58 @@
     .art-overlay.is-lightbox .logo { color: var(--lb-fg); }
     .art-overlay.is-lightbox .art-back:hover { color: var(--lb-fg); opacity: .65; }
     .art-overlay.is-lightbox .art-back {
-      font-family: var(--serif);
-      font-size: .7rem;
-      font-style: normal;
-      letter-spacing: .16em;
+    font-family: var(--serif);
+    font-size: .7rem;
+    font-style: normal;
+    letter-spacing: .16em;
     }
-    .lb-caption { text-align: center; font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--lb-fg); margin-top: 1rem; }
-    .lb-count { text-align: center; font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--lb-fg); opacity: .6; margin-top: .8rem; }
+    /* 相簿輪播：左右捲動，會自動對齊到一張照片 */
+    .art-overlay.is-lightbox .art-inner-container { max-width: 1100px; }
+    .lb-carousel { position: relative; margin-top: 1rem; }
+    .lb-track {
+      display: flex;
+      overflow-x: auto;
+      padding: 0 11%;
+      scroll-padding: 0 11%;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      outline: none;
+    }
+    .lb-track::-webkit-scrollbar { display: none; }
+    .lb-slide {
+      flex: 0 0 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      height: min(72vh, 720px);
+      margin: 0;
+      padding: 0 .6rem;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      opacity: .3;
+      transition: opacity .4s ease;
+    }
+    .lb-slide.is-active { opacity: 1; }
+    .lb-frame { position: relative; display: flex; max-width: 100%; max-height: 100%; }
+    .lb-frame img { display: block; max-width: 100%; max-height: min(72vh, 720px); width: auto; height: auto; object-fit: contain; }
+    .lb-mark { position: absolute; right: 12px; bottom: 10px; color: rgba(255,255,255,.75); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-shadow: 0 1px 3px rgba(0,0,0,.5); white-space: nowrap; pointer-events: none; }
+    .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 1px solid var(--lb-line); border-radius: 50%; background: var(--lb-arrow-bg); color: var(--lb-fg); font-size: 1.8rem; line-height: 1; cursor: pointer; transition: opacity .25s; }
+    .lb-arrow:hover { opacity: .7; }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+    .lb-caption { min-height: 1.6em; margin-top: 1.5rem; text-align: center; font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--lb-fg); }
+    .lb-meta { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: .8rem; }
+    .lb-count { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--lb-fg); opacity: .6; }
+    .lb-play { background: none; border: none; cursor: pointer; font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; color: var(--lb-fg); opacity: .8; }
+    .lb-play:hover { opacity: 1; }
+    @media (max-width: 768px) {
+      #artWrap .lb-arrow { display: none !important; }
+      .lb-track { padding: 0 6%; scroll-padding: 0 6%; }
+      .lb-slide { height: min(62vh, 560px); }
+      .lb-frame img { max-height: min(62vh, 560px); }
+    }
 
     .art-content-body figure { display: table; margin: 1.5rem auto; max-width: 100%; }
     .art-content-body figure p { text-align: right !important; font-size: 14.5px !important; color: #ccc !important; margin-top: 0.3rem !important; font-family: 'Noto Serif TC', serif !important; }
@@ -347,6 +392,7 @@
     const overlay = document.getElementById('artOverlay');
     overlay.style.display = 'none';
     overlay.classList.remove('is-lightbox');
+    stopLbPlay();
     document.body.style.overflow = 'auto';
   }
 
@@ -371,24 +417,35 @@
     });
   }
 
+  var lbTimer = null;
+  var lbRaf = null;
+
   function openLightbox(idx, albumId) {
     if (albumId && typeof ALBUMS !== 'undefined') {
       const album = ALBUMS.find(a => a.id === albumId);
       if (album) currentList = album.photos;
     }
 
-    currentIdx = idx;
     const overlay = document.getElementById('artOverlay');
     const wrap = document.getElementById('artWrap');
-    if (!overlay || !wrap) return;
+    if (!overlay || !wrap || !currentList.length) return;
 
-    let photo = currentList[currentIdx];
-    if (!photo) return;
-
+    stopLbPlay();
     overlay.classList.add('is-lightbox');
+    currentIdx = Math.max(0, Math.min(idx || 0, currentList.length - 1));
+    const multi = currentList.length > 1;
 
-    let finalSrc = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
-    let caption = photo.desc || '';
+    const slides = currentList.map(photo => {
+      const src = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
+      const alt = (photo.desc || '').replace(/"/g, '&quot;');
+      return `
+        <figure class="lb-slide">
+          <div class="lb-frame">
+            <img src="${src}" alt="${alt}" decoding="async">
+            <span class="lb-mark">© lueur.studio</span>
+          </div>
+        </figure>`;
+    }).join('');
 
     wrap.innerHTML = `
       <div class="art-inner-container">
@@ -397,30 +454,86 @@
           <div class="logo">lueur.studio</div>
         </div>
 
-        <div style="position:relative; display:flex; align-items:center; justify-content:center; margin:40px auto; max-width:85%;">
-          ${currentList.length > 1 ? `
-            <button onclick="let n = currentIdx - 1; if(n < 0){ n = currentList.length - 1; } openLightbox(n); event.stopPropagation();"
-        style="position:absolute; left:16px; top:50%; transform:translateY(-50%); background:var(--lb-arrow-bg); border:1px solid var(--lb-line); border-radius:50%; cursor:pointer; font-size:2rem; color:var(--lb-fg); z-index:100000; width:44px; height:44px;">‹</button>
-          ` : ''}
-
-          <div class="j-album-container" style="position:relative; width:100%; display:flex; justify-content:center;">
-            <img src="${finalSrc}" alt="${caption}" style="width:100%; height:auto; display:block; object-fit:contain; max-height:80vh;">
-            <span class="art-watermark">© lueur.studio</span>
-          </div>
-
-          ${currentList.length > 1 ? `
-            <button onclick="let n = currentIdx + 1; if(n >= currentList.length){ n = 0; } openLightbox(n); event.stopPropagation();"
-        style="position:absolute; right:16px; top:50%; transform:translateY(-50%); background:var(--lb-arrow-bg); border:1px solid var(--lb-line); border-radius:50%; cursor:pointer; font-size:2rem; color:var(--lb-fg); z-index:100000; width:44px; height:44px;">›</button>
-          ` : ''}
+        <div class="lb-carousel">
+          ${multi ? `<button class="lb-arrow lb-prev" onclick="lbGo(-1, true)" aria-label="上一張">‹</button>` : ''}
+          <div class="lb-track" id="lbTrack" tabindex="0" aria-label="相簿照片，可左右滑動">${slides}</div>
+          ${multi ? `<button class="lb-arrow lb-next" onclick="lbGo(1, true)" aria-label="下一張">›</button>` : ''}
         </div>
 
-        ${caption ? `<p class="lb-caption">${caption}</p>` : ''}
-        ${currentList.length > 1 ? `<p class="lb-count">${currentIdx + 1} / ${currentList.length}</p>` : ''}
+        <p class="lb-caption" id="lbCaption"></p>
+        <div class="lb-meta">
+          <span class="lb-count" id="lbCount"></span>
+          ${multi ? `<button class="lb-play" id="lbPlay" onclick="lbTogglePlay()">PLAY</button>` : ''}
+        </div>
       </div>`;
 
     overlay.style.display = 'block';
     overlay.scrollTop = 0;
     document.body.style.overflow = 'hidden';
+
+    const track = document.getElementById('lbTrack');
+    track.addEventListener('scroll', onLbScroll, { passive: true });
+    // 讀者自己動手滑，就停止自動播放
+    ['pointerdown', 'wheel', 'touchstart'].forEach(ev => track.addEventListener(ev, stopLbPlay, { passive: true }));
+
+    updateLb();
+    requestAnimationFrame(() => lbGoTo(currentIdx, false));
+  }
+
+  // 目前是第幾張：更新亮度、說明文字、頁碼
+  function updateLb() {
+    document.querySelectorAll('#lbTrack .lb-slide').forEach((s, i) => s.classList.toggle('is-active', i === currentIdx));
+    const photo = currentList[currentIdx];
+    if (!photo) return;
+    const cap = document.getElementById('lbCaption');
+    if (cap) cap.textContent = photo.desc || '';
+    const count = document.getElementById('lbCount');
+    if (count) count.textContent = (currentIdx + 1) + ' / ' + currentList.length;
+  }
+
+  // 捲動時，找出正在中間的那一張
+  function onLbScroll() {
+    if (lbRaf) return;
+    lbRaf = requestAnimationFrame(() => {
+      lbRaf = null;
+      const track = document.getElementById('lbTrack');
+      const slide = track && track.querySelector('.lb-slide');
+      if (!slide) return;
+      const i = Math.max(0, Math.min(Math.round(track.scrollLeft / slide.offsetWidth), currentList.length - 1));
+      if (i !== currentIdx) {
+        currentIdx = i;
+        updateLb();
+      }
+    });
+  }
+
+  function lbGoTo(i, smooth) {
+    const track = document.getElementById('lbTrack');
+    const slide = track && track.querySelector('.lb-slide');
+    if (!slide) return;
+    track.scrollTo({ left: i * slide.offsetWidth, behavior: smooth ? 'smooth' : 'auto' });
+  }
+
+  // 上一張／下一張（到盡頭會接回另一端）
+  function lbGo(step, manual) {
+    if (manual) stopLbPlay();
+    let n = currentIdx + step;
+    if (n < 0) n = currentList.length - 1;
+    if (n >= currentList.length) n = 0;
+    lbGoTo(n, true);
+  }
+
+  function lbTogglePlay() {
+    if (lbTimer) { stopLbPlay(); return; }
+    lbTimer = setInterval(() => lbGo(1, false), 4000);
+    const btn = document.getElementById('lbPlay');
+    if (btn) btn.textContent = 'PAUSE';
+  }
+
+  function stopLbPlay() {
+    if (lbTimer) { clearInterval(lbTimer); lbTimer = null; }
+    const btn = document.getElementById('lbPlay');
+    if (btn) btn.textContent = 'PLAY';
   }
 
   function handleBackToTop() {
@@ -486,6 +599,16 @@
 
     const overlay = document.getElementById('artOverlay');
     if (overlay) overlay.addEventListener('scroll', checkScroll);
+
+    document.addEventListener('keydown', e => {
+      const ov = document.getElementById('artOverlay');
+      if (!ov || ov.style.display !== 'block') return;
+      if (e.key === 'Escape') closeArt();
+      else if (ov.classList.contains('is-lightbox')) {
+        if (e.key === 'ArrowRight') lbGo(1, true);
+        if (e.key === 'ArrowLeft') lbGo(-1, true);
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
