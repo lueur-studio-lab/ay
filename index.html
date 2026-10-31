@@ -44,6 +44,7 @@
       --serif:'Cormorant Garamond', 'Noto Serif TC', serif;
       --mono:'Inter', sans-serif;
 
+      /* ── 相簿大圖（燈箱）的顏色：想換背景只要改這四行 ── */
       --lb-bg: #f2f1ee;
       --lb-fg: #3a3c52;
       --lb-line: rgba(43,45,66,.15);
@@ -118,11 +119,12 @@
     .art-overlay.is-lightbox .logo { color: var(--lb-fg); }
     .art-overlay.is-lightbox .art-back:hover { color: var(--lb-fg); opacity: .65; }
     .art-overlay.is-lightbox .art-back {
-    font-family: var(--serif);
-    font-size: .7rem;
-    font-style: normal;
-    letter-spacing: .16em;
+      font-family: var(--serif);
+      font-size: .7rem;
+      font-style: normal;
+      letter-spacing: .16em;
     }
+
     /* 相簿輪播：左右捲動，會自動對齊到一張照片 */
     .art-overlay.is-lightbox .art-inner-container { max-width: 1100px; }
     .lb-carousel { position: relative; margin-top: 1rem; }
@@ -138,6 +140,7 @@
     }
     .lb-track::-webkit-scrollbar { display: none; }
     .lb-slide {
+      position: relative;
       flex: 0 0 100%;
       display: flex;
       align-items: center;
@@ -148,14 +151,17 @@
       padding: 0 .6rem;
       scroll-snap-align: center;
       scroll-snap-stop: always;
-      opacity: .3;
+      opacity: .35;
       transition: opacity .4s ease;
     }
     .lb-slide.is-active { opacity: 1; }
-    .lb-frame { position: relative; display: flex; max-width: 100%; max-height: 100%; }
-    .lb-frame img { display: block; max-width: 100%; max-height: min(72vh, 720px); width: auto; height: auto; object-fit: contain; }
+    .lb-frame { display: flex; flex-direction: column; max-width: 100%; max-height: 100%; }
+    .lb-photo { position: relative; display: flex; max-width: 100%; }
+    .lb-photo img { display: block; max-width: 100%; max-height: min(72vh, 720px); width: auto; height: auto; object-fit: contain; }
     .lb-mark { position: absolute; right: 12px; bottom: 10px; color: rgba(255,255,255,.75); font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-shadow: 0 1px 3px rgba(0,0,0,.5); white-space: nowrap; pointer-events: none; }
-    .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 1px solid var(--lb-line); border-radius: 50%; background: var(--lb-arrow-bg); color: var(--lb-fg); font-size: 1.8rem; line-height: 1; cursor: pointer; transition: opacity .25s; }
+    .lb-cap, .lb-no { display: none; }
+
+    .lb-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 44px; height: 44px; border: 1px solid var(--lb-line); border-radius: 50%; background: var(--lb-arrow-bg); color: var(--lb-fg); font-size: 1.8rem; line-height: 1; cursor: pointer; transition: opacity .25s; }
     .lb-arrow:hover { opacity: .7; }
     .lb-prev { left: 1rem; }
     .lb-next { right: 1rem; }
@@ -164,11 +170,43 @@
     .lb-count { font-family: var(--mono); font-size: .6rem; letter-spacing: .1em; color: var(--lb-fg); opacity: .6; }
     .lb-play { background: none; border: none; cursor: pointer; font-family: var(--mono); font-size: .6rem; letter-spacing: .14em; color: var(--lb-fg); opacity: .8; }
     .lb-play:hover { opacity: 1; }
+
+    /* ── 外框一：電影膠片（黑色底片，上下有齒孔，角落有底片編號）── */
+    .lb-film { --perf: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14'%3E%3Crect x='6' y='2' width='12' height='10' rx='2.5'/%3E%3C/svg%3E"); }
+    .lb-film .lb-slide { padding: 40px 16px; background: #111; box-shadow: 0 0 0 1px rgba(255,255,255,.05); }
+    .lb-film .lb-photo img { max-height: calc(min(72vh, 720px) - 80px); }
+    .lb-film .lb-slide::before,
+    .lb-film .lb-slide::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background: var(--lb-bg);
+      -webkit-mask: var(--perf) center / 24px 14px repeat-x;
+      mask: var(--perf) center / 24px 14px repeat-x;
+    }
+    .lb-film .lb-slide::before { top: 10px; }
+    .lb-film .lb-slide::after { bottom: 10px; }
+    .lb-film .lb-no { display: block; position: absolute; left: 18px; bottom: 25px; font-family: var(--mono); font-size: 9px; line-height: 12px; letter-spacing: .12em; color: #c98f3a; opacity: .85; }
+
+    /* ── 外框二：拍立得（白色相紙，底部較厚，說明文字寫在相紙上）── */
+    .lb-polaroid .lb-track { padding-top: 14px; padding-bottom: 30px; }
+    .lb-polaroid .lb-frame { padding: 14px 14px 0; background: #fbfaf6; box-shadow: 0 10px 28px rgba(43,45,66,.22); transition: transform .5s ease; }
+    .lb-polaroid .lb-photo img { max-height: calc(min(72vh, 720px) - 150px); }
+    .lb-polaroid .lb-cap { display: block; min-height: 3.4rem; padding: 16px 6px 22px; text-align: center; font-family: var(--serif); font-size: 1rem; font-style: italic; color: #3a3c52; }
+    .lb-polaroid .lb-slide:nth-child(odd) .lb-frame { transform: rotate(-1.4deg); }
+    .lb-polaroid .lb-slide:nth-child(even) .lb-frame { transform: rotate(1.1deg); }
+    .lb-polaroid .lb-slide.is-active .lb-frame { transform: rotate(0); }
+    .lb-polaroid .lb-caption { display: none; }
+
     @media (max-width: 768px) {
       #artWrap .lb-arrow { display: none !important; }
       .lb-track { padding: 0 6%; scroll-padding: 0 6%; }
       .lb-slide { height: min(62vh, 560px); }
-      .lb-frame img { max-height: min(62vh, 560px); }
+      .lb-photo img { max-height: min(62vh, 560px); }
+      .lb-film .lb-photo img { max-height: calc(min(62vh, 560px) - 80px); }
+      .lb-polaroid .lb-photo img { max-height: calc(min(62vh, 560px) - 150px); }
     }
 
     .art-content-body figure { display: table; margin: 1.5rem auto; max-width: 100%; }
@@ -416,8 +454,15 @@
     });
   }
 
+  // 相簿外框樣式：'film' = 電影膠片　'polaroid' = 拍立得
+  var LB_FRAME = 'film';
+
   var lbTimer = null;
   var lbRaf = null;
+
+  function escHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  }
 
   function openLightbox(idx, albumId) {
     if (albumId && typeof ALBUMS !== 'undefined') {
@@ -433,21 +478,27 @@
     overlay.classList.add('is-lightbox');
     currentIdx = Math.max(0, Math.min(idx || 0, currentList.length - 1));
     const multi = currentList.length > 1;
+    const mode = LB_FRAME === 'polaroid' ? 'polaroid' : 'film';
 
-    const slides = currentList.map(photo => {
+    const slides = currentList.map((photo, i) => {
       const src = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
-      const alt = (photo.desc || '').replace(/"/g, '&quot;');
+      const cap = escHtml(photo.desc || '');
+      const no = String(i + 1).padStart(2, '0');
       return `
         <figure class="lb-slide">
           <div class="lb-frame">
-            <img src="${src}" alt="${alt}" decoding="async">
-            <span class="lb-mark">© lueur.studio</span>
+            <div class="lb-photo">
+              <img src="${src}" alt="${cap}" decoding="async">
+              <span class="lb-mark">© lueur.studio</span>
+            </div>
+            <figcaption class="lb-cap">${cap}</figcaption>
           </div>
+          <span class="lb-no">▸ ${no} &nbsp; ${no}A</span>
         </figure>`;
     }).join('');
 
     wrap.innerHTML = `
-      <div class="art-inner-container">
+      <div class="art-inner-container lb-${mode}">
         <div class="art-nav">
           <button class="art-back" onclick="closeArt()">← BACK TO HOME</button>
           <div class="logo">lueur.studio</div>
