@@ -351,25 +351,19 @@
     .read-next-label {
       display: block;
       margin-bottom: .6rem;
-      color: var(--blue-mid);
-      font-family: var(--mono);
-      font-size: .6rem;
-      letter-spacing: .24em;
-      text-transform: uppercase;
+      color: #34312c;
+      font-family: var(--serif);
+      font-size: .7rem;
+      font-style: normal;
+      letter-spacing: .16em;
     }
 
     .read-next-title {
       display: block;
       color: var(--ink2);
-      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-size: 1.2rem;
       font-weight: 400;
-      line-height: 1.4;
-    }
-
-    .read-next + .all-articles {
-      margin-top: 1.5rem;
-      padding-top: 0;
-      border-top: none;
+      line-height: 1.6;
     }
 
     /* ── 回到頂部箭頭 ── */
@@ -591,8 +585,6 @@
             <span class="read-next-title">${next.title}</span>
           </a>
         ` : ''}
-
-        <a class="all-articles" href="journal.html">VIEW ALL ARTICLES →</a>
       `;
     }
 
