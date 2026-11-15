@@ -1,6 +1,7 @@
 const POSTS = [
   {
     id: 'a1',
+    slug: 'paris-sunday',          // 文章網址：posts/paris-sunday.html（英文小寫、用 - 連接，發布後不要再改）
     title: '巴黎，星期天',
     cat: '巴黎日常 · Just Paris',
     date: '01.04.2026',
@@ -47,6 +48,7 @@ const POSTS = [
   },
   {
     id: 'a2',
+    slug: 'bourse-de-commerce-afternoon',
     title: '放空也是一種奢侈',
     cat: '巴黎日常 · Just Paris',
     date: '04.04.2026',
@@ -97,6 +99,7 @@ const POSTS = [
   },
   {
     id: 'a3',
+    slug: 'louvre-friday-night',
     title: '羅浮宮的夜',
     cat: '巴黎日常 · Just Paris',
     date: '05.04.2026',
@@ -146,6 +149,7 @@ const POSTS = [
   },
   {
     id: "intro-paris",
+    slug: "why-i-write-in-paris",
     title: "在巴黎，拾起那些被遺落的瞬間",
     enTitle: "Picking Up the Moments Left Behind in Paris",
     cat: '巴黎日常 · Just Paris',
@@ -198,6 +202,7 @@ const POSTS = [
 },
 {
     id: "a4",
+    slug: "goodbye-may-2026",
     title: "再見，五月",
     enTitle: "May, Already",
     cat: '巴黎日常 · Just Paris',
@@ -237,6 +242,7 @@ const POSTS = [
 },
 {
     id: "a5",
+    slug: "landing-in-paris",
     title: "落地",
     enTitle: "Landing",
     cat: '巴黎日常 · Just Paris',

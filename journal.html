@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Parisian Fragments — lueur.studio</title>
 
+  <meta name="description" content="一個住在巴黎的台灣人寫下的日常隨筆，中英雙語。不是旅遊攻略，是真實的巴黎生活。">
+  <link rel="canonical" href="https://lueur-studio-lab.github.io/ay/journal.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="lueur.studio">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:title" content="巴黎碎片 · Parisian Fragments — lueur.studio">
+  <meta property="og:description" content="一個住在巴黎的台灣人寫下的日常隨筆，中英雙語。不是旅遊攻略，是真實的巴黎生活。">
+  <meta property="og:url" content="https://lueur-studio-lab.github.io/ay/journal.html">
+  <meta property="og:image" content="https://lueur-studio-lab.github.io/ay/images/paris.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SZRMZ00SD1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SZRMZ00SD1');
+  </script>
+
   <script src="data.js" defer></script>
 
   <style>
@@ -348,7 +366,7 @@
 
         <ul class="side-list">
           <li><a class="is-active" href="journal.html">Parisian Fragments</a></li>
-          <li><a href="index.html#gallery">Visual Diary</a></li>
+          <li><a href="gallery.html">Visual Diary</a></li>
           <li><a href="comments.html">Leave a Note</a></li>
           <li><a href="about.html">About Me</a></li>
         </ul>
@@ -387,7 +405,7 @@
           : "images/" + post.img;
 
         return `
-          <a class="journal-item" href="article.html?id=${encodeURIComponent(post.id)}">
+          <a class="journal-item" href="posts/${encodeURIComponent(post.slug || post.id)}.html">
             <div class="j-meta">
               <span class="j-cat">${post.cat}</span>
               <span class="j-date">${post.date}</span>

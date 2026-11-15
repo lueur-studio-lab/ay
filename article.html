@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>文章 — lueur.studio</title>
+  <!-- 舊網址 article.html?id=… 會自動轉到 posts/<slug>.html。真正的文章頁版面在 tools/post-template.html -->
+  <meta name="robots" content="noindex">
 
   <script src="data.js" defer></script>
 
@@ -484,7 +486,7 @@
 
         <ul class="side-list">
           <li><a class="is-active" href="journal.html">Parisian Fragments</a></li>
-          <li><a href="index.html#gallery">Visual Diary</a></li>
+          <li><a href="gallery.html">Visual Diary</a></li>
           <li><a href="comments.html">Leave a Note</a></li>
           <li><a href="about.html">About Me</a></li>
         </ul>
@@ -543,7 +545,9 @@
         return;
       }
 
-      currentTitle = post.title;
+      // 轉到這篇文章的正式網址（posts/<slug>.html）
+      window.location.replace("posts/" + encodeURIComponent(post.slug || post.id) + ".html");
+      return;
 
       // 下一篇：順序跟「日常」頁相同（新的在前）。讀到最舊的一篇，會接回最新的一篇
       const ordered = [...POSTS].reverse();
