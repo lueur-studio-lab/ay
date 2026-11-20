@@ -228,7 +228,7 @@ const POSTS = [
         
        <p>而那一份屬於我的工作，終究還是來了。</p>
        
-        <p>不是夢想中的職位，但是一個開始。<br>
+        <p>是一個新的開始。<br>
           更重要的是——終於踏進了我一直想進的產業。</p>
         
         <p>接電話時，手在顫抖，聲音也是——但那是興奮，是替自己開心的顫抖。<br>
@@ -279,7 +279,7 @@ const POSTS = [
 
     <p>And then the job came.</p>
 
-    <p>Not the dream title. But a beginning.<br>
+    <p>A new beginning.<br>
       And finally — a foot in the door of the industry I'd always wanted to be part of.</p>
 
     <p>My hand was shaking when I answered. My voice too — but it was the kind of shaking that comes from joy, from being genuinely, quietly proud of yourself.<br>
