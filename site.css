@@ -1,0 +1,166 @@
+/* ═══════════════════════════════════════════
+   lueur.studio — site.css
+   全站共用的樣式：每一頁都會載入，放在各頁自己的 <style> 後面，
+   所以這裡寫的會蓋過各頁的設定。要統一改全站，改這裡就好。
+   ═══════════════════════════════════════════ */
+
+/* ── 1. 左側選單：每一頁長得一樣 ── */
+.sidebar .side-group h3 {
+  margin-bottom: 1.2rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--blue-mid);
+  font-family: var(--serif);
+  font-size: .95rem;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.side-list a { font-size: 1.08rem; }
+
+.side-list a .zh {
+  font-family: "Noto Serif TC", serif;
+  font-size: .86em;
+  font-style: normal;
+  margin-right: .15em;
+}
+
+.side-list a .dot {
+  color: var(--muted);
+  margin: 0 .35em 0 .1em;
+  font-style: normal;
+}
+
+/* ── 2. 手機和平板：選單收進右上角的按鈕 ── */
+.menu-toggle {
+  display: none;
+  align-items: center;
+  gap: .45rem;
+  padding: .5rem 0 .5rem .8rem;
+  border: none;
+  background: none;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  cursor: pointer;
+}
+
+.menu-toggle .bars,
+.menu-toggle .bars::before,
+.menu-toggle .bars::after {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.menu-toggle .bars { position: relative; }
+.menu-toggle .bars::before,
+.menu-toggle .bars::after { content: ""; position: absolute; left: 0; }
+.menu-toggle .bars::before { top: -6px; }
+.menu-toggle .bars::after { top: 6px; }
+
+body.menu-open .menu-toggle .bars { background: transparent; }
+body.menu-open .menu-toggle .bars::before { transform: translateY(6px) rotate(45deg); }
+body.menu-open .menu-toggle .bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+@media (max-width: 1023px) {
+  .menu-toggle { display: inline-flex; }
+
+  /* 平常藏起來，按了按鈕才從上方展開 */
+  .main-wrapper > .sidebar { display: none; }
+
+  body.menu-open .main-wrapper > .sidebar {
+    display: block;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    width: 100%;
+    height: auto;
+    padding: 1.6rem 1.5rem 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: 0 12px 24px rgba(43,45,66,.08);
+  }
+
+  body.menu-open .side-group { margin-bottom: 0; }
+  body.menu-open .side-list li { margin-bottom: 1rem; }
+  body.menu-open .side-list a { font-size: 1.05rem; }
+
+  nav { padding: 0 1.5rem !important; }
+  nav .nav-r > span { display: none; }   /* 手機上把「Paris, FR」讓位給選單按鈕 */
+}
+
+/* ── 3. 小字放大：原本約 9px，手機上看不清楚 ── */
+.nav-r span,
+.nav-r a,
+.sec-label,
+.page-label,
+.j-cat,
+.article-category,
+.comment-label,
+.read-next-label,
+.lb-count,
+.letter-block h3,
+footer p {
+  font-size: .7rem !important;
+}
+
+.j-date,
+.article-date {
+  font-size: .8rem !important;
+}
+
+/* ── 4. 首頁：最新文章 ── */
+.latest-list .journal-item {
+  color: inherit;
+  text-decoration: none;
+}
+
+.latest-list .journal-item:first-child { border-top: 1px solid var(--border); }
+
+.latest-list .j-meta { padding-right: 1.5rem; }
+
+/* 標籤字放大後，左邊那欄放寬，避免「巴黎日常 · JUST PARIS」被擠成三行 */
+.j-cat { letter-spacing: .1em !important; }
+@media (min-width: 769px) {
+  .latest-list .j-meta { flex: 0 0 160px; }
+  .journal-list .journal-item { grid-template-columns: 160px minmax(0, 1fr) 220px; }
+}
+
+.latest-list .j-content h2 {
+  margin-bottom: .4rem;
+  color: var(--ink2);
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.latest-list .j-content p {
+  color: var(--ink2);
+  font-family: "Noto Serif TC", serif;
+  font-size: .9rem;
+  line-height: 2;
+}
+
+.latest-more {
+  display: inline-block;
+  margin-top: 2.5rem;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: .8rem;
+  letter-spacing: .14em;
+  text-decoration: none;
+}
+
+.latest-more:hover { opacity: .6; }

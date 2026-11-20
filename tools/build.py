@@ -133,7 +133,7 @@ def post_article(post, nxt):
           <span class="read-next-label">READ NEXT →</span>
           <span class="read-next-title">{nxt['title']}</span>
         </a>"""
-    return f"""        <a class="back-home" href="index.html">← BACK TO HOME</a>
+    return f"""        <a class="back-home" href="journal.html">← 所有文章 · ALL POSTS</a>
 
         <span class="article-category">{post['cat']}</span>
         <h1>{post['title']}</h1>
@@ -221,6 +221,16 @@ def main():
         journal.write_text(j, encoding="utf-8")
     else:
         print("提醒：journal.html 裡找不到文章列表的位置，列表沒有事先寫入（網站仍正常運作）。")
+
+    # 3b. 首頁的「最新文章」：最新 3 篇事先寫進 index.html
+    index = out / "index.html"
+    ix = index.read_text(encoding="utf-8")
+    marker = '<div class="latest-list" id="latestList"></div>'
+    if marker in ix:
+        ix = ix.replace(marker, f'<div class="latest-list" id="latestList">{journal_list(ordered[:3])}\n      </div>')
+        index.write_text(ix, encoding="utf-8")
+    else:
+        print("提醒：index.html 裡找不到最新文章的位置，首頁沒有事先寫入（網站仍正常運作）。")
 
     # 4. sitemap.xml
     newest = max(iso_date(p["date"]) for p in posts)
