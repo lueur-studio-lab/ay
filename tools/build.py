@@ -27,6 +27,12 @@ SKIP = {".git", ".github", "tools", "_site", ".DS_Store", ".gitignore", "README.
 # 不會出現在 sitemap 的頁面（轉址頁、需要 ?id= 才有內容的頁面）
 STATIC_PAGES = ["", "journal.html", "gallery.html", "about.html", "comments.html"]
 
+# 已經從文章列表拿掉、但網址曾經公開過的文章：舊網址自動轉到新位置，免得連結失效
+# 格式：舊的 slug → 要轉去的頁面
+MOVED = {
+    "why-i-write-in-paris": "about.html",   # 2026-11-20 移到 About 頁
+}
+
 
 def load_data():
     """把 data.js 交給 JavaScript 執行，拿回 POSTS 與 ALBUMS。"""
@@ -211,6 +217,25 @@ def main():
                 .replace("{{ARTICLE}}", post_article(post, nxt))
                 .replace("{{POST_TITLE_JSON}}", json.dumps(post["title"], ensure_ascii=False)))
         (out / "posts" / f"{slug_of(post)}.html").write_text(page, encoding="utf-8")
+
+    # 2b. 搬走的文章：舊網址轉到新位置
+    for old_slug, target in MOVED.items():
+        if old_slug in slugs:
+            continue  # 文章又放回來了，就不轉址
+        dest = SITE + target
+        (out / "posts" / f"{old_slug}.html").write_text(f"""<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>{SITE_NAME}</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="{dest}">
+  <meta http-equiv="refresh" content="0; url={dest}">
+  <script>location.replace("{dest}");</script>
+</head>
+<body><p>這篇文章已經搬到 <a href="{dest}">{dest}</a></p></body>
+</html>
+""", encoding="utf-8")
 
     # 3. 文章列表事先寫進 journal.html
     journal = out / "journal.html"

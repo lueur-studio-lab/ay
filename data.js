@@ -147,59 +147,6 @@ const POSTS = [
   <p class="art-lang-switch"><em>And someday, looking back, I think we'll laugh and say: we didn't really look at anything that night. But none of it was wasted.</em></p>
 `
   },
-  {
-    id: "intro-paris",
-    slug: "why-i-write-in-paris",
-    title: "在巴黎，拾起那些被遺落的瞬間",
-    enTitle: "Picking Up the Moments Left Behind in Paris",
-    cat: '巴黎日常 · Just Paris',
-    date: "11.04.2026", 
-    img: 'louvre02.webp',
-    excerpt: "一個搬來巴黎的人，在等待與迷茫之間，找到了記錄日常的理由——不為演算法，只為自己。",
-    content: `
-        <div style="margin-top: 2rem;">
-        <p><strong>契機</strong></p>
-        <p>2年前搬來巴黎之後，日子好像一直在尋找方向——住處、實習、工作，每一件事都在流動。<br>
-        後來有了一段被迫暫停的日子，與其說是放假，不如說是一個不知所措的等待期。<br>
-        照常和朋友出門、逛展覽、聊心情，卻總覺得少了點什麼。</p>
-
-        <p>手機裡存著咖啡廳的午後光線、展覽裡人來人往的片段、巴黎街頭的隨性瞬間。<br>
-        在和幾位知心的前輩聊完天後，某個夜晚，那個開關突然被啟動了。<br>
-        說是突然，其實早有伏筆——碩士課程裡接觸過網頁設計，去年也曾動念，只是沒有真正落實，就這樣擱著。<br>
-        這一次，終於做了。</p>
-
-       <p><strong>初衷</strong></p>
-       <p>社群的消耗，好像比自己以為的還要來得重。<br>
-        能夠建立一個屬於自己的空間，是一份小小的成就感，也是一本記事，<br>
-        記錄著那些巴黎的點滴，還有在歐洲生活的平凡與不平凡。</p>
-
-      <p><strong>對你說</strong></p>
-      <p>或許你會在某篇裡找到一點共鳴，也說不定。</p>
-
-      <hr style="border: 0; border-top: 1px solid #eee; margin: 3rem 0;">
-      
-       <p>Two years after moving to Paris, life still felt like a constant search for direction — finding a place to live, figuring out internships, then work. Everything kept shifting.<br>
-        A while back, I found myself in a stretch of forced stillness. Less a holiday, more a waiting period with no clear end in sight.<br>
-        I still went out with friends, visited exhibitions, talked about how things felt — but something was missing, and I couldn't quite name it.</p>
-
-        <p>My phone was full of it, though: afternoon light in cafés, the quiet drift of people through gallery halls, the unhurried randomness of Parisian streets.<br>
-        After conversations with a few mentors and friends I deeply admire, something clicked one evening.<br>
-        It felt sudden, but looking back, it had been building for a while — I'd studied web design during my master's, thought about doing something with it last year, never followed through.<br>
-        This time, I did.</p>
-
-        <p><strong>Why not just post on Instagram?</strong></p>
-        <p>Because I wanted somewhere quieter. Somewhere the algorithm couldn't reach.<br>
-        The weight of social media had been heavier than I'd realised,<br>
-        and building a space that was entirely my own felt like a small but meaningful achievement.<br>
-        A place to keep things — the everyday moments of life in Paris, the ordinary and not-so-ordinary of living in Europe.</p>
-
-
-      <p><strong>A note to you</strong></p>
-      <p>Maybe you'll find something that resonates. Maybe you won't. Either way, you're welcome here.</p>
-      </div>
-    </div>
-`
-},
 {
     id: "a4",
     slug: "goodbye-may-2026",

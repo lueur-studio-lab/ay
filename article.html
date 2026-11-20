@@ -540,6 +540,12 @@
         return;
       }
 
+      // 已經搬到 About 頁的文章
+      if (id === "intro-paris") {
+        window.location.replace("about.html");
+        return;
+      }
+
       const post = POSTS.find(item => item.id === id);
 
       if (!post) {
