@@ -208,6 +208,12 @@
     .lb-polaroid .lb-slide.is-active .lb-frame { transform: rotate(0); }
     .lb-polaroid .lb-caption { display: none; }
 
+    /* ── 外框三：流動（沒有外框，左右露出鄰近照片，滑動時大小與亮度連續變化）── */
+    .lb-flow .lb-track { padding: 0 12%; scroll-padding: 0 12%; }
+    .lb-flow .lb-slide { flex: 0 0 76%; padding: 0 1.1rem; opacity: 1; transition: none; scroll-snap-stop: normal; }
+    .lb-flow .lb-frame { transform: scale(var(--s, 1)); opacity: var(--o, 1); will-change: transform, opacity; }
+    .lb-flow .lb-photo img { box-shadow: 0 18px 44px rgba(43,45,66,.16); }
+
     @media (max-width: 768px) {
       #artWrap .lb-arrow { display: none !important; }
       .lb-track { padding: 0 6%; scroll-padding: 0 6%; }
@@ -215,6 +221,8 @@
       .lb-photo img { max-height: min(62vh, 560px); }
       .lb-film .lb-photo img { max-height: calc(min(62vh, 560px) - 80px); }
       .lb-polaroid .lb-photo img { max-height: calc(min(62vh, 560px) - 150px); }
+      .lb-flow .lb-track { padding: 0 8%; scroll-padding: 0 8%; }
+      .lb-flow .lb-slide { flex-basis: 84%; padding: 0 .45rem; }
     }
 
     .art-content-body figure { display: table; margin: 1.5rem auto; max-width: 100%; }
@@ -478,8 +486,8 @@
     });
   }
 
-  // 相簿外框樣式：'film' = 電影膠片　'polaroid' = 拍立得
-  var LB_FRAME = 'film';
+  // 相簿外框樣式：'flow' = 流動（無外框）　'film' = 電影膠片　'polaroid' = 拍立得
+  var LB_FRAME = 'flow';
 
   var lbTimer = null;
   var lbRaf = null;
@@ -502,7 +510,7 @@
     overlay.classList.add('is-lightbox');
     currentIdx = Math.max(0, Math.min(idx || 0, currentList.length - 1));
     const multi = currentList.length > 1;
-    const mode = LB_FRAME === 'polaroid' ? 'polaroid' : 'film';
+    const mode = LB_FRAME === 'polaroid' || LB_FRAME === 'flow' ? LB_FRAME : 'film';
 
     const slides = currentList.map((photo, i) => {
       const src = photo.img.startsWith('http') || photo.img.startsWith('images/') ? photo.img : 'images/' + photo.img;
@@ -551,7 +559,19 @@
     ['pointerdown', 'wheel', 'touchstart'].forEach(ev => track.addEventListener(ev, stopLbPlay, { passive: true }));
 
     updateLb();
-    requestAnimationFrame(() => lbGoTo(currentIdx, false));
+    requestAnimationFrame(() => { lbGoTo(currentIdx, false); lbFlow(); });
+  }
+
+  // 流動效果：越接近中間的照片越大越亮，跟著手指連續變化
+  function lbFlow() {
+    const track = document.getElementById('lbTrack');
+    if (!track || !track.closest('.lb-flow')) return;
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    track.querySelectorAll('.lb-slide').forEach(s => {
+      const d = Math.min(1, Math.abs(s.offsetLeft + s.offsetWidth / 2 - mid) / s.offsetWidth);
+      s.style.setProperty('--s', (1 - d * 0.1).toFixed(3));
+      s.style.setProperty('--o', (1 - d * 0.6).toFixed(3));
+    });
   }
 
   // 目前是第幾張：更新亮度、說明文字、頁碼
@@ -570,6 +590,7 @@
     if (lbRaf) return;
     lbRaf = requestAnimationFrame(() => {
       lbRaf = null;
+      lbFlow();
       const track = document.getElementById('lbTrack');
       const slide = track && track.querySelector('.lb-slide');
       if (!slide) return;

@@ -176,21 +176,42 @@
       text-transform: uppercase;
     }
 
-    .photo-stage {
-      position: relative;
+    /* 流動相簿：左右露出鄰近照片，越接近中間越大越亮 */
+    .photo-stage { position: relative; }
+
+    .photo-track {
+      display: flex;
+      overflow-x: auto;
+      padding: 0 12%;
+      scroll-padding: 0 12%;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      outline: none;
+    }
+
+    .photo-track::-webkit-scrollbar { display: none; }
+
+    .photo-slide {
+      flex: 0 0 76%;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: min(70vh, 760px);
-      border: 1px solid var(--border);
-      background: #e8e6e0;
+      height: min(70vh, 720px);
+      margin: 0;
+      padding: 0 1.1rem;
+      scroll-snap-align: center;
+      transform: scale(var(--s, 1));
+      opacity: var(--o, 1);
+      will-change: transform, opacity;
     }
 
-    .photo-stage img {
+    .photo-slide img {
       display: block;
       max-width: 100%;
-      max-height: min(70vh, 760px);
+      max-height: min(70vh, 720px);
       object-fit: contain;
+      box-shadow: 0 18px 44px rgba(43,45,66,.16);
     }
 
     .photo-button {
@@ -305,17 +326,11 @@
 
       main { padding: 5rem 1.5rem 4rem; }
 
-      .photo-stage {
-        min-height: 55vh;
-      }
+      .photo-track { padding: 0 8%; scroll-padding: 0 8%; }
+      .photo-slide { flex-basis: 84%; height: 58vh; padding: 0 .45rem; }
+      .photo-slide img { max-height: 58vh; }
 
-      .photo-button {
-        width: 42px;
-        height: 42px;
-      }
-
-      .photo-button.prev { left: .75rem; }
-      .photo-button.next { right: .75rem; }
+      .photo-button { display: none !important; }
 
       footer {
         display: flex;
@@ -383,18 +398,43 @@
         : "images/" + image;
     }
 
-    function showPhoto(index) {
-      currentIndex = index;
+    function escHtml(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+    }
+
+    // 更新說明文字與頁碼
+    function updateCaption() {
       const photo = currentAlbum.photos[currentIndex];
-      const total = currentAlbum.photos.length;
-
-      document.getElementById("albumPhoto").src = imagePath(photo.img);
-      document.getElementById("albumPhoto").alt = photo.desc || currentAlbum.title;
       document.getElementById("photoCaption").textContent = photo.desc || "";
-      document.getElementById("photoIndex").textContent = `${currentIndex + 1} / ${total}`;
+      document.getElementById("photoIndex").textContent = `${currentIndex + 1} / ${currentAlbum.photos.length}`;
+    }
 
-      document.getElementById("prevPhoto").disabled = total <= 1;
-      document.getElementById("nextPhoto").disabled = total <= 1;
+    // 流動效果：依照片離中間多遠，連續調整大小與亮度
+    function flow() {
+      const track = document.getElementById("photoTrack");
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let nearest = 0, best = Infinity;
+      track.querySelectorAll(".photo-slide").forEach((s, i) => {
+        const dist = Math.abs(s.offsetLeft + s.offsetWidth / 2 - mid);
+        const d = Math.min(1, dist / s.offsetWidth);
+        s.style.setProperty("--s", (1 - d * 0.1).toFixed(3));
+        s.style.setProperty("--o", (1 - d * 0.6).toFixed(3));
+        if (dist < best) { best = dist; nearest = i; }
+      });
+      if (nearest !== currentIndex) {
+        currentIndex = nearest;
+        updateCaption();
+      }
+    }
+
+    function showPhoto(index, smooth) {
+      const track = document.getElementById("photoTrack");
+      const slide = track.children[index];
+      if (!slide) return;
+      track.scrollTo({
+        left: slide.offsetLeft + slide.offsetWidth / 2 - track.clientWidth / 2,
+        behavior: smooth ? "smooth" : "auto"
+      });
     }
 
     function renderAlbum() {
@@ -423,6 +463,12 @@
 
       document.title = `${currentAlbum.title} — lueur.studio`;
 
+      const multi = currentAlbum.photos.length > 1;
+      const slides = currentAlbum.photos.map(photo => `
+          <figure class="photo-slide">
+            <img src="${escHtml(imagePath(photo.img))}" alt="${escHtml(photo.desc || currentAlbum.title)}" decoding="async">
+          </figure>`).join("");
+
       container.innerHTML = `
         <a class="back-home" href="index.html">← BACK TO HOME</a>
 
@@ -431,9 +477,9 @@
         <p class="album-count">${currentAlbum.photos.length} photographs</p>
 
         <div class="photo-stage">
-          <button id="prevPhoto" class="photo-button prev" type="button" aria-label="上一張照片">‹</button>
-          <img id="albumPhoto" src="" alt="">
-          <button id="nextPhoto" class="photo-button next" type="button" aria-label="下一張照片">›</button>
+          <button id="prevPhoto" class="photo-button prev" type="button" aria-label="上一張照片" ${multi ? "" : "disabled"}>‹</button>
+          <div class="photo-track" id="photoTrack" tabindex="0" aria-label="相簿照片，可左右滑動">${slides}</div>
+          <button id="nextPhoto" class="photo-button next" type="button" aria-label="下一張照片" ${multi ? "" : "disabled"}>›</button>
         </div>
 
         <p class="photo-caption" id="photoCaption"></p>
@@ -447,7 +493,7 @@
           ? currentAlbum.photos.length - 1
           : currentIndex - 1;
 
-        showPhoto(previous);
+        showPhoto(previous, true);
       });
 
       document.getElementById("nextPhoto").addEventListener("click", () => {
@@ -455,7 +501,7 @@
           ? 0
           : currentIndex + 1;
 
-        showPhoto(next);
+        showPhoto(next, true);
       });
 
       document.addEventListener("keydown", event => {
@@ -468,7 +514,17 @@
         }
       });
 
-      showPhoto(0);
+      const track = document.getElementById("photoTrack");
+      let raf = null;
+      track.addEventListener("scroll", () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => { raf = null; flow(); });
+      }, { passive: true });
+      window.addEventListener("resize", flow);
+
+      currentIndex = 0;
+      updateCaption();
+      flow();
     }
 
     document.addEventListener("DOMContentLoaded", renderAlbum);
